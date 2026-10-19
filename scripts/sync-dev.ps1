@@ -1,88 +1,128 @@
-# Instala o retira la integración Git de Muondia con VS Code.
-# No crea tareas programadas ni mantiene procesos residentes.
-param([switch]$Install, [switch]$Remove)
-
+# Muondia: Git bidireccional desde VS Code. Sin tareas de Windows.
+param([switch]$Watch)
 $ErrorActionPreference = 'Stop'
 $repo = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
-$extension = Join-Path $repo 'tools\visual-explorer'
-$target = Join-Path $env:USERPROFILE '.vscode\extensions\magullodev.muondia-visual-0.1.0'
+$env:GIT_TERMINAL_PROMPT = '0'
+$log = Join-Path $repo '.git\muondia-sync.log'
 
-if ($Install -eq $Remove) {
-    throw 'Indica -Install o -Remove.'
-}
-
-$remote = (& git -C $repo remote get-url origin)
-$branch = (& git -C $repo branch --show-current)
-if ($remote -notmatch '^(https://github\.com/|git@github\.com:)magullodev-stack/muondia(\.git)?$' -or
-    $branch -ne 'dev') {
-    throw 'Se esperaba el repositorio magullodev-stack/muondia en la rama dev.'
-}
-
-# Una instalación anterior de la tarea de un minuto queda retirada.
-$oldTask = Get-ScheduledTask -TaskName 'Muondia Git Sync' -ErrorAction SilentlyContinue
-if ($oldTask) {
-    Unregister-ScheduledTask -TaskName 'Muondia Git Sync' -Confirm:$false
-}
-
-if ($Remove) {
-    if (Test-Path -LiteralPath $target) {
-        $item = Get-Item -LiteralPath $target -Force
-        if (-not ($item.Attributes -band [IO.FileAttributes]::ReparsePoint)) {
-            throw 'La ruta de instalación no es un enlace. No se elimina.'
-        }
-        [IO.Directory]::Delete($target)
+function G([string[]]$command) {
+    $old = $ErrorActionPreference
+    try {
+        $ErrorActionPreference = 'Continue'
+        $output = @(& git -C $repo @command 2>&1)
+        $exit = $LASTEXITCODE
+    } finally { $ErrorActionPreference = $old }
+    if ($exit -ne 0) {
+        throw "git $($command -join ' '): $(($output | Out-String).Trim())"
     }
-    Write-Host 'Sincronización Muondia desinstalada.'
+    return ($output | Out-String).Trim()
+}
+
+function Report([string]$message) {
+    $line = "[$(Get-Date -Format 'HH:mm:ss')] $message"
+    Add-Content -LiteralPath $log -Value $line -Encoding UTF8
+    Write-Host $line
+}
+
+function Ensure-Ignores {
+    $file = Join-Path $repo '.gitignore'
+    $content = if (Test-Path $file) { [IO.File]::ReadAllText($file) } else { '' }
+    $rules = @('/android/local.properties', '/android/app/google-services.json',
+        '/.env', '/.env.*', '/.muondia/', '*.jks', '*.keystore',
+        '*.pem', '*.p12', '*.pfx', '*.key')
+    $known = @($content -split '\r?\n')
+    $new = @($rules | Where-Object { $_ -notin $known })
+    if ($new.Count -eq 0) { return }
+    if ($content.Length -gt 0 -and -not $content.EndsWith([char]10)) {
+        $content += [Environment]::NewLine
+    }
+    $content += ($new -join [Environment]::NewLine) + [Environment]::NewLine
+    [IO.File]::WriteAllText($file, $content, [Text.UTF8Encoding]::new($false))
+}
+
+function Sync([bool]$allowCommit) {
+    if ((G @('branch', '--show-current')) -ne 'dev' -or
+        (G @('remote', 'get-url', 'origin')) -notmatch
+        '^(https://github\.com/|git@github\.com:)magullodev-stack/muondia(\.git)?$') {
+        throw 'Repositorio o rama inesperados. Solo se sincroniza muondia/dev.'
+    }
+    foreach ($state in @('MERGE_HEAD', 'CHERRY_PICK_HEAD', 'rebase-merge', 'rebase-apply')) {
+        if (Test-Path (Join-Path $repo ".git\$state")) {
+            throw "Operacion Git pendiente: $state"
+        }
+    }
+
+    Ensure-Ignores
+    G @('fetch', '--quiet', '--no-tags', 'origin', 'dev') | Out-Null
+    $dirty = G @('status', '--porcelain', '--untracked-files=all')
+    if ($dirty -and -not $allowCommit) { return }
+
+    if ($dirty) {
+        G @('add', '-A') | Out-Null
+        $staged = G @('diff', '--cached', '--name-only')
+        $private = @($staged -split '\r?\n' | Where-Object {
+            $_ -match '(^|/)(google-services\.json|local\.properties|\.env(\..*)?|[^/]+\.(jks|keystore|pem|p12|pfx|key))$'
+        })
+        if ($private.Count -gt 0) {
+            G @('reset', '--quiet') | Out-Null
+            throw 'Archivos privados detectados. No se publica nada.'
+        }
+        if ($staged) {
+            G @('commit', '-m', 'Sync Muondia') | Out-Null
+            Report 'Cambios locales confirmados.'
+        }
+    }
+
+    $behind = [int](G @('rev-list', '--count', 'HEAD..origin/dev'))
+    $ahead = [int](G @('rev-list', '--count', 'origin/dev..HEAD'))
+    if ($behind -gt 0 -and $ahead -gt 0) {
+        try {
+            G @('rebase', 'origin/dev') | Out-Null
+        } catch {
+            $reason = $_.Exception.Message
+            if ((Test-Path (Join-Path $repo '.git\rebase-merge')) -or
+                (Test-Path (Join-Path $repo '.git\rebase-apply'))) {
+                G @('rebase', '--abort') | Out-Null
+            }
+            throw "Conflicto: commits conservados. $reason"
+        }
+        Report 'Cambios de ambas partes integrados.'
+    } elseif ($behind -gt 0) {
+        G @('merge', '--ff-only', 'origin/dev') | Out-Null
+        Report 'GitHub actualizado en VS Code.'
+    }
+    if ([int](G @('rev-list', '--count', 'origin/dev..HEAD')) -gt 0) {
+        G @('push', 'origin', 'dev') | Out-Null
+        Report 'Cambios publicados en GitHub.'
+    }
+}
+
+if (-not $Watch) {
+    Sync $true
+    Write-Host 'Muondia sincronizada.'
     return
 }
 
-if (-not (Test-Path -LiteralPath (Join-Path $extension 'package.json'))) {
-    throw 'Falta la extensión Muondia. Ejecuta git pull --ff-only origin dev.'
-}
-
-# Excluir del control de versiones credenciales locales de la aplicación.
-$ignoreFile = Join-Path $repo '.gitignore'
-$ignore = if (Test-Path -LiteralPath $ignoreFile) {
-    [IO.File]::ReadAllText($ignoreFile)
-} else { '' }
-foreach ($rule in @('/android/app/google-services.json','/.env','/.env.*',
-    '/.muondia/','*.p12','*.pfx','*.pem','*.key','*.keystore','*.jks')) {
-    if ($rule -notin @($ignore -split '\r?\n')) {
-        if ($ignore.Length -gt 0 -and -not $ignore.EndsWith([char]10)) {
-            $ignore += [Environment]::NewLine
+Report 'Sincronizacion iniciada con VS Code.'
+$previous = ''
+$stableSince = Get-Date
+$previousError = ''
+while ($true) {
+    try {
+        $status = G @('status', '--porcelain', '--untracked-files=all')
+        if ($status -ne $previous) {
+            $stableSince = Get-Date
+            $previous = $status
         }
-        $ignore += $rule + [Environment]::NewLine
+        $safe = -not $status -or ((Get-Date) - $stableSince).TotalSeconds -ge 12
+        Sync $safe
+        $previousError = ''
+    } catch {
+        $reason = $_.Exception.Message
+        if ($reason -ne $previousError) {
+            Report "Pendiente: $reason"
+            $previousError = $reason
+        }
     }
+    Start-Sleep -Seconds 3
 }
-[IO.File]::WriteAllText($ignoreFile,$ignore,[Text.UTF8Encoding]::new($false))
-
-$extensionsDir = Split-Path $target -Parent
-New-Item -ItemType Directory -Path $extensionsDir -Force | Out-Null
-if (Test-Path -LiteralPath $target) {
-    $item = Get-Item -LiteralPath $target -Force
-    if (-not ($item.Attributes -band [IO.FileAttributes]::ReparsePoint)) {
-        throw 'La ruta de instalación ya existe y no es un enlace.'
-    }
-    $linked = @($item.Target)[0]
-    if (-not $linked) { throw 'No se puede resolver el enlace existente.' }
-    $resolved = if ([IO.Path]::IsPathRooted($linked)) {
-        [IO.Path]::GetFullPath($linked)
-    } else {
-        [IO.Path]::GetFullPath((Join-Path $extensionsDir $linked))
-    }
-    if ($resolved -ine [IO.Path]::GetFullPath($extension)) {
-        throw 'La ruta de instalación apunta a otra extensión.'
-    }
-} else {
-    New-Item -ItemType Junction -Path $target -Target $extension | Out-Null
-}
-
-# Retirar la extensión de la antigua plataforma, sin tocar EmbeDroid.
-$code = Get-Command 'code' -ErrorAction SilentlyContinue
-if ($code) {
-    $installed = @(& $code.Source --list-extensions)
-    if ($installed -contains 'magullodev.ai-apps-android') {
-        & $code.Source --uninstall-extension 'magullodev.ai-apps-android' | Out-Null
-    }
-}
-Write-Host 'Muondia lista. Recarga VS Code para activar el Explorador y la sincronización cada 10 s.'

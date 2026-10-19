@@ -2,7 +2,6 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const vscode = require('vscode');
-const {createGitSync} = require('./git-sync.cjs');
 
 const CATALOG = 'lib/development/experiences.json';
 
@@ -103,15 +102,10 @@ async function activate(context) {
   if (!folder || !vscode.workspace.isTrusted) return;
 
   const root = folder.uri.fsPath;
-  const channel = vscode.window.createOutputChannel('Muondia');
   const tree = explorer(root);
-  context.subscriptions.push(channel,tree,
+  context.subscriptions.push(tree,
     vscode.window.registerTreeDataProvider('muondia.visual',tree.provider),
-    vscode.commands.registerCommand('muondia.visual.refresh',tree.refresh),
-    vscode.commands.registerCommand('muondia.visual.showSyncLog',()=>channel.show(true)));
-
-  // Sin proceso externo permanente: solo comprobaciones Git breves mientras VS Code esté abierto.
-  context.subscriptions.push(createGitSync(root,vscode,channel));
+    vscode.commands.registerCommand('muondia.visual.refresh',tree.refresh));
 
   const watcher = vscode.workspace.createFileSystemWatcher(
     new vscode.RelativePattern(folder, CATALOG));
