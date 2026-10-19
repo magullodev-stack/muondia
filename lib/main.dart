@@ -9,8 +9,20 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(body: Center(child: Text('Muondia: prueba automatica'))),
+    return MaterialApp(
+      home: Scaffold(
+        body: Stack(
+          children: [
+            Positioned.fill(
+              child: Image.asset(
+                'test image/quiz_background.png',
+                fit: BoxFit.cover,
+              ),
+            ),
+            Center(child: Text('Muondia: prueba automatica')),
+          ],
+        ),
+      ),
     );
   }
 }
