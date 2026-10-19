@@ -26,7 +26,7 @@ function Protect-Files {
     $rules = @('**/google-services.json', '**/local.properties',
         '**/.env', '**/.env.*', '**/*.keystore', '**/*.jks',
         '**/*.pem', '**/*.p12', '**/*.pfx', '**/*.key',
-        '/.muondia/', '/.ai-apps/')
+        '/.muondia/')
     $missing = @($rules | Where-Object { $_ -notin $existing })
     if ($missing.Count -eq 0) { return }
     if ($text.Length -gt 0 -and -not $text.EndsWith([char]10)) {
