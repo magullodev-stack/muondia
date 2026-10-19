@@ -10,7 +10,7 @@ Future<void> main() async {
   final readyPath = env['MUONDIA_AI_READY_FILE'];
   if (key.trim().isEmpty || token.trim().isEmpty || readyPath == null) {
     stderr.writeln(
-        'Falta la configuración privada del servicio. Usa scripts/run-android.ps1.');
+        'Falta la configuración privada del servicio. Usa scripts/ai.ps1 -Iniciar.');
     exitCode = 1;
     return;
   }
