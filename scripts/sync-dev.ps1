@@ -8,7 +8,7 @@ function Git([string[]]$Arguments) {
     $previous = $ErrorActionPreference
     try {
         $ErrorActionPreference = 'Continue'
-        $output = @(& git -C $repo @Arguments 2>&1)
+        $output = @(& git.exe -C $repo @Arguments 2>&1)
         $exitCode = $LASTEXITCODE
     } finally {
         $ErrorActionPreference = $previous
