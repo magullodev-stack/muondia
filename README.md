@@ -1,6 +1,10 @@
 # muondia
 Muondia — aplicación interactiva de conocimiento e inteligencia artificial
 
+## Inteligencia artificial
+
+`ai/service/` contiene el servicio de generación estructurada y `ai/client/` el cliente Dart. Las reglas y los prompts pertenecen a cada experiencia. Contrato técnico: [`ai/README.md`](ai/README.md).
+
 ## Emulador integrado: compatibilidad con Android 17
 
 Entorno comprobado en Windows 11: **Android 17 (AVD `Muondia`)**, **Flutter/Dart-Code oficiales** y **EmbeDroid original `utpalbarman.embedroid@1.0.2`**. La aplicación Flutter se compiló y mostró `Hello World!` en una pestaña del emulador dentro de VS Code.
