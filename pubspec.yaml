@@ -18,7 +18,6 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - 'test image/quiz_background.png'
     - assets/auth/
     - assets/fonts/OFL.txt
   fonts:
