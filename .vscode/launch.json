@@ -6,8 +6,7 @@
       "type": "dart",
       "request": "launch",
       "program": "lib/main.dart",
-      "deviceId": "emulator-5554",
-      "preLaunchTask": "Muondia: preparar Android"
+      "deviceId": "emulator-5554"
     }
   ]
 }

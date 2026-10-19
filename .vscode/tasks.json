@@ -26,27 +26,6 @@
         "panel": "dedicated",
         "focus": false
       }
-    },
-    {
-      "label": "Muondia: preparar Android",
-      "type": "process",
-      "command": "powershell.exe",
-      "args": [
-        "-NoProfile",
-        "-ExecutionPolicy",
-        "Bypass",
-        "-File",
-        "${workspaceFolder}\\scripts\\prepare-android.ps1"
-      ],
-      "options": {
-        "cwd": "${workspaceFolder}"
-      },
-      "problemMatcher": [],
-      "presentation": {
-        "reveal": "silent",
-        "panel": "dedicated",
-        "focus": false
-      }
     }
   ]
 }

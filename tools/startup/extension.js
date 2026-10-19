@@ -1,9 +1,23 @@
 'use strict';
 const fs = require('node:fs');
 const path = require('node:path');
+const {execFile} = require('node:child_process');
 const vscode = require('vscode');
 
-async function activate() {
+const serial = 'emulator-5554';
+
+function androidReady() {
+  const sdk = process.env.ANDROID_HOME || process.env.ANDROID_SDK_ROOT ||
+    path.join(process.env.LOCALAPPDATA || '', 'Android', 'Sdk');
+  const adb = path.join(sdk, 'platform-tools', 'adb.exe');
+  return new Promise(resolve => {
+    execFile(adb, ['-s', serial, 'shell', 'getprop', 'sys.boot_completed'],
+      {timeout: 5000, windowsHide: true},
+      (error, stdout) => resolve(!error && stdout.trim() === '1'));
+  });
+}
+
+async function activate(context) {
   if (!vscode.workspace.isTrusted) return;
   const folder = (vscode.workspace.workspaceFolders || []).find(entry => {
     const root = entry.uri.fsPath;
@@ -13,31 +27,36 @@ async function activate() {
       /^name:\s*muondia\s*$/m.test(fs.readFileSync(pubspec, 'utf8'));
   });
   if (!folder) return;
-  const running = vscode.debug.sessions.some(session =>
-    session.type === 'dart' && session.name === 'Muondia');
 
-  if (!running) {
-    try {
-      const started = await vscode.debug.startDebugging(folder, 'Muondia');
-      if (!started) {
-        vscode.window.showWarningMessage(
-          'Muondia: no se pudo iniciar Flutter. Consulta el panel de depuración.');
-        return;
-      }
-    } catch (error) {
-      vscode.window.showErrorMessage('Muondia: ' + error.message);
-      return;
-    }
-  }
+  const output = vscode.window.createOutputChannel('Muondia · Inicio');
+  context.subscriptions.push(output);
+  output.appendLine('Abriendo Muondia...');
 
-  // El emulador ya está listo gracias a la preLaunchTask de Dart-Code.
-  // EmbeDroid muestra ese mismo dispositivo dentro de VS Code.
   try {
-    await vscode.commands.executeCommand('embedroid.openEmbedded');
+    if (await androidReady()) {
+      output.appendLine('Android listo. Abriendo EmbeDroid.');
+      await vscode.commands.executeCommand('embedroid.openEmbedded');
+    } else {
+      output.appendLine('Iniciando el emulador Muondia mediante EmbeDroid.');
+      await vscode.commands.executeCommand('embedroid.bootItem', {
+        avd: {name: 'Muondia'}
+      });
+    }
+
+    const running = vscode.debug.sessions.some(session =>
+      session.type === 'dart' && session.name === 'Muondia');
+    if (!running) {
+      output.appendLine('Iniciando Flutter con Dart-Code.');
+      const started = await vscode.debug.startDebugging(folder, 'Muondia');
+      if (!started) throw new Error('Dart-Code no ha iniciado la depuración.');
+    }
+    output.appendLine('Inicio de Muondia solicitado.');
   } catch (error) {
-    vscode.window.showWarningMessage(
-      'Muondia: no se pudo abrir la pestaña de EmbeDroid: ' + error.message);
+    const message = error?.stack || String(error);
+    output.appendLine(message);
+    output.show(true);
+    vscode.window.showErrorMessage('Muondia: el arranque ha fallado. Consulta la salida Muondia · Inicio.');
   }
 }
 
-module.exports = {activate};
+module.exports = {activate, androidReady};
