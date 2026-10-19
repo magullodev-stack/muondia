@@ -20,7 +20,19 @@ if (@(& $emulator -list-avds) -notcontains $avd) {
     throw "El emulador virtual '$avd' no existe."
 }
 
-$connected = @(& $adb devices) -match '^emulator-5554\s+(device|offline)\s*$'
+function Read-Adb([string[]]$Arguments) {
+    $previous = $ErrorActionPreference
+    try {
+        $ErrorActionPreference = 'Continue'
+        $output = @(& $adb @Arguments 2>&1)
+        if ($LASTEXITCODE -ne 0) { return '' }
+        return ($output | Out-String).Trim()
+    } finally {
+        $ErrorActionPreference = $previous
+    }
+}
+
+$connected = (Read-Adb -Arguments @('devices')) -match '(?m)^emulator-5554\s+(device|offline)\s*$'
 $starting = @(Get-CimInstance Win32_Process -ErrorAction SilentlyContinue |
     Where-Object {
         $_.Name -match '^(emulator|qemu-system-.*)\.exe$' -and
@@ -35,9 +47,9 @@ if (-not $connected -and $starting.Count -eq 0) {
 
 $ready = $false
 for ($i = 0; $i -lt 180; $i++) {
-    $state = (& $adb -s $serial get-state 2>$null | Out-String).Trim()
-    if ($state -eq 'device') {
-        $boot = (& $adb -s $serial shell getprop sys.boot_completed 2>$null | Out-String).Trim()
+    $devices = Read-Adb -Arguments @('devices')
+    if ($devices -match '(?m)^emulator-5554\s+device\s*$') {
+        $boot = Read-Adb -Arguments @('-s', $serial, 'shell', 'getprop', 'sys.boot_completed')
         if ($boot -eq '1') {
             $ready = $true
             break
@@ -49,8 +61,8 @@ if (-not $ready) {
     throw 'Muondia no terminó de arrancar Android.'
 }
 
-$identity = @(& $adb -s $serial emu avd name 2>$null |
-    ForEach-Object { "$_".Trim() })
+$identity = @( (Read-Adb -Arguments @('-s', $serial, 'emu', 'avd', 'name')) -split '\r?\n' |
+    ForEach-Object { $_.Trim() } )
 if ($identity -notcontains $avd) {
     throw "$serial está ocupado por otro emulador. No se iniciará Muondia allí."
 }
