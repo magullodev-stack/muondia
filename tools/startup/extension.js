@@ -43,8 +43,8 @@ async function activate(context) {
       });
     }
 
-    const running = vscode.debug.sessions.some(session =>
-      session.type === 'dart' && session.name === 'Muondia');
+    const active = vscode.debug.activeDebugSession;
+    const running = active?.type === 'dart' && active.name === 'Muondia';
     if (!running) {
       output.appendLine('Iniciando Flutter con Dart-Code.');
       const started = await vscode.debug.startDebugging(folder, 'Muondia');
