@@ -1,0 +1,6 @@
+name: muondia_ai_client
+description: Cliente Dart de IA para Muondia.
+version: 0.1.0
+publish_to: none
+environment:
+  sdk: '>=3.3.0 <4.0.0'
