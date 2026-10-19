@@ -1,0 +1,41 @@
+{
+  "name": "muondia-visual",
+  "displayName": "Muondia · Explorador visual",
+  "description": "Explorador visual del proyecto Muondia y sincronización Git automática.",
+  "publisher": "magullodev",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "main": "./extension.js",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "views": {
+      "explorer": [
+        {
+          "id": "muondia.visual",
+          "name": "Muondia · Explorador visual"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "muondia.visual.refresh",
+        "title": "Actualizar explorador",
+        "icon": "$(refresh)"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "muondia.visual.refresh",
+          "when": "view == muondia.visual",
+          "group": "navigation"
+        }
+      ]
+    }
+  }
+}

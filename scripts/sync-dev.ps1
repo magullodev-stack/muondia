@@ -1,160 +1,83 @@
-# Muondia: sincronizacion Git bidireccional de la rama dev.
-# Uso: .\scripts\sync-dev.ps1 -Install | -Once | -Remove
-# Una tarea de Windows ejecuta una pasada cada minuto; no hay proceso residente.
-param(
-    [switch]$Install,
-    [switch]$Once,
-    [switch]$Remove
-)
+# Instala o retira la integración Git de Muondia con VS Code.
+# No crea tareas programadas ni mantiene procesos residentes.
+param([switch]$Install, [switch]$Remove)
 
 $ErrorActionPreference = 'Stop'
 $repo = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
-$taskName = 'Muondia Git Sync'
-$logFile = Join-Path $repo '.git\muondia-sync.log'
+$extension = Join-Path $repo 'tools\visual-explorer'
+$target = Join-Path $env:USERPROFILE '.vscode\extensions\magullodev.muondia-visual-0.1.0'
 
-function Write-SyncLog([string]$Message) {
-    $stamp = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'
-    Add-Content -LiteralPath $logFile -Value "[$stamp] $Message" -Encoding UTF8
+if ($Install -eq $Remove) {
+    throw 'Indica -Install o -Remove.'
 }
 
-function Invoke-Git([string[]]$GitArgs) {
-    $previous = $ErrorActionPreference
-    try {
-        # En Windows PowerShell 5.1, stderr de Git puede generar NativeCommandError.
-        $ErrorActionPreference = 'Continue'
-        $output = @(& git -C $repo @GitArgs 2>&1)
-        $code = $LASTEXITCODE
-    } finally {
-        $ErrorActionPreference = $previous
-    }
-    if ($code -ne 0) {
-        throw "git $($GitArgs -join ' '): $(($output | Out-String).Trim())"
-    }
-    return ($output | Out-String).Trim()
+$remote = (& git -C $repo remote get-url origin)
+$branch = (& git -C $repo branch --show-current)
+if ($remote -notmatch '^(https://github\.com/|git@github\.com:)magullodev-stack/muondia(\.git)?$' -or
+    $branch -ne 'dev') {
+    throw 'Se esperaba el repositorio magullodev-stack/muondia en la rama dev.'
 }
 
-function Protect-LocalFiles {
-    $file = Join-Path $repo '.gitignore'
-    $rules = @(
-        '/android/app/google-services.json',
-        '/android/local.properties',
-        '/.env',
-        '/.env.*',
-        '/.ai-apps/',
-        '/.muondia/',
-        '*.keystore',
-        '*.jks',
-        '*.p12',
-        '*.pfx',
-        '*.pem',
-        '*.key'
-    )
-    $content = if (Test-Path -LiteralPath $file) {
-        [IO.File]::ReadAllText($file)
-    } else { '' }
-    $existing = @($content -split '\r?\n')
-    $missing = @($rules | Where-Object { $_ -notin $existing })
-    if ($missing.Count -eq 0) { return }
-
-    if ($content.Length -gt 0 -and -not $content.EndsWith([char]10)) {
-        $content += [Environment]::NewLine
-    }
-    $content += '# Muondia: archivos privados locales' + [Environment]::NewLine
-    $content += ($missing -join [Environment]::NewLine) + [Environment]::NewLine
-    [IO.File]::WriteAllText($file, $content, [Text.UTF8Encoding]::new($false))
+# Una instalación anterior de la tarea de un minuto queda retirada.
+$oldTask = Get-ScheduledTask -TaskName 'Muondia Git Sync' -ErrorAction SilentlyContinue
+if ($oldTask) {
+    Unregister-ScheduledTask -TaskName 'Muondia Git Sync' -Confirm:$false
 }
 
-function Invoke-Sync {
-    if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
-        throw 'Git no esta instalado o no esta en PATH.'
-    }
-    $origin = Invoke-Git -GitArgs @('remote', 'get-url', 'origin')
-    if ($origin -notmatch '^(https://github\.com/|git@github\.com:)magullodev-stack/muondia(\.git)?$') {
-        throw "Remoto inesperado: $origin"
-    }
-    $branch = Invoke-Git -GitArgs @('branch', '--show-current')
-    if ($branch -ne 'dev') { throw "Se esperaba la rama dev; actual: $branch" }
-
-    foreach ($state in @('MERGE_HEAD', 'CHERRY_PICK_HEAD', 'rebase-apply', 'rebase-merge')) {
-        if (Test-Path (Join-Path $repo ".git\$state")) {
-            throw "Hay una operacion Git pendiente ($state). No se sincroniza."
-        }
-    }
-
-    $mutex = New-Object System.Threading.Mutex($false, 'Local\MuondiaGitSync')
-    $acquired = $false
-    try {
-        $acquired = $mutex.WaitOne(0)
-        if (-not $acquired) { return }
-
-        $env:GIT_TERMINAL_PROMPT = '0'
-        Protect-LocalFiles
-        Invoke-Git -GitArgs @('fetch', '--quiet', 'origin', 'dev') | Out-Null
-        Invoke-Git -GitArgs @('add', '-A') | Out-Null
-
-        # Bloquear la publicacion accidental de credenciales, aunque esten versionadas.
-        $staged = @((Invoke-Git -GitArgs @('diff', '--cached', '--name-only')) -split '\r?\n')
-        $sensitive = @($staged | Where-Object {
-            $_ -match '(^|/)(google-services\.json|local\.properties|\.env(\..*)?|[^/]+\.(pem|key|p12|pfx|jks|keystore))$'
-        })
-        if ($sensitive.Count -gt 0) {
-            throw "Archivos privados preparados para commit: $($sensitive -join ', '). Revisa Git."
-        }
-
-        if ($staged.Count -gt 0 -and @($staged | Where-Object { $_ }).Count -gt 0) {
-            Invoke-Git -GitArgs @('commit', '-m', 'Sync Muondia') | Out-Null
-            Write-SyncLog 'Commit local preparado.'
-        }
-
-        try {
-            Invoke-Git -GitArgs @('rebase', 'origin/dev') | Out-Null
-        } catch {
-            # Ante un conflicto no se descartan commits ni se deja un rebase a medias.
-            $problem = $_.Exception.Message
-            if ((Test-Path (Join-Path $repo '.git\rebase-merge')) -or
-                (Test-Path (Join-Path $repo '.git\rebase-apply'))) {
-                Invoke-Git -GitArgs @('rebase', '--abort') | Out-Null
-            }
-            throw "Conflicto con origin/dev; commits locales conservados. $problem"
-        }
-
-        $localHead = Invoke-Git -GitArgs @('rev-parse', 'HEAD')
-        $remoteHead = Invoke-Git -GitArgs @('rev-parse', 'origin/dev')
-        if ($localHead -ne $remoteHead) {
-            Invoke-Git -GitArgs @('push', 'origin', 'dev') | Out-Null
-            Write-SyncLog "Cambios enviados a origin/dev: $localHead"
-        }
-    } finally {
-        if ($acquired) { $mutex.ReleaseMutex() }
-        $mutex.Dispose()
-    }
-}
-
-if ($Install -and $Remove) { throw 'Usa -Install o -Remove, no ambos.' }
 if ($Remove) {
-    Unregister-ScheduledTask -TaskName $taskName -Confirm:$false -ErrorAction SilentlyContinue
-    Write-Host 'Sincronizacion automatica de Muondia desinstalada.'
+    if (Test-Path -LiteralPath $target) {
+        $item = Get-Item -LiteralPath $target -Force
+        if (-not ($item.Attributes -band [IO.FileAttributes]::ReparsePoint)) {
+            throw 'La ruta de instalación no es un enlace. No se elimina.'
+        }
+        [IO.Directory]::Delete($target)
+    }
+    Write-Host 'Sincronización Muondia desinstalada.'
     return
 }
 
-if ($Install) {
-    $action = New-ScheduledTaskAction -Execute 'powershell.exe' -Argument (
-        '-NoProfile -NonInteractive -ExecutionPolicy Bypass -File "{0}" -Once' -f $PSCommandPath
-    )
-    $trigger = New-ScheduledTaskTrigger -Daily -At (Get-Date).AddMinutes(1)
-    $repeat = New-ScheduledTaskTrigger -Once -At (Get-Date).AddMinutes(1) -RepetitionInterval (New-TimeSpan -Minutes 1) -RepetitionDuration (New-TimeSpan -Days 1)
-    $trigger.Repetition = $repeat.Repetition
-    $settings = New-ScheduledTaskSettingsSet -MultipleInstances IgnoreNew -ExecutionTimeLimit (New-TimeSpan -Minutes 5) -StartWhenAvailable
-    $principal = New-ScheduledTaskPrincipal -UserId ([Security.Principal.WindowsIdentity]::GetCurrent().Name) -LogonType Interactive -RunLevel Limited
-    Register-ScheduledTask -TaskName $taskName -Action $action -Trigger $trigger -Settings $settings -Principal $principal -Force | Out-Null
-    Write-Host 'Muondia Git Sync instalada: sincronizacion cada minuto.'
+if (-not (Test-Path -LiteralPath (Join-Path $extension 'package.json'))) {
+    throw 'Falta la extensión Muondia. Ejecuta git pull --ff-only origin dev.'
 }
 
-try {
-    Invoke-Sync
-    Write-Host 'Muondia dev sincronizada con origin/dev.'
-} catch {
-    Write-SyncLog $_.Exception.Message
-    Write-Error $_.Exception.Message
-    exit 1
+# Excluir del control de versiones credenciales locales de la aplicación.
+$ignoreFile = Join-Path $repo '.gitignore'
+$ignore = if (Test-Path -LiteralPath $ignoreFile) {
+    [IO.File]::ReadAllText($ignoreFile)
+} else { '' }
+foreach ($rule in @('/android/app/google-services.json','/.env','/.env.*',
+    '/.muondia/','*.p12','*.pfx','*.pem','*.key','*.keystore','*.jks')) {
+    if ($rule -notin @($ignore -split '\r?\n')) {
+        if ($ignore.Length -gt 0 -and -not $ignore.EndsWith([char]10)) {
+            $ignore += [Environment]::NewLine
+        }
+        $ignore += $rule + [Environment]::NewLine
+    }
 }
+[IO.File]::WriteAllText($ignoreFile,$ignore,[Text.UTF8Encoding]::new($false))
+
+$extensionsDir = Split-Path $target -Parent
+New-Item -ItemType Directory -Path $extensionsDir -Force | Out-Null
+if (Test-Path -LiteralPath $target) {
+    $item = Get-Item -LiteralPath $target -Force
+    if (-not ($item.Attributes -band [IO.FileAttributes]::ReparsePoint)) {
+        throw 'La ruta de instalación ya existe y no es un enlace.'
+    }
+    $linked = @($item.Target)[0]
+    if ([IO.Path]::GetFullPath((Join-Path $extensionsDir $linked)) -ine
+        [IO.Path]::GetFullPath($extension)) {
+        throw 'La ruta de instalación apunta a otra extensión.'
+    }
+} else {
+    New-Item -ItemType Junction -Path $target -Target $extension | Out-Null
+}
+
+# Retirar la extensión de la antigua plataforma, sin tocar EmbeDroid.
+$code = Get-Command 'code' -ErrorAction SilentlyContinue
+if ($code) {
+    $installed = @(& $code.Source --list-extensions)
+    if ($installed -contains 'magullodev.ai-apps-android') {
+        & $code.Source --uninstall-extension 'magullodev.ai-apps-android' | Out-Null
+    }
+}
+Write-Host 'Muondia lista. Recarga VS Code para activar el Explorador y la sincronización cada 10 s.'
