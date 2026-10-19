@@ -64,8 +64,13 @@ if (Test-Path -LiteralPath $target) {
         throw 'La ruta de instalación ya existe y no es un enlace.'
     }
     $linked = @($item.Target)[0]
-    if ([IO.Path]::GetFullPath((Join-Path $extensionsDir $linked)) -ine
-        [IO.Path]::GetFullPath($extension)) {
+    if (-not $linked) { throw 'No se puede resolver el enlace existente.' }
+    $resolved = if ([IO.Path]::IsPathRooted($linked)) {
+        [IO.Path]::GetFullPath($linked)
+    } else {
+        [IO.Path]::GetFullPath((Join-Path $extensionsDir $linked))
+    }
+    if ($resolved -ine [IO.Path]::GetFullPath($extension)) {
         throw 'La ruta de instalación apunta a otra extensión.'
     }
 } else {
