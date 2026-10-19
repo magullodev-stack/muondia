@@ -29,7 +29,7 @@ $starting = @(Get-CimInstance Win32_Process -ErrorAction SilentlyContinue |
 
 if (-not $connected -and $starting.Count -eq 0) {
     Start-Process -FilePath $emulator -ArgumentList @(
-        '-avd', $avd, '-port', '5554', '-no-boot-anim'
+        '-avd', $avd, '-port', '5554', '-no-window', '-no-boot-anim'
     ) | Out-Null
 }
 

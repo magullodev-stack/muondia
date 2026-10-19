@@ -13,16 +13,30 @@ async function activate() {
       /^name:\s*muondia\s*$/m.test(fs.readFileSync(pubspec, 'utf8'));
   });
   if (!folder) return;
-  if (vscode.debug.sessions.some(session =>
-    session.type === 'dart' && session.name === 'Muondia')) return;
+  const running = vscode.debug.sessions.some(session =>
+    session.type === 'dart' && session.name === 'Muondia');
 
-  try {
-    const started = await vscode.debug.startDebugging(folder, 'Muondia');
-    if (!started) {
-      vscode.window.showWarningMessage('Muondia: no se pudo iniciar Flutter. Consulta el panel de depuración.');
+  if (!running) {
+    try {
+      const started = await vscode.debug.startDebugging(folder, 'Muondia');
+      if (!started) {
+        vscode.window.showWarningMessage(
+          'Muondia: no se pudo iniciar Flutter. Consulta el panel de depuración.');
+        return;
+      }
+    } catch (error) {
+      vscode.window.showErrorMessage('Muondia: ' + error.message);
+      return;
     }
+  }
+
+  // El emulador ya está listo gracias a la preLaunchTask de Dart-Code.
+  // EmbeDroid muestra ese mismo dispositivo dentro de VS Code.
+  try {
+    await vscode.commands.executeCommand('embedroid.openEmbedded');
   } catch (error) {
-    vscode.window.showErrorMessage('Muondia: ' + error.message);
+    vscode.window.showWarningMessage(
+      'Muondia: no se pudo abrir la pestaña de EmbeDroid: ' + error.message);
   }
 }
 
