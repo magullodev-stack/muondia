@@ -35,7 +35,7 @@ async function activate(context) {
   try {
     if (await androidReady()) {
       output.appendLine('Android listo. Abriendo EmbeDroid.');
-      await vscode.commands.executeCommand('embedroid.openEmbedded');
+      await vscode.commands.executeCommand('embedroid.openEmbedded', {device: {serial}});
     } else {
       output.appendLine('Iniciando el emulador Muondia mediante EmbeDroid.');
       await vscode.commands.executeCommand('embedroid.bootItem', {
