@@ -1,128 +1,141 @@
-# Muondia: Git bidireccional desde VS Code. Sin tareas de Windows.
 param([switch]$Watch)
+
 $ErrorActionPreference = 'Stop'
 $repo = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
 $env:GIT_TERMINAL_PROMPT = '0'
-$log = Join-Path $repo '.git\muondia-sync.log'
 
-function G([string[]]$command) {
-    $old = $ErrorActionPreference
+function Git([string[]]$Arguments) {
+    $previous = $ErrorActionPreference
     try {
         $ErrorActionPreference = 'Continue'
-        $output = @(& git -C $repo @command 2>&1)
-        $exit = $LASTEXITCODE
-    } finally { $ErrorActionPreference = $old }
-    if ($exit -ne 0) {
-        throw "git $($command -join ' '): $(($output | Out-String).Trim())"
+        $output = @(& git -C $repo @Arguments 2>&1)
+        $exitCode = $LASTEXITCODE
+    } finally {
+        $ErrorActionPreference = $previous
+    }
+    if ($exitCode -ne 0) {
+        throw "git $($Arguments -join ' '): $(($output | Out-String).Trim())"
     }
     return ($output | Out-String).Trim()
 }
 
-function Report([string]$message) {
-    $line = "[$(Get-Date -Format 'HH:mm:ss')] $message"
-    Add-Content -LiteralPath $log -Value $line -Encoding UTF8
-    Write-Host $line
-}
-
-function Ensure-Ignores {
+function Protect-Files {
     $file = Join-Path $repo '.gitignore'
-    $content = if (Test-Path $file) { [IO.File]::ReadAllText($file) } else { '' }
-    $rules = @('/android/local.properties', '/android/app/google-services.json',
-        '/.env', '/.env.*', '/.muondia/', '*.jks', '*.keystore',
-        '*.pem', '*.p12', '*.pfx', '*.key')
-    $known = @($content -split '\r?\n')
-    $new = @($rules | Where-Object { $_ -notin $known })
-    if ($new.Count -eq 0) { return }
-    if ($content.Length -gt 0 -and -not $content.EndsWith([char]10)) {
-        $content += [Environment]::NewLine
+    $text = if (Test-Path -LiteralPath $file) { [IO.File]::ReadAllText($file) } else { '' }
+    $existing = @($text -split '\r?\n')
+    $rules = @('**/google-services.json', '**/local.properties',
+        '**/.env', '**/.env.*', '**/*.keystore', '**/*.jks',
+        '**/*.pem', '**/*.p12', '**/*.pfx', '**/*.key',
+        '/.muondia/', '/.ai-apps/')
+    $missing = @($rules | Where-Object { $_ -notin $existing })
+    if ($missing.Count -eq 0) { return }
+    if ($text.Length -gt 0 -and -not $text.EndsWith([char]10)) {
+        $text += [Environment]::NewLine
     }
-    $content += ($new -join [Environment]::NewLine) + [Environment]::NewLine
-    [IO.File]::WriteAllText($file, $content, [Text.UTF8Encoding]::new($false))
+    $text += ($missing -join [Environment]::NewLine) + [Environment]::NewLine
+    [IO.File]::WriteAllText($file, $text, [Text.UTF8Encoding]::new($false))
 }
 
-function Sync([bool]$allowCommit) {
-    if ((G @('branch', '--show-current')) -ne 'dev' -or
-        (G @('remote', 'get-url', 'origin')) -notmatch
+function Sync([bool]$AllowCommit) {
+    if ((Git @('branch', '--show-current')) -ne 'dev' -or
+        (Git @('remote', 'get-url', 'origin')) -notmatch
         '^(https://github\.com/|git@github\.com:)magullodev-stack/muondia(\.git)?$') {
-        throw 'Repositorio o rama inesperados. Solo se sincroniza muondia/dev.'
+        throw 'El repositorio debe ser magullodev-stack/muondia en la rama dev.'
     }
-    foreach ($state in @('MERGE_HEAD', 'CHERRY_PICK_HEAD', 'rebase-merge', 'rebase-apply')) {
-        if (Test-Path (Join-Path $repo ".git\$state")) {
-            throw "Operacion Git pendiente: $state"
+
+    foreach ($pending in @('MERGE_HEAD', 'CHERRY_PICK_HEAD', 'rebase-apply', 'rebase-merge')) {
+        if (Test-Path -LiteralPath (Join-Path $repo ".git\$pending")) {
+            throw "Git tiene una operacion pendiente: $pending"
         }
     }
 
-    Ensure-Ignores
-    G @('fetch', '--quiet', '--no-tags', 'origin', 'dev') | Out-Null
-    $dirty = G @('status', '--porcelain', '--untracked-files=all')
-    if ($dirty -and -not $allowCommit) { return }
+    $mutex = New-Object System.Threading.Mutex($false, 'Local\MuondiaGitSync')
+    $locked = $false
+    try {
+        $locked = $mutex.WaitOne(0)
+        if (-not $locked) { return }
 
-    if ($dirty) {
-        G @('add', '-A') | Out-Null
-        $staged = G @('diff', '--cached', '--name-only')
-        $private = @($staged -split '\r?\n' | Where-Object {
-            $_ -match '(^|/)(google-services\.json|local\.properties|\.env(\..*)?|[^/]+\.(jks|keystore|pem|p12|pfx|key))$'
-        })
-        if ($private.Count -gt 0) {
-            G @('reset', '--quiet') | Out-Null
-            throw 'Archivos privados detectados. No se publica nada.'
-        }
-        if ($staged) {
-            G @('commit', '-m', 'Sync Muondia') | Out-Null
-            Report 'Cambios locales confirmados.'
-        }
-    }
+        Protect-Files
+        Git @('fetch', '--quiet', '--no-tags', 'origin', 'dev') | Out-Null
+        $dirty = Git @('status', '--porcelain', '--untracked-files=all')
+        if ($dirty -and -not $AllowCommit) { return }
 
-    $behind = [int](G @('rev-list', '--count', 'HEAD..origin/dev'))
-    $ahead = [int](G @('rev-list', '--count', 'origin/dev..HEAD'))
-    if ($behind -gt 0 -and $ahead -gt 0) {
-        try {
-            G @('rebase', 'origin/dev') | Out-Null
-        } catch {
-            $reason = $_.Exception.Message
-            if ((Test-Path (Join-Path $repo '.git\rebase-merge')) -or
-                (Test-Path (Join-Path $repo '.git\rebase-apply'))) {
-                G @('rebase', '--abort') | Out-Null
+        if ($dirty) {
+            Git @('add', '-A') | Out-Null
+            $names = Git @('diff', '--cached', '--name-only')
+            $sensitive = @($names -split '\r?\n' | Where-Object {
+                $_ -match '(^|/)(google-services\.json|local\.properties|\.env(\..*)?|[^/]+\.(key|pem|jks|keystore|p12|pfx))$'
+            })
+            if ($sensitive.Count -gt 0) {
+                Git @('reset', '--quiet') | Out-Null
+                throw 'Hay archivos privados en el commit; sincronizacion detenida.'
             }
-            throw "Conflicto: commits conservados. $reason"
+            if ($names) {
+                Git @('commit', '-m', 'Sync Muondia') | Out-Null
+                Write-Host 'Muondia: cambios locales confirmados.'
+            }
         }
-        Report 'Cambios de ambas partes integrados.'
-    } elseif ($behind -gt 0) {
-        G @('merge', '--ff-only', 'origin/dev') | Out-Null
-        Report 'GitHub actualizado en VS Code.'
-    }
-    if ([int](G @('rev-list', '--count', 'origin/dev..HEAD')) -gt 0) {
-        G @('push', 'origin', 'dev') | Out-Null
-        Report 'Cambios publicados en GitHub.'
+
+        $behind = [int](Git @('rev-list', '--count', 'HEAD..origin/dev'))
+        $ahead = [int](Git @('rev-list', '--count', 'origin/dev..HEAD'))
+        if ($behind -gt 0 -and $ahead -gt 0) {
+            try {
+                Git @('rebase', 'origin/dev') | Out-Null
+            } catch {
+                $reason = $_.Exception.Message
+                if ((Test-Path (Join-Path $repo '.git\rebase-merge')) -or
+                    (Test-Path (Join-Path $repo '.git\rebase-apply'))) {
+                    Git @('rebase', '--abort') | Out-Null
+                }
+                throw "Conflicto Git: commits conservados. $reason"
+            }
+        } elseif ($behind -gt 0) {
+            Git @('merge', '--ff-only', 'origin/dev') | Out-Null
+            Write-Host 'Muondia: cambios de GitHub recibidos.'
+        }
+
+        if ([int](Git @('rev-list', '--count', 'origin/dev..HEAD')) -gt 0) {
+            Git @('push', 'origin', 'dev') | Out-Null
+            Write-Host 'Muondia: cambios publicados en GitHub.'
+        }
+    } finally {
+        if ($locked) { $mutex.ReleaseMutex() }
+        $mutex.Dispose()
     }
 }
 
 if (-not $Watch) {
     Sync $true
-    Write-Host 'Muondia sincronizada.'
+    Write-Host 'Muondia: sincronizacion completada.'
     return
 }
 
-Report 'Sincronizacion iniciada con VS Code.'
-$previous = ''
-$stableSince = Get-Date
-$previousError = ''
+$lastSnapshot = ''
+$stableAt = Get-Date
+$lastError = ''
 while ($true) {
     try {
-        $status = G @('status', '--porcelain', '--untracked-files=all')
-        if ($status -ne $previous) {
-            $stableSince = Get-Date
-            $previous = $status
+        $working = Git @('status', '--porcelain', '--untracked-files=all')
+        $tracked = Git @('diff', '--binary', '--no-ext-diff')
+        $untracked = Git @('ls-files', '--others', '--exclude-standard')
+        $details = @($untracked -split '\r?\n' | Where-Object { $_ } | ForEach-Object {
+            $item = Get-Item -LiteralPath (Join-Path $repo $_) -ErrorAction Stop
+            $_ + ':' + $item.Length + ':' + $item.LastWriteTimeUtc.Ticks
+        })
+        $snapshot = $working + $tracked + ($details -join '|')
+        if ($snapshot -ne $lastSnapshot) {
+            $lastSnapshot = $snapshot
+            $stableAt = Get-Date
         }
-        $safe = -not $status -or ((Get-Date) - $stableSince).TotalSeconds -ge 12
-        Sync $safe
-        $previousError = ''
+        $ready = -not $working -or ((Get-Date) - $stableAt).TotalSeconds -ge 6
+        Sync $ready
+        $lastError = ''
     } catch {
-        $reason = $_.Exception.Message
-        if ($reason -ne $previousError) {
-            Report "Pendiente: $reason"
-            $previousError = $reason
+        $message = $_.Exception.Message
+        if ($message -ne $lastError) {
+            Write-Warning "Muondia Git: $message"
+            $lastError = $message
         }
     }
-    Start-Sleep -Seconds 3
+    Start-Sleep -Seconds 2
 }
