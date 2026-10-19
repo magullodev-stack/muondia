@@ -1,0 +1,18 @@
+{
+  "name": "muondia-startup",
+  "displayName": "Muondia · Inicio",
+  "description": "Inicia Muondia con el depurador oficial de Flutter al abrir VS Code.",
+  "publisher": "magullodev",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "main": "./extension.js",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "extensionDependencies": [
+    "Dart-Code.flutter"
+  ]
+}
