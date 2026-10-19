@@ -1,28 +1,26 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MainApp());
-}
+import 'app/app_theme.dart';
+import 'app/auth/auth_entry_page.dart';
+import 'app/auth/auth_service.dart';
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+void main() => runApp(const MuondiaApp());
+
+class MuondiaApp extends StatelessWidget {
+  const MuondiaApp({
+    super.key,
+    this.auth = const UnconfiguredAuthService(),
+  });
+
+  final AuthService auth;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        body: Stack(
-          children: [
-            Positioned.fill(
-              child: Image.asset(
-                'test image/quiz_background.png',
-                fit: BoxFit.cover,
-              ),
-            ),
-            Center(child: Text('Muondia: prueba automatica')),
-          ],
-        ),
-      ),
+      title: 'Muondia',
+      debugShowCheckedModeBanner: false,
+      theme: muondiaTheme,
+      home: AuthEntryPage(auth: auth),
     );
   }
 }
