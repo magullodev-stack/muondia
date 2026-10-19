@@ -17,6 +17,22 @@ function androidReady() {
   });
 }
 
+async function waitForApp() {
+  const sdk = process.env.ANDROID_HOME || process.env.ANDROID_SDK_ROOT ||
+    path.join(process.env.LOCALAPPDATA || '', 'Android', 'Sdk');
+  const adb = path.join(sdk, 'platform-tools', 'adb.exe');
+  for (let attempt = 0; attempt < 180; attempt++) {
+    const running = await new Promise(resolve => {
+      execFile(adb, ['-s', serial, 'shell', 'pidof', 'com.muondia.muondia'],
+        {timeout: 5000, windowsHide: true},
+        (error, stdout) => resolve(!error && /^\d+(\s+\d+)*$/.test(stdout.trim())));
+    });
+    if (running) return;
+    await new Promise(resolve => setTimeout(resolve, 1000));
+  }
+  throw new Error('Flutter no llegó a iniciar el proceso de Muondia en Android.');
+}
+
 async function activate(context) {
   if (!vscode.workspace.isTrusted) return;
   const folder = (vscode.workspace.workspaceFolders || []).find(entry => {
@@ -33,14 +49,14 @@ async function activate(context) {
   output.appendLine('Abriendo Muondia...');
 
   try {
-    if (await androidReady()) {
-      output.appendLine('Android listo. Abriendo EmbeDroid.');
-      await vscode.commands.executeCommand('embedroid.openEmbedded', {device: {serial}});
-    } else {
-      output.appendLine('Iniciando el emulador Muondia mediante EmbeDroid.');
+    if (!await androidReady()) {
+      output.appendLine('Iniciando Android mediante EmbeDroid.');
       await vscode.commands.executeCommand('embedroid.bootItem', {
         avd: {name: 'Muondia'}
       });
+      if (!await androidReady()) {
+        throw new Error('Android no está listo después de arrancar el emulador.');
+      }
     }
 
     const active = vscode.debug.activeDebugSession;
@@ -50,7 +66,12 @@ async function activate(context) {
       const started = await vscode.debug.startDebugging(folder, 'Muondia');
       if (!started) throw new Error('Dart-Code no ha iniciado la depuración.');
     }
-    output.appendLine('Inicio de Muondia solicitado.');
+
+    output.appendLine('Esperando a la aplicación Muondia.');
+    await waitForApp();
+    output.appendLine('Aplicación iniciada. Abriendo la imagen en EmbeDroid.');
+    await vscode.commands.executeCommand('embedroid.openEmbedded', {device: {serial}});
+    output.appendLine('Muondia iniciada.');
   } catch (error) {
     const message = error?.stack || String(error);
     output.appendLine(message);
