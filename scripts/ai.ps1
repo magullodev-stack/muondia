@@ -6,7 +6,7 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
-if (@($GuardarClave, $Iniciar, $ProbarLuna | Where-Object { $_ }).Count -ne 1) {
+if ((@($GuardarClave.IsPresent, $Iniciar.IsPresent, $ProbarLuna.IsPresent) | Where-Object { $_ }).Count -ne 1) {
     throw 'Indica una acción: -GuardarClave, -Iniciar o -ProbarLuna.'
 }
 if (-not $env:LOCALAPPDATA) { throw 'Este comando requiere Windows.' }
