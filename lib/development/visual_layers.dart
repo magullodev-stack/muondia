@@ -1,16 +1,45 @@
-/// Visibilidad de capas en las vistas de desarrollo de Muondia.
-/// El explorador modifica exclusivamente estas cuatro constantes.
-/// En una compilación release todas las imágenes permanecen visibles.
+/// Estado visual temporal de las capas en una sesión de desarrollo.
+/// Los ojos no editan Dart ni alteran Git.
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 abstract final class MuondiaVisualLayers {
-  static const bool background = true;
-  static const bool robot = true;
-  static const bool logo = true;
-  static const bool googleIcon = true;
+  static const names = <String>{'background', 'robot', 'logo', 'googleIcon'};
+  static final hidden = ValueNotifier<Set<String>>(<String>{});
 
-  static bool get showBackground => !kDebugMode || background;
-  static bool get showRobot => !kDebugMode || robot;
-  static bool get showLogo => !kDebugMode || logo;
-  static bool get showGoogleIcon => !kDebugMode || googleIcon;
+  static void setVisible(String name, bool visible) {
+    if (!kDebugMode || !names.contains(name)) return;
+    final next = <String>{...hidden.value};
+    if (visible) {
+      next.remove(name);
+    } else {
+      next.add(name);
+    }
+    if (!setEquals(hidden.value, next)) hidden.value = next;
+  }
+}
+
+/// Oculta visualmente, manteniendo tamaño, posición y el widget original.
+class MuondiaVisualLayer extends StatelessWidget {
+  const MuondiaVisualLayer({
+    super.key,
+    required this.name,
+    required this.child,
+  });
+
+  final String name;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    if (!kDebugMode) return child;
+    return ValueListenableBuilder<Set<String>>(
+      valueListenable: MuondiaVisualLayers.hidden,
+      child: child,
+      builder: (context, hidden, child) => Opacity(
+        opacity: hidden.contains(name) ? 0 : 1,
+        child: child,
+      ),
+    );
+  }
 }

@@ -195,8 +195,8 @@ class _EmailAuthPageState extends State<EmailAuthPage> {
               child: ClipRect(
                 child: Transform.scale(
                   scale: 1.30,
-                  child: Opacity(
-                    opacity: MuondiaVisualLayers.showBackground ? 1 : 0,
+                  child: MuondiaVisualLayer(
+                    name: 'background',
                     child: Image.asset(
                       'assets/auth/Background.png',
                       key: const Key('muondia-email-auth-background'),

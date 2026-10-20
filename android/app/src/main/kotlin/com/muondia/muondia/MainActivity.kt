@@ -27,14 +27,16 @@ class MainActivity : FlutterActivity() {
             val mode = call.argument<String>("mode")
             val experience = call.argument<String>("experience")
             val state = call.argument<String>("state")
+            val hidden = call.argument<List<String>>("hidden") ?: emptyList()
             if (mode !in setOf("preview", "real") ||
-                experience != "auth" || state !in setOf("inicio", "email")) {
+                experience != "auth" || state !in setOf("inicio", "email") ||
+                hidden.any { it !in setOf("background", "robot", "logo", "googleIcon") }) {
                 result.error("invalid_location", "Pantalla no registrada.", null)
                 return@setMethodCallHandler
             }
             try {
                 File(filesDir, "muondia_active_visual.txt")
-                    .writeText("$mode:$experience:$state")
+                    .writeText("$mode:$experience:$state:${hidden.distinct().sorted().joinToString(",")}")
                 result.success(null)
             } catch (_: Exception) {
                 result.error("write_failed", "No se pudo guardar la pantalla activa.", null)
@@ -55,6 +57,13 @@ class MainActivity : FlutterActivity() {
             }
             "$packageName.DEV_OPEN_REAL_FLOW" -> {
                 visualChannel?.invokeMethod("openRealFlow", null)
+            }
+            "$packageName.DEV_ASSET_VISIBILITY" -> {
+                val name = intent.getStringExtra("name")
+                if (name !in setOf("background", "robot", "logo", "googleIcon")) return
+                visualChannel?.invokeMethod("setVisibility",
+                    mapOf("name" to name, "visible" to
+                        intent.getBooleanExtra("visible", true)))
             }
         }
     }

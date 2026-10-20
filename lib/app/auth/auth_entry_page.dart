@@ -186,8 +186,8 @@ class _AuthEntryPageState extends State<AuthEntryPage> {
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Opacity(
-                              opacity: MuondiaVisualLayers.showLogo ? 1 : 0,
+                            MuondiaVisualLayer(
+                              name: 'logo',
                               child: Image.asset(
                                 'assets/auth/Logotipo_MuondIA.png',
                                 key: const Key('muondia-auth-logo'),
@@ -351,10 +351,9 @@ class _AuthParallaxArtState extends State<_AuthParallaxArt>
     required double x,
     required double y,
     double scale = 1,
-    bool visible = true,
   }) {
-    return Opacity(
-      opacity: visible ? 1 : 0,
+    return MuondiaVisualLayer(
+      name: name,
       child: Transform.translate(
         key: Key('muondia-auth-parallax-$name'),
         offset: Offset(x, y),
@@ -388,8 +387,8 @@ class _AuthParallaxArtState extends State<_AuthParallaxArt>
               Transform.scale(
                 key: const Key('muondia-auth-background-fill'),
                 scale: 1.30,
-                child: Opacity(
-                  opacity: MuondiaVisualLayers.showBackground ? 1 : 0,
+                child: MuondiaVisualLayer(
+                  name: 'background',
                   child: Image.asset(
                     'assets/auth/Background.png',
                     key: const Key('muondia-auth-background'),
@@ -402,7 +401,6 @@ class _AuthParallaxArtState extends State<_AuthParallaxArt>
               _movingLayer(
                 name: 'robot',
                 asset: 'assets/auth/Robot.png',
-                visible: MuondiaVisualLayers.showRobot,
                 x: 0,
                 y: -12 + math.cos(angle + 1.4) * 4,
                 scale: 1.005 + math.sin(angle + 1.4) * 0.004,

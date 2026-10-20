@@ -22,8 +22,8 @@ class AuthProviderButton extends StatelessWidget {
   };
 
   Widget _icon(double size) => switch (provider) {
-    AuthProvider.google => Opacity(
-      opacity: MuondiaVisualLayers.showGoogleIcon ? 1 : 0,
+    AuthProvider.google => MuondiaVisualLayer(
+      name: 'googleIcon',
       child: Image.asset(
         'assets/auth/Muondia_Auth_Google_ICON.png',
         width: size,

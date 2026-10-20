@@ -6,6 +6,7 @@ import 'app/app_theme.dart';
 import 'app/auth/auth_entry_page.dart';
 import 'app/auth/auth_service.dart';
 import 'app/auth/email_auth_page.dart';
+import 'development/visual_layers.dart';
 
 void main() => runApp(const MuondiaApp());
 
@@ -28,6 +29,7 @@ class _MuondiaAppState extends State<MuondiaApp> {
   late final _routeObserver = _MuondiaRouteObserver(_reportRoute);
   bool _safePreview = kDebugMode;
   String? _reportedLocation;
+  late final VoidCallback _onLayerChanged = _reportRoute;
 
   AuthService get _activeAuth => _safePreview
       ? const UnconfiguredAuthService()
@@ -38,6 +40,7 @@ class _MuondiaAppState extends State<MuondiaApp> {
     super.initState();
     if (kDebugMode) {
       _visual.setMethodCallHandler(_onVisualRequest);
+      MuondiaVisualLayers.hidden.addListener(_onLayerChanged);
       WidgetsBinding.instance.addPostFrameCallback((_) => _reportRoute());
     }
   }
@@ -49,13 +52,15 @@ class _MuondiaAppState extends State<MuondiaApp> {
       if (!mounted) return;
       final name = _routeObserver.current?.settings.name;
       final state = name == '/auth/email' ? 'email' : 'inicio';
-      final location = '${_safePreview ? 'preview' : 'real'}:auth:$state';
+      final hidden = MuondiaVisualLayers.hidden.value.toList()..sort();
+      final location = '${_safePreview ? 'preview' : 'real'}:auth:$state:${hidden.join(',')}';
       if (location == _reportedLocation) return;
       _reportedLocation = location;
       _visual.invokeMethod<void>('setActiveLocation', {
         'mode': _safePreview ? 'preview' : 'real',
         'experience': 'auth',
         'state': state,
+        'hidden': hidden,
       }).catchError((Object _) {
         // La inspección visual no puede bloquear la navegación de Muondia.
       });
@@ -64,6 +69,14 @@ class _MuondiaAppState extends State<MuondiaApp> {
 
   Future<void> _onVisualRequest(MethodCall call) async {
     if (!kDebugMode || !mounted) return;
+    if (call.method == 'setVisibility') {
+      final args = call.arguments;
+      if (args is Map && args['name'] is String && args['visible'] is bool) {
+        MuondiaVisualLayers.setVisible(
+          args['name'] as String, args['visible'] as bool);
+      }
+      return;
+    }
     if (call.method == 'openRealFlow') {
       // Sin proveedor configurado no existe todavía un recorrido real.
       if (widget.auth is UnconfiguredAuthService) return;
@@ -93,7 +106,10 @@ class _MuondiaAppState extends State<MuondiaApp> {
 
   @override
   void dispose() {
-    if (kDebugMode) _visual.setMethodCallHandler(null);
+    if (kDebugMode) {
+      MuondiaVisualLayers.hidden.removeListener(_onLayerChanged);
+      _visual.setMethodCallHandler(null);
+    }
     super.dispose();
   }
 
