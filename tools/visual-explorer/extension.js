@@ -6,7 +6,6 @@ const {promisify} = require('node:util');
 const run = promisify(execFile);
 
 const CATALOG = 'lib/development/experiences.json';
-const FLAGS = 'lib/development/visual_layers.dart';
 const DEVICE = 'emulator-5554';
 const APP = 'com.muondia.muondia';
 const IMAGE = /\.(png|jpe?g|webp)$/i;
@@ -114,18 +113,6 @@ function readCatalog(root) {
   });
 }
 
-function visible(root, flag) {
-  if (!/^[a-zA-Z][a-zA-Z0-9]*$/.test(flag || '')) {
-    throw new Error('La imagen todavía no tiene una capa controlable.');
-  }
-  const src = fs.readFileSync(inside(root, FLAGS), 'utf8');
-  const regex = new RegExp('^[ \\t]*static const bool[ \\t]+' +
-    flag + '[ \\t]*=[ \\t]*(true|false)[ \\t]*;', 'gm');
-  const matches = [...src.matchAll(regex)];
-  if (matches.length !== 1) throw new Error('Falta la capa: ' + flag);
-  return matches[0][1] === 'true';
-}
-
 function catalogRealReady(root) {
   try {
     return JSON.parse(fs.readFileSync(inside(root, CATALOG), 'utf8'))
@@ -139,7 +126,7 @@ function createTree(root, vscode) {
   let fingerprint = '';
 
   function snapshot() {
-    const paths = [CATALOG, FLAGS];
+    const paths = [CATALOG];
     for (const screen of screens) {
       for (const state of screen.states) paths.push(state.source);
       for (const asset of screen.assets) paths.push(asset.file);
@@ -268,7 +255,8 @@ function createTree(root, vscode) {
         const file = inside(root,node.image.file);
         const exists = fs.existsSync(file);
         const pending = !node.image.flag;
-        const shown = exists && !pending && visible(root,node.image.flag);
+        const shown = exists && !pending &&
+          !(observed?.hidden || []).includes(node.image.flag);
         item.iconPath = new vscode.ThemeIcon(
           !exists ? 'warning' : pending ? 'clock' : shown ? 'file-media' : 'eye-closed',
           !exists ? new vscode.ThemeColor('editorWarning.foreground') : undefined
@@ -342,12 +330,15 @@ async function observeDevice(root) {
     if (!/^\d+(\s+\d+)*$/.test(pid)) return null;
     const state=await android(root,'shell','run-as',APP,
       'cat','files/muondia_active_visual.txt');
-    const match=/^(preview|real):([a-z][a-z0-9_-]*):([a-z][a-z0-9_-]*)$/.exec(state);
+    const match=/^(preview|real):([a-z][a-z0-9_-]*):([a-z][a-z0-9_-]*):([a-zA-Z0-9,]*)$/.exec(state);
     if (!match) return null;
     const screens=readCatalog(root);
     const screen=screens.find(s=>s.id===match[2]);
     if (!screen?.states.some(s=>s.id===match[3])) return null;
-    return {mode:match[1],experience:match[2],state:match[3]};
+    const hidden=match[4]?match[4].split(','):[];
+    const known=new Set(screens.flatMap(s=>s.assets.map(a=>a.flag).filter(Boolean)));
+    if (hidden.some(flag=>!known.has(flag)) || new Set(hidden).size!==hidden.length) return null;
+    return {mode:match[1],experience:match[2],state:match[3],hidden};
   } catch { return null; }
 }
 
@@ -389,23 +380,18 @@ async function activate(context) {
   }
   async function toggle(node) {
     const {image}=resolveImage(node);
-    if (!image.flag) throw new Error('Imagen pendiente: falta registrar la capa.');
-    const uri=vscode.Uri.file(inside(root,FLAGS));
-    const doc=await vscode.workspace.openTextDocument(uri);
-    if (doc.isDirty) throw new Error('Guarda visual_layers.dart primero.');
-    const now=visible(root,image.flag);
-    const pattern=new RegExp('(^[ \\t]*static const bool[ \\t]+'+
-      image.flag+'[ \\t]*=[ \\t]*)(true|false)([ \\t]*;)','gm');
-    const matches=[...doc.getText().matchAll(pattern)];
-    if (matches.length!==1) throw new Error('Capa no reconocida.');
-    const hit=matches[0],offset=hit.index+hit[1].length;
-    const edit=new vscode.WorkspaceEdit();
-    edit.replace(uri,new vscode.Range(doc.positionAt(offset),
-      doc.positionAt(offset+hit[2].length)),now?'false':'true');
-    if (!await vscode.workspace.applyEdit(edit) || !await doc.save()) {
-      throw new Error('No se pudo guardar la visibilidad.');
+    if (!image.flag) throw new Error('Imagen pendiente: falta vincular la capa.');
+    const existing=tree.observed;
+    if (!existing) {
+      throw new Error('La pantalla no responde en el emulador. Inicia Muondia en modo debug.');
     }
-    tree.refresh(); // Dart-Code gestiona el Hot Reload al guardar.
+    const currentlyVisible=!(existing.hidden||[]).includes(image.flag);
+    await android(root,'shell','am','start','-n',APP+'/.MainActivity',
+      '-a',APP+'.DEV_ASSET_VISIBILITY','-f','0x20000000',
+      '--es','name',image.flag,
+      '--ez','visible',String(!currentlyVisible));
+    // Android publicará el estado efectivo; el árbol no presupone éxito.
+    await tick();
   }
   async function replace(node) {
     const {image,full}=resolveImage(node);
@@ -571,7 +557,7 @@ async function activate(context) {
     }))
   );
   const watchers=[
-    'lib/development/experiences.json','lib/development/visual_layers.dart',
+    'lib/development/experiences.json',
     'assets/**/*','lib/**/*.dart'
   ];
   for(const pattern of watchers){
@@ -590,5 +576,5 @@ async function activate(context) {
   void tick().catch(e=>output.appendLine(String(e)));
 }
 
-module.exports={activate,readCatalog,visible,createTree,scanImages,imageReferences,
+module.exports={activate,readCatalog,createTree,scanImages,imageReferences,
   observeDevice,inside};
