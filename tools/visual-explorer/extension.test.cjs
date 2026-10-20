@@ -4,43 +4,68 @@ const test = require('node:test');
 const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
-const {readCatalog, layerVisible, setLayerVisible, safePath} =
-  require('./extension.js');
+const {readCatalog, visibility, createTree} = require('./extension.js');
 
-test('El explorador lee pantallas y capas sin depender de otras apps', t => {
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'muondia-visual-'));
-  t.after(() => fs.rmSync(dir, {recursive: true, force: true}));
-  fs.mkdirSync(path.join(dir, 'lib', 'development'), {recursive: true});
-  const sample = {
-    version: 1, experiences: [
-      {id: 'auth', label: 'Authentication', group: 'ACCESO',
-        states: [{id: 'inicio', source: 'lib/app/auth/auth_entry_page.dart'}],
-        assets: [{name: 'Robot', file: 'assets/auth/Robot.png', flag: 'robot'}]}
-    ]
-  };
-  fs.writeFileSync(path.join(dir, 'lib/development/experiences.json'),
-    JSON.stringify(sample));
-  fs.writeFileSync(path.join(dir, 'lib/development/visual_layers.dart'),
+function fixture(t) {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'muondia-explorer-'));
+  t.after(() => fs.rmSync(root, {recursive: true, force: true}));
+  fs.mkdirSync(path.join(root, 'lib/development'), {recursive: true});
+  const catalog = {version: 1, experiences: [{
+    id: 'auth', label: 'Authentication', group: 'ACCESO',
+    states: [{id: 'inicio', label: 'Pantalla inicial',
+      source: 'lib/app/auth/auth_entry_page.dart'}],
+    assets: [{name: 'Robot', file: 'assets/auth/Robot.png', flag: 'robot'}]
+  }]};
+  fs.writeFileSync(path.join(root, 'lib/development/experiences.json'),
+    JSON.stringify(catalog));
+  fs.writeFileSync(path.join(root, 'lib/development/visual_layers.dart'),
     '  static const bool robot = true;\n');
-  assert.equal(readCatalog(dir).experiences[0].id, 'auth');
-  assert.equal(layerVisible(dir, 'robot'), true);
-  assert.equal(setLayerVisible(dir, 'robot', false), true);
-  assert.equal(layerVisible(dir, 'robot'), false);
-  assert.equal(setLayerVisible(dir, 'robot', false), false);
-  assert.equal(setLayerVisible(dir, 'robot', true), true);
-  assert.equal(layerVisible(dir, 'robot'), true);
+  return {root, catalog};
+}
+
+test('Solo lee pantallas y recursos declarados por Muondia', t => {
+  const {root} = fixture(t);
+  assert.equal(readCatalog(root)[0].id, 'auth');
+  assert.equal(readCatalog(root)[0].assets[0].file, 'assets/auth/Robot.png');
+  assert.equal(visibility(root, 'robot'), true);
+  fs.writeFileSync(path.join(root, 'lib/development/visual_layers.dart'),
+    '  static const bool robot = false;\n');
+  assert.equal(visibility(root, 'robot'), false);
 });
 
-test('No acepta rutas fuera del proyecto ni flags arbitrarias', t => {
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'muondia-visual-'));
-  t.after(() => fs.rmSync(dir, {recursive: true, force: true}));
-  fs.mkdirSync(path.join(dir, 'lib', 'development'), {recursive: true});
-  assert.throws(() => safePath(dir, '../afuera.png'));
-  assert.throws(() => setLayerVisible(dir, 'robot; delete', false));
-  fs.writeFileSync(path.join(dir, 'lib/development/experiences.json'),
-    JSON.stringify({version: 1, experiences: [{
-      id: 'auth', label: 'Auth', group: 'ACCESO',
-      states: [{id: 'inicio', source: '../another.dart'}], assets: []
-    }]}));
-  assert.throws(() => readCatalog(dir));
+test('Rechaza rutas ajenas y capas duplicadas', t => {
+  const {root, catalog} = fixture(t);
+  catalog.experiences[0].states[0].source = '../other.dart';
+  fs.writeFileSync(path.join(root, 'lib/development/experiences.json'),
+    JSON.stringify(catalog));
+  assert.throws(() => readCatalog(root));
+  catalog.experiences[0].states[0].source =
+    'lib/app/auth/auth_entry_page.dart';
+  catalog.experiences[0].assets.push({
+    name: 'Robot duplicado', file: 'assets/auth/Robot.png', flag: 'robot'
+  });
+  fs.writeFileSync(path.join(root, 'lib/development/experiences.json'),
+    JSON.stringify(catalog));
+  assert.throws(() => readCatalog(root));
+});
+
+test('Árbol visual contiene Authentication y sus estados', t => {
+  const {root} = fixture(t);
+  class Emitter {
+    constructor() { this.event = () => {}; }
+    fire() {}
+    dispose() {}
+  }
+  const vscode = {EventEmitter: Emitter};
+  const tree = createTree(root, vscode);
+  const groups = tree.provider.getChildren();
+  assert.equal(groups.length, 1);
+  assert.equal(groups[0].label, 'ACCESO');
+  const screens = tree.provider.getChildren(groups[0]);
+  assert.equal(screens[0].label, 'Authentication');
+  const children = tree.provider.getChildren(screens[0]);
+  assert.equal(children.length, 2);
+  assert.equal(children[0].kind, 'state');
+  assert.equal(children[1].kind, 'image');
+  tree.dispose();
 });

@@ -1,7 +1,6 @@
 'use strict';
 const fs = require('node:fs');
 const path = require('node:path');
-const vscode = require('vscode');
 const {execFile} = require('node:child_process');
 const {promisify} = require('node:util');
 const run = promisify(execFile);
@@ -58,7 +57,7 @@ function visibility(root, flag) {
   return matches[0][1] === 'true';
 }
 
-function createTree(root) {
+function createTree(root, vscode) {
   const emitter = new vscode.EventEmitter();
   let screens = [], error = '';
   function refresh() {
@@ -130,6 +129,7 @@ function createTree(root) {
 }
 
 async function activate(context) {
+  const vscode = require('vscode');
   if (!vscode.workspace.isTrusted) return;
   const folder = (vscode.workspace.workspaceFolders || []).find(f => {
     const manifest = path.join(f.uri.fsPath,'pubspec.yaml');
@@ -138,7 +138,7 @@ async function activate(context) {
   });
   if (!folder) return;
   const root = folder.uri.fsPath;
-  const tree = createTree(root);
+  const tree = createTree(root, vscode);
   const output = vscode.window.createOutputChannel('Muondia · Explorador visual');
   context.subscriptions.push(tree,output,
     vscode.window.registerTreeDataProvider('muondia.visual',tree.provider));
@@ -164,10 +164,10 @@ async function activate(context) {
       vscode.window.showInformationMessage('El cambio está guardado. Inicia Muondia para verlo.');
       return;
     }
-    try { await vscode.commands.executeCommand('dart.hotRestart'); }
+    try { await vscode.commands.executeCommand('dart.hotReload'); }
     catch (error) {
-      output.appendLine('Hot Restart: '+String(error));
-      vscode.window.showWarningMessage('Reinicia Flutter para aplicar los cambios visuales.');
+      output.appendLine('Hot Reload: '+String(error));
+      vscode.window.showWarningMessage('Flutter no aplicó el Hot Reload; prueba Hot Restart.');
     }
   }
 
@@ -219,7 +219,7 @@ async function activate(context) {
     resolveImage(node);
     await vscode.workspace.fs.writeFile(vscode.Uri.file(full),bytes);
     tree.refresh();
-    await refreshFlutter();
+    vscode.window.showInformationMessage('Imagen sustituida. Reconstruye Flutter para actualizar el PNG en Android.');
   }
 
   async function openState(node) {
