@@ -58,7 +58,10 @@ class _AuthEntryPageState extends State<AuthEntryPage> {
 
   Future<void> _openEmail() async {
     await Navigator.of(context).push<void>(
-      MaterialPageRoute(builder: (_) => EmailAuthPage(auth: widget.auth)),
+      MaterialPageRoute(
+        settings: const RouteSettings(name: '/auth/email'),
+        builder: (_) => EmailAuthPage(auth: widget.auth),
+      ),
     );
   }
 
