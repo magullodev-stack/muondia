@@ -215,7 +215,7 @@
           "link": null
         },
         {
-          "label": "Incluir audio",
+          "label": "Activar audio",
           "name": "include_audio",
           "type": "BOOLEAN",
           "widget": {
@@ -327,8 +327,7 @@
       "properties": {
         "cnr_id": "comfy-core",
         "ver": "0.30.0",
-        "previewExposures": [],
-        "ltx25_accordion_ui": true
+        "previewExposures": []
       },
       "widgets_values": [
         "No music. No zoom.",
@@ -678,7 +677,7 @@
             "linkIds": [
               797
             ],
-            "label": "Incluir audio",
+            "label": "Activar audio",
             "pos": [
               -533.56,
               6565
