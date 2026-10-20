@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../app_theme.dart';
+import '../../development/visual_layers.dart';
 
 enum EmailAuthMode {
   signIn,
@@ -194,12 +195,15 @@ class _EmailAuthPageState extends State<EmailAuthPage> {
               child: ClipRect(
                 child: Transform.scale(
                   scale: 1.30,
-                  child: Image.asset(
-                    'assets/auth/Background.png',
-                    key: const Key('muondia-email-auth-background'),
-                    fit: BoxFit.cover,
-                    alignment: Alignment.center,
-                    filterQuality: FilterQuality.high,
+                  child: Opacity(
+                    opacity: MuondiaVisualLayers.showBackground ? 1 : 0,
+                    child: Image.asset(
+                      'assets/auth/Background.png',
+                      key: const Key('muondia-email-auth-background'),
+                      fit: BoxFit.cover,
+                      alignment: Alignment.center,
+                      filterQuality: FilterQuality.high,
+                    ),
                   ),
                 ),
               ),

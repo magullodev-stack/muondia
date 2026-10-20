@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../app_theme.dart';
+import '../../development/visual_layers.dart';
 import 'auth_provider_button.dart';
 import 'email_auth_page.dart';
 
@@ -182,13 +183,16 @@ class _AuthEntryPageState extends State<AuthEntryPage> {
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Image.asset(
-                              'assets/auth/Logotipo_MuondIA.png',
-                              key: const Key('muondia-auth-logo'),
-                              width: logoWidth,
-                              height: logoHeight,
-                              fit: BoxFit.contain,
-                              filterQuality: FilterQuality.high,
+                            Opacity(
+                              opacity: MuondiaVisualLayers.showLogo ? 1 : 0,
+                              child: Image.asset(
+                                'assets/auth/Logotipo_MuondIA.png',
+                                key: const Key('muondia-auth-logo'),
+                                width: logoWidth,
+                                height: logoHeight,
+                                fit: BoxFit.contain,
+                                filterQuality: FilterQuality.high,
+                              ),
                             ),
                             const SizedBox(height: 8),
                             Text(
@@ -344,17 +348,21 @@ class _AuthParallaxArtState extends State<_AuthParallaxArt>
     required double x,
     required double y,
     double scale = 1,
+    bool visible = true,
   }) {
-    return Transform.translate(
-      key: Key('muondia-auth-parallax-$name'),
-      offset: Offset(x, y),
-      child: Transform.scale(
-        scale: scale,
-        child: Image.asset(
-          asset,
-          fit: BoxFit.cover,
-          alignment: Alignment.center,
-          filterQuality: FilterQuality.high,
+    return Opacity(
+      opacity: visible ? 1 : 0,
+      child: Transform.translate(
+        key: Key('muondia-auth-parallax-$name'),
+        offset: Offset(x, y),
+        child: Transform.scale(
+          scale: scale,
+          child: Image.asset(
+            asset,
+            fit: BoxFit.cover,
+            alignment: Alignment.center,
+            filterQuality: FilterQuality.high,
+          ),
         ),
       ),
     );
@@ -377,17 +385,21 @@ class _AuthParallaxArtState extends State<_AuthParallaxArt>
               Transform.scale(
                 key: const Key('muondia-auth-background-fill'),
                 scale: 1.30,
-                child: Image.asset(
-                  'assets/auth/Background.png',
-                  key: const Key('muondia-auth-background'),
-                  fit: BoxFit.cover,
-                  alignment: Alignment.center,
-                  filterQuality: FilterQuality.high,
+                child: Opacity(
+                  opacity: MuondiaVisualLayers.showBackground ? 1 : 0,
+                  child: Image.asset(
+                    'assets/auth/Background.png',
+                    key: const Key('muondia-auth-background'),
+                    fit: BoxFit.cover,
+                    alignment: Alignment.center,
+                    filterQuality: FilterQuality.high,
+                  ),
                 ),
               ),
               _movingLayer(
                 name: 'robot',
                 asset: 'assets/auth/Robot.png',
+                visible: MuondiaVisualLayers.showRobot,
                 x: 0,
                 y: -12 + math.cos(angle + 1.4) * 4,
                 scale: 1.005 + math.sin(angle + 1.4) * 0.004,

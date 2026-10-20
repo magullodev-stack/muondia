@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../app_theme.dart';
+import '../../development/visual_layers.dart';
 
 enum AuthProvider { google, apple, email }
 
@@ -21,12 +22,15 @@ class AuthProviderButton extends StatelessWidget {
   };
 
   Widget _icon(double size) => switch (provider) {
-    AuthProvider.google => Image.asset(
-      'assets/auth/Muondia_Auth_Google_ICON.png',
-      width: size,
-      height: size,
-      fit: BoxFit.contain,
-      filterQuality: FilterQuality.high,
+    AuthProvider.google => Opacity(
+      opacity: MuondiaVisualLayers.showGoogleIcon ? 1 : 0,
+      child: Image.asset(
+        'assets/auth/Muondia_Auth_Google_ICON.png',
+        width: size,
+        height: size,
+        fit: BoxFit.contain,
+        filterQuality: FilterQuality.high,
+      ),
     ),
     AuthProvider.apple => Icon(
       Icons.apple,

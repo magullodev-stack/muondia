@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "experiences": [
+    {
+      "id": "auth",
+      "label": "Authentication",
+      "group": "ACCESO",
+      "states": [
+        {
+          "id": "inicio",
+          "label": "Pantalla inicial",
+          "source": "lib/app/auth/auth_entry_page.dart"
+        },
+        {
+          "id": "email",
+          "label": "Acceso con email",
+          "source": "lib/app/auth/email_auth_page.dart"
+        }
+      ],
+      "assets": [
+        {
+          "name": "Fondo",
+          "file": "assets/auth/Background.png",
+          "flag": "background"
+        },
+        {
+          "name": "Robot",
+          "file": "assets/auth/Robot.png",
+          "flag": "robot"
+        },
+        {
+          "name": "Logotipo",
+          "file": "assets/auth/Logotipo_MuondIA.png",
+          "flag": "logo"
+        },
+        {
+          "name": "Icono de Google",
+          "file": "assets/auth/Muondia_Auth_Google_ICON.png",
+          "flag": "googleIcon"
+        }
+      ]
+    }
+  ]
+}
