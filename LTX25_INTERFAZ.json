@@ -146,12 +146,18 @@
           "label": "Prompt positivo",
           "name": "value",
           "type": "STRING",
+          "widget": {
+            "name": "value"
+          },
           "link": 800
         },
         {
           "label": "Prompt negativo",
           "name": "negative_prompt",
           "type": "STRING",
+          "widget": {
+            "name": "negative_prompt"
+          },
           "link": 801
         },
         {
@@ -324,6 +330,8 @@
         "previewExposures": []
       },
       "widgets_values": [
+        "No music. No zoom.",
+        "pc game, console game, video game, cartoon, childish, ugly",
         6,
         16,
         "9:16 (Portrait Widescreen)",
@@ -343,6 +351,8 @@
         false
       ],
       "widgets_values_named": {
+        "value": "No music. No zoom.",
+        "negative_prompt": "pc game, console game, video game, cartoon, childish, ugly",
         "value_2": 6,
         "value_5": 16,
         "value_3": "9:16 (Portrait Widescreen)",
