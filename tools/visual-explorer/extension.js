@@ -1,328 +1,253 @@
 'use strict';
 const fs = require('node:fs');
 const path = require('node:path');
+const vscode = require('vscode');
 
 const CATALOG = 'lib/development/experiences.json';
-const LAYERS = 'lib/development/visual_layers.dart';
-const ID = /^[a-z][a-zA-Z0-9_-]*$/;
-const FLAG = /^[a-z][a-zA-Z0-9]*$/;
-const IMAGE = /^assets\/[a-zA-Z0-9_/-]+\.png$/;
-const SOURCE = /^lib\/[a-zA-Z0-9_/-]+\.dart$/;
-const PNG_MAGIC = Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]);
-
-function safePath(root, relative) {
-  if (typeof relative !== 'string' ||
-      relative.split('/').some(part => !part || part === '..' || part === '.')) {
-    throw new Error('Ruta visual no permitida.');
-  }
-  return path.join(root, ...relative.split('/'));
-}
+const FLAGS = 'lib/development/visual_layers.dart';
+const IMAGE = /\.(?:png|jpe?g|webp)$/i;
 
 function readCatalog(root) {
   const file = path.join(root, CATALOG);
-  const doc = JSON.parse(fs.readFileSync(file, 'utf8'));
-  if (doc.version !== 1 || !Array.isArray(doc.experiences)) {
-    throw new Error('El catálogo visual de Muondia no es válido.');
+  if (!fs.existsSync(file)) return [];
+  const data = JSON.parse(fs.readFileSync(file, 'utf8'));
+  if (data.version !== 1 || !Array.isArray(data.experiences)) {
+    throw new Error('Catálogo de Muondia inválido.');
   }
-  const screens = new Set();
-  const assets = new Set();
-  const flags = new Set();
-  for (const experience of doc.experiences) {
-    if (!ID.test(experience.id) || screens.has(experience.id) ||
-        typeof experience.label !== 'string' ||
-        typeof experience.group !== 'string' ||
-        !Array.isArray(experience.states) ||
-        !Array.isArray(experience.assets)) {
-      throw new Error('Pantalla visual duplicada o inválida.');
+  const owned = new Set(), flags = new Set(), ids = new Set();
+  for (const screen of data.experiences) {
+    if (!/^[a-z][a-z0-9_-]*$/.test(screen.id || '') ||
+        ids.has(screen.id) || !screen.label ||
+        !Array.isArray(screen.states) || !Array.isArray(screen.assets)) {
+      throw new Error('Pantalla inválida en el catálogo.');
     }
-    screens.add(experience.id);
-    const stateIds = new Set();
-    for (const state of experience.states) {
-      if (!ID.test(state.id) || stateIds.has(state.id) ||
-          !SOURCE.test(state.source) || state.source.includes('..')) {
-        throw new Error('Estado visual inválido.');
+    ids.add(screen.id);
+    for (const state of screen.states) {
+      if (!/^[a-z][a-z0-9_-]*$/.test(state.id || '') ||
+          typeof state.source !== 'string' ||
+          !/^lib\/[a-zA-Z0-9_/-]+\.dart$/.test(state.source) ||
+          state.source.includes('..')) {
+        throw new Error('Estado de pantalla inválido.');
       }
-      stateIds.add(state.id);
-      safePath(root, state.source);
     }
-    for (const asset of experience.assets) {
-      if (typeof asset.name !== 'string' || !asset.name.trim() ||
-          !IMAGE.test(asset.file) || asset.file.includes('..') ||
-          !FLAG.test(asset.flag) ||
-          assets.has(asset.file) || flags.has(asset.flag)) {
-        throw new Error('Capa de imagen duplicada o inválida.');
+    for (const asset of screen.assets) {
+      if (typeof asset.file !== 'string' || typeof asset.flag !== 'string' ||
+          !/^assets\/[a-zA-Z0-9_/-]+\.(?:png|jpe?g|webp)$/i.test(asset.file) ||
+          asset.file.includes('..') ||
+          !/^[a-zA-Z][a-zA-Z0-9]*$/.test(asset.flag) ||
+          owned.has(asset.file) || flags.has(asset.flag)) {
+        throw new Error('Recurso visual inválido o compartido entre pantallas.');
       }
-      safePath(root, asset.file);
-      assets.add(asset.file);
+      owned.add(asset.file);
       flags.add(asset.flag);
     }
   }
-  return doc;
+  return data.experiences;
 }
 
-function layerPattern(flag) {
-  if (!FLAG.test(flag)) throw new Error('Identificador de capa inválido.');
-  return new RegExp('(^[ \\t]*static const bool[ \\t]+' +
-    flag + '[ \\t]*=[ \\t]*)(true|false)([ \\t]*;)', 'm');
+function visibility(root, flag) {
+  const file = path.join(root, FLAGS);
+  const src = fs.readFileSync(file, 'utf8');
+  const pattern = new RegExp('^\\s*static const bool ' + flag +
+    '\\s*=\\s*(true|false)\\s*;', 'gm');
+  const matches = [...src.matchAll(pattern)];
+  if (matches.length !== 1) throw new Error('Visibilidad de capa no declarada: ' + flag);
+  return matches[0][1] === 'true';
 }
 
-function layerVisible(root, flag) {
-  const text = fs.readFileSync(path.join(root, LAYERS), 'utf8');
-  const match = text.match(layerPattern(flag));
-  if (!match) throw new Error('La capa no está declarada: ' + flag);
-  return match[2] === 'true';
-}
-
-function setLayerVisible(root, flag, visible) {
-  const filename = path.join(root, LAYERS);
-  const source = fs.readFileSync(filename, 'utf8');
-  const pattern = layerPattern(flag);
-  if (!pattern.test(source)) throw new Error('La capa no está declarada: ' + flag);
-  const changed = source.replace(pattern,
-    (_match, prefix, _old, suffix) =>
-      prefix + (visible ? 'true' : 'false') + suffix);
-  if (changed !== source) fs.writeFileSync(filename, changed, 'utf8');
-  return changed !== source;
-}
-
-function backupPath(root, asset) {
-  return safePath(root, '.muondia/visual-backups/' + asset.file);
-}
-
-function assertRegularImage(file) {
-  const info = fs.lstatSync(file);
-  if (!info.isFile() || info.size === 0 || info.size > 25 * 1024 * 1024) {
-    throw new Error('La imagen debe ser un archivo PNG de hasta 25 MB.');
-  }
-  const fd = fs.openSync(file, 'r');
-  try {
-    const magic = Buffer.alloc(8);
-    if (fs.readSync(fd, magic, 0, 8, 0) !== 8 ||
-        !magic.equals(PNG_MAGIC)) {
-      throw new Error('El archivo elegido no es PNG.');
-    }
-  } finally {
-    fs.closeSync(fd);
-  }
-}
-
-function makeTree(root, vscode) {
+function createTree(root) {
   const emitter = new vscode.EventEmitter();
-  let catalog;
-  let error = '';
-
+  let screens = [], error = '';
   function refresh() {
-    try {
-      catalog = readCatalog(root);
-      error = '';
-    } catch (e) {
-      catalog = null;
-      error = e.message;
-    }
+    try { screens = readCatalog(root); error = ''; }
+    catch (e) { screens = []; error = e.message; }
     emitter.fire();
   }
-
-  function item(node) {
-    const collapsible = node.kind === 'group' ||
-      node.kind === 'screen' || node.kind === 'images';
-    const treeItem = new vscode.TreeItem(node.label,
-      collapsible ? vscode.TreeItemCollapsibleState.Collapsed :
-        vscode.TreeItemCollapsibleState.None);
-    treeItem.id = node.id;
-
-    if (node.kind === 'group') {
-      treeItem.iconPath = new vscode.ThemeIcon('folder',
-        new vscode.ThemeColor('charts.blue'));
-      treeItem.description = node.count + ' pantalla(s)';
-    } else if (node.kind === 'screen') {
-      treeItem.iconPath = new vscode.ThemeIcon('device-mobile');
-    } else if (node.kind === 'state') {
-      treeItem.iconPath = new vscode.ThemeIcon('code');
-      treeItem.tooltip = 'Abrir el código Flutter de este estado';
-      treeItem.command = {
-        command: 'vscode.open',
-        title: 'Abrir código de la pantalla',
-        arguments: [vscode.Uri.file(safePath(root, node.state.source))]
-      };
-    } else if (node.kind === 'images') {
-      treeItem.iconPath = new vscode.ThemeIcon('layers');
-      treeItem.description = String(node.assets.length);
-    } else if (node.kind === 'asset') {
-      const visible = layerVisible(root, node.asset.flag);
-      treeItem.iconPath = new vscode.ThemeIcon(visible ? 'eye' : 'eye-closed',
-        new vscode.ThemeColor(visible ? 'charts.green' : 'descriptionForeground'));
-      treeItem.description = visible ? 'visible' : 'oculta';
-      treeItem.tooltip = node.asset.file +
-        '\nOjo: mostrar/ocultar sin borrar la imagen';
-      treeItem.contextValue = 'muondiaVisualAsset';
-      treeItem.resourceUri = vscode.Uri.file(safePath(root, node.asset.file));
-      treeItem.command = {
-        command: 'vscode.open',
-        title: 'Abrir imagen original',
-        arguments: [treeItem.resourceUri]
-      };
-    } else {
-      treeItem.iconPath = new vscode.ThemeIcon('warning');
-    }
-    return treeItem;
-  }
-
   const provider = {
     onDidChangeTreeData: emitter.event,
-    getTreeItem: item,
     getChildren(node) {
-      if (node?.kind === 'images') {
-        return node.assets.map(asset => ({
-          kind: 'asset', label: asset.name, asset, id: 'asset:' + asset.flag
-        }));
+      if (!node) {
+        if (error) return [{kind:'info',id:'error',label:error}];
+        if (!screens.length) return [{kind:'info',id:'empty',label:'No hay pantallas declaradas'}];
+        const groups = [...new Set(screens.map(s => s.group || 'Pantallas'))];
+        return groups.map(label => ({kind:'group',id:'group:'+label,label}));
       }
-      if (node?.kind === 'screen') {
-        return [
-          ...node.experience.states.map(state => ({
-            kind: 'state', label: state.label, state,
-            id: 'state:' + node.experience.id + ':' + state.id
-          })),
-          {
-            kind: 'images', label: 'Capas de imagen',
-            assets: node.experience.assets,
-            id: 'images:' + node.experience.id
-          }
-        ];
-      }
-      if (node?.kind === 'group') {
-        return node.experiences.map(exp => ({
-          kind: 'screen', label: exp.label, experience: exp,
-          id: 'screen:' + exp.id
-        }));
-      }
-      if (!catalog) {
-        return [{kind: 'error', label: error, id: 'error'}];
-      }
-      if (!catalog.experiences.length) {
-        return [{kind: 'error', label: 'No hay pantallas declaradas', id: 'empty'}];
-      }
-      const groups = new Map();
-      for (const exp of catalog.experiences) {
-        if (!groups.has(exp.group)) groups.set(exp.group, []);
-        groups.get(exp.group).push(exp);
-      }
-      return [...groups].map(([label, experiences]) => ({
-        kind: 'group', label, experiences, count: experiences.length,
-        id: 'group:' + label
-      }));
+      if (node.kind === 'group') return screens
+        .filter(s => (s.group || 'Pantallas') === node.label)
+        .map(s => ({kind:'screen',id:'screen:'+s.id,label:s.label,screen:s}));
+      if (node.kind === 'screen') return [
+        ...node.screen.states.map(s => ({
+          kind:'state',id:'state:'+node.screen.id+':'+s.id,
+          label:s.label,screen:node.screen,state:s,
+        })),
+        ...node.screen.assets.map(a => ({
+          kind:'image',id:'image:'+a.file,label:a.name || path.basename(a.file),
+          image:a,screen:node.screen,
+        })),
+      ];
+      return [];
+    },
+    getTreeItem(node) {
+      const collapsed = ['group','screen'].includes(node.kind);
+      const item = new vscode.TreeItem(
+        node.kind === 'group' ? node.label.toLocaleUpperCase('es') : node.label,
+        collapsed ? vscode.TreeItemCollapsibleState.Collapsed :
+          vscode.TreeItemCollapsibleState.None);
+      item.id = node.id;
+      if (node.kind === 'group') item.iconPath = new vscode.ThemeIcon('folder');
+      else if (node.kind === 'screen') item.iconPath = new vscode.ThemeIcon('window');
+      else if (node.kind === 'state') {
+        item.iconPath = new vscode.ThemeIcon('circle-outline');
+        item.contextValue = 'muondiaState';
+        item.command = {command:'muondia.visual.openState',
+          title:'Abrir pantalla',arguments:[node]};
+      } else if (node.kind === 'image') {
+        const exists = fs.existsSync(path.join(root, node.image.file));
+        const visible = exists && visibility(root, node.image.flag);
+        item.iconPath = new vscode.ThemeIcon(
+          !exists ? 'warning' : visible ? 'eye' : 'eye-closed',
+          !exists ? new vscode.ThemeColor('editorWarning.foreground') : undefined);
+        item.description = !exists ? 'No encontrada' : visible ? 'Visible' : 'Oculta';
+        item.contextValue = !exists ? 'muondiaImageMissing' :
+          visible ? 'muondiaImageVisible' : 'muondiaImageHidden';
+        item.tooltip = node.image.file + ' · ' +
+          (exists ? 'El ojo muestra u oculta esta capa en desarrollo.' :
+            'No existe el PNG.');
+        if (exists) {
+          item.resourceUri = vscode.Uri.file(path.join(root,node.image.file));
+          item.command = {command:'vscode.open',title:'Abrir imagen',
+            arguments:[item.resourceUri]};
+        }
+      } else item.iconPath = new vscode.ThemeIcon('info');
+      return item;
     }
   };
   refresh();
-  return {provider, refresh, dispose: () => emitter.dispose()};
-}
-
-function validateSelection(root, node) {
-  if (!node || node.kind !== 'asset' || !node.asset) {
-    throw new Error('Selecciona una capa de imagen del explorador.');
-  }
-  const doc = readCatalog(root);
-  const declared = doc.experiences
-    .flatMap(screen => screen.assets)
-    .find(asset => asset.flag === node.asset.flag &&
-      asset.file === node.asset.file);
-  if (!declared) throw new Error('Esta imagen no pertenece a Muondia.');
-  return declared;
+  return {provider,refresh,dispose:()=>emitter.dispose()};
 }
 
 async function activate(context) {
-  const vscode = require('vscode');
   if (!vscode.workspace.isTrusted) return;
-  const workspace = (vscode.workspace.workspaceFolders || []).find(folder => {
-    const file = path.join(folder.uri.fsPath, 'pubspec.yaml');
-    return fs.existsSync(file) &&
-      /^name:\s*muondia\s*$/m.test(fs.readFileSync(file, 'utf8'));
+  const folder = (vscode.workspace.workspaceFolders || []).find(f => {
+    const manifest = path.join(f.uri.fsPath,'pubspec.yaml');
+    return fs.existsSync(manifest) &&
+      /^name:\s*muondia\s*$/m.test(fs.readFileSync(manifest,'utf8'));
   });
-  if (!workspace) return;
-  const root = workspace.uri.fsPath;
-  const explorer = makeTree(root, vscode);
-  const handle = fn => async (...args) => {
-    try {
-      await fn(...args);
-    } catch (error) {
-      await vscode.window.showErrorMessage('Muondia: ' + error.message);
+  if (!folder) return;
+  const root = folder.uri.fsPath;
+  const tree = createTree(root);
+  const output = vscode.window.createOutputChannel('Muondia · Explorador visual');
+  context.subscriptions.push(tree,output,
+    vscode.window.registerTreeDataProvider('muondia.visual',tree.provider));
+
+  function resolveImage(node) {
+    if (!node || node.kind !== 'image') throw new Error('Selecciona una imagen.');
+    const screens = readCatalog(root);
+    const image = screens.flatMap(s => s.assets).find(a =>
+      a.file === node.image.file && a.flag === node.image.flag);
+    if (!image) throw new Error('Imagen no declarada en Muondia.');
+    const full = path.resolve(root,image.file);
+    if (!full.startsWith(path.resolve(root,'assets')+path.sep) ||
+        !fs.existsSync(full) || fs.lstatSync(full).isSymbolicLink()) {
+      throw new Error('Imagen fuera del proyecto o no disponible.');
+    }
+    return {image,full};
+  }
+
+  async function refreshFlutter() {
+    const active = (vscode.debug.sessions || []).some(s =>
+      s.type === 'dart' && s.name === 'Muondia');
+    if (!active) {
+      vscode.window.showInformationMessage('El cambio está guardado. Inicia Muondia para verlo.');
+      return;
+    }
+    try { await vscode.commands.executeCommand('dart.hotRestart'); }
+    catch (error) {
+      output.appendLine('Hot Restart: '+String(error));
+      vscode.window.showWarningMessage('Reinicia Flutter para aplicar los cambios visuales.');
+    }
+  }
+
+  async function toggle(node) {
+    const {image} = resolveImage(node);
+    const file = vscode.Uri.file(path.join(root,FLAGS));
+    const doc = await vscode.workspace.openTextDocument(file);
+    if (doc.isDirty) throw new Error('Guarda primero visual_layers.dart.');
+    const current = visibility(root,image.flag);
+    const regex = new RegExp('(^\\s*static const bool ' + image.flag +
+      '\\s*=\\s*)(true|false)(\\s*;)', 'gm');
+    const matches = [...doc.getText().matchAll(regex)];
+    if (matches.length !== 1) throw new Error('Constante visual no encontrada.');
+    const match = matches[0];
+    const from = match.index + match[1].length;
+    const edit = new vscode.WorkspaceEdit();
+    edit.replace(file,new vscode.Range(doc.positionAt(from),
+      doc.positionAt(from+match[2].length)),current ? 'false' : 'true');
+    if (!await vscode.workspace.applyEdit(edit) || !await doc.save()) {
+      throw new Error('No se pudo guardar el cambio de visibilidad.');
+    }
+    tree.refresh();
+    await refreshFlutter();
+  }
+
+  async function replace(node) {
+    const {image,full} = resolveImage(node);
+    const selected = await vscode.window.showOpenDialog({
+      canSelectFiles:true,canSelectFolders:false,canSelectMany:false,
+      openLabel:'Sustituir imagen',
+      filters:{Imágenes:['png','jpg','jpeg','webp']},
+    });
+    if (!selected?.[0] || path.resolve(selected[0].fsPath) === full) return;
+    if (path.extname(selected[0].fsPath).toLowerCase() !==
+        path.extname(full).toLowerCase()) {
+      throw new Error('La imagen nueva debe tener el mismo formato.');
+    }
+    const bytes = await vscode.workspace.fs.readFile(selected[0]);
+    if (bytes.length < 16 || bytes.length > 50*1024*1024 ||
+        (IMAGE.test(full) && path.extname(full).toLowerCase() === '.png' &&
+         Buffer.from(bytes.subarray(0,8)).toString('hex') !== '89504e470d0a1a0a')) {
+      throw new Error('La imagen seleccionada no es válida.');
+    }
+    const ok = await vscode.window.showWarningMessage(
+      '¿Sustituir '+path.basename(full)+'?',
+      {modal:true,detail:'Se conserva el nombre y las referencias Dart. Git permite recuperar la versión anterior.'},
+      'Sustituir imagen');
+    if (ok !== 'Sustituir imagen') return;
+    resolveImage(node);
+    await vscode.workspace.fs.writeFile(vscode.Uri.file(full),bytes);
+    tree.refresh();
+    await refreshFlutter();
+  }
+
+  async function openState(node) {
+    if (node?.kind !== 'state') return;
+    const found = readCatalog(root)
+      .find(s=>s.id === node.screen.id)?.states.find(s=>s.id === node.state.id);
+    if (!found) throw new Error('Pantalla no disponible.');
+    const uri = vscode.Uri.file(path.join(root,found.source));
+    await vscode.window.showTextDocument(uri,{preview:true});
+  }
+  const safe = action => async node => {
+    try { await action(node); }
+    catch (error) {
+      output.appendLine(String(error?.stack || error));
+      vscode.window.showErrorMessage('Muondia: '+String(error.message || error));
     }
   };
-
-  context.subscriptions.push(explorer,
-    vscode.window.registerTreeDataProvider('muondia.visual', explorer.provider),
-    vscode.commands.registerCommand('muondia.visual.refresh', explorer.refresh),
-    vscode.commands.registerCommand('muondia.visual.toggle', handle(async node => {
-      const asset = validateSelection(root, node);
-      const uri = vscode.Uri.file(path.join(root, LAYERS));
-      if (vscode.workspace.textDocuments.some(doc =>
-        doc.uri.toString() === uri.toString() && doc.isDirty)) {
-        throw new Error('Guarda visual_layers.dart antes de cambiar el ojo.');
-      }
-      const enabled = layerVisible(root, asset.flag);
-      setLayerVisible(root, asset.flag, !enabled);
-      explorer.refresh();
-      vscode.window.setStatusBarMessage(
-        asset.name + ': ' + (enabled ? 'oculta' : 'visible') +
-          ' · Flutter Hot Reload', 5000);
-    })),
-    vscode.commands.registerCommand('muondia.visual.replace', handle(async node => {
-      const asset = validateSelection(root, node);
-      const target = safePath(root, asset.file);
-      const picked = await vscode.window.showOpenDialog({
-        canSelectFiles: true, canSelectFolders: false, canSelectMany: false,
-        title: 'Sustituir ' + asset.name + ' · Muondia',
-        filters: {'Imágenes PNG': ['png']}
-      });
-      if (!picked?.length) return;
-      const input = picked[0].fsPath;
-      if (path.resolve(input).toLowerCase() ===
-          path.resolve(target).toLowerCase()) return;
-      assertRegularImage(input);
-      assertRegularImage(target);
-      const approval = await vscode.window.showWarningMessage(
-        'Sustituir ' + asset.name +
-          '? Guardaré el original localmente y podrás restaurarlo.',
-        {modal: true}, 'Sustituir');
-      if (approval !== 'Sustituir') return;
-      const backup = backupPath(root, asset);
-      fs.mkdirSync(path.dirname(backup), {recursive: true});
-      if (!fs.existsSync(backup)) {
-        fs.copyFileSync(target, backup, fs.constants.COPYFILE_EXCL);
-      }
-      fs.copyFileSync(input, target);
-      explorer.refresh();
-      vscode.window.showInformationMessage(
-        'Imagen sustituida. Reconstruye Flutter para actualizar los recursos en Android.');
-    })),
-    vscode.commands.registerCommand('muondia.visual.restore', handle(async node => {
-      const asset = validateSelection(root, node);
-      const backup = backupPath(root, asset);
-      if (!fs.existsSync(backup)) {
-        throw new Error('No hay una copia local anterior de esta imagen.');
-      }
-      assertRegularImage(backup);
-      fs.copyFileSync(backup, safePath(root, asset.file));
-      explorer.refresh();
-      vscode.window.showInformationMessage(
-        'Imagen original restaurada. Reconstruye Flutter para verla en Android.');
-    }))
+  context.subscriptions.push(
+    vscode.commands.registerCommand('muondia.visual.refresh',tree.refresh),
+    vscode.commands.registerCommand('muondia.visual.hide',safe(toggle)),
+    vscode.commands.registerCommand('muondia.visual.show',safe(toggle)),
+    vscode.commands.registerCommand('muondia.visual.replace',safe(replace)),
+    vscode.commands.registerCommand('muondia.visual.openState',safe(openState))
   );
-
-  for (const pattern of [
-    'lib/development/experiences.json',
-    'lib/development/visual_layers.dart',
-    'assets/auth/**/*'
-  ]) {
-    const watcher = vscode.workspace.createFileSystemWatcher(
-      new vscode.RelativePattern(workspace, pattern));
-    context.subscriptions.push(
-      watcher,
-      watcher.onDidCreate(explorer.refresh),
-      watcher.onDidChange(explorer.refresh),
-      watcher.onDidDelete(explorer.refresh)
-    );
+  const watcher = vscode.workspace.createFileSystemWatcher(
+    new vscode.RelativePattern(folder,'lib/development/{experiences.json,visual_layers.dart}'));
+  const assets = vscode.workspace.createFileSystemWatcher(
+    new vscode.RelativePattern(folder,'assets/**/*'));
+  for (const watched of [watcher,assets]) {
+    context.subscriptions.push(watched,watched.onDidCreate(tree.refresh),
+      watched.onDidChange(tree.refresh),watched.onDidDelete(tree.refresh));
   }
 }
-
-module.exports = {activate, readCatalog, layerVisible, setLayerVisible,
-  assertRegularImage, safePath};
+module.exports = {activate,readCatalog,visibility,createTree};

@@ -1,7 +1,7 @@
 {
   "name": "muondia-visual",
   "displayName": "Muondia · Explorador visual",
-  "description": "Pantallas, estados y capas visuales editables de Muondia.",
+  "description": "Pantallas y recursos visuales propios de Muondia.",
   "publisher": "magullodev",
   "version": "0.1.0",
   "private": true,
@@ -10,7 +10,6 @@
   },
   "main": "./extension.js",
   "activationEvents": [
-    "onView:muondia.visual",
     "onStartupFinished"
   ],
   "contributes": {
@@ -18,8 +17,7 @@
       "explorer": [
         {
           "id": "muondia.visual",
-          "name": "MUONDIA · EXPLORADOR VISUAL",
-          "visibility": "visible"
+          "name": "Muondia · Explorador visual"
         }
       ]
     },
@@ -30,8 +28,13 @@
         "icon": "$(refresh)"
       },
       {
-        "command": "muondia.visual.toggle",
-        "title": "Mostrar u ocultar capa",
+        "command": "muondia.visual.hide",
+        "title": "Ocultar capa",
+        "icon": "$(eye-closed)"
+      },
+      {
+        "command": "muondia.visual.show",
+        "title": "Mostrar capa",
         "icon": "$(eye)"
       },
       {
@@ -40,9 +43,8 @@
         "icon": "$(replace)"
       },
       {
-        "command": "muondia.visual.restore",
-        "title": "Restaurar imagen original",
-        "icon": "$(history)"
+        "command": "muondia.visual.openState",
+        "title": "Abrir código de pantalla"
       }
     ],
     "menus": {
@@ -55,19 +57,19 @@
       ],
       "view/item/context": [
         {
-          "command": "muondia.visual.toggle",
-          "when": "view == muondia.visual && viewItem == muondiaVisualAsset",
-          "group": "inline@1"
+          "command": "muondia.visual.hide",
+          "when": "view == muondia.visual && viewItem == muondiaImageVisible",
+          "group": "inline"
+        },
+        {
+          "command": "muondia.visual.show",
+          "when": "view == muondia.visual && viewItem == muondiaImageHidden",
+          "group": "inline"
         },
         {
           "command": "muondia.visual.replace",
-          "when": "view == muondia.visual && viewItem == muondiaVisualAsset",
-          "group": "inline@2"
-        },
-        {
-          "command": "muondia.visual.restore",
-          "when": "view == muondia.visual && viewItem == muondiaVisualAsset",
-          "group": "2_modification@1"
+          "when": "view == muondia.visual && (viewItem == muondiaImageVisible || viewItem == muondiaImageHidden)",
+          "group": "navigation"
         }
       ]
     }
