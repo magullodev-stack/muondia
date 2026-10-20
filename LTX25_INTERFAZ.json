@@ -296,20 +296,20 @@
           "link": null
         },
         {
-          "label": "Activar mejora del prompt",
-          "name": "value_1",
-          "type": "BOOLEAN",
-          "widget": {
-            "name": "value_1"
-          },
-          "link": null
-        },
-        {
           "label": "Modelo de mejora del prompt",
           "name": "clip_name_1",
           "type": "COMBO",
           "widget": {
             "name": "clip_name_1"
+          },
+          "link": null
+        },
+        {
+          "label": "Activar mejora del prompt",
+          "name": "value_1",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "value_1"
           },
           "link": null
         }
@@ -347,8 +347,8 @@
         "ltx-2.5-video-vae-bf16.safetensors",
         "ltx-2.5-audio-vae-bf16.safetensors",
         "ltx-2.5-latent-spatial-upscaler-x2-bf16-1.0.safetensors",
-        false,
-        "gemma4_e2b_it_int8_convrot.safetensors"
+        "gemma4_e2b_it_int8_convrot.safetensors",
+        false
       ],
       "widgets_values_named": {
         "value": "No music. No zoom.",
@@ -368,8 +368,8 @@
         "vae_name": "ltx-2.5-video-vae-bf16.safetensors",
         "vae_name_1": "ltx-2.5-audio-vae-bf16.safetensors",
         "model_name": "ltx-2.5-latent-spatial-upscaler-x2-bf16-1.0.safetensors",
-        "value_1": false,
-        "clip_name_1": "gemma4_e2b_it_int8_convrot.safetensors"
+        "clip_name_1": "gemma4_e2b_it_int8_convrot.safetensors",
+        "value_1": false
       }
     },
     {
@@ -789,19 +789,6 @@
             ]
           },
           {
-            "id": "21c9d37e-1f04-47f8-b752-22667180790c",
-            "name": "value_1",
-            "type": "BOOLEAN",
-            "linkIds": [
-              766
-            ],
-            "label": "Activar mejora del prompt",
-            "pos": [
-              -533.56,
-              6745
-            ]
-          },
-          {
             "id": "e5ca018e-1483-44ba-a318-3fc83c7f19ba",
             "name": "clip_name_1",
             "type": "COMBO",
@@ -809,6 +796,19 @@
               782
             ],
             "label": "Modelo de mejora del prompt",
+            "pos": [
+              -533.56,
+              6745
+            ]
+          },
+          {
+            "id": "21c9d37e-1f04-47f8-b752-22667180790c",
+            "name": "value_1",
+            "type": "BOOLEAN",
+            "linkIds": [
+              766
+            ],
+            "label": "Activar mejora del prompt",
             "pos": [
               -533.56,
               6765
@@ -4877,7 +4877,7 @@
           {
             "id": 766,
             "origin_id": -10,
-            "origin_slot": 18,
+            "origin_slot": 19,
             "target_id": 383,
             "target_slot": 0,
             "type": "BOOLEAN"
@@ -4997,7 +4997,7 @@
           {
             "id": 782,
             "origin_id": -10,
-            "origin_slot": 19,
+            "origin_slot": 18,
             "target_id": 393,
             "target_slot": 0,
             "type": "COMBO"
