@@ -4,7 +4,7 @@ const test = require('node:test');
 const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
-const {readCatalog, visible, createTree, scanImages, imageReferences, inside} =
+const {readCatalog, createTree, scanImages, imageReferences, inside} =
   require('./extension.js');
 
 function fixture(t) {
@@ -26,8 +26,6 @@ function fixture(t) {
   }]};
   fs.writeFileSync(path.join(root,'lib/development/experiences.json'),
     JSON.stringify(catalog));
-  fs.writeFileSync(path.join(root,'lib/development/visual_layers.dart'),
-    '  static const bool robot = true;\n');
   fs.writeFileSync(path.join(root,'assets/auth/Robot.png'),'png test');
   fs.writeFileSync(path.join(root,'lib/app/auth/auth_entry_page.dart'),
     "Image.asset('assets/auth/Robot.png');\n");
@@ -56,14 +54,32 @@ function fakeVscode() {
   };
 }
 
-test('Catálogo propio y visibilidad estática, sin tocar Flutter',t=>{
+test('Catálogo propio y modo seguro, sin alterar código Flutter',t=>{
   const {root}=fixture(t);
   assert.equal(readCatalog(root)[0].id,'auth');
-  assert.equal(visible(root,'robot'),true);
-  fs.writeFileSync(path.join(root,'lib/development/visual_layers.dart'),
-    '  static const bool robot = false;\n');
-  assert.equal(visible(root,'robot'),false);
-  assert.throws(()=>visible(root,'notDeclared'));
+  const tree=createTree(root,fakeVscode());
+  const preview=tree.provider.getTreeItem(tree.provider.getChildren()[0]);
+  const real=tree.provider.getTreeItem(tree.provider.getChildren()[1]);
+  assert.equal(preview.description,'sin IA');
+  assert.equal(real.description,'requiere Firebase');
+  tree.dispose();
+});
+
+test('El ojo refleja la visibilidad observada sin cambiar archivos',t=>{
+  const {root}=fixture(t);
+  const filename=path.join(root,'lib/app/auth/auth_entry_page.dart');
+  const source=fs.readFileSync(filename,'utf8');
+  const tree=createTree(root,fakeVscode());
+  const group=tree.provider.getChildren()[2];
+  const screen=tree.provider.getChildren(group)[0];
+  const image=tree.provider.getChildren(screen).find(x=>x.kind==='image');
+  tree.setObserved({mode:'preview',experience:'auth',state:'inicio',hidden:[]});
+  assert.equal(tree.provider.getTreeItem(image).contextValue,'muondiaImageVisible');
+  tree.setObserved({mode:'preview',experience:'auth',state:'inicio',hidden:['robot']});
+  assert.equal(tree.provider.getTreeItem(image).description,'Oculta');
+  assert.equal(tree.provider.getTreeItem(image).contextValue,'muondiaImageHidden');
+  assert.equal(fs.readFileSync(filename,'utf8'),source);
+  tree.dispose();
 });
 
 test('Una imagen nueva aparece sola, marcada pendiente',t=>{
