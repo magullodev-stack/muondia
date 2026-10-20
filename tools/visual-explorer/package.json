@@ -1,7 +1,7 @@
 {
   "name": "muondia-visual",
   "displayName": "Muondia · Explorador visual",
-  "description": "Pantallas y recursos visuales propios de Muondia.",
+  "description": "Estados reales observados, previsualización segura y recursos visuales de Muondia.",
   "publisher": "magullodev",
   "version": "0.1.0",
   "private": true,
@@ -29,48 +29,82 @@
         "icon": "$(refresh)"
       },
       {
-        "command": "muondia.visual.hide",
-        "title": "Ocultar capa",
-        "icon": "$(eye-closed)"
+        "command": "muondia.visual.find",
+        "title": "Buscar pantalla…",
+        "icon": "$(search)"
       },
       {
-        "command": "muondia.visual.show",
-        "title": "Mostrar capa",
-        "icon": "$(eye)"
-      },
-      {
-        "command": "muondia.visual.replace",
-        "title": "Sustituir imagen",
-        "icon": "$(replace)"
+        "command": "muondia.visual.mode",
+        "title": "Cambiar modo"
       },
       {
         "command": "muondia.visual.openState",
-        "title": "Abrir código de pantalla"
+        "title": "Abrir estado en el emulador"
+      },
+      {
+        "command": "muondia.visual.hide",
+        "title": "Ocultar imagen",
+        "icon": "$(eye)"
+      },
+      {
+        "command": "muondia.visual.show",
+        "title": "Mostrar imagen",
+        "icon": "$(eye-closed)"
+      },
+      {
+        "command": "muondia.visual.replace",
+        "title": "Sustituir imagen…",
+        "icon": "$(replace)"
+      },
+      {
+        "command": "muondia.visual.rename",
+        "title": "Cambiar nombre de imagen…",
+        "icon": "$(edit)"
+      },
+      {
+        "command": "muondia.visual.delete",
+        "title": "Eliminar imagen…",
+        "icon": "$(trash)"
       }
     ],
     "menus": {
       "view/title": [
         {
+          "command": "muondia.visual.find",
+          "when": "view == muondia.visual",
+          "group": "navigation@0"
+        },
+        {
           "command": "muondia.visual.refresh",
           "when": "view == muondia.visual",
-          "group": "navigation"
+          "group": "navigation@1"
         }
       ],
       "view/item/context": [
         {
           "command": "muondia.visual.hide",
           "when": "view == muondia.visual && viewItem == muondiaImageVisible",
-          "group": "inline"
+          "group": "inline@1"
         },
         {
           "command": "muondia.visual.show",
           "when": "view == muondia.visual && viewItem == muondiaImageHidden",
-          "group": "inline"
+          "group": "inline@1"
         },
         {
           "command": "muondia.visual.replace",
-          "when": "view == muondia.visual && (viewItem == muondiaImageVisible || viewItem == muondiaImageHidden)",
-          "group": "navigation"
+          "when": "view == muondia.visual && (viewItem == muondiaImageVisible || viewItem == muondiaImageHidden || viewItem == muondiaImagePending)",
+          "group": "navigation@1"
+        },
+        {
+          "command": "muondia.visual.rename",
+          "when": "view == muondia.visual && (viewItem == muondiaImageVisible || viewItem == muondiaImageHidden || viewItem == muondiaImagePending)",
+          "group": "navigation@2"
+        },
+        {
+          "command": "muondia.visual.delete",
+          "when": "view == muondia.visual && (viewItem == muondiaImageVisible || viewItem == muondiaImageHidden || viewItem == muondiaImagePending)",
+          "group": "navigation@3"
         }
       ]
     }

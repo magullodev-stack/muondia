@@ -38,7 +38,11 @@
           "file": "assets/auth/Muondia_Auth_Google_ICON.png",
           "flag": "googleIcon"
         }
+      ],
+      "assetDirectories": [
+        "assets/auth"
       ]
     }
-  ]
+  ],
+  "realFlowAvailable": false
 }
