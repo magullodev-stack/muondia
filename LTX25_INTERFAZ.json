@@ -33,7 +33,7 @@
           "links": null
         }
       ],
-      "title": "Load First Frame",
+      "title": "Imagen inicial",
       "properties": {
         "Node name for S&R": "LoadImage",
         "cnr_id": "comfy-core",
@@ -118,7 +118,8 @@
         "format": "auto",
         "format.codec": "auto",
         "codec": "auto"
-      }
+      },
+      "title": "Guardar vídeo"
     },
     {
       "id": 398,
@@ -142,7 +143,7 @@
           "link": 764
         },
         {
-          "label": "Prompt principal",
+          "label": "Prompt positivo",
           "name": "value",
           "type": "STRING",
           "widget": {
@@ -169,20 +170,11 @@
           "link": null
         },
         {
-          "label": "Fotogramas por segundo",
+          "label": "FPS",
           "name": "value_5",
           "type": "INT",
           "widget": {
             "name": "value_5"
-          },
-          "link": null
-        },
-        {
-          "label": "Incluir audio",
-          "name": "include_audio",
-          "type": "BOOLEAN",
-          "widget": {
-            "name": "include_audio"
           },
           "link": null
         },
@@ -214,6 +206,33 @@
           "link": null
         },
         {
+          "label": "CFG vídeo",
+          "name": "video_cfg",
+          "type": "FLOAT",
+          "widget": {
+            "name": "video_cfg"
+          },
+          "link": null
+        },
+        {
+          "label": "Incluir audio",
+          "name": "include_audio",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "include_audio"
+          },
+          "link": null
+        },
+        {
+          "label": "CFG audio",
+          "name": "audio_cfg",
+          "type": "FLOAT",
+          "widget": {
+            "name": "audio_cfg"
+          },
+          "link": null
+        },
+        {
           "label": "Semilla",
           "name": "noise_seed",
           "type": "INT",
@@ -232,29 +251,20 @@
           "link": null
         },
         {
-          "label": "CFG vídeo",
-          "name": "video_cfg",
-          "type": "FLOAT",
-          "widget": {
-            "name": "video_cfg"
-          },
-          "link": null
-        },
-        {
-          "label": "CFG audio",
-          "name": "audio_cfg",
-          "type": "FLOAT",
-          "widget": {
-            "name": "audio_cfg"
-          },
-          "link": null
-        },
-        {
-          "label": "Transformer",
+          "label": "Modelo de vídeo",
           "name": "unet_name",
           "type": "COMBO",
           "widget": {
             "name": "unet_name"
+          },
+          "link": null
+        },
+        {
+          "label": "Codificador de texto",
+          "name": "clip_name",
+          "type": "COMBO",
+          "widget": {
+            "name": "clip_name"
           },
           "link": null
         },
@@ -277,11 +287,11 @@
           "link": null
         },
         {
-          "label": "Codificador de texto",
-          "name": "clip_name",
+          "label": "Modelo de escalado",
+          "name": "model_name",
           "type": "COMBO",
           "widget": {
-            "name": "clip_name"
+            "name": "model_name"
           },
           "link": null
         },
@@ -295,16 +305,7 @@
           "link": null
         },
         {
-          "label": "Modelo de escalado",
-          "name": "model_name",
-          "type": "COMBO",
-          "widget": {
-            "name": "model_name"
-          },
-          "link": null
-        },
-        {
-          "label": "Modelo para mejorar prompt",
+          "label": "Modelo de mejora del prompt",
           "name": "clip_name_1",
           "type": "COMBO",
           "widget": {
@@ -322,7 +323,7 @@
           ]
         }
       ],
-      "title": "LTX-2.5 · PANEL POR SECCIONES",
+      "title": "LTX-2.5 · Configuración",
       "properties": {
         "cnr_id": "comfy-core",
         "ver": "0.30.0",
@@ -334,20 +335,20 @@
         "pc game, console game, video game, cartoon, childish, ugly",
         6,
         16,
-        false,
         "9:16 (Portrait Widescreen)",
         0.9,
         32,
+        1,
+        false,
+        1,
         900359092894726,
         false,
-        1,
-        1,
         "ltx-2.5-22b-distilled-transformer-comfy-int8-convrot.safetensors",
+        "gemma4-12b-with-proj-ltx-2.5-comfy-int8-convrot.safetensors",
         "ltx-2.5-video-vae-bf16.safetensors",
         "ltx-2.5-audio-vae-bf16.safetensors",
-        "gemma4-12b-with-proj-ltx-2.5-comfy-int8-convrot.safetensors",
-        false,
         "ltx-2.5-latent-spatial-upscaler-x2-bf16-1.0.safetensors",
+        false,
         "gemma4_e2b_it_int8_convrot.safetensors"
       ],
       "widgets_values_named": {
@@ -355,22 +356,21 @@
         "negative_prompt": "pc game, console game, video game, cartoon, childish, ugly",
         "value_2": 6,
         "value_5": 16,
-        "include_audio": false,
         "value_3": "9:16 (Portrait Widescreen)",
         "value_4": 0.9,
         "resolution_multiple": 32,
+        "video_cfg": 1,
+        "include_audio": false,
+        "audio_cfg": 1,
         "noise_seed": 900359092894726,
         "randomize_seed": false,
-        "video_cfg": 1,
-        "audio_cfg": 1,
         "unet_name": "ltx-2.5-22b-distilled-transformer-comfy-int8-convrot.safetensors",
+        "clip_name": "gemma4-12b-with-proj-ltx-2.5-comfy-int8-convrot.safetensors",
         "vae_name": "ltx-2.5-video-vae-bf16.safetensors",
         "vae_name_1": "ltx-2.5-audio-vae-bf16.safetensors",
-        "clip_name": "gemma4-12b-with-proj-ltx-2.5-comfy-int8-convrot.safetensors",
-        "value_1": false,
         "model_name": "ltx-2.5-latent-spatial-upscaler-x2-bf16-1.0.safetensors",
-        "clip_name_1": "gemma4_e2b_it_int8_convrot.safetensors",
-        "▾  ESCENA / SALIDA": null
+        "value_1": false,
+        "clip_name_1": "gemma4_e2b_it_int8_convrot.safetensors"
       }
     },
     {
@@ -397,7 +397,7 @@
           ]
         }
       ],
-      "title": "PROMPT PRINCIPAL  ·  Movimiento y sonido",
+      "title": "Prompt positivo",
       "properties": {
         "Node name for S&R": "PrimitiveStringMultiline",
         "cnr_id": "comfy-core",
@@ -446,7 +446,7 @@
           ]
         }
       ],
-      "title": "PROMPT NEGATIVO  ·  Artefactos a evitar",
+      "title": "Prompt negativo",
       "properties": {
         "Node name for S&R": "PrimitiveStringMultiline",
         "cnr_id": "comfy-core",
@@ -533,7 +533,7 @@
         },
         "revision": 0,
         "config": {},
-        "name": "Image to Video (LTX-2.5)",
+        "name": "LTX-2.5 · Configuración",
         "inputNode": {
           "id": -10,
           "bounding": [
@@ -573,7 +573,7 @@
             "linkIds": [
               765
             ],
-            "label": "Prompt principal",
+            "label": "Prompt positivo",
             "pos": [
               -533.56,
               6405
@@ -612,23 +612,10 @@
             "linkIds": [
               776
             ],
-            "label": "Fotogramas por segundo",
+            "label": "FPS",
             "pos": [
               -533.56,
               6465
-            ]
-          },
-          {
-            "id": "a85f8d9b-b217-411d-953c-f00c3c1984a4",
-            "name": "include_audio",
-            "type": "BOOLEAN",
-            "linkIds": [
-              797
-            ],
-            "label": "Incluir audio",
-            "pos": [
-              -533.56,
-              6485
             ]
           },
           {
@@ -641,7 +628,7 @@
             "label": "Relación de aspecto",
             "pos": [
               -533.56,
-              6505
+              6485
             ]
           },
           {
@@ -654,7 +641,7 @@
             "label": "Resolución (MP)",
             "pos": [
               -533.56,
-              6525
+              6505
             ]
           },
           {
@@ -667,33 +654,7 @@
             "label": "Múltiplo de resolución",
             "pos": [
               -533.56,
-              6545
-            ]
-          },
-          {
-            "id": "7072a79b-5168-42ee-9088-e3f92ac07791",
-            "name": "noise_seed",
-            "type": "INT",
-            "linkIds": [
-              786
-            ],
-            "label": "Semilla",
-            "pos": [
-              -533.56,
-              6565
-            ]
-          },
-          {
-            "id": "511c093f-1d59-4b35-8392-4c6a34d16b43",
-            "name": "randomize_seed",
-            "type": "BOOLEAN",
-            "linkIds": [
-              787
-            ],
-            "label": "Aleatorizar semilla",
-            "pos": [
-              -533.56,
-              6585
+              6525
             ]
           },
           {
@@ -707,7 +668,20 @@
             "label": "CFG vídeo",
             "pos": [
               -533.56,
-              6605
+              6545
+            ]
+          },
+          {
+            "id": "a85f8d9b-b217-411d-953c-f00c3c1984a4",
+            "name": "include_audio",
+            "type": "BOOLEAN",
+            "linkIds": [
+              797
+            ],
+            "label": "Incluir audio",
+            "pos": [
+              -533.56,
+              6565
             ]
           },
           {
@@ -721,6 +695,32 @@
             "label": "CFG audio",
             "pos": [
               -533.56,
+              6585
+            ]
+          },
+          {
+            "id": "7072a79b-5168-42ee-9088-e3f92ac07791",
+            "name": "noise_seed",
+            "type": "INT",
+            "linkIds": [
+              786
+            ],
+            "label": "Semilla",
+            "pos": [
+              -533.56,
+              6605
+            ]
+          },
+          {
+            "id": "511c093f-1d59-4b35-8392-4c6a34d16b43",
+            "name": "randomize_seed",
+            "type": "BOOLEAN",
+            "linkIds": [
+              787
+            ],
+            "label": "Aleatorizar semilla",
+            "pos": [
+              -533.56,
               6625
             ]
           },
@@ -731,36 +731,10 @@
             "linkIds": [
               777
             ],
-            "label": "Transformer",
+            "label": "Modelo de vídeo",
             "pos": [
               -533.56,
               6645
-            ]
-          },
-          {
-            "id": "dd0f8943-da6e-4182-8265-efb74da42c33",
-            "name": "vae_name",
-            "type": "COMBO",
-            "linkIds": [
-              778
-            ],
-            "label": "VAE vídeo",
-            "pos": [
-              -533.56,
-              6665
-            ]
-          },
-          {
-            "id": "69b9a13b-ee5a-4525-abd9-281d4c257277",
-            "name": "vae_name_1",
-            "type": "COMBO",
-            "linkIds": [
-              779
-            ],
-            "label": "VAE audio",
-            "pos": [
-              -533.56,
-              6685
             ]
           },
           {
@@ -773,20 +747,33 @@
             "label": "Codificador de texto",
             "pos": [
               -533.56,
-              6705
+              6665
             ]
           },
           {
-            "id": "21c9d37e-1f04-47f8-b752-22667180790c",
-            "name": "value_1",
-            "type": "BOOLEAN",
+            "id": "dd0f8943-da6e-4182-8265-efb74da42c33",
+            "name": "vae_name",
+            "type": "COMBO",
             "linkIds": [
-              766
+              778
             ],
-            "label": "Activar mejora del prompt",
+            "label": "VAE vídeo",
             "pos": [
               -533.56,
-              6725
+              6685
+            ]
+          },
+          {
+            "id": "69b9a13b-ee5a-4525-abd9-281d4c257277",
+            "name": "vae_name_1",
+            "type": "COMBO",
+            "linkIds": [
+              779
+            ],
+            "label": "VAE audio",
+            "pos": [
+              -533.56,
+              6705
             ]
           },
           {
@@ -799,6 +786,19 @@
             "label": "Modelo de escalado",
             "pos": [
               -533.56,
+              6725
+            ]
+          },
+          {
+            "id": "21c9d37e-1f04-47f8-b752-22667180790c",
+            "name": "value_1",
+            "type": "BOOLEAN",
+            "linkIds": [
+              766
+            ],
+            "label": "Activar mejora del prompt",
+            "pos": [
+              -533.56,
               6745
             ]
           },
@@ -809,7 +809,7 @@
             "linkIds": [
               782
             ],
-            "label": "Modelo para mejorar prompt",
+            "label": "Modelo de mejora del prompt",
             "pos": [
               -533.56,
               6765
@@ -4878,7 +4878,7 @@
           {
             "id": 766,
             "origin_id": -10,
-            "origin_slot": 17,
+            "origin_slot": 18,
             "target_id": 383,
             "target_slot": 0,
             "type": "BOOLEAN"
@@ -4894,7 +4894,7 @@
           {
             "id": 768,
             "origin_id": -10,
-            "origin_slot": 6,
+            "origin_slot": 5,
             "target_id": 403,
             "target_slot": 0,
             "type": "COMBO"
@@ -4902,7 +4902,7 @@
           {
             "id": 769,
             "origin_id": -10,
-            "origin_slot": 7,
+            "origin_slot": 6,
             "target_id": 403,
             "target_slot": 1,
             "type": "FLOAT"
@@ -4966,7 +4966,7 @@
           {
             "id": 778,
             "origin_id": -10,
-            "origin_slot": 14,
+            "origin_slot": 15,
             "target_id": 385,
             "target_slot": 0,
             "type": "COMBO"
@@ -4974,7 +4974,7 @@
           {
             "id": 779,
             "origin_id": -10,
-            "origin_slot": 15,
+            "origin_slot": 16,
             "target_id": 386,
             "target_slot": 0,
             "type": "COMBO"
@@ -4982,7 +4982,7 @@
           {
             "id": 780,
             "origin_id": -10,
-            "origin_slot": 16,
+            "origin_slot": 14,
             "target_id": 387,
             "target_slot": 0,
             "type": "COMBO"
@@ -4990,7 +4990,7 @@
           {
             "id": 781,
             "origin_id": -10,
-            "origin_slot": 18,
+            "origin_slot": 17,
             "target_id": 371,
             "target_slot": 0,
             "type": "COMBO"
@@ -5006,7 +5006,7 @@
           {
             "id": 785,
             "origin_id": -10,
-            "origin_slot": 8,
+            "origin_slot": 7,
             "target_id": 403,
             "target_slot": 2,
             "type": "INT"
@@ -5014,7 +5014,7 @@
           {
             "id": 786,
             "origin_id": -10,
-            "origin_slot": 9,
+            "origin_slot": 11,
             "target_id": 405,
             "target_slot": 0,
             "type": "INT"
@@ -5022,7 +5022,7 @@
           {
             "id": 787,
             "origin_id": -10,
-            "origin_slot": 10,
+            "origin_slot": 12,
             "target_id": 407,
             "target_slot": 0,
             "type": "BOOLEAN"
@@ -5102,7 +5102,7 @@
           {
             "id": 797,
             "origin_id": -10,
-            "origin_slot": 5,
+            "origin_slot": 9,
             "target_id": 409,
             "target_slot": 0,
             "type": "BOOLEAN"
@@ -5126,7 +5126,7 @@
           {
             "id": 802,
             "origin_id": -10,
-            "origin_slot": 11,
+            "origin_slot": 8,
             "target_id": 388,
             "target_slot": 3,
             "type": "FLOAT"
@@ -5134,7 +5134,7 @@
           {
             "id": 803,
             "origin_id": -10,
-            "origin_slot": 11,
+            "origin_slot": 8,
             "target_id": 391,
             "target_slot": 3,
             "type": "FLOAT"
@@ -5142,7 +5142,7 @@
           {
             "id": 804,
             "origin_id": -10,
-            "origin_slot": 12,
+            "origin_slot": 10,
             "target_id": 388,
             "target_slot": 4,
             "type": "FLOAT"
@@ -5150,7 +5150,7 @@
           {
             "id": 805,
             "origin_id": -10,
-            "origin_slot": 12,
+            "origin_slot": 10,
             "target_id": 391,
             "target_slot": 4,
             "type": "FLOAT"
