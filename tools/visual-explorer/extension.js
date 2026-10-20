@@ -2,6 +2,9 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const vscode = require('vscode');
+const {execFile} = require('node:child_process');
+const {promisify} = require('node:util');
+const run = promisify(execFile);
 
 const CATALOG = 'lib/development/experiences.json';
 const FLAGS = 'lib/development/visual_layers.dart';
@@ -223,9 +226,34 @@ async function activate(context) {
     if (node?.kind !== 'state') return;
     const found = readCatalog(root)
       .find(s=>s.id === node.screen.id)?.states.find(s=>s.id === node.state.id);
-    if (!found) throw new Error('Pantalla no disponible.');
-    const uri = vscode.Uri.file(path.join(root,found.source));
-    await vscode.window.showTextDocument(uri,{preview:true});
+    if (!found || node.screen.id !== 'auth') {
+      throw new Error('Esta pantalla aún no tiene previsualización.');
+    }
+    const sdk = process.env.ANDROID_HOME || process.env.ANDROID_SDK_ROOT ||
+      path.join(process.env.LOCALAPPDATA || '', 'Android', 'Sdk');
+    const adb = path.join(sdk, 'platform-tools', 'adb.exe');
+    if (!fs.existsSync(adb)) throw new Error('No se encuentra adb.exe.');
+
+    let running;
+    try {
+      const status = await run(adb,
+        ['-s', 'emulator-5554', 'shell', 'pidof', 'com.muondia.muondia'],
+        {timeout: 5000, windowsHide: true});
+      running = status.stdout.trim();
+    } catch {
+      throw new Error('Inicia Muondia en el emulador antes de abrir su pantalla.');
+    }
+    if (!/^\d+(\s+\d+)*$/.test(running)) {
+      throw new Error('Muondia no está ejecutándose.');
+    }
+    await run(adb, [
+      '-s', 'emulator-5554', 'shell', 'am', 'start',
+      '-n', 'com.muondia.muondia/.MainActivity',
+      '-a', 'com.muondia.muondia.DEV_OPEN_VISUAL',
+      '-f', '0x20000000',
+      '--es', 'experience', node.screen.id,
+      '--es', 'state', found.id,
+    ], {timeout: 8000, windowsHide: true});
   }
   const safe = action => async node => {
     try { await action(node); }
