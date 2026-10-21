@@ -1,19 +1,19 @@
 {
   "id": "d9ac44b0-2f2d-4a95-8dd2-44cd82200a80",
   "revision": 0,
-  "last_node_id": 13,
-  "last_link_id": 12,
+  "last_node_id": 2,
+  "last_link_id": 1,
   "nodes": [
     {
       "id": 1,
       "type": "LoadImage",
       "pos": [
         70,
-        390
+        170
       ],
       "size": [
-        430,
-        470
+        500,
+        590
       ],
       "flags": {},
       "order": 0,
@@ -24,9 +24,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            2,
-            4,
-            12
+            1
           ]
         },
         {
@@ -35,7 +33,7 @@
           "links": null
         }
       ],
-      "title": "01 · Cargar fotografía",
+      "title": "01 · CARGAR FOTO",
       "properties": {
         "Node name for S&R": "LoadImage",
         "cnr_id": "comfy-core"
@@ -50,115 +48,65 @@
     },
     {
       "id": 2,
-      "type": "UpscaleModelLoader",
+      "type": "7fa8c5a4-1bc2-4c7c-82cb-879c5dd09b30",
       "pos": [
-        590,
-        320
+        680,
+        240
       ],
       "size": [
-        420,
-        115
+        630,
+        500
       ],
       "flags": {},
       "order": 1,
       "mode": 0,
       "inputs": [
         {
+          "name": "image",
+          "type": "IMAGE",
+          "label": "Fotografía",
+          "link": 1
+        },
+        {
+          "name": "value",
+          "type": "INT",
+          "label": "Escala final × (2, 3, 4, 8)",
+          "widget": {
+            "name": "value"
+          },
+          "link": null
+        },
+        {
           "name": "model_name",
           "type": "COMBO",
+          "label": "Modelo fotográfico de mejora",
           "widget": {
             "name": "model_name"
           },
           "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "UPSCALE_MODEL",
-          "type": "UPSCALE_MODEL",
-          "links": [
-            1,
-            6
-          ]
-        }
-      ],
-      "title": "02 · Elegir modelo 4×",
-      "properties": {
-        "Node name for S&R": "UpscaleModelLoader",
-        "cnr_id": "comfy-core"
-      },
-      "widgets_values": [
-        "4xNomos2_hq_dat2.pth"
-      ],
-      "widgets_values_named": {
-        "model_name": "4xNomos2_hq_dat2.pth"
-      }
-    },
-    {
-      "id": 3,
-      "type": "ImageUpscaleWithModel",
-      "pos": [
-        1100,
-        370
-      ],
-      "size": [
-        350,
-        120
-      ],
-      "flags": {},
-      "order": 2,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "upscale_model",
-          "type": "UPSCALE_MODEL",
-          "link": 1
         },
         {
-          "name": "image",
-          "type": "IMAGE",
-          "link": 2
-        }
-      ],
-      "outputs": [
+          "name": "value_1",
+          "type": "BOOLEAN",
+          "label": "Aumentar resolución",
+          "widget": {
+            "name": "value_1"
+          },
+          "link": null
+        },
         {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            3
-          ]
-        }
-      ],
-      "title": "Ampliar fotografía 4×",
-      "properties": {
-        "Node name for S&R": "ImageUpscaleWithModel",
-        "cnr_id": "comfy-core"
-      },
-      "widgets_values": []
-    },
-    {
-      "id": 4,
-      "type": "SaveImage",
-      "pos": [
-        1540,
-        290
-      ],
-      "size": [
-        420,
-        520
-      ],
-      "flags": {},
-      "order": 3,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 3
+          "name": "value_2",
+          "type": "BOOLEAN",
+          "label": "Borrar fondo",
+          "widget": {
+            "name": "value_2"
+          },
+          "link": null
         },
         {
           "name": "filename_prefix",
           "type": "STRING",
+          "label": "Nombre y carpeta del PNG",
           "widget": {
             "name": "filename_prefix"
           },
@@ -167,488 +115,1021 @@
       ],
       "outputs": [
         {
-          "name": "images",
+          "name": "IMAGE",
           "type": "IMAGE",
-          "links": null
+          "links": []
         }
       ],
-      "title": "03 · Guardar PNG 4× · ACTIVO",
+      "title": "02 · IMAGE LAB · CONFIGURAR Y GUARDAR",
       "properties": {
-        "Node name for S&R": "SaveImage",
-        "cnr_id": "comfy-core"
-      },
-      "widgets_values": [
-        "image_lab/01_upscale_4x"
-      ],
-      "widgets_values_named": {
-        "filename_prefix": "image_lab/01_upscale_4x"
-      }
-    },
-    {
-      "id": 11,
-      "type": "LoadBackgroundRemovalModel",
-      "pos": [
-        580,
-        1080
-      ],
-      "size": [
-        400,
-        120
-      ],
-      "flags": {},
-      "order": 4,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "bg_removal_name",
-          "type": "COMBO",
-          "widget": {
-            "name": "bg_removal_name"
-          },
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "bg_model",
-          "type": "BACKGROUND_REMOVAL",
-          "links": [
-            9
-          ]
-        }
-      ],
-      "title": "Elegir modelo para quitar fondo",
-      "properties": {
-        "Node name for S&R": "LoadBackgroundRemovalModel",
         "cnr_id": "comfy-core",
-        "models": [
-          {
-            "name": "birefnet.safetensors",
-            "url": "https://huggingface.co/Comfy-Org/BiRefNet/resolve/main/background_removal/birefnet.safetensors",
-            "directory": "background_removal"
-          }
-        ]
+        "previewExposures": []
       },
       "widgets_values": [
-        "birefnet.safetensors"
+        4,
+        "4xNomos2_hq_dat2.pth",
+        true,
+        false,
+        "image_lab/resultado"
       ],
       "widgets_values_named": {
-        "bg_removal_name": "birefnet.safetensors"
+        "value": 4,
+        "model_name": "4xNomos2_hq_dat2.pth",
+        "value_1": true,
+        "value_2": false,
+        "filename_prefix": "image_lab/resultado"
       }
-    },
-    {
-      "id": 5,
-      "type": "RemoveBackground",
-      "pos": [
-        1080,
-        1060
-      ],
-      "size": [
-        365,
-        130
-      ],
-      "flags": {},
-      "order": 5,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "link": 4
-        },
-        {
-          "name": "bg_removal_model",
-          "type": "BACKGROUND_REMOVAL",
-          "link": 9
-        }
-      ],
-      "outputs": [
-        {
-          "name": "mask",
-          "type": "MASK",
-          "links": [
-            10
-          ]
-        }
-      ],
-      "title": "Quitar fondo · BiRefNet nativo",
-      "properties": {
-        "Node name for S&R": "RemoveBackground",
-        "cnr_id": "comfy-core"
-      }
-    },
-    {
-      "id": 12,
-      "type": "InvertMask",
-      "pos": [
-        1530,
-        1055
-      ],
-      "size": [
-        290,
-        90
-      ],
-      "flags": {},
-      "order": 6,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "mask",
-          "type": "MASK",
-          "link": 10
-        }
-      ],
-      "outputs": [
-        {
-          "name": "MASK",
-          "type": "MASK",
-          "links": [
-            11
-          ]
-        }
-      ],
-      "title": "Preparar máscara alfa",
-      "properties": {
-        "Node name for S&R": "InvertMask"
-      }
-    },
-    {
-      "id": 13,
-      "type": "JoinImageWithAlpha",
-      "pos": [
-        1880,
-        1060
-      ],
-      "size": [
-        310,
-        120
-      ],
-      "flags": {},
-      "order": 7,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "link": 12
-        },
-        {
-          "name": "alpha",
-          "type": "MASK",
-          "link": 11
-        }
-      ],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            5,
-            7
-          ]
-        }
-      ],
-      "title": "Crear PNG transparente",
-      "properties": {
-        "Node name for S&R": "JoinImageWithAlpha",
-        "cnr_id": "comfy-core"
-      }
-    },
-    {
-      "id": 6,
-      "type": "SaveImage",
-      "pos": [
-        2280,
-        910
-      ],
-      "size": [
-        420,
-        430
-      ],
-      "flags": {},
-      "order": 8,
-      "mode": 2,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 5
-        },
-        {
-          "name": "filename_prefix",
-          "type": "STRING",
-          "widget": {
-            "name": "filename_prefix"
-          },
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "links": null
-        }
-      ],
-      "title": "PNG sin fondo · DESACTIVADO",
-      "properties": {
-        "Node name for S&R": "SaveImage",
-        "cnr_id": "comfy-core"
-      },
-      "widgets_values": [
-        "image_lab/02_sin_fondo"
-      ],
-      "widgets_values_named": {
-        "filename_prefix": "image_lab/02_sin_fondo"
-      }
-    },
-    {
-      "id": 7,
-      "type": "ImageUpscaleWithModel",
-      "pos": [
-        2260,
-        1460
-      ],
-      "size": [
-        370,
-        120
-      ],
-      "flags": {},
-      "order": 9,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "upscale_model",
-          "type": "UPSCALE_MODEL",
-          "link": 6
-        },
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "link": 7
-        }
-      ],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            8
-          ]
-        }
-      ],
-      "title": "4× sobre PNG transparente",
-      "properties": {
-        "Node name for S&R": "ImageUpscaleWithModel",
-        "cnr_id": "comfy-core"
-      },
-      "widgets_values": []
-    },
-    {
-      "id": 8,
-      "type": "SaveImage",
-      "pos": [
-        2750,
-        1100
-      ],
-      "size": [
-        420,
-        440
-      ],
-      "flags": {},
-      "order": 10,
-      "mode": 2,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 8
-        },
-        {
-          "name": "filename_prefix",
-          "type": "STRING",
-          "widget": {
-            "name": "filename_prefix"
-          },
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "links": null
-        }
-      ],
-      "title": "PNG 4× + sin fondo · DESACTIVADO",
-      "properties": {
-        "Node name for S&R": "SaveImage",
-        "cnr_id": "comfy-core"
-      },
-      "widgets_values": [
-        "image_lab/03_upscale_sin_fondo"
-      ],
-      "widgets_values_named": {
-        "filename_prefix": "image_lab/03_upscale_sin_fondo"
-      }
-    },
-    {
-      "id": 9,
-      "type": "MarkdownNote",
-      "pos": [
-        70,
-        40
-      ],
-      "size": [
-        2740,
-        240
-      ],
-      "flags": {},
-      "order": 11,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [],
-      "title": "IMAGE LAB · Fotografía real · 4× + Fondo",
-      "properties": {
-        "Node name for S&R": "MarkdownNote",
-        "cnr_id": "comfy-core"
-      },
-      "widgets_values": [
-        "# IMAGE LAB · FOTOGRAFÍA REAL — 4× / QUITAR FONDO / AMBOS\n\n**MOTOR NATIVO DE COMFYUI.** No hace falta `ComfyUI-RMBG` ni ejecutar `pip`.\n\n1. **Upscale 4× (activo):** carga tu foto y elige un modelo de `models/upscale_models`; el botón Ejecutar guarda `image_lab/01_upscale_4x`.\n2. **Sin fondo:** pon «Guardar PNG sin fondo» en modo `Always` y desactiva los otros `SaveImage`.\n3. **Ambos:** activa solo «Guardar PNG 4× + sin fondo» y desactiva los otros. El escalador nativo conserva el canal alfa.\n\n**Para quitar fondo** necesitas descargar solo los pesos `birefnet.safetensors` (Comfy-Org/BiRefNet) a `ComfyUI/models/background_removal/`.\n**Si los nodos nativos de eliminación no aparecen**, no reinstales extensiones ni dependencias: avísame para comprobar tu versión concreta de ComfyUI.\n"
-      ]
-    },
-    {
-      "id": 10,
-      "type": "MarkdownNote",
-      "pos": [
-        70,
-        970
-      ],
-      "size": [
-        420,
-        445
-      ],
-      "flags": {},
-      "order": 12,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [],
-      "title": "USO · Tres operaciones",
-      "properties": {
-        "Node name for S&R": "MarkdownNote",
-        "cnr_id": "comfy-core"
-      },
-      "widgets_values": [
-        "**IMAGE LAB · SALIDAS PNG**\n\n• `SaveImage 4×` = salida principal (activa por defecto).\n• `SaveImage sin fondo` = solo recorte transparente.\n• `SaveImage 4× + sin fondo` = recorte transparente seguido de ampliación 4×.\n\nPara alternar: clic derecho sobre el nodo de guardado y selecciona **Mode → Always** o **Never** según corresponda. Solo debes activar una salida cada vez si no quieres procesar las demás.\n\n**Nodos de fondo usados:** `LoadBackgroundRemovalModel`, `RemoveBackground`, `InvertMask`, `JoinImageWithAlpha` (nativos ComfyUI). No uses la antigua extensión RMBG.\n"
-      ]
     }
   ],
   "links": [
     [
       1,
+      1,
+      0,
       2,
-      0,
-      3,
-      0,
-      "UPSCALE_MODEL"
-    ],
-    [
-      2,
-      1,
-      0,
-      3,
-      1,
-      "IMAGE"
-    ],
-    [
-      3,
-      3,
-      0,
-      4,
-      0,
-      "IMAGE"
-    ],
-    [
-      4,
-      1,
-      0,
-      5,
-      0,
-      "IMAGE"
-    ],
-    [
-      6,
-      2,
-      0,
-      7,
-      0,
-      "UPSCALE_MODEL"
-    ],
-    [
-      8,
-      7,
-      0,
-      8,
-      0,
-      "IMAGE"
-    ],
-    [
-      5,
-      13,
-      0,
-      6,
-      0,
-      "IMAGE"
-    ],
-    [
-      7,
-      13,
-      0,
-      7,
-      1,
-      "IMAGE"
-    ],
-    [
-      9,
-      11,
-      0,
-      5,
-      1,
-      "BACKGROUND_REMOVAL"
-    ],
-    [
-      10,
-      5,
-      0,
-      12,
-      0,
-      "MASK"
-    ],
-    [
-      11,
-      12,
-      0,
-      13,
-      1,
-      "MASK"
-    ],
-    [
-      12,
-      1,
-      0,
-      13,
       0,
       "IMAGE"
     ]
   ],
   "groups": [],
+  "definitions": {
+    "subgraphs": [
+      {
+        "id": "7fa8c5a4-1bc2-4c7c-82cb-879c5dd09b30",
+        "version": 1,
+        "state": {
+          "lastGroupId": 0,
+          "lastNodeId": 114,
+          "lastLinkId": 24,
+          "lastRerouteId": 0
+        },
+        "revision": 0,
+        "config": {},
+        "name": "IMAGE LAB · Configuración y PNG",
+        "description": "Aumento 2x/3x/4x/8x, borrado de fondo opcional con BiRefNet nativo y guardado PNG. Sin extensiones RMBG.",
+        "inputNode": {
+          "id": -10,
+          "bounding": [
+            0,
+            220,
+            180,
+            240
+          ]
+        },
+        "outputNode": {
+          "id": -20,
+          "bounding": [
+            4300,
+            870,
+            130,
+            70
+          ]
+        },
+        "inputs": [
+          {
+            "name": "image",
+            "type": "IMAGE",
+            "label": "Fotografía",
+            "id": "image-lab-img",
+            "linkIds": [
+              3,
+              6,
+              10
+            ],
+            "pos": [
+              80,
+              260
+            ]
+          },
+          {
+            "name": "value",
+            "type": "INT",
+            "label": "Escala final × (2, 3, 4, 8)",
+            "id": "image-lab-scale",
+            "linkIds": [
+              16
+            ],
+            "pos": [
+              80,
+              290
+            ]
+          },
+          {
+            "name": "model_name",
+            "type": "COMBO",
+            "label": "Modelo fotográfico de mejora",
+            "id": "image-lab-model",
+            "linkIds": [
+              13
+            ],
+            "pos": [
+              80,
+              320
+            ]
+          },
+          {
+            "name": "value_1",
+            "type": "BOOLEAN",
+            "label": "Aumentar resolución",
+            "id": "image-lab-enhance",
+            "linkIds": [
+              20
+            ],
+            "pos": [
+              80,
+              350
+            ]
+          },
+          {
+            "name": "value_2",
+            "type": "BOOLEAN",
+            "label": "Borrar fondo",
+            "id": "image-lab-remove",
+            "linkIds": [
+              8
+            ],
+            "pos": [
+              80,
+              380
+            ]
+          },
+          {
+            "name": "filename_prefix",
+            "type": "STRING",
+            "label": "Nombre y carpeta del PNG",
+            "id": "image-lab-output-name",
+            "linkIds": [
+              24
+            ],
+            "pos": [
+              80,
+              410
+            ]
+          }
+        ],
+        "outputs": [
+          {
+            "id": "image-lab-result",
+            "name": "IMAGE",
+            "type": "IMAGE",
+            "linkIds": [
+              23
+            ],
+            "label": "Resultado",
+            "pos": [
+              4340,
+              900
+            ]
+          }
+        ],
+        "widgets": [],
+        "nodes": [
+          {
+            "id": 101,
+            "type": "LoadBackgroundRemovalModel",
+            "pos": [
+              250,
+              1080
+            ],
+            "size": [
+              350,
+              110
+            ],
+            "flags": {},
+            "order": 0,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "bg_removal_name",
+                "type": "COMBO",
+                "widget": {
+                  "name": "bg_removal_name"
+                },
+                "link": null
+              }
+            ],
+            "outputs": [
+              {
+                "name": "bg_model",
+                "type": "BACKGROUND_REMOVAL",
+                "links": [
+                  2
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "LoadBackgroundRemovalModel",
+              "cnr_id": "comfy-core",
+              "models": [
+                {
+                  "name": "birefnet.safetensors",
+                  "url": "https://huggingface.co/Comfy-Org/BiRefNet/resolve/main/background_removal/birefnet.safetensors",
+                  "directory": "background_removal"
+                }
+              ]
+            },
+            "widgets_values": [
+              "birefnet.safetensors"
+            ],
+            "title": "Borrar fondo · Modelo BiRefNet"
+          },
+          {
+            "id": 102,
+            "type": "RemoveBackground",
+            "pos": [
+              740,
+              1080
+            ],
+            "size": [
+              330,
+              110
+            ],
+            "flags": {},
+            "order": 1,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "bg_removal_model",
+                "type": "BACKGROUND_REMOVAL",
+                "link": 2
+              },
+              {
+                "name": "image",
+                "type": "IMAGE",
+                "link": 3
+              }
+            ],
+            "outputs": [
+              {
+                "name": "mask",
+                "type": "MASK",
+                "links": [
+                  4
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "RemoveBackground",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [],
+            "title": "Obtener máscara"
+          },
+          {
+            "id": 103,
+            "type": "InvertMask",
+            "pos": [
+              1110,
+              1150
+            ],
+            "size": [
+              300,
+              100
+            ],
+            "flags": {},
+            "order": 2,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "mask",
+                "type": "MASK",
+                "link": 4
+              }
+            ],
+            "outputs": [
+              {
+                "name": "MASK",
+                "type": "MASK",
+                "links": [
+                  5
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "InvertMask",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [],
+            "title": "Invertir máscara de fondo"
+          },
+          {
+            "id": 104,
+            "type": "JoinImageWithAlpha",
+            "pos": [
+              1450,
+              1100
+            ],
+            "size": [
+              350,
+              105
+            ],
+            "flags": {},
+            "order": 3,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "image",
+                "type": "IMAGE",
+                "link": 6
+              },
+              {
+                "name": "alpha",
+                "type": "MASK",
+                "link": 5
+              }
+            ],
+            "outputs": [
+              {
+                "name": "IMAGE",
+                "type": "IMAGE",
+                "links": [
+                  7
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "JoinImageWithAlpha",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [],
+            "title": "Aplicar transparencia"
+          },
+          {
+            "id": 105,
+            "type": "PrimitiveBoolean",
+            "pos": [
+              720,
+              780
+            ],
+            "size": [
+              250,
+              85
+            ],
+            "flags": {},
+            "order": 4,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "value",
+                "type": "BOOLEAN",
+                "widget": {
+                  "name": "value"
+                },
+                "link": 8
+              }
+            ],
+            "outputs": [
+              {
+                "name": "BOOLEAN",
+                "type": "BOOLEAN",
+                "links": [
+                  9
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "PrimitiveBoolean",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              false
+            ],
+            "title": "Eliminar fondo (activar/desactivar)"
+          },
+          {
+            "id": 106,
+            "type": "ComfySwitchNode",
+            "pos": [
+              1870,
+              1000
+            ],
+            "size": [
+              360,
+              150
+            ],
+            "flags": {},
+            "order": 5,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "on_false",
+                "type": "*",
+                "link": 10
+              },
+              {
+                "name": "on_true",
+                "type": "*",
+                "link": 7
+              },
+              {
+                "name": "switch",
+                "type": "BOOLEAN",
+                "widget": {
+                  "name": "switch"
+                },
+                "link": 9
+              }
+            ],
+            "outputs": [
+              {
+                "name": "output",
+                "type": "*",
+                "links": [
+                  11,
+                  12
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ComfySwitchNode",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              false
+            ],
+            "title": "Fondo: original / transparente"
+          },
+          {
+            "id": 107,
+            "type": "UpscaleModelLoader",
+            "pos": [
+              250,
+              330
+            ],
+            "size": [
+              345,
+              110
+            ],
+            "flags": {},
+            "order": 6,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "model_name",
+                "type": "COMBO",
+                "widget": {
+                  "name": "model_name"
+                },
+                "link": 13
+              }
+            ],
+            "outputs": [
+              {
+                "name": "UPSCALE_MODEL",
+                "type": "UPSCALE_MODEL",
+                "links": [
+                  14
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "UpscaleModelLoader",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              "4xNomos2_hq_dat2.pth"
+            ],
+            "title": "Modelo 4× de fotografía"
+          },
+          {
+            "id": 108,
+            "type": "ImageUpscaleWithModel",
+            "pos": [
+              2300,
+              440
+            ],
+            "size": [
+              370,
+              115
+            ],
+            "flags": {},
+            "order": 7,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "upscale_model",
+                "type": "UPSCALE_MODEL",
+                "link": 14
+              },
+              {
+                "name": "image",
+                "type": "IMAGE",
+                "link": 11
+              }
+            ],
+            "outputs": [
+              {
+                "name": "IMAGE",
+                "type": "IMAGE",
+                "links": [
+                  15
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ImageUpscaleWithModel",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [],
+            "title": "Ampliación AI 4×"
+          },
+          {
+            "id": 109,
+            "type": "PrimitiveInt",
+            "pos": [
+              710,
+              280
+            ],
+            "size": [
+              310,
+              95
+            ],
+            "flags": {},
+            "order": 8,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "value",
+                "type": "INT",
+                "widget": {
+                  "name": "value"
+                },
+                "link": 16
+              }
+            ],
+            "outputs": [
+              {
+                "name": "INT",
+                "type": "INT",
+                "links": [
+                  17
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "PrimitiveInt",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              4,
+              "fixed"
+            ],
+            "title": "Escala final: 2 / 3 / 4 / 8"
+          },
+          {
+            "id": 110,
+            "type": "ComfyMathExpression",
+            "pos": [
+              1080,
+              270
+            ],
+            "size": [
+              390,
+              160
+            ],
+            "flags": {},
+            "order": 9,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "values.a",
+                "type": "FLOAT,INT",
+                "link": 17,
+                "label": "a"
+              },
+              {
+                "name": "expression",
+                "type": "STRING",
+                "widget": {
+                  "name": "expression"
+                },
+                "link": null
+              }
+            ],
+            "outputs": [
+              {
+                "name": "FLOAT",
+                "type": "FLOAT",
+                "links": [
+                  18
+                ]
+              },
+              {
+                "name": "INT",
+                "type": "INT",
+                "links": []
+              },
+              {
+                "name": "BOOL",
+                "type": "BOOLEAN",
+                "links": []
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ComfyMathExpression",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              "max(0.01, a / 4.0)"
+            ],
+            "title": "Escala relativa al modelo 4×"
+          },
+          {
+            "id": 111,
+            "type": "ImageScaleBy",
+            "pos": [
+              2750,
+              380
+            ],
+            "size": [
+              370,
+              140
+            ],
+            "flags": {},
+            "order": 10,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "image",
+                "type": "IMAGE",
+                "link": 15
+              },
+              {
+                "name": "upscale_method",
+                "type": "COMBO",
+                "widget": {
+                  "name": "upscale_method"
+                },
+                "link": null
+              },
+              {
+                "name": "scale_by",
+                "type": "FLOAT",
+                "widget": {
+                  "name": "scale_by"
+                },
+                "link": 18
+              }
+            ],
+            "outputs": [
+              {
+                "name": "IMAGE",
+                "type": "IMAGE",
+                "links": [
+                  19
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ImageScaleBy",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              "lanczos",
+              1
+            ],
+            "title": "Tamaño final configurable"
+          },
+          {
+            "id": 112,
+            "type": "PrimitiveBoolean",
+            "pos": [
+              1120,
+              600
+            ],
+            "size": [
+              310,
+              80
+            ],
+            "flags": {},
+            "order": 11,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "value",
+                "type": "BOOLEAN",
+                "widget": {
+                  "name": "value"
+                },
+                "link": 20
+              }
+            ],
+            "outputs": [
+              {
+                "name": "BOOLEAN",
+                "type": "BOOLEAN",
+                "links": [
+                  21
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "PrimitiveBoolean",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              true
+            ],
+            "title": "Aumentar resolución (activar/desactivar)"
+          },
+          {
+            "id": 113,
+            "type": "ComfySwitchNode",
+            "pos": [
+              3180,
+              760
+            ],
+            "size": [
+              420,
+              130
+            ],
+            "flags": {},
+            "order": 12,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "on_false",
+                "type": "*",
+                "link": 12
+              },
+              {
+                "name": "on_true",
+                "type": "*",
+                "link": 19
+              },
+              {
+                "name": "switch",
+                "type": "BOOLEAN",
+                "widget": {
+                  "name": "switch"
+                },
+                "link": 21
+              }
+            ],
+            "outputs": [
+              {
+                "name": "output",
+                "type": "*",
+                "links": [
+                  22,
+                  23
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ComfySwitchNode",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              true
+            ],
+            "title": "Elegir resolución: original o mejorada"
+          },
+          {
+            "id": 114,
+            "type": "SaveImage",
+            "pos": [
+              3660,
+              710
+            ],
+            "size": [
+              430,
+              410
+            ],
+            "flags": {},
+            "order": 13,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "images",
+                "type": "IMAGE",
+                "link": 22
+              },
+              {
+                "name": "filename_prefix",
+                "type": "STRING",
+                "widget": {
+                  "name": "filename_prefix"
+                },
+                "link": 24
+              }
+            ],
+            "outputs": [
+              {
+                "name": "images",
+                "type": "IMAGE",
+                "links": []
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "SaveImage",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              "image_lab/resultado"
+            ],
+            "title": "Guardar PNG · salida única"
+          }
+        ],
+        "groups": [],
+        "links": [
+          {
+            "id": 2,
+            "origin_id": 101,
+            "origin_slot": 0,
+            "target_id": 102,
+            "target_slot": 0,
+            "type": "BACKGROUND_REMOVAL"
+          },
+          {
+            "id": 3,
+            "origin_id": -10,
+            "origin_slot": 0,
+            "target_id": 102,
+            "target_slot": 1,
+            "type": "IMAGE"
+          },
+          {
+            "id": 4,
+            "origin_id": 102,
+            "origin_slot": 0,
+            "target_id": 103,
+            "target_slot": 0,
+            "type": "MASK"
+          },
+          {
+            "id": 5,
+            "origin_id": 103,
+            "origin_slot": 0,
+            "target_id": 104,
+            "target_slot": 1,
+            "type": "MASK"
+          },
+          {
+            "id": 6,
+            "origin_id": -10,
+            "origin_slot": 0,
+            "target_id": 104,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 7,
+            "origin_id": 104,
+            "origin_slot": 0,
+            "target_id": 106,
+            "target_slot": 1,
+            "type": "IMAGE"
+          },
+          {
+            "id": 8,
+            "origin_id": -10,
+            "origin_slot": 4,
+            "target_id": 105,
+            "target_slot": 0,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 9,
+            "origin_id": 105,
+            "origin_slot": 0,
+            "target_id": 106,
+            "target_slot": 2,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 10,
+            "origin_id": -10,
+            "origin_slot": 0,
+            "target_id": 106,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 11,
+            "origin_id": 106,
+            "origin_slot": 0,
+            "target_id": 108,
+            "target_slot": 1,
+            "type": "IMAGE"
+          },
+          {
+            "id": 12,
+            "origin_id": 106,
+            "origin_slot": 0,
+            "target_id": 113,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 13,
+            "origin_id": -10,
+            "origin_slot": 2,
+            "target_id": 107,
+            "target_slot": 0,
+            "type": "COMBO"
+          },
+          {
+            "id": 14,
+            "origin_id": 107,
+            "origin_slot": 0,
+            "target_id": 108,
+            "target_slot": 0,
+            "type": "UPSCALE_MODEL"
+          },
+          {
+            "id": 15,
+            "origin_id": 108,
+            "origin_slot": 0,
+            "target_id": 111,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 16,
+            "origin_id": -10,
+            "origin_slot": 1,
+            "target_id": 109,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 17,
+            "origin_id": 109,
+            "origin_slot": 0,
+            "target_id": 110,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 18,
+            "origin_id": 110,
+            "origin_slot": 0,
+            "target_id": 111,
+            "target_slot": 2,
+            "type": "FLOAT"
+          },
+          {
+            "id": 19,
+            "origin_id": 111,
+            "origin_slot": 0,
+            "target_id": 113,
+            "target_slot": 1,
+            "type": "IMAGE"
+          },
+          {
+            "id": 20,
+            "origin_id": -10,
+            "origin_slot": 3,
+            "target_id": 112,
+            "target_slot": 0,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 21,
+            "origin_id": 112,
+            "origin_slot": 0,
+            "target_id": 113,
+            "target_slot": 2,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 22,
+            "origin_id": 113,
+            "origin_slot": 0,
+            "target_id": 114,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 23,
+            "origin_id": 113,
+            "origin_slot": 0,
+            "target_id": -20,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 24,
+            "origin_id": -10,
+            "origin_slot": 5,
+            "target_id": 114,
+            "target_slot": 1,
+            "type": "STRING"
+          }
+        ],
+        "extra": {},
+        "category": "image/upscaling"
+      }
+    ]
+  },
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.78,
+      "scale": 0.85,
       "offset": [
-        160,
-        180
+        130,
+        120
       ]
     },
     "frontendVersion": "1.55.18"
