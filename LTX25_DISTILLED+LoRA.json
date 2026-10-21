@@ -713,8 +713,8 @@
         "version": 1,
         "state": {
           "lastGroupId": 28,
-          "lastNodeId": 458,
-          "lastLinkId": 903,
+          "lastNodeId": 461,
+          "lastLinkId": 908,
           "lastRerouteId": 0
         },
         "revision": 0,
@@ -1661,7 +1661,8 @@
                 "name": "INT",
                 "type": "INT",
                 "links": [
-                  715
+                  715,
+                  907
                 ]
               }
             ],
@@ -3350,7 +3351,8 @@
                 "type": "INT",
                 "links": [
                   717,
-                  718
+                  718,
+                  906
                 ]
               },
               {
@@ -4631,7 +4633,7 @@
                 "localized_name": "video",
                 "name": "video",
                 "type": "VIDEO",
-                "link": 810
+                "link": 904
               }
             ],
             "outputs": [
@@ -4640,7 +4642,7 @@
                 "name": "images",
                 "type": "IMAGE",
                 "links": [
-                  811
+                  905
                 ]
               },
               {
@@ -4675,7 +4677,7 @@
             "type": "CannyEdgePreprocessor",
             "title": "Union · Canny en CPU (OpenCV, por fotograma)",
             "pos": [
-              2740,
+              3070,
               5750
             ],
             "size": [
@@ -6621,7 +6623,7 @@
             "id": 458,
             "type": "ImageScaleToMaxDimension",
             "pos": [
-              2330,
+              2670,
               5750
             ],
             "size": [
@@ -6675,6 +6677,197 @@
             "widgets_values_named": {
               "upscale_method": "lanczos",
               "largest_size": 512
+            }
+          },
+          {
+            "id": 459,
+            "type": "Video Slice",
+            "pos": [
+              1690,
+              5750
+            ],
+            "size": [
+              290,
+              175
+            ],
+            "flags": {},
+            "order": 118,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "video",
+                "type": "VIDEO",
+                "link": 810
+              },
+              {
+                "name": "start_time",
+                "type": "FLOAT",
+                "widget": {
+                  "name": "start_time"
+                },
+                "link": null
+              },
+              {
+                "name": "duration",
+                "type": "FLOAT",
+                "widget": {
+                  "name": "duration"
+                },
+                "link": 908
+              },
+              {
+                "name": "strict_duration",
+                "type": "BOOLEAN",
+                "widget": {
+                  "name": "strict_duration"
+                },
+                "link": null
+              }
+            ],
+            "outputs": [
+              {
+                "name": "VIDEO",
+                "type": "VIDEO",
+                "links": [
+                  904
+                ]
+              }
+            ],
+            "title": "Union · Recortar a duración de generación",
+            "properties": {
+              "Node name for S&R": "Video Slice",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              0,
+              6,
+              false
+            ],
+            "widgets_values_named": {
+              "start_time": 0,
+              "duration": 6,
+              "strict_duration": false
+            }
+          },
+          {
+            "id": 460,
+            "type": "ComfyMathExpression",
+            "pos": [
+              1630,
+              5990
+            ],
+            "size": [
+              300,
+              94
+            ],
+            "flags": {},
+            "order": 119,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "values.a",
+                "type": "FLOAT,INT",
+                "label": "a",
+                "link": 907
+              },
+              {
+                "name": "expression",
+                "type": "STRING",
+                "widget": {
+                  "name": "expression"
+                },
+                "link": null
+              }
+            ],
+            "outputs": [
+              {
+                "name": "FLOAT",
+                "type": "FLOAT",
+                "links": [
+                  908
+                ]
+              },
+              {
+                "name": "INT",
+                "type": "INT",
+                "links": []
+              },
+              {
+                "name": "BOOL",
+                "type": "BOOLEAN",
+                "links": []
+              }
+            ],
+            "title": "Union · Duración s convertida a FLOAT",
+            "properties": {
+              "Node name for S&R": "ComfyMathExpression",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              "max(0.001, a * 1.0)"
+            ],
+            "widgets_values_named": {
+              "expression": "max(0.001, a * 1.0)"
+            }
+          },
+          {
+            "id": 461,
+            "type": "ImageFromBatch",
+            "pos": [
+              2310,
+              5750
+            ],
+            "size": [
+              300,
+              115
+            ],
+            "flags": {},
+            "order": 120,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "image",
+                "type": "IMAGE",
+                "link": 905
+              },
+              {
+                "name": "batch_index",
+                "type": "INT",
+                "widget": {
+                  "name": "batch_index"
+                },
+                "link": null
+              },
+              {
+                "name": "length",
+                "type": "INT",
+                "widget": {
+                  "name": "length"
+                },
+                "link": 906
+              }
+            ],
+            "outputs": [
+              {
+                "name": "IMAGE",
+                "type": "IMAGE",
+                "links": [
+                  811
+                ]
+              }
+            ],
+            "title": "Union · Máx. fotogramas = duración × FPS + 1",
+            "properties": {
+              "Node name for S&R": "ImageFromBatch",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              0,
+              97
+            ],
+            "widgets_values_named": {
+              "batch_index": 0,
+              "length": 97
             }
           }
         ],
@@ -7517,13 +7710,13 @@
             "id": 810,
             "origin_id": -10,
             "origin_slot": 2,
-            "target_id": 417,
+            "target_id": 459,
             "target_slot": 0,
             "type": "VIDEO"
           },
           {
             "id": 811,
-            "origin_id": 417,
+            "origin_id": 461,
             "origin_slot": 0,
             "target_id": 458,
             "target_slot": 0,
@@ -8216,6 +8409,46 @@
             "target_id": 458,
             "target_slot": 2,
             "type": "INT"
+          },
+          {
+            "id": 904,
+            "origin_id": 459,
+            "origin_slot": 0,
+            "target_id": 417,
+            "target_slot": 0,
+            "type": "VIDEO"
+          },
+          {
+            "id": 905,
+            "origin_id": 417,
+            "origin_slot": 0,
+            "target_id": 461,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 906,
+            "origin_id": 378,
+            "origin_slot": 1,
+            "target_id": 461,
+            "target_slot": 2,
+            "type": "INT"
+          },
+          {
+            "id": 907,
+            "origin_id": 362,
+            "origin_slot": 0,
+            "target_id": 460,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 908,
+            "origin_id": 460,
+            "origin_slot": 0,
+            "target_id": 459,
+            "target_slot": 2,
+            "type": "FLOAT"
           }
         ],
         "extra": {}
