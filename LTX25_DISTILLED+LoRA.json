@@ -1,8 +1,8 @@
 {
   "id": "8758f3da-3006-49ff-9147-7a9a944326cc",
   "revision": 0,
-  "last_node_id": 414,
-  "last_link_id": 805,
+  "last_node_id": 417,
+  "last_link_id": 809,
   "nodes": [
     {
       "id": 395,
@@ -24,7 +24,8 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            764
+            764,
+            806
           ]
         },
         {
@@ -152,6 +153,18 @@
           "link": 800
         },
         {
+          "name": "union_video",
+          "label": "Vídeo Union",
+          "type": "VIDEO",
+          "link": 809
+        },
+        {
+          "name": "motion_tracks",
+          "label": "Trayectorias Motion",
+          "type": "STRING",
+          "link": 808
+        },
+        {
           "label": "Duración (s)",
           "name": "value_2",
           "type": "INT",
@@ -229,6 +242,33 @@
           "type": "BOOLEAN",
           "widget": {
             "name": "randomize_seed"
+          },
+          "link": null
+        },
+        {
+          "name": "control_mode",
+          "label": "Modo: 0 Original · 1 Motion · 2 Union",
+          "type": "INT",
+          "widget": {
+            "name": "control_mode"
+          },
+          "link": null
+        },
+        {
+          "name": "motion_strength",
+          "label": "Fuerza Motion",
+          "type": "FLOAT",
+          "widget": {
+            "name": "motion_strength"
+          },
+          "link": null
+        },
+        {
+          "name": "union_strength",
+          "label": "Fuerza Union",
+          "type": "FLOAT",
+          "widget": {
+            "name": "union_strength"
           },
           "link": null
         },
@@ -322,6 +362,9 @@
         900359092894726,
         42,
         false,
+        0,
+        1,
+        1,
         "ltx-2.5-22b-distilled-transformer-comfy-int8-convrot.safetensors",
         "gemma4-12b-with-proj-ltx-2.5-comfy-int8-convrot.safetensors",
         "ltx-2.5-video-vae-bf16.safetensors",
@@ -341,6 +384,9 @@
         "noise_seed": 900359092894726,
         "high_noise_seed": 42,
         "randomize_seed": false,
+        "control_mode": 0,
+        "motion_strength": 1,
+        "union_strength": 1,
         "unet_name": "ltx-2.5-22b-distilled-transformer-comfy-int8-convrot.safetensors",
         "clip_name": "gemma4-12b-with-proj-ltx-2.5-comfy-int8-convrot.safetensors",
         "vae_name": "ltx-2.5-video-vae-bf16.safetensors",
@@ -398,6 +444,153 @@
       "widgets_values_named": {
         "value": "No music. No zoom."
       }
+    },
+    {
+      "id": 415,
+      "type": "ResizeImageMaskNode",
+      "pos": [
+        600,
+        820
+      ],
+      "size": [
+        350,
+        130
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "input",
+          "name": "input",
+          "type": "IMAGE,MASK",
+          "link": 806
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "resized",
+          "name": "resized",
+          "type": "IMAGE,MASK",
+          "links": [
+            807
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ResizeImageMaskNode",
+        "cnr_id": "comfy-core",
+        "ver": "0.7.0",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.7",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "scale longer dimension",
+        1536,
+        "lanczos"
+      ],
+      "widgets_values_named": {
+        "resize_type": "scale longer dimension",
+        "resize_type.longer_size": 1536,
+        "scale_method": "lanczos"
+      },
+      "title": "Imagen para Motion"
+    },
+    {
+      "id": 416,
+      "type": "LTXVSparseTrackEditor",
+      "pos": [
+        680,
+        1000
+      ],
+      "size": [
+        560,
+        420
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 807
+        },
+        {
+          "name": "points_to_sample",
+          "type": "INT",
+          "widget": {
+            "name": "points_to_sample"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "tracks",
+          "type": "STRING",
+          "links": [
+            808
+          ]
+        }
+      ],
+      "title": "EDITOR MOTION · DIBUJAR",
+      "properties": {
+        "Node name for S&R": "LTXVSparseTrackEditor"
+      },
+      "widgets_values": [
+        "[]",
+        "[]",
+        97,
+        ""
+      ]
+    },
+    {
+      "id": 417,
+      "type": "LoadVideo",
+      "pos": [
+        680,
+        1510
+      ],
+      "size": [
+        560,
+        370
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VIDEO",
+          "type": "VIDEO",
+          "links": [
+            809
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadVideo",
+        "cnr_id": "comfy-core",
+        "ver": "0.10.0"
+      },
+      "widgets_values": [
+        "",
+        "image"
+      ],
+      "color": "#232",
+      "bgcolor": "#353",
+      "title": "VÍDEO UNION · REFERENCIA"
     }
   ],
   "links": [
@@ -424,6 +617,38 @@
       75,
       0,
       "VIDEO"
+    ],
+    [
+      806,
+      395,
+      0,
+      415,
+      0,
+      "IMAGE"
+    ],
+    [
+      807,
+      415,
+      0,
+      416,
+      0,
+      "IMAGE"
+    ],
+    [
+      808,
+      416,
+      0,
+      398,
+      3,
+      "STRING"
+    ],
+    [
+      809,
+      417,
+      0,
+      398,
+      2,
+      "VIDEO"
     ]
   ],
   "groups": [],
@@ -434,8 +659,8 @@
         "version": 1,
         "state": {
           "lastGroupId": 28,
-          "lastNodeId": 414,
-          "lastLinkId": 805,
+          "lastNodeId": 418,
+          "lastLinkId": 811,
           "lastRerouteId": 0
         },
         "revision": 0,
@@ -447,7 +672,7 @@
             -693.3733595617866,
             6361.238266223688,
             183.814453125,
-            288
+            388
           ]
         },
         "outputNode": {
@@ -487,6 +712,32 @@
             ]
           },
           {
+            "id": "ltx-union_video",
+            "name": "union_video",
+            "label": "Vídeo Union",
+            "type": "VIDEO",
+            "linkIds": [
+              810
+            ],
+            "pos": [
+              -533.56,
+              6425
+            ]
+          },
+          {
+            "id": "ltx-motion_tracks",
+            "name": "motion_tracks",
+            "label": "Trayectorias Motion",
+            "type": "STRING",
+            "linkIds": [
+              807
+            ],
+            "pos": [
+              -533.56,
+              6445
+            ]
+          },
+          {
             "id": "00f26a0c-569d-4aa1-aa8a-281ad2f3c4e0",
             "name": "value_2",
             "type": "INT",
@@ -496,7 +747,7 @@
             "label": "Duración (s)",
             "pos": [
               -533.56,
-              6425
+              6465
             ]
           },
           {
@@ -509,7 +760,7 @@
             "label": "FPS",
             "pos": [
               -533.56,
-              6445
+              6485
             ]
           },
           {
@@ -522,7 +773,7 @@
             "label": "Relación de aspecto",
             "pos": [
               -533.56,
-              6465
+              6505
             ]
           },
           {
@@ -535,7 +786,7 @@
             "label": "Resolución (MP)",
             "pos": [
               -533.56,
-              6485
+              6525
             ]
           },
           {
@@ -548,7 +799,7 @@
             "label": "Múltiplo de resolución",
             "pos": [
               -533.56,
-              6505
+              6545
             ]
           },
           {
@@ -561,7 +812,7 @@
             "label": "Activar audio",
             "pos": [
               -533.56,
-              6525
+              6565
             ]
           },
           {
@@ -574,7 +825,7 @@
             "label": "Semilla Low-res",
             "pos": [
               -533.56,
-              6545
+              6585
             ]
           },
           {
@@ -587,7 +838,7 @@
             "label": "Semilla High-res",
             "pos": [
               -533.56,
-              6565
+              6605
             ]
           },
           {
@@ -600,7 +851,40 @@
             "label": "Aleatorizar Low-res",
             "pos": [
               -533.56,
-              6585
+              6625
+            ]
+          },
+          {
+            "id": "ltx-control_mode",
+            "name": "control_mode",
+            "label": "Modo: 0 Original · 1 Motion · 2 Union",
+            "type": "INT",
+            "linkIds": [],
+            "pos": [
+              -533.56,
+              6645
+            ]
+          },
+          {
+            "id": "ltx-motion_strength",
+            "name": "motion_strength",
+            "label": "Fuerza Motion",
+            "type": "FLOAT",
+            "linkIds": [],
+            "pos": [
+              -533.56,
+              6665
+            ]
+          },
+          {
+            "id": "ltx-union_strength",
+            "name": "union_strength",
+            "label": "Fuerza Union",
+            "type": "FLOAT",
+            "linkIds": [],
+            "pos": [
+              -533.56,
+              6685
             ]
           },
           {
@@ -613,7 +897,7 @@
             "label": "Modelo de vídeo",
             "pos": [
               -533.56,
-              6605
+              6705
             ]
           },
           {
@@ -626,7 +910,7 @@
             "label": "Codificador de texto",
             "pos": [
               -533.56,
-              6625
+              6725
             ]
           },
           {
@@ -639,7 +923,7 @@
             "label": "VAE vídeo",
             "pos": [
               -533.56,
-              6645
+              6745
             ]
           },
           {
@@ -652,7 +936,7 @@
             "label": "VAE audio",
             "pos": [
               -533.56,
-              6665
+              6765
             ]
           },
           {
@@ -665,7 +949,7 @@
             "label": "Modelo de escalado",
             "pos": [
               -533.56,
-              6685
+              6785
             ]
           },
           {
@@ -678,7 +962,7 @@
             "label": "Modelo de mejora del prompt",
             "pos": [
               -533.56,
-              6705
+              6805
             ]
           },
           {
@@ -691,7 +975,7 @@
             "label": "Activar mejora del prompt",
             "pos": [
               -533.56,
-              6725
+              6825
             ]
           }
         ],
@@ -2567,7 +2851,8 @@
                 "links": [
                   681,
                   691,
-                  757
+                  757,
+                  806
                 ]
               }
             ],
@@ -4095,6 +4380,240 @@
             "widgets_values_named": {
               "switch": true
             }
+          },
+          {
+            "id": 415,
+            "type": "GetImageSize",
+            "pos": [
+              2000,
+              5330
+            ],
+            "size": [
+              270.1809911778764,
+              124
+            ],
+            "flags": {},
+            "order": 54,
+            "mode": 0,
+            "inputs": [
+              {
+                "localized_name": "image",
+                "name": "image",
+                "type": "IMAGE",
+                "link": 806
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "width",
+                "name": "width",
+                "type": "INT",
+                "links": [
+                  808
+                ]
+              },
+              {
+                "localized_name": "height",
+                "name": "height",
+                "type": "INT",
+                "links": [
+                  809
+                ]
+              },
+              {
+                "localized_name": "batch_size",
+                "name": "batch_size",
+                "type": "INT",
+                "links": []
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "GetImageSize"
+            },
+            "widgets_values": [],
+            "title": "Tamaño imagen Motion"
+          },
+          {
+            "id": 416,
+            "type": "LTXVDrawTracks",
+            "pos": [
+              2340,
+              5330
+            ],
+            "size": [
+              306,
+              136
+            ],
+            "flags": {},
+            "order": 55,
+            "mode": 0,
+            "inputs": [
+              {
+                "localized_name": "tracks",
+                "name": "tracks",
+                "type": "STRING",
+                "widget": {
+                  "name": "tracks"
+                },
+                "link": 807
+              },
+              {
+                "localized_name": "width",
+                "name": "width",
+                "type": "INT",
+                "widget": {
+                  "name": "width"
+                },
+                "link": 808
+              },
+              {
+                "localized_name": "height",
+                "name": "height",
+                "type": "INT",
+                "widget": {
+                  "name": "height"
+                },
+                "link": 809
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "IMAGE",
+                "name": "IMAGE",
+                "type": "IMAGE",
+                "links": []
+              }
+            ],
+            "title": "Dibujar trayectorias",
+            "properties": {
+              "Node name for S&R": "LTXVDrawTracks"
+            },
+            "widgets_values": [
+              "",
+              512,
+              512
+            ],
+            "widgets_values_named": {
+              "tracks": "",
+              "width": 512,
+              "height": 512
+            }
+          },
+          {
+            "id": 417,
+            "type": "GetVideoComponents",
+            "pos": [
+              2000,
+              5750
+            ],
+            "size": [
+              266.4771484375,
+              90
+            ],
+            "flags": {},
+            "order": 56,
+            "mode": 0,
+            "inputs": [
+              {
+                "localized_name": "video",
+                "name": "video",
+                "type": "VIDEO",
+                "link": 810
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "images",
+                "name": "images",
+                "type": "IMAGE",
+                "links": [
+                  811
+                ]
+              },
+              {
+                "localized_name": "audio",
+                "name": "audio",
+                "type": "AUDIO",
+                "links": []
+              },
+              {
+                "localized_name": "fps",
+                "name": "fps",
+                "type": "FLOAT",
+                "links": []
+              },
+              {
+                "localized_name": "bit_depth",
+                "name": "bit_depth",
+                "type": "INT",
+                "links": []
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "GetVideoComponents",
+              "cnr_id": "comfy-core",
+              "ver": "0.3.75"
+            },
+            "widgets_values": [],
+            "title": "Extraer vídeo Union"
+          },
+          {
+            "id": 418,
+            "type": "Canny",
+            "title": "Union · Bordes Canny",
+            "pos": [
+              2340,
+              5750
+            ],
+            "size": [
+              300,
+              110
+            ],
+            "flags": {},
+            "order": 57,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "image",
+                "type": "IMAGE",
+                "link": 811
+              },
+              {
+                "name": "low_threshold",
+                "type": "FLOAT",
+                "widget": {
+                  "name": "low_threshold"
+                },
+                "link": null
+              },
+              {
+                "name": "high_threshold",
+                "type": "FLOAT",
+                "widget": {
+                  "name": "high_threshold"
+                },
+                "link": null
+              }
+            ],
+            "outputs": [
+              {
+                "name": "IMAGE",
+                "type": "IMAGE",
+                "links": []
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "Canny",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              0.4,
+              0.8
+            ],
+            "widgets_values_named": {
+              "low_threshold": 0.4,
+              "high_threshold": 0.8
+            }
           }
         ],
         "groups": [
@@ -4631,7 +5150,7 @@
           {
             "id": 766,
             "origin_id": -10,
-            "origin_slot": 17,
+            "origin_slot": 22,
             "target_id": 383,
             "target_slot": 0,
             "type": "BOOLEAN"
@@ -4639,7 +5158,7 @@
           {
             "id": 767,
             "origin_id": -10,
-            "origin_slot": 2,
+            "origin_slot": 4,
             "target_id": 362,
             "target_slot": 0,
             "type": "INT"
@@ -4647,7 +5166,7 @@
           {
             "id": 768,
             "origin_id": -10,
-            "origin_slot": 4,
+            "origin_slot": 6,
             "target_id": 403,
             "target_slot": 0,
             "type": "COMBO"
@@ -4655,7 +5174,7 @@
           {
             "id": 769,
             "origin_id": -10,
-            "origin_slot": 5,
+            "origin_slot": 7,
             "target_id": 403,
             "target_slot": 1,
             "type": "FLOAT"
@@ -4703,7 +5222,7 @@
           {
             "id": 776,
             "origin_id": -10,
-            "origin_slot": 3,
+            "origin_slot": 5,
             "target_id": 361,
             "target_slot": 0,
             "type": "INT"
@@ -4711,7 +5230,7 @@
           {
             "id": 777,
             "origin_id": -10,
-            "origin_slot": 11,
+            "origin_slot": 16,
             "target_id": 384,
             "target_slot": 0,
             "type": "COMBO"
@@ -4719,7 +5238,7 @@
           {
             "id": 778,
             "origin_id": -10,
-            "origin_slot": 13,
+            "origin_slot": 18,
             "target_id": 385,
             "target_slot": 0,
             "type": "COMBO"
@@ -4727,7 +5246,7 @@
           {
             "id": 779,
             "origin_id": -10,
-            "origin_slot": 14,
+            "origin_slot": 19,
             "target_id": 386,
             "target_slot": 0,
             "type": "COMBO"
@@ -4735,7 +5254,7 @@
           {
             "id": 780,
             "origin_id": -10,
-            "origin_slot": 12,
+            "origin_slot": 17,
             "target_id": 387,
             "target_slot": 0,
             "type": "COMBO"
@@ -4743,7 +5262,7 @@
           {
             "id": 781,
             "origin_id": -10,
-            "origin_slot": 15,
+            "origin_slot": 20,
             "target_id": 371,
             "target_slot": 0,
             "type": "COMBO"
@@ -4751,7 +5270,7 @@
           {
             "id": 782,
             "origin_id": -10,
-            "origin_slot": 16,
+            "origin_slot": 21,
             "target_id": 393,
             "target_slot": 0,
             "type": "COMBO"
@@ -4759,7 +5278,7 @@
           {
             "id": 785,
             "origin_id": -10,
-            "origin_slot": 6,
+            "origin_slot": 8,
             "target_id": 403,
             "target_slot": 2,
             "type": "INT"
@@ -4767,7 +5286,7 @@
           {
             "id": 786,
             "origin_id": -10,
-            "origin_slot": 8,
+            "origin_slot": 10,
             "target_id": 405,
             "target_slot": 0,
             "type": "INT"
@@ -4775,7 +5294,7 @@
           {
             "id": 787,
             "origin_id": -10,
-            "origin_slot": 10,
+            "origin_slot": 12,
             "target_id": 407,
             "target_slot": 0,
             "type": "BOOLEAN"
@@ -4855,7 +5374,7 @@
           {
             "id": 797,
             "origin_id": -10,
-            "origin_slot": 7,
+            "origin_slot": 9,
             "target_id": 409,
             "target_slot": 0,
             "type": "BOOLEAN"
@@ -4951,10 +5470,58 @@
           {
             "id": 798,
             "origin_id": -10,
-            "origin_slot": 9,
+            "origin_slot": 11,
             "target_id": 338,
             "target_slot": 0,
             "type": "INT"
+          },
+          {
+            "id": 806,
+            "origin_id": 350,
+            "origin_slot": 0,
+            "target_id": 415,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 807,
+            "origin_id": -10,
+            "origin_slot": 3,
+            "target_id": 416,
+            "target_slot": 0,
+            "type": "STRING"
+          },
+          {
+            "id": 808,
+            "origin_id": 415,
+            "origin_slot": 0,
+            "target_id": 416,
+            "target_slot": 1,
+            "type": "INT"
+          },
+          {
+            "id": 809,
+            "origin_id": 415,
+            "origin_slot": 1,
+            "target_id": 416,
+            "target_slot": 2,
+            "type": "INT"
+          },
+          {
+            "id": 810,
+            "origin_id": -10,
+            "origin_slot": 2,
+            "target_id": 417,
+            "target_slot": 0,
+            "type": "VIDEO"
+          },
+          {
+            "id": 811,
+            "origin_id": 417,
+            "origin_slot": 0,
+            "target_id": 418,
+            "target_slot": 0,
+            "type": "IMAGE"
           }
         ],
         "extra": {}
