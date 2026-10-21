@@ -206,7 +206,7 @@
           "link": null
         },
         {
-          "label": "Semilla",
+          "label": "Semilla Low-res",
           "name": "noise_seed",
           "type": "INT",
           "widget": {
@@ -215,7 +215,16 @@
           "link": null
         },
         {
-          "label": "Aleatorizar semilla",
+          "label": "Semilla High-res",
+          "name": "high_noise_seed",
+          "type": "INT",
+          "widget": {
+            "name": "high_noise_seed"
+          },
+          "link": null
+        },
+        {
+          "label": "Aleatorizar Low-res",
           "name": "randomize_seed",
           "type": "BOOLEAN",
           "widget": {
@@ -311,6 +320,7 @@
         32,
         false,
         900359092894726,
+        42,
         false,
         "ltx-2.5-22b-distilled-transformer-comfy-int8-convrot.safetensors",
         "gemma4-12b-with-proj-ltx-2.5-comfy-int8-convrot.safetensors",
@@ -329,6 +339,7 @@
         "resolution_multiple": 32,
         "include_audio": false,
         "noise_seed": 900359092894726,
+        "high_noise_seed": 42,
         "randomize_seed": false,
         "unet_name": "ltx-2.5-22b-distilled-transformer-comfy-int8-convrot.safetensors",
         "clip_name": "gemma4-12b-with-proj-ltx-2.5-comfy-int8-convrot.safetensors",
@@ -436,7 +447,7 @@
             -693.3733595617866,
             6361.238266223688,
             183.814453125,
-            268
+            288
           ]
         },
         "outputNode": {
@@ -560,10 +571,23 @@
             "linkIds": [
               786
             ],
-            "label": "Semilla",
+            "label": "Semilla Low-res",
             "pos": [
               -533.56,
               6545
+            ]
+          },
+          {
+            "id": "eb5d8e6c-1c09-4c7a-afb0-d58a182f60b1",
+            "name": "high_noise_seed",
+            "type": "INT",
+            "linkIds": [
+              798
+            ],
+            "label": "Semilla High-res",
+            "pos": [
+              -533.56,
+              6565
             ]
           },
           {
@@ -573,10 +597,10 @@
             "linkIds": [
               787
             ],
-            "label": "Aleatorizar semilla",
+            "label": "Aleatorizar Low-res",
             "pos": [
               -533.56,
-              6565
+              6585
             ]
           },
           {
@@ -589,7 +613,7 @@
             "label": "Modelo de vídeo",
             "pos": [
               -533.56,
-              6585
+              6605
             ]
           },
           {
@@ -602,7 +626,7 @@
             "label": "Codificador de texto",
             "pos": [
               -533.56,
-              6605
+              6625
             ]
           },
           {
@@ -615,7 +639,7 @@
             "label": "VAE vídeo",
             "pos": [
               -533.56,
-              6625
+              6645
             ]
           },
           {
@@ -628,7 +652,7 @@
             "label": "VAE audio",
             "pos": [
               -533.56,
-              6645
+              6665
             ]
           },
           {
@@ -641,7 +665,7 @@
             "label": "Modelo de escalado",
             "pos": [
               -533.56,
-              6665
+              6685
             ]
           },
           {
@@ -654,7 +678,7 @@
             "label": "Modelo de mejora del prompt",
             "pos": [
               -533.56,
-              6685
+              6705
             ]
           },
           {
@@ -667,7 +691,7 @@
             "label": "Activar mejora del prompt",
             "pos": [
               -533.56,
-              6705
+              6725
             ]
           }
         ],
@@ -2979,7 +3003,16 @@
             "flags": {},
             "order": 3,
             "mode": 0,
-            "inputs": [],
+            "inputs": [
+              {
+                "name": "noise_seed",
+                "type": "INT",
+                "widget": {
+                  "name": "noise_seed"
+                },
+                "link": 798
+              }
+            ],
             "outputs": [
               {
                 "localized_name": "RUIDO",
@@ -4598,7 +4631,7 @@
           {
             "id": 766,
             "origin_id": -10,
-            "origin_slot": 16,
+            "origin_slot": 17,
             "target_id": 383,
             "target_slot": 0,
             "type": "BOOLEAN"
@@ -4678,7 +4711,7 @@
           {
             "id": 777,
             "origin_id": -10,
-            "origin_slot": 10,
+            "origin_slot": 11,
             "target_id": 384,
             "target_slot": 0,
             "type": "COMBO"
@@ -4686,7 +4719,7 @@
           {
             "id": 778,
             "origin_id": -10,
-            "origin_slot": 12,
+            "origin_slot": 13,
             "target_id": 385,
             "target_slot": 0,
             "type": "COMBO"
@@ -4694,7 +4727,7 @@
           {
             "id": 779,
             "origin_id": -10,
-            "origin_slot": 13,
+            "origin_slot": 14,
             "target_id": 386,
             "target_slot": 0,
             "type": "COMBO"
@@ -4702,7 +4735,7 @@
           {
             "id": 780,
             "origin_id": -10,
-            "origin_slot": 11,
+            "origin_slot": 12,
             "target_id": 387,
             "target_slot": 0,
             "type": "COMBO"
@@ -4710,7 +4743,7 @@
           {
             "id": 781,
             "origin_id": -10,
-            "origin_slot": 14,
+            "origin_slot": 15,
             "target_id": 371,
             "target_slot": 0,
             "type": "COMBO"
@@ -4718,7 +4751,7 @@
           {
             "id": 782,
             "origin_id": -10,
-            "origin_slot": 15,
+            "origin_slot": 16,
             "target_id": 393,
             "target_slot": 0,
             "type": "COMBO"
@@ -4742,7 +4775,7 @@
           {
             "id": 787,
             "origin_id": -10,
-            "origin_slot": 9,
+            "origin_slot": 10,
             "target_id": 407,
             "target_slot": 0,
             "type": "BOOLEAN"
@@ -4913,6 +4946,14 @@
             "origin_slot": 0,
             "target_id": 378,
             "target_slot": 1,
+            "type": "INT"
+          },
+          {
+            "id": 798,
+            "origin_id": -10,
+            "origin_slot": 9,
+            "target_id": 338,
+            "target_slot": 0,
             "type": "INT"
           }
         ],
