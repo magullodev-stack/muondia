@@ -143,7 +143,7 @@
           "link": 764
         },
         {
-          "label": "Prompt positivo",
+          "label": "PROMPT",
           "name": "value",
           "type": "STRING",
           "widget": {
@@ -363,7 +363,7 @@
           ]
         }
       ],
-      "title": "Prompt positivo",
+      "title": "PROMPT",
       "properties": {
         "Node name for S&R": "PrimitiveStringMultiline",
         "cnr_id": "comfy-core",
@@ -415,20 +415,7 @@
       "VIDEO"
     ]
   ],
-  "groups": [
-    {
-      "id": 1,
-      "title": "PROMPTS  ·  TEXTO Y RESTRICCIONES",
-      "bounding": [
-        660,
-        280,
-        610,
-        670
-      ],
-      "color": "#355778",
-      "flags": {}
-    }
-  ],
+  "groups": [],
   "definitions": {
     "subgraphs": [
       {
@@ -482,7 +469,7 @@
             "linkIds": [
               765
             ],
-            "label": "Prompt positivo",
+            "label": "PROMPT",
             "pos": [
               -533.56,
               6405
