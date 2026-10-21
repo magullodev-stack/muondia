@@ -288,11 +288,11 @@
           "link": null
         },
         {
-          "label": "Resolución referencia Union (px)",
-          "name": "union_reference_max_size",
-          "type": "INT",
+          "name": "initial_image_strength",
+          "label": "Fuerza imagen inicial",
+          "type": "FLOAT",
           "widget": {
-            "name": "union_reference_max_size"
+            "name": "initial_image_strength"
           },
           "link": null
         },
@@ -440,7 +440,7 @@
         false,
         1,
         false,
-        512,
+        0.7,
         false,
         1,
         "ltx-2.5-22b-distilled-transformer-comfy-int8-convrot.safetensors",
@@ -475,9 +475,9 @@
         "model_name": "ltx-2.5-latent-spatial-upscaler-x2-bf16-1.0.safetensors",
         "clip_name_1": "gemma4_e2b_it_int8_convrot.safetensors",
         "value_1": false,
-        "union_reference_max_size": 512,
         "ingredients_enabled": false,
-        "ingredients_strength": 1
+        "ingredients_strength": 1,
+        "initial_image_strength": 0.7
       }
     },
     {
@@ -961,7 +961,7 @@
         "state": {
           "lastGroupId": 28,
           "lastNodeId": 473,
-          "lastLinkId": 941,
+          "lastLinkId": 942,
           "lastRerouteId": 0
         },
         "revision": 0,
@@ -1221,12 +1221,12 @@
             ]
           },
           {
-            "id": "ltx-union-reference-resolution",
-            "name": "union_reference_max_size",
-            "label": "Resolución referencia Union (px)",
-            "type": "INT",
+            "id": "ltx-initial-image-strength",
+            "name": "initial_image_strength",
+            "label": "Fuerza imagen inicial",
+            "type": "FLOAT",
             "linkIds": [
-              903
+              942
             ],
             "pos": [
               -533.56,
@@ -2800,6 +2800,15 @@
                 "name": "latent",
                 "type": "LATENT",
                 "link": 692
+              },
+              {
+                "name": "strength",
+                "localized_name": "fuerza",
+                "type": "FLOAT",
+                "widget": {
+                  "name": "strength"
+                },
+                "link": 942
               },
               {
                 "localized_name": "omitir",
@@ -6993,7 +7002,7 @@
                 "widget": {
                   "name": "largest_size"
                 },
-                "link": 903
+                "link": null
               }
             ],
             "outputs": [
@@ -8644,7 +8653,7 @@
             "origin_id": 363,
             "origin_slot": 0,
             "target_id": 357,
-            "target_slot": 3,
+            "target_slot": 4,
             "type": "BOOLEAN"
           },
           {
@@ -9464,14 +9473,6 @@
             "type": "IMAGE"
           },
           {
-            "id": 903,
-            "origin_id": -10,
-            "origin_slot": 18,
-            "target_id": 458,
-            "target_slot": 2,
-            "type": "INT"
-          },
-          {
             "id": 904,
             "origin_id": 459,
             "origin_slot": 0,
@@ -9773,6 +9774,14 @@
             "origin_slot": 21,
             "target_id": 466,
             "target_slot": 2,
+            "type": "FLOAT"
+          },
+          {
+            "id": 942,
+            "origin_id": -10,
+            "origin_slot": 18,
+            "target_id": 357,
+            "target_slot": 3,
             "type": "FLOAT"
           }
         ],
