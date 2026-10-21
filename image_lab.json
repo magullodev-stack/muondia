@@ -1,8 +1,8 @@
 {
   "id": "d9ac44b0-2f2d-4a95-8dd2-44cd82200a80",
   "revision": 0,
-  "last_node_id": 10,
-  "last_link_id": 8,
+  "last_node_id": 13,
+  "last_link_id": 12,
   "nodes": [
     {
       "id": 1,
@@ -25,7 +25,8 @@
           "type": "IMAGE",
           "links": [
             2,
-            4
+            4,
+            12
           ]
         },
         {
@@ -184,18 +185,70 @@
       }
     },
     {
-      "id": 5,
-      "type": "BiRefNetRMBG",
+      "id": 11,
+      "type": "LoadBackgroundRemovalModel",
       "pos": [
-        590,
-        1060
+        580,
+        1080
       ],
       "size": [
-        450,
-        500
+        400,
+        120
       ],
       "flags": {},
       "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "bg_removal_name",
+          "type": "COMBO",
+          "widget": {
+            "name": "bg_removal_name"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "bg_model",
+          "type": "BACKGROUND_REMOVAL",
+          "links": [
+            9
+          ]
+        }
+      ],
+      "title": "Elegir modelo para quitar fondo",
+      "properties": {
+        "Node name for S&R": "LoadBackgroundRemovalModel",
+        "cnr_id": "comfy-core",
+        "models": [
+          {
+            "name": "birefnet.safetensors",
+            "url": "https://huggingface.co/Comfy-Org/BiRefNet/resolve/main/background_removal/birefnet.safetensors",
+            "directory": "background_removal"
+          }
+        ]
+      },
+      "widgets_values": [
+        "birefnet.safetensors"
+      ],
+      "widgets_values_named": {
+        "bg_removal_name": "birefnet.safetensors"
+      }
+    },
+    {
+      "id": 5,
+      "type": "RemoveBackground",
+      "pos": [
+        1080,
+        1060
+      ],
+      "size": [
+        365,
+        130
+      ],
+      "flags": {},
+      "order": 5,
       "mode": 0,
       "inputs": [
         {
@@ -204,76 +257,85 @@
           "link": 4
         },
         {
-          "name": "model",
-          "type": "COMBO",
-          "widget": {
-            "name": "model"
-          },
-          "link": null
+          "name": "bg_removal_model",
+          "type": "BACKGROUND_REMOVAL",
+          "link": 9
+        }
+      ],
+      "outputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": [
+            10
+          ]
+        }
+      ],
+      "title": "Quitar fondo · BiRefNet nativo",
+      "properties": {
+        "Node name for S&R": "RemoveBackground",
+        "cnr_id": "comfy-core"
+      }
+    },
+    {
+      "id": 12,
+      "type": "InvertMask",
+      "pos": [
+        1530,
+        1055
+      ],
+      "size": [
+        290,
+        90
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 10
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": [
+            11
+          ]
+        }
+      ],
+      "title": "Preparar máscara alfa",
+      "properties": {
+        "Node name for S&R": "InvertMask"
+      }
+    },
+    {
+      "id": 13,
+      "type": "JoinImageWithAlpha",
+      "pos": [
+        1880,
+        1060
+      ],
+      "size": [
+        310,
+        120
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 12
         },
         {
-          "name": "sensitivity",
-          "type": "FLOAT",
-          "widget": {
-            "name": "sensitivity"
-          },
-          "link": null
-        },
-        {
-          "name": "mask_blur",
-          "type": "INT",
-          "widget": {
-            "name": "mask_blur"
-          },
-          "link": null
-        },
-        {
-          "name": "mask_offset",
-          "type": "INT",
-          "widget": {
-            "name": "mask_offset"
-          },
-          "link": null
-        },
-        {
-          "name": "invert_output",
-          "type": "BOOLEAN",
-          "widget": {
-            "name": "invert_output"
-          },
-          "link": null
-        },
-        {
-          "name": "refine_foreground",
-          "type": "BOOLEAN",
-          "widget": {
-            "name": "refine_foreground"
-          },
-          "link": null
-        },
-        {
-          "name": "unload_model",
-          "type": "BOOLEAN",
-          "widget": {
-            "name": "unload_model"
-          },
-          "link": null
-        },
-        {
-          "name": "background",
-          "type": "COMBO",
-          "widget": {
-            "name": "background"
-          },
-          "link": null
-        },
-        {
-          "name": "background_color",
-          "type": "COLORCODE",
-          "widget": {
-            "name": "background_color"
-          },
-          "link": null
+          "name": "alpha",
+          "type": "MASK",
+          "link": 11
         }
       ],
       "outputs": [
@@ -284,51 +346,19 @@
             5,
             7
           ]
-        },
-        {
-          "name": "MASK",
-          "type": "MASK",
-          "links": null
-        },
-        {
-          "name": "MASK_IMAGE",
-          "type": "IMAGE",
-          "links": null
         }
       ],
-      "title": "Eliminar fondo · BiRefNet (opcional)",
+      "title": "Crear PNG transparente",
       "properties": {
-        "Node name for S&R": "BiRefNetRMBG",
-        "cnr_id": "ComfyUI-RMBG"
-      },
-      "widgets_values": [
-        "BiRefNet-general",
-        1,
-        0,
-        0,
-        false,
-        false,
-        true,
-        "Alpha",
-        "#222222"
-      ],
-      "widgets_values_named": {
-        "model": "BiRefNet-general",
-        "sensitivity": 1,
-        "mask_blur": 0,
-        "mask_offset": 0,
-        "invert_output": false,
-        "refine_foreground": false,
-        "unload_model": true,
-        "background": "Alpha",
-        "background_color": "#222222"
+        "Node name for S&R": "JoinImageWithAlpha",
+        "cnr_id": "comfy-core"
       }
     },
     {
       "id": 6,
       "type": "SaveImage",
       "pos": [
-        1150,
+        2280,
         910
       ],
       "size": [
@@ -336,7 +366,7 @@
         430
       ],
       "flags": {},
-      "order": 5,
+      "order": 8,
       "mode": 2,
       "inputs": [
         {
@@ -376,15 +406,15 @@
       "id": 7,
       "type": "ImageUpscaleWithModel",
       "pos": [
-        1160,
-        1420
+        2260,
+        1460
       ],
       "size": [
         370,
         120
       ],
       "flags": {},
-      "order": 6,
+      "order": 9,
       "mode": 0,
       "inputs": [
         {
@@ -418,15 +448,15 @@
       "id": 8,
       "type": "SaveImage",
       "pos": [
-        1670,
-        1130
+        2750,
+        1100
       ],
       "size": [
         420,
         440
       ],
       "flags": {},
-      "order": 7,
+      "order": 10,
       "mode": 2,
       "inputs": [
         {
@@ -470,11 +500,11 @@
         40
       ],
       "size": [
-        1980,
-        205
+        2740,
+        240
       ],
       "flags": {},
-      "order": 8,
+      "order": 11,
       "mode": 0,
       "inputs": [],
       "outputs": [],
@@ -484,7 +514,7 @@
         "cnr_id": "comfy-core"
       },
       "widgets_values": [
-        "# IMAGE LAB · FOTOGRAFÍA REAL\n\n**Activo al abrir:** ampliar foto 4× y guardar PNG. **Sin dependencias nuevas** (nodos nativos).\n\n**Quitar fondo / ambos:** ramas preparadas pero desactivadas. El nodo `BiRefNetRMBG` pertenece a `ComfyUI-RMBG`, que está **desactivado en tu instalación**. No lo actives hasta revisar la compatibilidad del entorno.\n\nPara ejecutar solo una salida, pon su nodo **SaveImage** en modo `Always` (0) y los otros en `Never` (2). Las imágenes se guardan en `ComfyUI/output/image_lab/`."
+        "# IMAGE LAB · FOTOGRAFÍA REAL — 4× / QUITAR FONDO / AMBOS\n\n**MOTOR NATIVO DE COMFYUI.** No hace falta `ComfyUI-RMBG` ni ejecutar `pip`.\n\n1. **Upscale 4× (activo):** carga tu foto y elige un modelo de `models/upscale_models`; el botón Ejecutar guarda `image_lab/01_upscale_4x`.\n2. **Sin fondo:** pon «Guardar PNG sin fondo» en modo `Always` y desactiva los otros `SaveImage`.\n3. **Ambos:** activa solo «Guardar PNG 4× + sin fondo» y desactiva los otros. El escalador nativo conserva el canal alfa.\n\n**Para quitar fondo** necesitas descargar solo los pesos `birefnet.safetensors` (Comfy-Org/BiRefNet) a `ComfyUI/models/background_removal/`.\n**Si los nodos nativos de eliminación no aparecen**, no reinstales extensiones ni dependencias: avísame para comprobar tu versión concreta de ComfyUI.\n"
       ]
     },
     {
@@ -496,10 +526,10 @@
       ],
       "size": [
         420,
-        430
+        445
       ],
       "flags": {},
-      "order": 9,
+      "order": 12,
       "mode": 0,
       "inputs": [],
       "outputs": [],
@@ -509,7 +539,7 @@
         "cnr_id": "comfy-core"
       },
       "widgets_values": [
-        "**01 · SOLO UPSCALE**\n\nGuardar PNG 4×: activo por defecto.\n\n**02 · SOLO QUITAR FONDO**\n\nActivar `Guardar PNG sin fondo` y desactivar el 4×. Requiere tener cargado el nodo BiRefNet.\n\n**03 · AMBOS**\n\nActivar `Guardar PNG 4× + sin fondo` y desactivar las otras salidas. BiRefNet devuelve imagen RGBA; el escalador nativo conserva el alfa.\n\n**Modelos:** puedes seleccionar cualquier `.pth`/`.safetensors` compatible dentro de `models/upscale_models`.\n\n**NOTA:** los modelos DAT2 necesitan una versión de Spandrel que soporte esa arquitectura."
+        "**IMAGE LAB · SALIDAS PNG**\n\n• `SaveImage 4×` = salida principal (activa por defecto).\n• `SaveImage sin fondo` = solo recorte transparente.\n• `SaveImage 4× + sin fondo` = recorte transparente seguido de ampliación 4×.\n\nPara alternar: clic derecho sobre el nodo de guardado y selecciona **Mode → Always** o **Never** según corresponda. Solo debes activar una salida cada vez si no quieres procesar las demás.\n\n**Nodos de fondo usados:** `LoadBackgroundRemovalModel`, `RemoveBackground`, `InvertMask`, `JoinImageWithAlpha` (nativos ComfyUI). No uses la antigua extensión RMBG.\n"
       ]
     }
   ],
@@ -547,14 +577,6 @@
       "IMAGE"
     ],
     [
-      5,
-      5,
-      0,
-      6,
-      0,
-      "IMAGE"
-    ],
-    [
       6,
       2,
       0,
@@ -563,18 +585,58 @@
       "UPSCALE_MODEL"
     ],
     [
+      8,
       7,
+      0,
+      8,
+      0,
+      "IMAGE"
+    ],
+    [
       5,
+      13,
+      0,
+      6,
+      0,
+      "IMAGE"
+    ],
+    [
+      7,
+      13,
       0,
       7,
       1,
       "IMAGE"
     ],
     [
-      8,
-      7,
+      9,
+      11,
       0,
-      8,
+      5,
+      1,
+      "BACKGROUND_REMOVAL"
+    ],
+    [
+      10,
+      5,
+      0,
+      12,
+      0,
+      "MASK"
+    ],
+    [
+      11,
+      12,
+      0,
+      13,
+      1,
+      "MASK"
+    ],
+    [
+      12,
+      1,
+      0,
+      13,
       0,
       "IMAGE"
     ]
