@@ -1,8 +1,8 @@
 {
   "id": "8758f3da-3006-49ff-9147-7a9a944326cc",
-  "revision": 0,
-  "last_node_id": 422,
-  "last_link_id": 813,
+  "revision": 1,
+  "last_node_id": 424,
+  "last_link_id": 814,
   "nodes": [
     {
       "id": 395,
@@ -131,7 +131,7 @@
       ],
       "size": [
         550,
-        675
+        715
       ],
       "flags": {},
       "order": 3,
@@ -194,6 +194,15 @@
           "type": "FLOAT",
           "widget": {
             "name": "value_4"
+          },
+          "link": null
+        },
+        {
+          "name": "exact_aspect_ratio",
+          "label": "Priorizar formato EXACTO",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "exact_aspect_ratio"
           },
           "link": null
         },
@@ -415,6 +424,14 @@
             812
           ],
           "label": "Fotogramas objetivo"
+        },
+        {
+          "name": "resolution_summary",
+          "label": "RESOLUCIÓN EFECTIVA",
+          "type": "STRING",
+          "links": [
+            814
+          ]
         }
       ],
       "title": "LTX-2.5 · Configuración",
@@ -430,7 +447,8 @@
         16,
         "9:16 (Portrait Widescreen)",
         0.9,
-        32,
+        false,
+        64,
         false,
         900359092894726,
         false,
@@ -458,7 +476,7 @@
         "value_5": 16,
         "value_3": "9:16 (Portrait Widescreen)",
         "value_4": 0.9,
-        "resolution_multiple": 32,
+        "resolution_multiple": 64,
         "include_audio": false,
         "noise_seed": 900359092894726,
         "randomize_seed": false,
@@ -477,7 +495,8 @@
         "value_1": false,
         "ingredients_enabled": false,
         "ingredients_strength": 1,
-        "initial_image_strength": 0.7
+        "initial_image_strength": 0.7,
+        "exact_aspect_ratio": false
       }
     },
     {
@@ -860,6 +879,66 @@
       },
       "color": "#233",
       "bgcolor": "#353"
+    },
+    {
+      "id": 423,
+      "type": "PreviewAny",
+      "pos": [
+        1350,
+        1135
+      ],
+      "size": [
+        575,
+        160
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "source",
+          "type": "*",
+          "link": 814
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": []
+        }
+      ],
+      "title": "RESOLUCIÓN REAL · Final / Low / x2 (al ejecutar)",
+      "properties": {
+        "Node name for S&R": "PreviewAny",
+        "cnr_id": "comfy-core"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 424,
+      "type": "MarkdownNote",
+      "pos": [
+        1970,
+        1150
+      ],
+      "size": [
+        610,
+        290
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "GUÍA DE FORMATOS EXACTOS · LTX",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core"
+      },
+      "widgets_values": [
+        "**RESOLUCIÓN · LTX-2.5 two-stage ×2**\n\n• **Formato exacto DESACTIVADO:** relación + megapíxeles aproximados, con dimensiones redondeadas a múltiplos de 64.\n\n• **Formato exacto ACTIVADO:** preserva exactamente 1:1, 2:3, 3:2, 3:4, 4:3, 9:16, 16:9 y 21:9, ajustando los MP reales al par válido más cercano. Ej.: 16:9 exacto 1024×576; 2:3 exacto 768×1152 (según MP).\n\n• **Después de ejecutar**, mira el indicador RESOLUCIÓN REAL junto a Configuración.\n\n• LOW = FINAL / 2; upscaler latente ×2 conservado. No cambiar a múltiplo 32."
+      ]
     }
   ],
   "links": [
@@ -948,8 +1027,16 @@
       422,
       0,
       398,
-      19,
+      20,
       "IMAGE"
+    ],
+    [
+      814,
+      398,
+      4,
+      423,
+      0,
+      "STRING"
     ]
   ],
   "groups": [],
@@ -959,12 +1046,12 @@
         "id": "aa6479d7-75b0-4d32-9125-f634b6855284",
         "version": 1,
         "state": {
-          "lastGroupId": 28,
-          "lastNodeId": 473,
-          "lastLinkId": 942,
+          "lastGroupId": 29,
+          "lastNodeId": 489,
+          "lastLinkId": 988,
           "lastRerouteId": 0
         },
-        "revision": 0,
+        "revision": 1,
         "config": {},
         "name": "LTX-2.5 · Configuración",
         "inputNode": {
@@ -973,7 +1060,7 @@
             -693.3733595617866,
             6361.238266223688,
             183.814453125,
-            408
+            438
           ]
         },
         "outputNode": {
@@ -982,7 +1069,7 @@
             5540,
             6496,
             220,
-            170
+            205
           ]
         },
         "inputs": [
@@ -1069,7 +1156,8 @@
             "name": "value_3",
             "type": "COMBO",
             "linkIds": [
-              768
+              768,
+              943
             ],
             "label": "Relación de aspecto",
             "pos": [
@@ -1082,12 +1170,28 @@
             "name": "value_4",
             "type": "FLOAT",
             "linkIds": [
-              769
+              769,
+              972,
+              973
             ],
             "label": "Resolución (MP)",
             "pos": [
               -533.56,
               6525
+            ]
+          },
+          {
+            "id": "ltx-exact-aspect-mode-v1",
+            "name": "exact_aspect_ratio",
+            "label": "Priorizar formato EXACTO",
+            "type": "BOOLEAN",
+            "linkIds": [
+              974,
+              975
+            ],
+            "pos": [
+              -533.56,
+              6545
             ]
           },
           {
@@ -1100,7 +1204,7 @@
             "label": "Múltiplo de resolución",
             "pos": [
               -533.56,
-              6545
+              6565
             ]
           },
           {
@@ -1113,7 +1217,7 @@
             "label": "Activar audio",
             "pos": [
               -533.56,
-              6565
+              6585
             ]
           },
           {
@@ -1126,7 +1230,7 @@
             "label": "Semilla Low-res",
             "pos": [
               -533.56,
-              6585
+              6605
             ]
           },
           {
@@ -1139,7 +1243,7 @@
             "label": "Aleatorizar Low-res",
             "pos": [
               -533.56,
-              6605
+              6625
             ]
           },
           {
@@ -1152,7 +1256,7 @@
             "label": "Semilla High-res",
             "pos": [
               -533.56,
-              6625
+              6645
             ]
           },
           {
@@ -1165,7 +1269,7 @@
             ],
             "pos": [
               -533.56,
-              6645
+              6665
             ]
           },
           {
@@ -1178,7 +1282,7 @@
             ],
             "pos": [
               -533.56,
-              6665
+              6685
             ]
           },
           {
@@ -1191,7 +1295,7 @@
             ],
             "pos": [
               -533.56,
-              6685
+              6705
             ]
           },
           {
@@ -1204,7 +1308,7 @@
             ],
             "pos": [
               -533.56,
-              6705
+              6725
             ]
           },
           {
@@ -1217,7 +1321,7 @@
             ],
             "pos": [
               -533.56,
-              6725
+              6745
             ]
           },
           {
@@ -1230,7 +1334,7 @@
             ],
             "pos": [
               -533.56,
-              6745
+              6765
             ]
           },
           {
@@ -1243,7 +1347,7 @@
             ],
             "pos": [
               -533.56,
-              6745
+              6765
             ]
           },
           {
@@ -1256,7 +1360,7 @@
             ],
             "pos": [
               -533.56,
-              6765
+              6785
             ]
           },
           {
@@ -1269,7 +1373,7 @@
             ],
             "pos": [
               -533.56,
-              6785
+              6805
             ]
           },
           {
@@ -1282,7 +1386,7 @@
             "label": "Modelo de vídeo",
             "pos": [
               -533.56,
-              6765
+              6785
             ]
           },
           {
@@ -1295,7 +1399,7 @@
             "label": "Codificador de texto",
             "pos": [
               -533.56,
-              6785
+              6805
             ]
           },
           {
@@ -1308,7 +1412,7 @@
             "label": "VAE vídeo",
             "pos": [
               -533.56,
-              6805
+              6825
             ]
           },
           {
@@ -1321,7 +1425,7 @@
             "label": "VAE audio",
             "pos": [
               -533.56,
-              6825
+              6845
             ]
           },
           {
@@ -1334,7 +1438,7 @@
             "label": "Modelo de escalado",
             "pos": [
               -533.56,
-              6845
+              6865
             ]
           },
           {
@@ -1347,7 +1451,7 @@
             "label": "Modelo de mejora del prompt",
             "pos": [
               -533.56,
-              6865
+              6885
             ]
           },
           {
@@ -1360,7 +1464,7 @@
             "label": "Activar mejora del prompt",
             "pos": [
               -533.56,
-              6885
+              6905
             ]
           }
         ],
@@ -1415,6 +1519,19 @@
             "pos": [
               5564,
               6630
+            ]
+          },
+          {
+            "id": "ltx-resolution-summary-v1",
+            "name": "resolution_summary",
+            "label": "RESOLUCIÓN EFECTIVA",
+            "type": "STRING",
+            "linkIds": [
+              988
+            ],
+            "pos": [
+              5564,
+              6660
             ]
           }
         ],
@@ -3134,7 +3251,7 @@
                 "localized_name": "a",
                 "name": "values.a",
                 "type": "FLOAT,INT,BOOLEAN",
-                "link": 687
+                "link": 976
               },
               {
                 "localized_name": "b",
@@ -3156,7 +3273,8 @@
                 "name": "INT",
                 "type": "INT",
                 "links": [
-                  689
+                  689,
+                  984
                 ]
               },
               {
@@ -3212,7 +3330,7 @@
                 "localized_name": "a",
                 "name": "values.a",
                 "type": "FLOAT,INT,BOOLEAN",
-                "link": 688
+                "link": 977
               },
               {
                 "localized_name": "b",
@@ -3234,7 +3352,8 @@
                 "name": "INT",
                 "type": "INT",
                 "links": [
-                  690
+                  690,
+                  985
                 ]
               },
               {
@@ -4434,12 +4553,12 @@
             "widgets_values": [
               "9:16 (Portrait Widescreen)",
               0.9,
-              32
+              64
             ],
             "widgets_values_named": {
               "aspect_ratio": "9:16 (Portrait Widescreen)",
               "megapixels": 0.9,
-              "multiple": 32
+              "multiple": 64
             }
           },
           {
@@ -7939,6 +8058,1109 @@
             "widgets_values_named": {
               "switch": false
             }
+          },
+          {
+            "id": 474,
+            "type": "StringFormat",
+            "title": "Aspect ratio · convertir COMBO a texto",
+            "pos": [
+              110,
+              8050
+            ],
+            "size": [
+              440,
+              130
+            ],
+            "flags": {},
+            "order": 130,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "values.a",
+                "label": "a",
+                "type": "*",
+                "link": 943
+              }
+            ],
+            "outputs": [
+              {
+                "name": "STRING",
+                "type": "STRING",
+                "links": [
+                  944,
+                  947,
+                  950,
+                  953,
+                  956,
+                  959,
+                  962,
+                  965
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "StringFormat",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              "{a}"
+            ],
+            "widgets_values_named": {
+              "f_string": "{a}"
+            }
+          },
+          {
+            "id": 475,
+            "type": "StringCompare",
+            "title": "Formato exacto · 1:1 (Square)",
+            "pos": [
+              500,
+              8050
+            ],
+            "size": [
+              330,
+              150
+            ],
+            "flags": {
+              "collapsed": true
+            },
+            "order": 131,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "string_a",
+                "type": "STRING",
+                "widget": {
+                  "name": "string_a"
+                },
+                "link": 944
+              }
+            ],
+            "outputs": [
+              {
+                "name": "BOOLEAN",
+                "type": "BOOLEAN",
+                "links": [
+                  945,
+                  946
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "StringCompare",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              "",
+              "1:1 (Square)",
+              "Equal",
+              true
+            ],
+            "widgets_values_named": {
+              "string_a": "",
+              "string_b": "1:1 (Square)",
+              "mode": "Equal",
+              "case_sensitive": true
+            }
+          },
+          {
+            "id": 476,
+            "type": "StringCompare",
+            "title": "Formato exacto · 2:3 (Portrait Photo)",
+            "pos": [
+              500,
+              8205
+            ],
+            "size": [
+              330,
+              150
+            ],
+            "flags": {
+              "collapsed": true
+            },
+            "order": 132,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "string_a",
+                "type": "STRING",
+                "widget": {
+                  "name": "string_a"
+                },
+                "link": 947
+              }
+            ],
+            "outputs": [
+              {
+                "name": "BOOLEAN",
+                "type": "BOOLEAN",
+                "links": [
+                  948,
+                  949
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "StringCompare",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              "",
+              "2:3 (Portrait Photo)",
+              "Equal",
+              true
+            ],
+            "widgets_values_named": {
+              "string_a": "",
+              "string_b": "2:3 (Portrait Photo)",
+              "mode": "Equal",
+              "case_sensitive": true
+            }
+          },
+          {
+            "id": 477,
+            "type": "StringCompare",
+            "title": "Formato exacto · 3:2 (Photo)",
+            "pos": [
+              500,
+              8360
+            ],
+            "size": [
+              330,
+              150
+            ],
+            "flags": {
+              "collapsed": true
+            },
+            "order": 133,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "string_a",
+                "type": "STRING",
+                "widget": {
+                  "name": "string_a"
+                },
+                "link": 950
+              }
+            ],
+            "outputs": [
+              {
+                "name": "BOOLEAN",
+                "type": "BOOLEAN",
+                "links": [
+                  951,
+                  952
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "StringCompare",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              "",
+              "3:2 (Photo)",
+              "Equal",
+              true
+            ],
+            "widgets_values_named": {
+              "string_a": "",
+              "string_b": "3:2 (Photo)",
+              "mode": "Equal",
+              "case_sensitive": true
+            }
+          },
+          {
+            "id": 478,
+            "type": "StringCompare",
+            "title": "Formato exacto · 3:4 (Portrait Standard)",
+            "pos": [
+              500,
+              8515
+            ],
+            "size": [
+              330,
+              150
+            ],
+            "flags": {
+              "collapsed": true
+            },
+            "order": 134,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "string_a",
+                "type": "STRING",
+                "widget": {
+                  "name": "string_a"
+                },
+                "link": 953
+              }
+            ],
+            "outputs": [
+              {
+                "name": "BOOLEAN",
+                "type": "BOOLEAN",
+                "links": [
+                  954,
+                  955
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "StringCompare",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              "",
+              "3:4 (Portrait Standard)",
+              "Equal",
+              true
+            ],
+            "widgets_values_named": {
+              "string_a": "",
+              "string_b": "3:4 (Portrait Standard)",
+              "mode": "Equal",
+              "case_sensitive": true
+            }
+          },
+          {
+            "id": 479,
+            "type": "StringCompare",
+            "title": "Formato exacto · 4:3 (Standard)",
+            "pos": [
+              865,
+              8050
+            ],
+            "size": [
+              330,
+              150
+            ],
+            "flags": {
+              "collapsed": true
+            },
+            "order": 135,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "string_a",
+                "type": "STRING",
+                "widget": {
+                  "name": "string_a"
+                },
+                "link": 956
+              }
+            ],
+            "outputs": [
+              {
+                "name": "BOOLEAN",
+                "type": "BOOLEAN",
+                "links": [
+                  957,
+                  958
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "StringCompare",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              "",
+              "4:3 (Standard)",
+              "Equal",
+              true
+            ],
+            "widgets_values_named": {
+              "string_a": "",
+              "string_b": "4:3 (Standard)",
+              "mode": "Equal",
+              "case_sensitive": true
+            }
+          },
+          {
+            "id": 480,
+            "type": "StringCompare",
+            "title": "Formato exacto · 9:16 (Portrait Widescreen)",
+            "pos": [
+              865,
+              8205
+            ],
+            "size": [
+              330,
+              150
+            ],
+            "flags": {
+              "collapsed": true
+            },
+            "order": 136,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "string_a",
+                "type": "STRING",
+                "widget": {
+                  "name": "string_a"
+                },
+                "link": 959
+              }
+            ],
+            "outputs": [
+              {
+                "name": "BOOLEAN",
+                "type": "BOOLEAN",
+                "links": [
+                  960,
+                  961
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "StringCompare",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              "",
+              "9:16 (Portrait Widescreen)",
+              "Equal",
+              true
+            ],
+            "widgets_values_named": {
+              "string_a": "",
+              "string_b": "9:16 (Portrait Widescreen)",
+              "mode": "Equal",
+              "case_sensitive": true
+            }
+          },
+          {
+            "id": 481,
+            "type": "StringCompare",
+            "title": "Formato exacto · 16:9 (Widescreen)",
+            "pos": [
+              865,
+              8360
+            ],
+            "size": [
+              330,
+              150
+            ],
+            "flags": {
+              "collapsed": true
+            },
+            "order": 137,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "string_a",
+                "type": "STRING",
+                "widget": {
+                  "name": "string_a"
+                },
+                "link": 962
+              }
+            ],
+            "outputs": [
+              {
+                "name": "BOOLEAN",
+                "type": "BOOLEAN",
+                "links": [
+                  963,
+                  964
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "StringCompare",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              "",
+              "16:9 (Widescreen)",
+              "Equal",
+              true
+            ],
+            "widgets_values_named": {
+              "string_a": "",
+              "string_b": "16:9 (Widescreen)",
+              "mode": "Equal",
+              "case_sensitive": true
+            }
+          },
+          {
+            "id": 482,
+            "type": "StringCompare",
+            "title": "Formato exacto · 21:9 (Ultrawide)",
+            "pos": [
+              865,
+              8515
+            ],
+            "size": [
+              330,
+              150
+            ],
+            "flags": {
+              "collapsed": true
+            },
+            "order": 138,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "string_a",
+                "type": "STRING",
+                "widget": {
+                  "name": "string_a"
+                },
+                "link": 965
+              }
+            ],
+            "outputs": [
+              {
+                "name": "BOOLEAN",
+                "type": "BOOLEAN",
+                "links": [
+                  966,
+                  967
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "StringCompare",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              "",
+              "21:9 (Ultrawide)",
+              "Equal",
+              true
+            ],
+            "widgets_values_named": {
+              "string_a": "",
+              "string_b": "21:9 (Ultrawide)",
+              "mode": "Equal",
+              "case_sensitive": true
+            }
+          },
+          {
+            "id": 483,
+            "type": "ComfyMathExpression",
+            "title": "Formato exacto · numerador de aspecto",
+            "pos": [
+              1240,
+              8020
+            ],
+            "size": [
+              360,
+              130
+            ],
+            "flags": {},
+            "order": 139,
+            "mode": 0,
+            "inputs": [
+              {
+                "label": "a",
+                "name": "values.a",
+                "type": "FLOAT,INT,BOOLEAN",
+                "link": 945
+              },
+              {
+                "label": "b",
+                "name": "values.b",
+                "type": "FLOAT,INT,BOOLEAN",
+                "link": 948
+              },
+              {
+                "label": "c",
+                "name": "values.c",
+                "type": "FLOAT,INT,BOOLEAN",
+                "link": 951
+              },
+              {
+                "label": "d",
+                "name": "values.d",
+                "type": "FLOAT,INT,BOOLEAN",
+                "link": 954
+              },
+              {
+                "label": "e",
+                "name": "values.e",
+                "type": "FLOAT,INT,BOOLEAN",
+                "link": 957
+              },
+              {
+                "label": "f",
+                "name": "values.f",
+                "type": "FLOAT,INT,BOOLEAN",
+                "link": 960
+              },
+              {
+                "label": "g",
+                "name": "values.g",
+                "type": "FLOAT,INT,BOOLEAN",
+                "link": 963
+              },
+              {
+                "label": "h",
+                "name": "values.h",
+                "type": "FLOAT,INT,BOOLEAN",
+                "link": 966
+              }
+            ],
+            "outputs": [
+              {
+                "name": "FLOAT",
+                "type": "FLOAT",
+                "links": []
+              },
+              {
+                "name": "INT",
+                "type": "INT",
+                "links": [
+                  968,
+                  970
+                ]
+              },
+              {
+                "name": "BOOL",
+                "type": "BOOLEAN",
+                "links": []
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ComfyMathExpression",
+              "cnr_id": "comfy-core",
+              "ver": "0.16.3",
+              "enableTabs": false,
+              "tabWidth": 65,
+              "tabXOffset": 10,
+              "hasSecondTab": false,
+              "secondTabText": "Send Back",
+              "secondTabOffset": 80,
+              "secondTabWidth": 65,
+              "ue_properties": {
+                "widget_ue_connectable": {},
+                "version": "7.7",
+                "input_ue_unconnectable": {}
+              }
+            },
+            "widgets_values": [
+              "1*a + 2*b + 3*c + 3*d + 4*e + 9*f + 16*g + 7*h"
+            ],
+            "widgets_values_named": {
+              "expression": "1*a + 2*b + 3*c + 3*d + 4*e + 9*f + 16*g + 7*h"
+            }
+          },
+          {
+            "id": 484,
+            "type": "ComfyMathExpression",
+            "title": "Formato exacto · denominador de aspecto",
+            "pos": [
+              1240,
+              8200
+            ],
+            "size": [
+              360,
+              130
+            ],
+            "flags": {},
+            "order": 140,
+            "mode": 0,
+            "inputs": [
+              {
+                "label": "a",
+                "name": "values.a",
+                "type": "FLOAT,INT,BOOLEAN",
+                "link": 946
+              },
+              {
+                "label": "b",
+                "name": "values.b",
+                "type": "FLOAT,INT,BOOLEAN",
+                "link": 949
+              },
+              {
+                "label": "c",
+                "name": "values.c",
+                "type": "FLOAT,INT,BOOLEAN",
+                "link": 952
+              },
+              {
+                "label": "d",
+                "name": "values.d",
+                "type": "FLOAT,INT,BOOLEAN",
+                "link": 955
+              },
+              {
+                "label": "e",
+                "name": "values.e",
+                "type": "FLOAT,INT,BOOLEAN",
+                "link": 958
+              },
+              {
+                "label": "f",
+                "name": "values.f",
+                "type": "FLOAT,INT,BOOLEAN",
+                "link": 961
+              },
+              {
+                "label": "g",
+                "name": "values.g",
+                "type": "FLOAT,INT,BOOLEAN",
+                "link": 964
+              },
+              {
+                "label": "h",
+                "name": "values.h",
+                "type": "FLOAT,INT,BOOLEAN",
+                "link": 967
+              }
+            ],
+            "outputs": [
+              {
+                "name": "FLOAT",
+                "type": "FLOAT",
+                "links": []
+              },
+              {
+                "name": "INT",
+                "type": "INT",
+                "links": [
+                  969,
+                  971
+                ]
+              },
+              {
+                "name": "BOOL",
+                "type": "BOOLEAN",
+                "links": []
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ComfyMathExpression",
+              "cnr_id": "comfy-core",
+              "ver": "0.16.3",
+              "enableTabs": false,
+              "tabWidth": 65,
+              "tabXOffset": 10,
+              "hasSecondTab": false,
+              "secondTabText": "Send Back",
+              "secondTabOffset": 80,
+              "secondTabWidth": 65,
+              "ue_properties": {
+                "widget_ue_connectable": {},
+                "version": "7.7",
+                "input_ue_unconnectable": {}
+              }
+            },
+            "widgets_values": [
+              "1*a + 3*b + 2*c + 4*d + 3*e + 16*f + 9*g + 3*h"
+            ],
+            "widgets_values_named": {
+              "expression": "1*a + 3*b + 2*c + 4*d + 3*e + 16*f + 9*g + 3*h"
+            }
+          },
+          {
+            "id": 485,
+            "type": "ComfyMathExpression",
+            "title": "Ancho FINAL · auto MP o exacto",
+            "pos": [
+              1660,
+              8040
+            ],
+            "size": [
+              360,
+              130
+            ],
+            "flags": {},
+            "order": 141,
+            "mode": 0,
+            "inputs": [
+              {
+                "label": "a",
+                "name": "values.a",
+                "type": "FLOAT,INT,BOOLEAN",
+                "link": 687
+              },
+              {
+                "label": "b",
+                "name": "values.b",
+                "type": "FLOAT,INT,BOOLEAN",
+                "link": 972
+              },
+              {
+                "label": "c",
+                "name": "values.c",
+                "type": "FLOAT,INT,BOOLEAN",
+                "link": 968
+              },
+              {
+                "label": "d",
+                "name": "values.d",
+                "type": "FLOAT,INT,BOOLEAN",
+                "link": 969
+              },
+              {
+                "label": "e",
+                "name": "values.e",
+                "type": "FLOAT,INT,BOOLEAN",
+                "link": 974
+              }
+            ],
+            "outputs": [
+              {
+                "name": "FLOAT",
+                "type": "FLOAT",
+                "links": []
+              },
+              {
+                "name": "INT",
+                "type": "INT",
+                "links": [
+                  976,
+                  978,
+                  980,
+                  982
+                ]
+              },
+              {
+                "name": "BOOL",
+                "type": "BOOLEAN",
+                "links": []
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ComfyMathExpression",
+              "cnr_id": "comfy-core",
+              "ver": "0.16.3",
+              "enableTabs": false,
+              "tabWidth": 65,
+              "tabXOffset": 10,
+              "hasSecondTab": false,
+              "secondTabText": "Send Back",
+              "secondTabOffset": 80,
+              "secondTabWidth": 65,
+              "ue_properties": {
+                "widget_ue_connectable": {},
+                "version": "7.7",
+                "input_ue_unconnectable": {}
+              }
+            },
+            "widgets_values": [
+              "a if e == 0 else 64*c*max(1,round(sqrt(b*1048576/(c*d))/64))"
+            ],
+            "widgets_values_named": {
+              "expression": "a if e == 0 else 64*c*max(1,round(sqrt(b*1048576/(c*d))/64))"
+            }
+          },
+          {
+            "id": 486,
+            "type": "ComfyMathExpression",
+            "title": "Alto FINAL · auto MP o exacto",
+            "pos": [
+              1660,
+              8230
+            ],
+            "size": [
+              360,
+              130
+            ],
+            "flags": {},
+            "order": 142,
+            "mode": 0,
+            "inputs": [
+              {
+                "label": "a",
+                "name": "values.a",
+                "type": "FLOAT,INT,BOOLEAN",
+                "link": 688
+              },
+              {
+                "label": "b",
+                "name": "values.b",
+                "type": "FLOAT,INT,BOOLEAN",
+                "link": 973
+              },
+              {
+                "label": "c",
+                "name": "values.c",
+                "type": "FLOAT,INT,BOOLEAN",
+                "link": 970
+              },
+              {
+                "label": "d",
+                "name": "values.d",
+                "type": "FLOAT,INT,BOOLEAN",
+                "link": 971
+              },
+              {
+                "label": "e",
+                "name": "values.e",
+                "type": "FLOAT,INT,BOOLEAN",
+                "link": 975
+              }
+            ],
+            "outputs": [
+              {
+                "name": "FLOAT",
+                "type": "FLOAT",
+                "links": []
+              },
+              {
+                "name": "INT",
+                "type": "INT",
+                "links": [
+                  977,
+                  979,
+                  981,
+                  983
+                ]
+              },
+              {
+                "name": "BOOL",
+                "type": "BOOLEAN",
+                "links": []
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ComfyMathExpression",
+              "cnr_id": "comfy-core",
+              "ver": "0.16.3",
+              "enableTabs": false,
+              "tabWidth": 65,
+              "tabXOffset": 10,
+              "hasSecondTab": false,
+              "secondTabText": "Send Back",
+              "secondTabOffset": 80,
+              "secondTabWidth": 65,
+              "ue_properties": {
+                "widget_ue_connectable": {},
+                "version": "7.7",
+                "input_ue_unconnectable": {}
+              }
+            },
+            "widgets_values": [
+              "a if e == 0 else 64*d*max(1,round(sqrt(b*1048576/(c*d))/64))"
+            ],
+            "widgets_values_named": {
+              "expression": "a if e == 0 else 64*d*max(1,round(sqrt(b*1048576/(c*d))/64))"
+            }
+          },
+          {
+            "id": 487,
+            "type": "ComfyMathExpression",
+            "title": "Megapíxeles efectivos",
+            "pos": [
+              1660,
+              8410
+            ],
+            "size": [
+              360,
+              130
+            ],
+            "flags": {},
+            "order": 143,
+            "mode": 0,
+            "inputs": [
+              {
+                "label": "a",
+                "name": "values.a",
+                "type": "FLOAT,INT,BOOLEAN",
+                "link": 978
+              },
+              {
+                "label": "b",
+                "name": "values.b",
+                "type": "FLOAT,INT,BOOLEAN",
+                "link": 979
+              }
+            ],
+            "outputs": [
+              {
+                "name": "FLOAT",
+                "type": "FLOAT",
+                "links": [
+                  986
+                ]
+              },
+              {
+                "name": "INT",
+                "type": "INT",
+                "links": []
+              },
+              {
+                "name": "BOOL",
+                "type": "BOOLEAN",
+                "links": []
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ComfyMathExpression",
+              "cnr_id": "comfy-core",
+              "ver": "0.16.3",
+              "enableTabs": false,
+              "tabWidth": 65,
+              "tabXOffset": 10,
+              "hasSecondTab": false,
+              "secondTabText": "Send Back",
+              "secondTabOffset": 80,
+              "secondTabWidth": 65,
+              "ue_properties": {
+                "widget_ue_connectable": {},
+                "version": "7.7",
+                "input_ue_unconnectable": {}
+              }
+            },
+            "widgets_values": [
+              "a*b/1048576"
+            ],
+            "widgets_values_named": {
+              "expression": "a*b/1048576"
+            }
+          },
+          {
+            "id": 488,
+            "type": "ComfyMathExpression",
+            "title": "Compatible con LTX ×2 (/64)",
+            "pos": [
+              1660,
+              8560
+            ],
+            "size": [
+              360,
+              130
+            ],
+            "flags": {},
+            "order": 144,
+            "mode": 0,
+            "inputs": [
+              {
+                "label": "a",
+                "name": "values.a",
+                "type": "FLOAT,INT,BOOLEAN",
+                "link": 980
+              },
+              {
+                "label": "b",
+                "name": "values.b",
+                "type": "FLOAT,INT,BOOLEAN",
+                "link": 981
+              }
+            ],
+            "outputs": [
+              {
+                "name": "FLOAT",
+                "type": "FLOAT",
+                "links": []
+              },
+              {
+                "name": "INT",
+                "type": "INT",
+                "links": []
+              },
+              {
+                "name": "BOOL",
+                "type": "BOOLEAN",
+                "links": [
+                  987
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ComfyMathExpression",
+              "cnr_id": "comfy-core",
+              "ver": "0.16.3",
+              "enableTabs": false,
+              "tabWidth": 65,
+              "tabXOffset": 10,
+              "hasSecondTab": false,
+              "secondTabText": "Send Back",
+              "secondTabOffset": 80,
+              "secondTabWidth": 65,
+              "ue_properties": {
+                "widget_ue_connectable": {},
+                "version": "7.7",
+                "input_ue_unconnectable": {}
+              }
+            },
+            "widgets_values": [
+              "a%64==0 and b%64==0"
+            ],
+            "widgets_values_named": {
+              "expression": "a%64==0 and b%64==0"
+            }
+          },
+          {
+            "id": 489,
+            "type": "StringFormat",
+            "title": "Resumen dinámico · resoluciones efectivas",
+            "pos": [
+              1660,
+              8760
+            ],
+            "size": [
+              440,
+              130
+            ],
+            "flags": {},
+            "order": 145,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "values.a",
+                "label": "a",
+                "type": "*",
+                "link": 982
+              },
+              {
+                "name": "values.b",
+                "label": "b",
+                "type": "*",
+                "link": 983
+              },
+              {
+                "name": "values.c",
+                "label": "c",
+                "type": "*",
+                "link": 984
+              },
+              {
+                "name": "values.d",
+                "label": "d",
+                "type": "*",
+                "link": 985
+              },
+              {
+                "name": "values.e",
+                "label": "e",
+                "type": "*",
+                "link": 986
+              },
+              {
+                "name": "values.f",
+                "label": "f",
+                "type": "*",
+                "link": 987
+              }
+            ],
+            "outputs": [
+              {
+                "name": "STRING",
+                "type": "STRING",
+                "links": [
+                  988
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "StringFormat",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              "FINAL {a} x {b} px  |  LOW {c} x {d} px  |  Upscale x2  |  MP reales {e:.3f}  |  Alineado /64: {f}"
+            ],
+            "widgets_values_named": {
+              "f_string": "FINAL {a} x {b} px  |  LOW {c} x {d} px  |  Upscale x2  |  MP reales {e:.3f}  |  Alineado /64: {f}"
+            }
           }
         ],
         "groups": [
@@ -8060,6 +9282,19 @@
               1270
             ],
             "color": "#3f789e",
+            "flags": {}
+          },
+          {
+            "id": 29,
+            "title": "Resolution · Aspecto exacto y resumen efectivo",
+            "bounding": [
+              80,
+              7970,
+              2060,
+              1050
+            ],
+            "color": "#3e7ca4",
+            "font_size": 24,
             "flags": {}
           }
         ],
@@ -8427,7 +9662,7 @@
           {
             "id": 766,
             "origin_id": -10,
-            "origin_slot": 28,
+            "origin_slot": 29,
             "target_id": 383,
             "target_slot": 0,
             "type": "BOOLEAN"
@@ -8499,7 +9734,7 @@
           {
             "id": 777,
             "origin_id": -10,
-            "origin_slot": 22,
+            "origin_slot": 23,
             "target_id": 384,
             "target_slot": 0,
             "type": "COMBO"
@@ -8507,7 +9742,7 @@
           {
             "id": 778,
             "origin_id": -10,
-            "origin_slot": 24,
+            "origin_slot": 25,
             "target_id": 385,
             "target_slot": 0,
             "type": "COMBO"
@@ -8515,7 +9750,7 @@
           {
             "id": 779,
             "origin_id": -10,
-            "origin_slot": 25,
+            "origin_slot": 26,
             "target_id": 386,
             "target_slot": 0,
             "type": "COMBO"
@@ -8523,7 +9758,7 @@
           {
             "id": 780,
             "origin_id": -10,
-            "origin_slot": 23,
+            "origin_slot": 24,
             "target_id": 387,
             "target_slot": 0,
             "type": "COMBO"
@@ -8531,7 +9766,7 @@
           {
             "id": 781,
             "origin_id": -10,
-            "origin_slot": 26,
+            "origin_slot": 27,
             "target_id": 371,
             "target_slot": 0,
             "type": "COMBO"
@@ -8539,7 +9774,7 @@
           {
             "id": 782,
             "origin_id": -10,
-            "origin_slot": 27,
+            "origin_slot": 28,
             "target_id": 393,
             "target_slot": 0,
             "type": "COMBO"
@@ -8547,7 +9782,7 @@
           {
             "id": 785,
             "origin_id": -10,
-            "origin_slot": 8,
+            "origin_slot": 9,
             "target_id": 403,
             "target_slot": 2,
             "type": "INT"
@@ -8555,7 +9790,7 @@
           {
             "id": 786,
             "origin_id": -10,
-            "origin_slot": 10,
+            "origin_slot": 11,
             "target_id": 405,
             "target_slot": 0,
             "type": "INT"
@@ -8563,7 +9798,7 @@
           {
             "id": 787,
             "origin_id": -10,
-            "origin_slot": 11,
+            "origin_slot": 12,
             "target_id": 407,
             "target_slot": 0,
             "type": "BOOLEAN"
@@ -8643,7 +9878,7 @@
           {
             "id": 797,
             "origin_id": -10,
-            "origin_slot": 9,
+            "origin_slot": 10,
             "target_id": 409,
             "target_slot": 0,
             "type": "BOOLEAN"
@@ -8700,7 +9935,7 @@
             "id": 687,
             "origin_id": 403,
             "origin_slot": 0,
-            "target_id": 353,
+            "target_id": 485,
             "target_slot": 0,
             "type": "INT"
           },
@@ -8708,7 +9943,7 @@
             "id": 688,
             "origin_id": 403,
             "origin_slot": 1,
-            "target_id": 355,
+            "target_id": 486,
             "target_slot": 0,
             "type": "INT"
           },
@@ -8739,7 +9974,7 @@
           {
             "id": 798,
             "origin_id": -10,
-            "origin_slot": 12,
+            "origin_slot": 13,
             "target_id": 436,
             "target_slot": 0,
             "type": "INT"
@@ -8803,7 +10038,7 @@
           {
             "id": 815,
             "origin_id": -10,
-            "origin_slot": 14,
+            "origin_slot": 15,
             "target_id": 421,
             "target_slot": 2,
             "type": "FLOAT"
@@ -8819,7 +10054,7 @@
           {
             "id": 817,
             "origin_id": -10,
-            "origin_slot": 16,
+            "origin_slot": 17,
             "target_id": 422,
             "target_slot": 2,
             "type": "FLOAT"
@@ -9203,7 +10438,7 @@
           {
             "id": 869,
             "origin_id": -10,
-            "origin_slot": 13,
+            "origin_slot": 14,
             "target_id": 438,
             "target_slot": 0,
             "type": "BOOLEAN"
@@ -9219,7 +10454,7 @@
           {
             "id": 871,
             "origin_id": -10,
-            "origin_slot": 15,
+            "origin_slot": 16,
             "target_id": 448,
             "target_slot": 0,
             "type": "BOOLEAN"
@@ -9227,7 +10462,7 @@
           {
             "id": 872,
             "origin_id": -10,
-            "origin_slot": 17,
+            "origin_slot": 18,
             "target_id": 449,
             "target_slot": 0,
             "type": "BOOLEAN"
@@ -9755,7 +10990,7 @@
           {
             "id": 939,
             "origin_id": -10,
-            "origin_slot": 19,
+            "origin_slot": 20,
             "target_id": 468,
             "target_slot": 0,
             "type": "IMAGE"
@@ -9763,7 +10998,7 @@
           {
             "id": 940,
             "origin_id": -10,
-            "origin_slot": 20,
+            "origin_slot": 21,
             "target_id": 465,
             "target_slot": 0,
             "type": "BOOLEAN"
@@ -9771,7 +11006,7 @@
           {
             "id": 941,
             "origin_id": -10,
-            "origin_slot": 21,
+            "origin_slot": 22,
             "target_id": 466,
             "target_slot": 2,
             "type": "FLOAT"
@@ -9779,10 +11014,378 @@
           {
             "id": 942,
             "origin_id": -10,
-            "origin_slot": 18,
+            "origin_slot": 19,
             "target_id": 357,
             "target_slot": 3,
             "type": "FLOAT"
+          },
+          {
+            "id": 943,
+            "origin_id": -10,
+            "origin_slot": 6,
+            "target_id": 474,
+            "target_slot": 0,
+            "type": "COMBO"
+          },
+          {
+            "id": 944,
+            "origin_id": 474,
+            "origin_slot": 0,
+            "target_id": 475,
+            "target_slot": 0,
+            "type": "STRING"
+          },
+          {
+            "id": 945,
+            "origin_id": 475,
+            "origin_slot": 0,
+            "target_id": 483,
+            "target_slot": 0,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 946,
+            "origin_id": 475,
+            "origin_slot": 0,
+            "target_id": 484,
+            "target_slot": 0,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 947,
+            "origin_id": 474,
+            "origin_slot": 0,
+            "target_id": 476,
+            "target_slot": 0,
+            "type": "STRING"
+          },
+          {
+            "id": 948,
+            "origin_id": 476,
+            "origin_slot": 0,
+            "target_id": 483,
+            "target_slot": 1,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 949,
+            "origin_id": 476,
+            "origin_slot": 0,
+            "target_id": 484,
+            "target_slot": 1,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 950,
+            "origin_id": 474,
+            "origin_slot": 0,
+            "target_id": 477,
+            "target_slot": 0,
+            "type": "STRING"
+          },
+          {
+            "id": 951,
+            "origin_id": 477,
+            "origin_slot": 0,
+            "target_id": 483,
+            "target_slot": 2,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 952,
+            "origin_id": 477,
+            "origin_slot": 0,
+            "target_id": 484,
+            "target_slot": 2,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 953,
+            "origin_id": 474,
+            "origin_slot": 0,
+            "target_id": 478,
+            "target_slot": 0,
+            "type": "STRING"
+          },
+          {
+            "id": 954,
+            "origin_id": 478,
+            "origin_slot": 0,
+            "target_id": 483,
+            "target_slot": 3,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 955,
+            "origin_id": 478,
+            "origin_slot": 0,
+            "target_id": 484,
+            "target_slot": 3,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 956,
+            "origin_id": 474,
+            "origin_slot": 0,
+            "target_id": 479,
+            "target_slot": 0,
+            "type": "STRING"
+          },
+          {
+            "id": 957,
+            "origin_id": 479,
+            "origin_slot": 0,
+            "target_id": 483,
+            "target_slot": 4,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 958,
+            "origin_id": 479,
+            "origin_slot": 0,
+            "target_id": 484,
+            "target_slot": 4,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 959,
+            "origin_id": 474,
+            "origin_slot": 0,
+            "target_id": 480,
+            "target_slot": 0,
+            "type": "STRING"
+          },
+          {
+            "id": 960,
+            "origin_id": 480,
+            "origin_slot": 0,
+            "target_id": 483,
+            "target_slot": 5,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 961,
+            "origin_id": 480,
+            "origin_slot": 0,
+            "target_id": 484,
+            "target_slot": 5,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 962,
+            "origin_id": 474,
+            "origin_slot": 0,
+            "target_id": 481,
+            "target_slot": 0,
+            "type": "STRING"
+          },
+          {
+            "id": 963,
+            "origin_id": 481,
+            "origin_slot": 0,
+            "target_id": 483,
+            "target_slot": 6,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 964,
+            "origin_id": 481,
+            "origin_slot": 0,
+            "target_id": 484,
+            "target_slot": 6,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 965,
+            "origin_id": 474,
+            "origin_slot": 0,
+            "target_id": 482,
+            "target_slot": 0,
+            "type": "STRING"
+          },
+          {
+            "id": 966,
+            "origin_id": 482,
+            "origin_slot": 0,
+            "target_id": 483,
+            "target_slot": 7,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 967,
+            "origin_id": 482,
+            "origin_slot": 0,
+            "target_id": 484,
+            "target_slot": 7,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 968,
+            "origin_id": 483,
+            "origin_slot": 1,
+            "target_id": 485,
+            "target_slot": 2,
+            "type": "INT"
+          },
+          {
+            "id": 969,
+            "origin_id": 484,
+            "origin_slot": 1,
+            "target_id": 485,
+            "target_slot": 3,
+            "type": "INT"
+          },
+          {
+            "id": 970,
+            "origin_id": 483,
+            "origin_slot": 1,
+            "target_id": 486,
+            "target_slot": 2,
+            "type": "INT"
+          },
+          {
+            "id": 971,
+            "origin_id": 484,
+            "origin_slot": 1,
+            "target_id": 486,
+            "target_slot": 3,
+            "type": "INT"
+          },
+          {
+            "id": 972,
+            "origin_id": -10,
+            "origin_slot": 7,
+            "target_id": 485,
+            "target_slot": 1,
+            "type": "FLOAT"
+          },
+          {
+            "id": 973,
+            "origin_id": -10,
+            "origin_slot": 7,
+            "target_id": 486,
+            "target_slot": 1,
+            "type": "FLOAT"
+          },
+          {
+            "id": 974,
+            "origin_id": -10,
+            "origin_slot": 8,
+            "target_id": 485,
+            "target_slot": 4,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 975,
+            "origin_id": -10,
+            "origin_slot": 8,
+            "target_id": 486,
+            "target_slot": 4,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 976,
+            "origin_id": 485,
+            "origin_slot": 1,
+            "target_id": 353,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 977,
+            "origin_id": 486,
+            "origin_slot": 1,
+            "target_id": 355,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 978,
+            "origin_id": 485,
+            "origin_slot": 1,
+            "target_id": 487,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 979,
+            "origin_id": 486,
+            "origin_slot": 1,
+            "target_id": 487,
+            "target_slot": 1,
+            "type": "INT"
+          },
+          {
+            "id": 980,
+            "origin_id": 485,
+            "origin_slot": 1,
+            "target_id": 488,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 981,
+            "origin_id": 486,
+            "origin_slot": 1,
+            "target_id": 488,
+            "target_slot": 1,
+            "type": "INT"
+          },
+          {
+            "id": 982,
+            "origin_id": 485,
+            "origin_slot": 1,
+            "target_id": 489,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 983,
+            "origin_id": 486,
+            "origin_slot": 1,
+            "target_id": 489,
+            "target_slot": 1,
+            "type": "INT"
+          },
+          {
+            "id": 984,
+            "origin_id": 353,
+            "origin_slot": 1,
+            "target_id": 489,
+            "target_slot": 2,
+            "type": "INT"
+          },
+          {
+            "id": 985,
+            "origin_id": 355,
+            "origin_slot": 1,
+            "target_id": 489,
+            "target_slot": 3,
+            "type": "INT"
+          },
+          {
+            "id": 986,
+            "origin_id": 487,
+            "origin_slot": 0,
+            "target_id": 489,
+            "target_slot": 4,
+            "type": "FLOAT"
+          },
+          {
+            "id": 987,
+            "origin_id": 488,
+            "origin_slot": 2,
+            "target_id": 489,
+            "target_slot": 5,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 988,
+            "origin_id": 489,
+            "origin_slot": 0,
+            "target_id": -20,
+            "target_slot": 4,
+            "type": "STRING"
           }
         ],
         "extra": {}
