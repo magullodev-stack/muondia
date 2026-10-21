@@ -2,7 +2,7 @@
   "id": "d9ac44b0-2f2d-4a95-8dd2-44cd82200a80",
   "revision": 0,
   "last_node_id": 2,
-  "last_link_id": 1,
+  "last_link_id": 2,
   "nodes": [
     {
       "id": 1,
@@ -30,7 +30,9 @@
         {
           "name": "MASK",
           "type": "MASK",
-          "links": null
+          "links": [
+            2
+          ]
         }
       ],
       "title": "01 · CARGAR FOTO",
@@ -111,6 +113,12 @@
             "name": "filename_prefix"
           },
           "link": null
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "label": "Transparencia original",
+          "link": 2
         }
       ],
       "outputs": [
@@ -149,6 +157,14 @@
       2,
       0,
       "IMAGE"
+    ],
+    [
+      2,
+      1,
+      1,
+      2,
+      6,
+      "MASK"
     ]
   ],
   "groups": [],
@@ -159,8 +175,8 @@
         "version": 1,
         "state": {
           "lastGroupId": 0,
-          "lastNodeId": 114,
-          "lastLinkId": 24,
+          "lastNodeId": 115,
+          "lastLinkId": 27,
           "lastRerouteId": 0
         },
         "revision": 0,
@@ -173,7 +189,7 @@
             0,
             220,
             180,
-            240
+            270
           ]
         },
         "outputNode": {
@@ -264,6 +280,20 @@
             "pos": [
               80,
               410
+            ]
+          },
+          {
+            "id": "image-lab-alpha-original",
+            "name": "mask",
+            "type": "MASK",
+            "label": "Transparencia original",
+            "linkIds": [
+              25,
+              27
+            ],
+            "pos": [
+              80,
+              440
             ]
           }
         ],
@@ -401,7 +431,7 @@
                 "name": "MASK",
                 "type": "MASK",
                 "links": [
-                  5
+                  26
                 ]
               }
             ],
@@ -443,7 +473,8 @@
                 "name": "IMAGE",
                 "type": "IMAGE",
                 "links": [
-                  7
+                  22,
+                  23
                 ]
               }
             ],
@@ -452,7 +483,7 @@
               "cnr_id": "comfy-core"
             },
             "widgets_values": [],
-            "title": "APLICAR ALFA AL FINAL · RGB + MÁSCARA"
+            "title": "Aplicar alfa original o BiRefNet DESPUÉS del upscale"
           },
           {
             "id": 105,
@@ -514,7 +545,7 @@
               {
                 "name": "on_false",
                 "type": "*",
-                "link": 10
+                "link": 25
               },
               {
                 "name": "on_true",
@@ -535,8 +566,7 @@
                 "name": "output",
                 "type": "*",
                 "links": [
-                  22,
-                  23
+                  5
                 ]
               }
             ],
@@ -547,7 +577,7 @@
             "widgets_values": [
               false
             ],
-            "title": "Seleccionar PNG RGB o RGBA transparente"
+            "title": "Elegir máscara: conservar alfa original / quitar fondo"
           },
           {
             "id": 107,
@@ -871,8 +901,7 @@
                 "name": "output",
                 "type": "*",
                 "links": [
-                  6,
-                  10
+                  6
                 ]
               }
             ],
@@ -928,7 +957,77 @@
             "widgets_values": [
               "image_lab/resultado"
             ],
-            "title": "Guardar PNG final (respeta alfa)"
+            "title": "Guardar PNG RGBA con transparencia real"
+          },
+          {
+            "id": 115,
+            "type": "MaskComposite",
+            "pos": [
+              1380,
+              1430
+            ],
+            "size": [
+              340,
+              170
+            ],
+            "flags": {},
+            "order": 14,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "destination",
+                "type": "MASK",
+                "link": 26
+              },
+              {
+                "name": "source",
+                "type": "MASK",
+                "link": 27
+              },
+              {
+                "name": "x",
+                "type": "INT",
+                "widget": {
+                  "name": "x"
+                },
+                "link": null
+              },
+              {
+                "name": "y",
+                "type": "INT",
+                "widget": {
+                  "name": "y"
+                },
+                "link": null
+              },
+              {
+                "name": "operation",
+                "type": "COMBO",
+                "widget": {
+                  "name": "operation"
+                },
+                "link": null
+              }
+            ],
+            "outputs": [
+              {
+                "name": "MASK",
+                "type": "MASK",
+                "links": [
+                  7
+                ]
+              }
+            ],
+            "title": "Combinar BiRefNet + máscara alfa original",
+            "properties": {
+              "Node name for S&R": "MaskComposite",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              0,
+              0,
+              "add"
+            ]
           }
         ],
         "groups": [],
@@ -959,7 +1058,7 @@
           },
           {
             "id": 5,
-            "origin_id": 103,
+            "origin_id": 106,
             "origin_slot": 0,
             "target_id": 104,
             "target_slot": 1,
@@ -975,11 +1074,11 @@
           },
           {
             "id": 7,
-            "origin_id": 104,
+            "origin_id": 115,
             "origin_slot": 0,
             "target_id": 106,
             "target_slot": 1,
-            "type": "IMAGE"
+            "type": "MASK"
           },
           {
             "id": 8,
@@ -996,14 +1095,6 @@
             "target_id": 106,
             "target_slot": 2,
             "type": "BOOLEAN"
-          },
-          {
-            "id": 10,
-            "origin_id": 113,
-            "origin_slot": 0,
-            "target_id": 106,
-            "target_slot": 0,
-            "type": "IMAGE"
           },
           {
             "id": 11,
@@ -1095,7 +1186,7 @@
           },
           {
             "id": 22,
-            "origin_id": 106,
+            "origin_id": 104,
             "origin_slot": 0,
             "target_id": 114,
             "target_slot": 0,
@@ -1103,7 +1194,7 @@
           },
           {
             "id": 23,
-            "origin_id": 106,
+            "origin_id": 104,
             "origin_slot": 0,
             "target_id": -20,
             "target_slot": 0,
@@ -1116,6 +1207,30 @@
             "target_id": 114,
             "target_slot": 1,
             "type": "STRING"
+          },
+          {
+            "id": 25,
+            "origin_id": -10,
+            "origin_slot": 6,
+            "target_id": 106,
+            "target_slot": 0,
+            "type": "MASK"
+          },
+          {
+            "id": 26,
+            "origin_id": 103,
+            "origin_slot": 0,
+            "target_id": 115,
+            "target_slot": 0,
+            "type": "MASK"
+          },
+          {
+            "id": 27,
+            "origin_id": -10,
+            "origin_slot": 6,
+            "target_id": 115,
+            "target_slot": 1,
+            "type": "MASK"
           }
         ],
         "extra": {},
