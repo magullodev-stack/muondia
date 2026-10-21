@@ -147,9 +147,6 @@
           "label": "PROMPT",
           "name": "value",
           "type": "STRING",
-          "widget": {
-            "name": "value"
-          },
           "link": 800
         },
         {
@@ -370,7 +367,6 @@
         "previewExposures": []
       },
       "widgets_values": [
-        "",
         6,
         16,
         "9:16 (Portrait Widescreen)",
@@ -394,7 +390,6 @@
         false
       ],
       "widgets_values_named": {
-        "value": "",
         "value_2": 6,
         "value_5": 16,
         "value_3": "9:16 (Portrait Widescreen)",
