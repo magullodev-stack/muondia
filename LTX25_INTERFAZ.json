@@ -130,7 +130,7 @@
       ],
       "size": [
         550,
-        466
+        430
       ],
       "flags": {},
       "order": 3,
@@ -150,15 +150,6 @@
             "name": "value"
           },
           "link": 800
-        },
-        {
-          "label": "Prompt negativo",
-          "name": "negative_prompt",
-          "type": "STRING",
-          "widget": {
-            "name": "negative_prompt"
-          },
-          "link": 801
         },
         {
           "label": "Duración (s)",
@@ -206,29 +197,11 @@
           "link": null
         },
         {
-          "label": "CFG vídeo",
-          "name": "video_cfg",
-          "type": "FLOAT",
-          "widget": {
-            "name": "video_cfg"
-          },
-          "link": null
-        },
-        {
           "label": "Activar audio",
           "name": "include_audio",
           "type": "BOOLEAN",
           "widget": {
             "name": "include_audio"
-          },
-          "link": null
-        },
-        {
-          "label": "CFG audio",
-          "name": "audio_cfg",
-          "type": "FLOAT",
-          "widget": {
-            "name": "audio_cfg"
           },
           "link": null
         },
@@ -331,15 +304,12 @@
       },
       "widgets_values": [
         "No music. No zoom.",
-        "pc game, console game, video game, cartoon, childish, ugly",
         6,
         16,
         "9:16 (Portrait Widescreen)",
         0.9,
         32,
-        1,
         false,
-        1,
         900359092894726,
         false,
         "ltx-2.5-22b-distilled-transformer-comfy-int8-convrot.safetensors",
@@ -352,15 +322,12 @@
       ],
       "widgets_values_named": {
         "value": "No music. No zoom.",
-        "negative_prompt": "pc game, console game, video game, cartoon, childish, ugly",
         "value_2": 6,
         "value_5": 16,
         "value_3": "9:16 (Portrait Widescreen)",
         "value_4": 0.9,
         "resolution_multiple": 32,
-        "video_cfg": 1,
         "include_audio": false,
-        "audio_cfg": 1,
         "noise_seed": 900359092894726,
         "randomize_seed": false,
         "unet_name": "ltx-2.5-22b-distilled-transformer-comfy-int8-convrot.safetensors",
@@ -420,55 +387,6 @@
       "widgets_values_named": {
         "value": "No music. No zoom."
       }
-    },
-    {
-      "id": 414,
-      "type": "PrimitiveStringMultiline",
-      "pos": [
-        690,
-        690
-      ],
-      "size": [
-        550,
-        200
-      ],
-      "flags": {},
-      "order": 2,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "STRING",
-          "type": "STRING",
-          "links": [
-            801
-          ]
-        }
-      ],
-      "title": "Prompt negativo",
-      "properties": {
-        "Node name for S&R": "PrimitiveStringMultiline",
-        "cnr_id": "comfy-core",
-        "ver": "0.16.3",
-        "enableTabs": false,
-        "tabWidth": 65,
-        "tabXOffset": 10,
-        "hasSecondTab": false,
-        "secondTabText": "Send Back",
-        "secondTabOffset": 80,
-        "secondTabWidth": 65,
-        "ue_properties": {
-          "widget_ue_connectable": {},
-          "version": "7.7",
-          "input_ue_unconnectable": {}
-        }
-      },
-      "widgets_values": [
-        "pc game, console game, video game, cartoon, childish, ugly"
-      ],
-      "widgets_values_named": {
-        "value": "pc game, console game, video game, cartoon, childish, ugly"
-      }
     }
   ],
   "links": [
@@ -486,14 +404,6 @@
       0,
       398,
       1,
-      "STRING"
-    ],
-    [
-      801,
-      414,
-      0,
-      398,
-      2,
       "STRING"
     ],
     [
@@ -539,7 +449,7 @@
             -693.3733595617866,
             6361.238266223688,
             183.814453125,
-            328
+            268
           ]
         },
         "outputNode": {
@@ -579,19 +489,6 @@
             ]
           },
           {
-            "id": "d61b116a-ae34-49da-afa3-e7badcd209a1",
-            "name": "negative_prompt",
-            "type": "STRING",
-            "linkIds": [
-              798
-            ],
-            "label": "Prompt negativo",
-            "pos": [
-              -533.56,
-              6425
-            ]
-          },
-          {
             "id": "00f26a0c-569d-4aa1-aa8a-281ad2f3c4e0",
             "name": "value_2",
             "type": "INT",
@@ -601,7 +498,7 @@
             "label": "Duración (s)",
             "pos": [
               -533.56,
-              6445
+              6425
             ]
           },
           {
@@ -614,7 +511,7 @@
             "label": "FPS",
             "pos": [
               -533.56,
-              6465
+              6445
             ]
           },
           {
@@ -627,7 +524,7 @@
             "label": "Relación de aspecto",
             "pos": [
               -533.56,
-              6485
+              6465
             ]
           },
           {
@@ -640,7 +537,7 @@
             "label": "Resolución (MP)",
             "pos": [
               -533.56,
-              6505
+              6485
             ]
           },
           {
@@ -653,21 +550,7 @@
             "label": "Múltiplo de resolución",
             "pos": [
               -533.56,
-              6525
-            ]
-          },
-          {
-            "id": "3f40fde9-f263-4b84-b1c8-9d91d8c37702",
-            "name": "video_cfg",
-            "type": "FLOAT",
-            "linkIds": [
-              802,
-              803
-            ],
-            "label": "CFG vídeo",
-            "pos": [
-              -533.56,
-              6545
+              6505
             ]
           },
           {
@@ -680,21 +563,7 @@
             "label": "Activar audio",
             "pos": [
               -533.56,
-              6565
-            ]
-          },
-          {
-            "id": "c51f84c1-3df1-471c-9b2f-dab1d5b310f9",
-            "name": "audio_cfg",
-            "type": "FLOAT",
-            "linkIds": [
-              804,
-              805
-            ],
-            "label": "CFG audio",
-            "pos": [
-              -533.56,
-              6585
+              6525
             ]
           },
           {
@@ -707,7 +576,7 @@
             "label": "Semilla",
             "pos": [
               -533.56,
-              6605
+              6545
             ]
           },
           {
@@ -720,7 +589,7 @@
             "label": "Aleatorizar semilla",
             "pos": [
               -533.56,
-              6625
+              6565
             ]
           },
           {
@@ -733,7 +602,7 @@
             "label": "Modelo de vídeo",
             "pos": [
               -533.56,
-              6645
+              6585
             ]
           },
           {
@@ -746,7 +615,7 @@
             "label": "Codificador de texto",
             "pos": [
               -533.56,
-              6665
+              6605
             ]
           },
           {
@@ -759,7 +628,7 @@
             "label": "VAE vídeo",
             "pos": [
               -533.56,
-              6685
+              6625
             ]
           },
           {
@@ -772,7 +641,7 @@
             "label": "VAE audio",
             "pos": [
               -533.56,
-              6705
+              6645
             ]
           },
           {
@@ -785,7 +654,7 @@
             "label": "Modelo de escalado",
             "pos": [
               -533.56,
-              6725
+              6665
             ]
           },
           {
@@ -798,7 +667,7 @@
             "label": "Modelo de mejora del prompt",
             "pos": [
               -533.56,
-              6745
+              6685
             ]
           },
           {
@@ -811,7 +680,7 @@
             "label": "Activar mejora del prompt",
             "pos": [
               -533.56,
-              6765
+              6705
             ]
           }
         ],
@@ -1102,7 +971,8 @@
                 "name": "CONDITIONING",
                 "type": "CONDITIONING",
                 "links": [
-                  696
+                  696,
+                  697
                 ]
               }
             ],
@@ -1671,73 +1541,6 @@
             }
           },
           {
-            "id": 373,
-            "type": "CLIPTextEncode",
-            "pos": [
-              1170,
-              6880
-            ],
-            "size": [
-              530,
-              240
-            ],
-            "flags": {},
-            "order": 30,
-            "mode": 0,
-            "inputs": [
-              {
-                "localized_name": "clip",
-                "name": "clip",
-                "type": "CLIP",
-                "link": 731
-              },
-              {
-                "localized_name": "texto",
-                "name": "text",
-                "type": "STRING",
-                "widget": {
-                  "name": "text"
-                },
-                "link": 799
-              }
-            ],
-            "outputs": [
-              {
-                "localized_name": "ACONDICIONAMIENTO",
-                "name": "CONDITIONING",
-                "type": "CONDITIONING",
-                "links": [
-                  697
-                ]
-              }
-            ],
-            "properties": {
-              "Node name for S&R": "CLIPTextEncode",
-              "cnr_id": "comfy-core",
-              "ver": "0.3.56",
-              "enableTabs": false,
-              "tabWidth": 65,
-              "tabXOffset": 10,
-              "hasSecondTab": false,
-              "secondTabText": "Send Back",
-              "secondTabOffset": 80,
-              "secondTabWidth": 65,
-              "ue_properties": {
-                "widget_ue_connectable": {},
-                "version": "7.7",
-                "input_ue_unconnectable": {}
-              }
-            },
-            "widgets_values": [
-              "pc game, console game, video game, cartoon, childish, ugly"
-            ],
-            "widgets_values_named": {
-              "text": "pc game, console game, video game, cartoon, childish, ugly"
-            },
-            "color": "#323",
-            "bgcolor": "#535"
-          },
-          {
             "id": 387,
             "type": "CLIPLoader",
             "pos": [
@@ -1768,7 +1571,6 @@
                 "name": "CLIP",
                 "type": "CLIP",
                 "links": [
-                  731,
                   732
                 ]
               }
@@ -2114,7 +1916,7 @@
                 "widget": {
                   "name": "video_cfg"
                 },
-                "link": 802
+                "link": null
               },
               {
                 "localized_name": "audio_cfg",
@@ -2123,7 +1925,7 @@
                 "widget": {
                   "name": "audio_cfg"
                 },
-                "link": 804
+                "link": null
               }
             ],
             "outputs": [
@@ -3372,7 +3174,7 @@
                 "widget": {
                   "name": "video_cfg"
                 },
-                "link": 803
+                "link": null
               },
               {
                 "localized_name": "audio_cfg",
@@ -3381,7 +3183,7 @@
                 "widget": {
                   "name": "audio_cfg"
                 },
-                "link": 805
+                "link": null
               }
             ],
             "outputs": [
@@ -4273,66 +4075,6 @@
             "widgets_values_named": {
               "switch": true
             }
-          },
-          {
-            "id": 412,
-            "type": "PrimitiveStringMultiline",
-            "pos": [
-              140,
-              7160
-            ],
-            "size": [
-              370,
-              350
-            ],
-            "flags": {},
-            "order": 53,
-            "mode": 0,
-            "inputs": [
-              {
-                "localized_name": "valor",
-                "name": "value",
-                "type": "STRING",
-                "widget": {
-                  "name": "value"
-                },
-                "link": 798
-              }
-            ],
-            "outputs": [
-              {
-                "localized_name": "CADENA",
-                "name": "STRING",
-                "type": "STRING",
-                "links": [
-                  799
-                ]
-              }
-            ],
-            "title": "Prompt negativo",
-            "properties": {
-              "Node name for S&R": "PrimitiveStringMultiline",
-              "cnr_id": "comfy-core",
-              "ver": "0.16.3",
-              "enableTabs": false,
-              "tabWidth": 65,
-              "tabXOffset": 10,
-              "hasSecondTab": false,
-              "secondTabText": "Send Back",
-              "secondTabOffset": 80,
-              "secondTabWidth": 65,
-              "ue_properties": {
-                "widget_ue_connectable": {},
-                "version": "7.7",
-                "input_ue_unconnectable": {}
-              }
-            },
-            "widgets_values": [
-              "pc game, console game, video game, cartoon, childish, ugly"
-            ],
-            "widgets_values_named": {
-              "value": "pc game, console game, video game, cartoon, childish, ugly"
-            }
           }
         ],
         "groups": [
@@ -4516,7 +4258,7 @@
           },
           {
             "id": 697,
-            "origin_id": 373,
+            "origin_id": 364,
             "origin_slot": 0,
             "target_id": 365,
             "target_slot": 1,
@@ -4529,14 +4271,6 @@
             "target_id": 365,
             "target_slot": 2,
             "type": "FLOAT"
-          },
-          {
-            "id": 731,
-            "origin_id": 387,
-            "origin_slot": 0,
-            "target_id": 373,
-            "target_slot": 0,
-            "type": "CLIP"
           },
           {
             "id": 735,
@@ -4877,7 +4611,7 @@
           {
             "id": 766,
             "origin_id": -10,
-            "origin_slot": 19,
+            "origin_slot": 16,
             "target_id": 383,
             "target_slot": 0,
             "type": "BOOLEAN"
@@ -4885,7 +4619,7 @@
           {
             "id": 767,
             "origin_id": -10,
-            "origin_slot": 3,
+            "origin_slot": 2,
             "target_id": 362,
             "target_slot": 0,
             "type": "INT"
@@ -4893,7 +4627,7 @@
           {
             "id": 768,
             "origin_id": -10,
-            "origin_slot": 5,
+            "origin_slot": 4,
             "target_id": 403,
             "target_slot": 0,
             "type": "COMBO"
@@ -4901,7 +4635,7 @@
           {
             "id": 769,
             "origin_id": -10,
-            "origin_slot": 6,
+            "origin_slot": 5,
             "target_id": 403,
             "target_slot": 1,
             "type": "FLOAT"
@@ -4949,7 +4683,7 @@
           {
             "id": 776,
             "origin_id": -10,
-            "origin_slot": 4,
+            "origin_slot": 3,
             "target_id": 361,
             "target_slot": 0,
             "type": "INT"
@@ -4957,7 +4691,7 @@
           {
             "id": 777,
             "origin_id": -10,
-            "origin_slot": 13,
+            "origin_slot": 10,
             "target_id": 384,
             "target_slot": 0,
             "type": "COMBO"
@@ -4965,7 +4699,7 @@
           {
             "id": 778,
             "origin_id": -10,
-            "origin_slot": 15,
+            "origin_slot": 12,
             "target_id": 385,
             "target_slot": 0,
             "type": "COMBO"
@@ -4973,7 +4707,7 @@
           {
             "id": 779,
             "origin_id": -10,
-            "origin_slot": 16,
+            "origin_slot": 13,
             "target_id": 386,
             "target_slot": 0,
             "type": "COMBO"
@@ -4981,7 +4715,7 @@
           {
             "id": 780,
             "origin_id": -10,
-            "origin_slot": 14,
+            "origin_slot": 11,
             "target_id": 387,
             "target_slot": 0,
             "type": "COMBO"
@@ -4989,7 +4723,7 @@
           {
             "id": 781,
             "origin_id": -10,
-            "origin_slot": 17,
+            "origin_slot": 14,
             "target_id": 371,
             "target_slot": 0,
             "type": "COMBO"
@@ -4997,7 +4731,7 @@
           {
             "id": 782,
             "origin_id": -10,
-            "origin_slot": 18,
+            "origin_slot": 15,
             "target_id": 393,
             "target_slot": 0,
             "type": "COMBO"
@@ -5005,7 +4739,7 @@
           {
             "id": 785,
             "origin_id": -10,
-            "origin_slot": 7,
+            "origin_slot": 6,
             "target_id": 403,
             "target_slot": 2,
             "type": "INT"
@@ -5013,7 +4747,7 @@
           {
             "id": 786,
             "origin_id": -10,
-            "origin_slot": 11,
+            "origin_slot": 8,
             "target_id": 405,
             "target_slot": 0,
             "type": "INT"
@@ -5021,7 +4755,7 @@
           {
             "id": 787,
             "origin_id": -10,
-            "origin_slot": 12,
+            "origin_slot": 9,
             "target_id": 407,
             "target_slot": 0,
             "type": "BOOLEAN"
@@ -5101,58 +4835,10 @@
           {
             "id": 797,
             "origin_id": -10,
-            "origin_slot": 9,
+            "origin_slot": 7,
             "target_id": 409,
             "target_slot": 0,
             "type": "BOOLEAN"
-          },
-          {
-            "id": 798,
-            "origin_id": -10,
-            "origin_slot": 2,
-            "target_id": 412,
-            "target_slot": 0,
-            "type": "STRING"
-          },
-          {
-            "id": 799,
-            "origin_id": 412,
-            "origin_slot": 0,
-            "target_id": 373,
-            "target_slot": 1,
-            "type": "STRING"
-          },
-          {
-            "id": 802,
-            "origin_id": -10,
-            "origin_slot": 8,
-            "target_id": 388,
-            "target_slot": 3,
-            "type": "FLOAT"
-          },
-          {
-            "id": 803,
-            "origin_id": -10,
-            "origin_slot": 8,
-            "target_id": 391,
-            "target_slot": 3,
-            "type": "FLOAT"
-          },
-          {
-            "id": 804,
-            "origin_id": -10,
-            "origin_slot": 10,
-            "target_id": 388,
-            "target_slot": 4,
-            "type": "FLOAT"
-          },
-          {
-            "id": 805,
-            "origin_id": -10,
-            "origin_slot": 10,
-            "target_id": 391,
-            "target_slot": 4,
-            "type": "FLOAT"
           },
           {
             "id": 693,
