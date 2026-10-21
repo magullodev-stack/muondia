@@ -1,8 +1,8 @@
 {
   "id": "8758f3da-3006-49ff-9147-7a9a944326cc",
   "revision": 0,
-  "last_node_id": 421,
-  "last_link_id": 812,
+  "last_node_id": 422,
+  "last_link_id": 813,
   "nodes": [
     {
       "id": 395,
@@ -131,7 +131,7 @@
       ],
       "size": [
         550,
-        610
+        675
       ],
       "flags": {},
       "order": 3,
@@ -297,6 +297,30 @@
           "link": null
         },
         {
+          "name": "ingredients_image",
+          "label": "Imagen Ingredients",
+          "type": "IMAGE",
+          "link": 813
+        },
+        {
+          "name": "ingredients_enabled",
+          "label": "Activar Ingredients",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "ingredients_enabled"
+          },
+          "link": null
+        },
+        {
+          "name": "ingredients_strength",
+          "label": "Fuerza Ingredients",
+          "type": "FLOAT",
+          "widget": {
+            "name": "ingredients_strength"
+          },
+          "link": null
+        },
+        {
           "label": "Modelo de vídeo",
           "name": "unet_name",
           "type": "COMBO",
@@ -417,6 +441,8 @@
         1,
         false,
         512,
+        false,
+        1,
         "ltx-2.5-22b-distilled-transformer-comfy-int8-convrot.safetensors",
         "gemma4-12b-with-proj-ltx-2.5-comfy-int8-convrot.safetensors",
         "ltx-2.5-video-vae-bf16.safetensors",
@@ -449,7 +475,9 @@
         "model_name": "ltx-2.5-latent-spatial-upscaler-x2-bf16-1.0.safetensors",
         "clip_name_1": "gemma4_e2b_it_int8_convrot.safetensors",
         "value_1": false,
-        "union_reference_max_size": 512
+        "union_reference_max_size": 512,
+        "ingredients_enabled": false,
+        "ingredients_strength": 1
       }
     },
     {
@@ -774,6 +802,64 @@
         "cnr_id": "comfy-core"
       },
       "widgets_values": []
+    },
+    {
+      "id": 422,
+      "type": "LoadImage",
+      "pos": [
+        70,
+        2010
+      ],
+      "size": [
+        530,
+        615
+      ],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            813
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "title": "IMAGEN INGREDIENTS · REFERENCIA (opcional)",
+      "properties": {
+        "Node name for S&R": "LoadImage",
+        "cnr_id": "comfy-core",
+        "ver": "0.8.2",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "input_ue_unconnectable": {},
+          "version": "7.5.2"
+        }
+      },
+      "widgets_values": [
+        "Authentication screen1 (1).png",
+        "image"
+      ],
+      "widgets_values_named": {
+        "image": "Authentication screen1 (1).png",
+        "upload": "image"
+      },
+      "color": "#233",
+      "bgcolor": "#353"
     }
   ],
   "links": [
@@ -856,6 +942,14 @@
       421,
       0,
       "INT"
+    ],
+    [
+      813,
+      422,
+      0,
+      398,
+      19,
+      "IMAGE"
     ]
   ],
   "groups": [],
@@ -866,8 +960,8 @@
         "version": 1,
         "state": {
           "lastGroupId": 28,
-          "lastNodeId": 464,
-          "lastLinkId": 916,
+          "lastNodeId": 473,
+          "lastLinkId": 941,
           "lastRerouteId": 0
         },
         "revision": 0,
@@ -1137,6 +1231,45 @@
             "pos": [
               -533.56,
               6745
+            ]
+          },
+          {
+            "id": "ingredients-image-v1",
+            "name": "ingredients_image",
+            "label": "Imagen Ingredients",
+            "type": "IMAGE",
+            "linkIds": [
+              939
+            ],
+            "pos": [
+              -533.56,
+              6745
+            ]
+          },
+          {
+            "id": "ingredients-enabled-v1",
+            "name": "ingredients_enabled",
+            "label": "Activar Ingredients",
+            "type": "BOOLEAN",
+            "linkIds": [
+              940
+            ],
+            "pos": [
+              -533.56,
+              6765
+            ]
+          },
+          {
+            "id": "ingredients-strength-v1",
+            "name": "ingredients_strength",
+            "label": "Fuerza Ingredients",
+            "type": "FLOAT",
+            "linkIds": [
+              941
+            ],
+            "pos": [
+              -533.56,
+              6785
             ]
           },
           {
@@ -2057,7 +2190,8 @@
                   774,
                   775,
                   829,
-                  890
+                  890,
+                  924
                 ]
               }
             ],
@@ -3545,7 +3679,8 @@
                   717,
                   718,
                   906,
-                  916
+                  916,
+                  938
                 ]
               },
               {
@@ -4966,6 +5101,12 @@
                 "shape": 7,
                 "type": "FLOAT,INT,BOOLEAN",
                 "link": 874
+              },
+              {
+                "label": "c",
+                "name": "values.c",
+                "type": "FLOAT,INT,BOOLEAN",
+                "link": 921
               }
             ],
             "outputs": [
@@ -5014,10 +5155,10 @@
               }
             },
             "widgets_values": [
-              "a+b>0"
+              "a+b+c>0"
             ],
             "widgets_values_named": {
-              "expression": "a+b>0"
+              "expression": "a+b+c>0"
             },
             "title": "Algún control activo (Motion o Union)"
           },
@@ -5301,7 +5442,8 @@
                 "name": "output",
                 "type": "MODEL",
                 "links": [
-                  836
+                  917,
+                  918
                 ]
               }
             ],
@@ -6673,8 +6815,8 @@
                 "name": "output",
                 "type": "CONDITIONING",
                 "links": [
-                  840,
-                  851
+                  922,
+                  928
                 ]
               }
             ],
@@ -6736,8 +6878,8 @@
                 "name": "output",
                 "type": "CONDITIONING",
                 "links": [
-                  844,
-                  852
+                  923,
+                  929
                 ]
               }
             ],
@@ -6799,7 +6941,8 @@
                 "name": "output",
                 "type": "LATENT",
                 "links": [
-                  833
+                  925,
+                  930
                 ]
               }
             ],
@@ -7215,6 +7358,565 @@
                 "type": "INT",
                 "links": [
                   915
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ComfySwitchNode",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              false
+            ],
+            "widgets_values_named": {
+              "switch": false
+            }
+          },
+          {
+            "id": 465,
+            "type": "PrimitiveBoolean",
+            "title": "Activar Ingredients",
+            "pos": [
+              1750,
+              5020
+            ],
+            "size": [
+              310,
+              100
+            ],
+            "flags": {},
+            "order": 121,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "value",
+                "type": "BOOLEAN",
+                "widget": {
+                  "name": "value"
+                },
+                "link": 940
+              }
+            ],
+            "outputs": [
+              {
+                "name": "BOOLEAN",
+                "type": "BOOLEAN",
+                "links": [
+                  920,
+                  921,
+                  931,
+                  932,
+                  933
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "PrimitiveBoolean",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              false
+            ],
+            "widgets_values_named": {
+              "value": false
+            }
+          },
+          {
+            "id": 466,
+            "type": "LTXICLoRALoaderModelOnly",
+            "title": "Ingredients · LoRA (imagen de referencia)",
+            "pos": [
+              3050,
+              4870
+            ],
+            "size": [
+              390,
+              165
+            ],
+            "flags": {},
+            "order": 122,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "model",
+                "type": "MODEL",
+                "link": 917
+              },
+              {
+                "name": "lora_name",
+                "type": "COMBO",
+                "widget": {
+                  "name": "lora_name"
+                },
+                "link": null
+              },
+              {
+                "name": "strength_model",
+                "type": "FLOAT",
+                "widget": {
+                  "name": "strength_model"
+                },
+                "link": 941
+              }
+            ],
+            "outputs": [
+              {
+                "name": "model",
+                "type": "MODEL",
+                "links": [
+                  919
+                ]
+              },
+              {
+                "name": "latent_downscale_factor",
+                "type": "FLOAT",
+                "links": [
+                  927
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "LTXICLoRALoaderModelOnly"
+            },
+            "widgets_values": [
+              "ltx-2.3-22b-ic-lora-ingredients-0.9.safetensors",
+              1
+            ],
+            "widgets_values_named": {
+              "lora_name": "ltx-2.3-22b-ic-lora-ingredients-0.9.safetensors",
+              "strength_model": 1
+            }
+          },
+          {
+            "id": 467,
+            "type": "ComfySwitchNode",
+            "title": "Modelo con Ingredients / Original",
+            "pos": [
+              3490,
+              4650
+            ],
+            "size": [
+              310,
+              148
+            ],
+            "flags": {},
+            "order": 123,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "on_false",
+                "shape": 7,
+                "type": "MODEL",
+                "link": 918
+              },
+              {
+                "name": "on_true",
+                "shape": 7,
+                "type": "MODEL",
+                "link": 919
+              },
+              {
+                "name": "switch",
+                "type": "BOOLEAN",
+                "widget": {
+                  "name": "switch"
+                },
+                "link": 920
+              }
+            ],
+            "outputs": [
+              {
+                "name": "output",
+                "type": "MODEL",
+                "links": [
+                  836
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ComfySwitchNode",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              false
+            ],
+            "widgets_values_named": {
+              "switch": false
+            }
+          },
+          {
+            "id": 468,
+            "type": "ImageScaleToMaxDimension",
+            "title": "Ingredients · Reducir segunda imagen (512 px)",
+            "pos": [
+              2020,
+              6900
+            ],
+            "size": [
+              340,
+              125
+            ],
+            "flags": {},
+            "order": 124,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "image",
+                "type": "IMAGE",
+                "link": 939
+              },
+              {
+                "name": "upscale_method",
+                "type": "COMBO",
+                "widget": {
+                  "name": "upscale_method"
+                },
+                "link": null
+              },
+              {
+                "name": "largest_size",
+                "type": "INT",
+                "widget": {
+                  "name": "largest_size"
+                },
+                "link": null
+              }
+            ],
+            "outputs": [
+              {
+                "name": "IMAGE",
+                "type": "IMAGE",
+                "links": [
+                  937
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ImageScaleToMaxDimension",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              "lanczos",
+              512
+            ],
+            "widgets_values_named": {
+              "upscale_method": "lanczos",
+              "largest_size": 512
+            }
+          },
+          {
+            "id": 469,
+            "type": "RepeatImageBatch",
+            "title": "Ingredients · Imagen sostenida durante el vídeo",
+            "pos": [
+              2420,
+              6900
+            ],
+            "size": [
+              340,
+              110
+            ],
+            "flags": {},
+            "order": 125,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "image",
+                "type": "IMAGE",
+                "link": 937
+              },
+              {
+                "name": "amount",
+                "type": "INT",
+                "widget": {
+                  "name": "amount"
+                },
+                "link": 938
+              }
+            ],
+            "outputs": [
+              {
+                "name": "IMAGE",
+                "type": "IMAGE",
+                "links": [
+                  926
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "RepeatImageBatch",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              97
+            ],
+            "widgets_values_named": {
+              "amount": 97
+            }
+          },
+          {
+            "id": 470,
+            "type": "LTXAddVideoICLoRAGuide",
+            "title": "Ingredients · Guía de identidad visual",
+            "pos": [
+              3520,
+              6900
+            ],
+            "size": [
+              365,
+              325
+            ],
+            "flags": {},
+            "order": 126,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "positive",
+                "type": "CONDITIONING",
+                "link": 922
+              },
+              {
+                "name": "negative",
+                "type": "CONDITIONING",
+                "link": 923
+              },
+              {
+                "name": "vae",
+                "type": "VAE",
+                "link": 924
+              },
+              {
+                "name": "latent",
+                "type": "LATENT",
+                "link": 925
+              },
+              {
+                "name": "image",
+                "type": "IMAGE",
+                "link": 926
+              },
+              {
+                "name": "frame_idx",
+                "type": "INT",
+                "widget": {
+                  "name": "frame_idx"
+                },
+                "link": null
+              },
+              {
+                "name": "latent_downscale_factor",
+                "type": "FLOAT",
+                "widget": {
+                  "name": "latent_downscale_factor"
+                },
+                "link": 927
+              }
+            ],
+            "outputs": [
+              {
+                "name": "positive",
+                "type": "CONDITIONING",
+                "links": [
+                  934
+                ]
+              },
+              {
+                "name": "negative",
+                "type": "CONDITIONING",
+                "links": [
+                  935
+                ]
+              },
+              {
+                "name": "latent",
+                "type": "LATENT",
+                "links": [
+                  936
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "LTXAddVideoICLoRAGuide",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              0,
+              1,
+              1,
+              "disabled",
+              true,
+              256,
+              64
+            ],
+            "widgets_values_named": {
+              "frame_idx": 0,
+              "strength": 1,
+              "latent_downscale_factor": 1,
+              "crop": "disabled",
+              "use_tiled_encode": true,
+              "tile_size": 256,
+              "tile_overlap": 64
+            }
+          },
+          {
+            "id": 471,
+            "type": "ComfySwitchNode",
+            "title": "Ingredients · Positivo activado / original",
+            "pos": [
+              4200,
+              6760
+            ],
+            "size": [
+              310,
+              148
+            ],
+            "flags": {},
+            "order": 127,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "on_false",
+                "shape": 7,
+                "type": "CONDITIONING",
+                "link": 928
+              },
+              {
+                "name": "on_true",
+                "shape": 7,
+                "type": "CONDITIONING",
+                "link": 934
+              },
+              {
+                "name": "switch",
+                "type": "BOOLEAN",
+                "widget": {
+                  "name": "switch"
+                },
+                "link": 931
+              }
+            ],
+            "outputs": [
+              {
+                "name": "output",
+                "type": "CONDITIONING",
+                "links": [
+                  840,
+                  851
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ComfySwitchNode",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              false
+            ],
+            "widgets_values_named": {
+              "switch": false
+            }
+          },
+          {
+            "id": 472,
+            "type": "ComfySwitchNode",
+            "title": "Ingredients · Negativo activado / original",
+            "pos": [
+              4200,
+              6930
+            ],
+            "size": [
+              310,
+              148
+            ],
+            "flags": {},
+            "order": 128,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "on_false",
+                "shape": 7,
+                "type": "CONDITIONING",
+                "link": 929
+              },
+              {
+                "name": "on_true",
+                "shape": 7,
+                "type": "CONDITIONING",
+                "link": 935
+              },
+              {
+                "name": "switch",
+                "type": "BOOLEAN",
+                "widget": {
+                  "name": "switch"
+                },
+                "link": 932
+              }
+            ],
+            "outputs": [
+              {
+                "name": "output",
+                "type": "CONDITIONING",
+                "links": [
+                  844,
+                  852
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ComfySwitchNode",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              false
+            ],
+            "widgets_values_named": {
+              "switch": false
+            }
+          },
+          {
+            "id": 473,
+            "type": "ComfySwitchNode",
+            "title": "Ingredients · Latente activado / original",
+            "pos": [
+              4200,
+              7100
+            ],
+            "size": [
+              310,
+              148
+            ],
+            "flags": {},
+            "order": 129,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "on_false",
+                "shape": 7,
+                "type": "LATENT",
+                "link": 930
+              },
+              {
+                "name": "on_true",
+                "shape": 7,
+                "type": "LATENT",
+                "link": 936
+              },
+              {
+                "name": "switch",
+                "type": "BOOLEAN",
+                "widget": {
+                  "name": "switch"
+                },
+                "link": 933
+              }
+            ],
+            "outputs": [
+              {
+                "name": "output",
+                "type": "LATENT",
+                "links": [
+                  833
                 ]
               }
             ],
@@ -7716,7 +8418,7 @@
           {
             "id": 766,
             "origin_id": -10,
-            "origin_slot": 25,
+            "origin_slot": 28,
             "target_id": 383,
             "target_slot": 0,
             "type": "BOOLEAN"
@@ -7788,7 +8490,7 @@
           {
             "id": 777,
             "origin_id": -10,
-            "origin_slot": 19,
+            "origin_slot": 22,
             "target_id": 384,
             "target_slot": 0,
             "type": "COMBO"
@@ -7796,7 +8498,7 @@
           {
             "id": 778,
             "origin_id": -10,
-            "origin_slot": 21,
+            "origin_slot": 24,
             "target_id": 385,
             "target_slot": 0,
             "type": "COMBO"
@@ -7804,7 +8506,7 @@
           {
             "id": 779,
             "origin_id": -10,
-            "origin_slot": 22,
+            "origin_slot": 25,
             "target_id": 386,
             "target_slot": 0,
             "type": "COMBO"
@@ -7812,7 +8514,7 @@
           {
             "id": 780,
             "origin_id": -10,
-            "origin_slot": 20,
+            "origin_slot": 23,
             "target_id": 387,
             "target_slot": 0,
             "type": "COMBO"
@@ -7820,7 +8522,7 @@
           {
             "id": 781,
             "origin_id": -10,
-            "origin_slot": 23,
+            "origin_slot": 26,
             "target_id": 371,
             "target_slot": 0,
             "type": "COMBO"
@@ -7828,7 +8530,7 @@
           {
             "id": 782,
             "origin_id": -10,
-            "origin_slot": 24,
+            "origin_slot": 27,
             "target_id": 393,
             "target_slot": 0,
             "type": "COMBO"
@@ -8203,7 +8905,7 @@
           },
           {
             "id": 833,
-            "origin_id": 457,
+            "origin_id": 473,
             "origin_slot": 0,
             "target_id": 427,
             "target_slot": 0,
@@ -8227,7 +8929,7 @@
           },
           {
             "id": 836,
-            "origin_id": 424,
+            "origin_id": 467,
             "origin_slot": 0,
             "target_id": 428,
             "target_slot": 1,
@@ -8259,7 +8961,7 @@
           },
           {
             "id": 840,
-            "origin_id": 455,
+            "origin_id": 471,
             "origin_slot": 0,
             "target_id": 429,
             "target_slot": 1,
@@ -8291,7 +8993,7 @@
           },
           {
             "id": 844,
-            "origin_id": 456,
+            "origin_id": 472,
             "origin_slot": 0,
             "target_id": 430,
             "target_slot": 1,
@@ -8347,7 +9049,7 @@
           },
           {
             "id": 851,
-            "origin_id": 455,
+            "origin_id": 471,
             "origin_slot": 0,
             "target_id": 432,
             "target_slot": 0,
@@ -8355,7 +9057,7 @@
           },
           {
             "id": 852,
-            "origin_id": 456,
+            "origin_id": 472,
             "origin_slot": 0,
             "target_id": 432,
             "target_slot": 1,
@@ -8872,6 +9574,206 @@
             "target_id": -20,
             "target_slot": 3,
             "type": "INT"
+          },
+          {
+            "id": 917,
+            "origin_id": 424,
+            "origin_slot": 0,
+            "target_id": 466,
+            "target_slot": 0,
+            "type": "MODEL"
+          },
+          {
+            "id": 918,
+            "origin_id": 424,
+            "origin_slot": 0,
+            "target_id": 467,
+            "target_slot": 0,
+            "type": "MODEL"
+          },
+          {
+            "id": 919,
+            "origin_id": 466,
+            "origin_slot": 0,
+            "target_id": 467,
+            "target_slot": 1,
+            "type": "MODEL"
+          },
+          {
+            "id": 920,
+            "origin_id": 465,
+            "origin_slot": 0,
+            "target_id": 467,
+            "target_slot": 2,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 921,
+            "origin_id": 465,
+            "origin_slot": 0,
+            "target_id": 419,
+            "target_slot": 2,
+            "type": "FLOAT,INT,BOOLEAN"
+          },
+          {
+            "id": 922,
+            "origin_id": 455,
+            "origin_slot": 0,
+            "target_id": 470,
+            "target_slot": 0,
+            "type": "CONDITIONING"
+          },
+          {
+            "id": 923,
+            "origin_id": 456,
+            "origin_slot": 0,
+            "target_id": 470,
+            "target_slot": 1,
+            "type": "CONDITIONING"
+          },
+          {
+            "id": 924,
+            "origin_id": 385,
+            "origin_slot": 0,
+            "target_id": 470,
+            "target_slot": 2,
+            "type": "VAE"
+          },
+          {
+            "id": 925,
+            "origin_id": 457,
+            "origin_slot": 0,
+            "target_id": 470,
+            "target_slot": 3,
+            "type": "LATENT"
+          },
+          {
+            "id": 926,
+            "origin_id": 469,
+            "origin_slot": 0,
+            "target_id": 470,
+            "target_slot": 4,
+            "type": "IMAGE"
+          },
+          {
+            "id": 927,
+            "origin_id": 466,
+            "origin_slot": 1,
+            "target_id": 470,
+            "target_slot": 6,
+            "type": "FLOAT"
+          },
+          {
+            "id": 928,
+            "origin_id": 455,
+            "origin_slot": 0,
+            "target_id": 471,
+            "target_slot": 0,
+            "type": "CONDITIONING"
+          },
+          {
+            "id": 929,
+            "origin_id": 456,
+            "origin_slot": 0,
+            "target_id": 472,
+            "target_slot": 0,
+            "type": "CONDITIONING"
+          },
+          {
+            "id": 930,
+            "origin_id": 457,
+            "origin_slot": 0,
+            "target_id": 473,
+            "target_slot": 0,
+            "type": "LATENT"
+          },
+          {
+            "id": 931,
+            "origin_id": 465,
+            "origin_slot": 0,
+            "target_id": 471,
+            "target_slot": 2,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 932,
+            "origin_id": 465,
+            "origin_slot": 0,
+            "target_id": 472,
+            "target_slot": 2,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 933,
+            "origin_id": 465,
+            "origin_slot": 0,
+            "target_id": 473,
+            "target_slot": 2,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 934,
+            "origin_id": 470,
+            "origin_slot": 0,
+            "target_id": 471,
+            "target_slot": 1,
+            "type": "CONDITIONING"
+          },
+          {
+            "id": 935,
+            "origin_id": 470,
+            "origin_slot": 1,
+            "target_id": 472,
+            "target_slot": 1,
+            "type": "CONDITIONING"
+          },
+          {
+            "id": 936,
+            "origin_id": 470,
+            "origin_slot": 2,
+            "target_id": 473,
+            "target_slot": 1,
+            "type": "LATENT"
+          },
+          {
+            "id": 937,
+            "origin_id": 468,
+            "origin_slot": 0,
+            "target_id": 469,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 938,
+            "origin_id": 378,
+            "origin_slot": 1,
+            "target_id": 469,
+            "target_slot": 1,
+            "type": "INT"
+          },
+          {
+            "id": 939,
+            "origin_id": -10,
+            "origin_slot": 19,
+            "target_id": 468,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 940,
+            "origin_id": -10,
+            "origin_slot": 20,
+            "target_id": 465,
+            "target_slot": 0,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 941,
+            "origin_id": -10,
+            "origin_slot": 21,
+            "target_id": 466,
+            "target_slot": 2,
+            "type": "FLOAT"
           }
         ],
         "extra": {}
