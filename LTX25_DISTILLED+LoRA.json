@@ -4672,15 +4672,15 @@
           },
           {
             "id": 418,
-            "type": "Canny",
-            "title": "Union · Bordes Canny",
+            "type": "CannyEdgePreprocessor",
+            "title": "Union · Canny en CPU (OpenCV, por fotograma)",
             "pos": [
               2740,
               5750
             ],
             "size": [
-              300,
-              110
+              360,
+              152
             ],
             "flags": {},
             "order": 57,
@@ -4693,7 +4693,7 @@
               },
               {
                 "name": "low_threshold",
-                "type": "FLOAT",
+                "type": "INT",
                 "widget": {
                   "name": "low_threshold"
                 },
@@ -4701,9 +4701,17 @@
               },
               {
                 "name": "high_threshold",
-                "type": "FLOAT",
+                "type": "INT",
                 "widget": {
                   "name": "high_threshold"
+                },
+                "link": null
+              },
+              {
+                "name": "resolution",
+                "type": "INT",
+                "widget": {
+                  "name": "resolution"
                 },
                 "link": null
               }
@@ -4718,16 +4726,17 @@
               }
             ],
             "properties": {
-              "Node name for S&R": "Canny",
-              "cnr_id": "comfy-core"
+              "Node name for S&R": "CannyEdgePreprocessor"
             },
             "widgets_values": [
-              0.4,
-              0.8
+              100,
+              200,
+              512
             ],
             "widgets_values_named": {
-              "low_threshold": 0.4,
-              "high_threshold": 0.8
+              "low_threshold": 100,
+              "high_threshold": 200,
+              "resolution": 512
             }
           },
           {
