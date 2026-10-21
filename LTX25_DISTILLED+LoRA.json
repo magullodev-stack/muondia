@@ -1,7 +1,7 @@
 {
   "id": "8758f3da-3006-49ff-9147-7a9a944326cc",
   "revision": 0,
-  "last_node_id": 417,
+  "last_node_id": 418,
   "last_link_id": 809,
   "nodes": [
     {
@@ -565,7 +565,7 @@
           ]
         }
       ],
-      "title": "EDITOR MOTION · DIBUJAR",
+      "title": "EDITOR MOTION · PREPARAR / DIBUJAR",
       "properties": {
         "Node name for S&R": "LTXVSparseTrackEditor"
       },
@@ -612,6 +612,28 @@
       "color": "#232",
       "bgcolor": "#353",
       "title": "VÍDEO UNION · REFERENCIA"
+    },
+    {
+      "id": 418,
+      "type": "MarkdownNote",
+      "pos": [
+        971,
+        780
+      ],
+      "size": [
+        330,
+        192
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "MOTION · Mostrar imagen sin render",
+      "properties": {},
+      "widgets_values": [
+        "**PREPARAR MOTION — sin generar vídeo**\n\n1. Carga la imagen inicial.\n2. Haz clic en la **cabecera** de «EDITOR MOTION» para seleccionarlo.\n3. Clic derecho en su cabecera → **Run Branch** (Ejecutar rama).\n4. Cuando aparezca el fondo, dibuja la trayectoria y genera el vídeo.\n\n*No pulses Ejecutar global para preparar la imagen.*"
+      ]
     }
   ],
   "links": [
