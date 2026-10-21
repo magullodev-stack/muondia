@@ -130,7 +130,7 @@
       ],
       "size": [
         550,
-        680
+        710
       ],
       "flags": {},
       "order": 2,
@@ -217,6 +217,15 @@
           "type": "BOOLEAN",
           "widget": {
             "name": "randomize_seed"
+          },
+          "link": null
+        },
+        {
+          "name": "initial_image_strength",
+          "label": "Fuerza imagen inicial",
+          "type": "FLOAT",
+          "widget": {
+            "name": "initial_image_strength"
           },
           "link": null
         },
@@ -345,6 +354,7 @@
         false,
         900359092894726,
         false,
+        0.7,
         32,
         3,
         7,
@@ -373,7 +383,8 @@
         "vae_name": "ltx-2.5-video-vae-bf16.safetensors",
         "vae_name_1": "ltx-2.5-audio-vae-bf16.safetensors",
         "clip_name_1": "gemma4_e2b_it_int8_convrot.safetensors",
-        "value_1": false
+        "value_1": false,
+        "initial_image_strength": 0.7
       }
     },
     {
@@ -461,7 +472,7 @@
         "state": {
           "lastGroupId": 0,
           "lastNodeId": 474,
-          "lastLinkId": 945,
+          "lastLinkId": 946,
           "lastRerouteId": 0
         },
         "revision": 0,
@@ -473,7 +484,7 @@
             -750,
             6250,
             240,
-            510
+            536
           ]
         },
         "outputNode": {
@@ -617,6 +628,19 @@
             ]
           },
           {
+            "id": "dev-initial-image-strength",
+            "name": "initial_image_strength",
+            "label": "Fuerza imagen inicial",
+            "type": "FLOAT",
+            "pos": [
+              -700,
+              6550
+            ],
+            "linkIds": [
+              946
+            ]
+          },
+          {
             "id": "dev-dev_steps",
             "name": "dev_steps",
             "label": "Pasos Dev",
@@ -626,7 +650,7 @@
             ],
             "pos": [
               -700,
-              6550
+              6576
             ]
           },
           {
@@ -639,7 +663,7 @@
             ],
             "pos": [
               -700,
-              6576
+              6602
             ]
           },
           {
@@ -652,7 +676,7 @@
             ],
             "pos": [
               -700,
-              6602
+              6628
             ]
           },
           {
@@ -665,7 +689,7 @@
             "label": "Modelo de vídeo",
             "pos": [
               -700,
-              6628
+              6654
             ]
           },
           {
@@ -678,7 +702,7 @@
             "label": "Codificador de texto",
             "pos": [
               -700,
-              6654
+              6680
             ]
           },
           {
@@ -691,7 +715,7 @@
             "label": "VAE vídeo",
             "pos": [
               -700,
-              6680
+              6706
             ]
           },
           {
@@ -704,7 +728,7 @@
             "label": "VAE audio",
             "pos": [
               -700,
-              6706
+              6732
             ]
           },
           {
@@ -717,7 +741,7 @@
             "label": "Modelo de mejora del prompt",
             "pos": [
               -700,
-              6732
+              6758
             ]
           },
           {
@@ -730,7 +754,7 @@
             "label": "Activar mejora del prompt",
             "pos": [
               -700,
-              6758
+              6784
             ]
           }
         ],
@@ -2013,6 +2037,15 @@
                 "name": "latent",
                 "type": "LATENT",
                 "link": 692
+              },
+              {
+                "name": "strength",
+                "localized_name": "fuerza",
+                "type": "FLOAT",
+                "widget": {
+                  "name": "strength"
+                },
+                "link": 946
               },
               {
                 "localized_name": "omitir",
@@ -3815,7 +3848,7 @@
           {
             "id": 766,
             "origin_id": -10,
-            "origin_slot": 18,
+            "origin_slot": 19,
             "target_id": 383,
             "target_slot": 0,
             "type": "BOOLEAN"
@@ -3863,7 +3896,7 @@
           {
             "id": 777,
             "origin_id": -10,
-            "origin_slot": 13,
+            "origin_slot": 14,
             "target_id": 384,
             "target_slot": 0,
             "type": "COMBO"
@@ -3871,7 +3904,7 @@
           {
             "id": 778,
             "origin_id": -10,
-            "origin_slot": 15,
+            "origin_slot": 16,
             "target_id": 385,
             "target_slot": 0,
             "type": "COMBO"
@@ -3879,7 +3912,7 @@
           {
             "id": 779,
             "origin_id": -10,
-            "origin_slot": 16,
+            "origin_slot": 17,
             "target_id": 386,
             "target_slot": 0,
             "type": "COMBO"
@@ -3887,7 +3920,7 @@
           {
             "id": 780,
             "origin_id": -10,
-            "origin_slot": 14,
+            "origin_slot": 15,
             "target_id": 387,
             "target_slot": 0,
             "type": "COMBO"
@@ -3895,7 +3928,7 @@
           {
             "id": 782,
             "origin_id": -10,
-            "origin_slot": 17,
+            "origin_slot": 18,
             "target_id": 393,
             "target_slot": 0,
             "type": "COMBO"
@@ -4009,7 +4042,7 @@
             "origin_id": 363,
             "origin_slot": 0,
             "target_id": 357,
-            "target_slot": 3,
+            "target_slot": 4,
             "type": "BOOLEAN"
           },
           {
@@ -4127,7 +4160,7 @@
           {
             "id": 942,
             "origin_id": -10,
-            "origin_slot": 10,
+            "origin_slot": 11,
             "target_id": 474,
             "target_slot": 0,
             "type": "INT"
@@ -4143,7 +4176,7 @@
           {
             "id": 944,
             "origin_id": -10,
-            "origin_slot": 11,
+            "origin_slot": 12,
             "target_id": 388,
             "target_slot": 3,
             "type": "FLOAT"
@@ -4151,9 +4184,17 @@
           {
             "id": 945,
             "origin_id": -10,
-            "origin_slot": 12,
+            "origin_slot": 13,
             "target_id": 388,
             "target_slot": 4,
+            "type": "FLOAT"
+          },
+          {
+            "id": 946,
+            "origin_id": -10,
+            "origin_slot": 10,
+            "target_id": 357,
+            "target_slot": 3,
             "type": "FLOAT"
           }
         ],
