@@ -131,7 +131,7 @@
       ],
       "size": [
         550,
-        554
+        580
       ],
       "flags": {},
       "order": 3,
@@ -255,15 +255,6 @@
           "link": null
         },
         {
-          "name": "control_mode",
-          "label": "Modo: 0 Original · 1 Motion · 2 Union",
-          "type": "INT",
-          "widget": {
-            "name": "control_mode"
-          },
-          "link": null
-        },
-        {
           "name": "motion_strength",
           "label": "Fuerza Motion",
           "type": "FLOAT",
@@ -273,11 +264,29 @@
           "link": null
         },
         {
+          "name": "motion_enabled",
+          "label": "Activar Motion",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "motion_enabled"
+          },
+          "link": null
+        },
+        {
           "name": "union_strength",
           "label": "Fuerza Union",
           "type": "FLOAT",
           "widget": {
             "name": "union_strength"
+          },
+          "link": null
+        },
+        {
+          "name": "union_enabled",
+          "label": "Activar Union",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "union_enabled"
           },
           "link": null
         },
@@ -372,9 +381,10 @@
         false,
         42,
         false,
-        0,
         1,
+        false,
         1,
+        false,
         "ltx-2.5-22b-distilled-transformer-comfy-int8-convrot.safetensors",
         "gemma4-12b-with-proj-ltx-2.5-comfy-int8-convrot.safetensors",
         "ltx-2.5-video-vae-bf16.safetensors",
@@ -395,9 +405,10 @@
         "randomize_seed": false,
         "high_noise_seed": 42,
         "randomize_high_seed": false,
-        "control_mode": 0,
         "motion_strength": 1,
+        "motion_enabled": false,
         "union_strength": 1,
+        "union_enabled": false,
         "unet_name": "ltx-2.5-22b-distilled-transformer-comfy-int8-convrot.safetensors",
         "clip_name": "gemma4-12b-with-proj-ltx-2.5-comfy-int8-convrot.safetensors",
         "vae_name": "ltx-2.5-video-vae-bf16.safetensors",
@@ -670,8 +681,8 @@
         "version": 1,
         "state": {
           "lastGroupId": 28,
-          "lastNodeId": 439,
-          "lastLinkId": 870,
+          "lastNodeId": 457,
+          "lastLinkId": 901,
           "lastRerouteId": 0
         },
         "revision": 0,
@@ -879,26 +890,24 @@
             ]
           },
           {
-            "id": "ltx-control_mode",
-            "name": "control_mode",
-            "label": "Modo: 0 Original · 1 Motion · 2 Union",
-            "type": "INT",
-            "linkIds": [
-              812,
-              813
-            ],
+            "id": "ltx-motion_strength",
+            "name": "motion_strength",
+            "label": "Fuerza Motion",
+            "type": "FLOAT",
+            "linkIds": [],
             "pos": [
               -533.56,
               6665
             ]
           },
           {
-            "id": "ltx-motion_strength",
-            "name": "motion_strength",
-            "label": "Fuerza Motion",
-            "type": "FLOAT",
+            "name": "motion_enabled",
+            "id": "ltx-motion-enabled",
+            "label": "Activar Motion",
+            "type": "BOOLEAN",
             "linkIds": [
-              815
+              815,
+              871
             ],
             "pos": [
               -533.56,
@@ -919,16 +928,30 @@
             ]
           },
           {
+            "name": "union_enabled",
+            "id": "ltx-union-enabled",
+            "label": "Activar Union",
+            "type": "BOOLEAN",
+            "linkIds": [
+              777,
+              872
+            ],
+            "pos": [
+              -533.56,
+              6725
+            ]
+          },
+          {
             "id": "cbb7ddb9-95d0-4e63-a473-f37c329fbcda",
             "name": "unet_name",
             "type": "COMBO",
             "linkIds": [
-              777
+              780
             ],
             "label": "Modelo de vídeo",
             "pos": [
               -533.56,
-              6725
+              6745
             ]
           },
           {
@@ -936,12 +959,12 @@
             "name": "clip_name",
             "type": "COMBO",
             "linkIds": [
-              780
+              778
             ],
             "label": "Codificador de texto",
             "pos": [
               -533.56,
-              6745
+              6765
             ]
           },
           {
@@ -949,12 +972,12 @@
             "name": "vae_name",
             "type": "COMBO",
             "linkIds": [
-              778
+              779
             ],
             "label": "VAE vídeo",
             "pos": [
               -533.56,
-              6765
+              6785
             ]
           },
           {
@@ -962,12 +985,12 @@
             "name": "vae_name_1",
             "type": "COMBO",
             "linkIds": [
-              779
+              781
             ],
             "label": "VAE audio",
             "pos": [
               -533.56,
-              6785
+              6805
             ]
           },
           {
@@ -975,12 +998,12 @@
             "name": "model_name",
             "type": "COMBO",
             "linkIds": [
-              781
+              782
             ],
             "label": "Modelo de escalado",
             "pos": [
               -533.56,
-              6805
+              6825
             ]
           },
           {
@@ -988,25 +1011,23 @@
             "name": "clip_name_1",
             "type": "COMBO",
             "linkIds": [
-              782
+              766
             ],
             "label": "Modelo de mejora del prompt",
             "pos": [
               -533.56,
-              6825
+              6845
             ]
           },
           {
             "id": "21c9d37e-1f04-47f8-b752-22667180790c",
             "name": "value_1",
             "type": "BOOLEAN",
-            "linkIds": [
-              766
-            ],
+            "linkIds": [],
             "label": "Activar mejora del prompt",
             "pos": [
               -533.56,
-              6845
+              6865
             ]
           }
         ],
@@ -1159,7 +1180,7 @@
                 "localized_name": "razonamiento",
                 "name": "thinking",
                 "type": "STRING",
-                "links": null
+                "links": []
               }
             ],
             "properties": {
@@ -1645,8 +1666,8 @@
                 "name": "BOOLEAN",
                 "type": "BOOLEAN",
                 "links": [
-                  683,
-                  693
+                  693,
+                  683
                 ]
               }
             ],
@@ -1720,7 +1741,8 @@
                 "links": [
                   827,
                   839,
-                  854
+                  854,
+                  879
                 ]
               },
               {
@@ -1730,7 +1752,8 @@
                 "links": [
                   828,
                   843,
-                  858
+                  858,
+                  882
                 ]
               }
             ],
@@ -1793,7 +1816,8 @@
                   773,
                   774,
                   775,
-                  829
+                  829,
+                  890
                 ]
               }
             ],
@@ -2421,7 +2445,8 @@
                 "type": "LATENT",
                 "links": [
                   699,
-                  830
+                  830,
+                  885
                 ]
               }
             ],
@@ -2888,8 +2913,8 @@
                 "name": "output_image",
                 "type": "IMAGE",
                 "links": [
-                  681,
                   691,
+                  681,
                   757,
                   806
                 ]
@@ -4680,95 +4705,14 @@
                 "localized_name": "a",
                 "name": "values.a",
                 "type": "FLOAT,INT,BOOLEAN",
-                "link": 812
+                "link": 873
               },
               {
                 "localized_name": "b",
                 "name": "values.b",
                 "shape": 7,
                 "type": "FLOAT,INT,BOOLEAN",
-                "link": null
-              }
-            ],
-            "outputs": [
-              {
-                "localized_name": "FLOTANTE",
-                "name": "FLOAT",
-                "type": "FLOAT",
-                "links": []
-              },
-              {
-                "localized_name": "ENTERO",
-                "name": "INT",
-                "type": "INT",
-                "links": []
-              },
-              {
-                "localized_name": "BOOL",
-                "name": "BOOL",
-                "type": "BOOLEAN",
-                "links": [
-                  820,
-                  823,
-                  826
-                ]
-              }
-            ],
-            "properties": {
-              "Node name for S&R": "ComfyMathExpression",
-              "cnr_id": "comfy-core",
-              "ver": "0.16.3",
-              "enableTabs": false,
-              "tabWidth": 65,
-              "tabXOffset": 10,
-              "hasSecondTab": false,
-              "secondTabText": "Send Back",
-              "secondTabOffset": 80,
-              "secondTabWidth": 65,
-              "ue_properties": {
-                "widget_ue_connectable": {},
-                "version": "7.7",
-                "input_ue_unconnectable": {}
-              }
-            },
-            "widgets_values": [
-              "a==2"
-            ],
-            "widgets_values_named": {
-              "expression": "a==2"
-            },
-            "title": "Modo Union activo"
-          },
-          {
-            "id": 420,
-            "type": "ComfyMathExpression",
-            "pos": [
-              2050,
-              4810
-            ],
-            "size": [
-              225,
-              74
-            ],
-            "flags": {
-              "collapsed": true
-            },
-            "order": 58,
-            "mode": 0,
-            "inputs": [
-              {
-                "label": "a",
-                "localized_name": "a",
-                "name": "values.a",
-                "type": "FLOAT,INT,BOOLEAN",
-                "link": 813
-              },
-              {
-                "localized_name": "b",
-                "name": "values.b",
-                "shape": 7,
-                "type": "FLOAT,INT,BOOLEAN",
-                "link": null
+                "link": 874
               }
             ],
             "outputs": [
@@ -4817,12 +4761,91 @@
               }
             },
             "widgets_values": [
-              "a>0"
+              "a+b>0"
             ],
             "widgets_values_named": {
-              "expression": "a>0"
+              "expression": "a+b>0"
             },
-            "title": "LoRA activa"
+            "title": "Algún control activo (Motion o Union)"
+          },
+          {
+            "id": 420,
+            "type": "ComfyMathExpression",
+            "pos": [
+              2050,
+              4810
+            ],
+            "size": [
+              225,
+              74
+            ],
+            "flags": {
+              "collapsed": true
+            },
+            "order": 58,
+            "mode": 0,
+            "inputs": [
+              {
+                "label": "a",
+                "localized_name": "a",
+                "name": "values.a",
+                "type": "FLOAT,INT,BOOLEAN",
+                "link": 875
+              },
+              {
+                "localized_name": "b",
+                "name": "values.b",
+                "shape": 7,
+                "type": "FLOAT,INT,BOOLEAN",
+                "link": null
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "FLOTANTE",
+                "name": "FLOAT",
+                "type": "FLOAT",
+                "links": []
+              },
+              {
+                "localized_name": "ENTERO",
+                "name": "INT",
+                "type": "INT",
+                "links": [
+                  892
+                ]
+              },
+              {
+                "localized_name": "BOOL",
+                "name": "BOOL",
+                "type": "BOOLEAN",
+                "links": []
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ComfyMathExpression",
+              "cnr_id": "comfy-core",
+              "ver": "0.16.3",
+              "enableTabs": false,
+              "tabWidth": 65,
+              "tabXOffset": 10,
+              "hasSecondTab": false,
+              "secondTabText": "Send Back",
+              "secondTabOffset": 80,
+              "secondTabWidth": 65,
+              "ue_properties": {
+                "widget_ue_connectable": {},
+                "version": "7.7",
+                "input_ue_unconnectable": {}
+              }
+            },
+            "widgets_values": [
+              "0-a"
+            ],
+            "widgets_values_named": {
+              "expression": "0-a"
+            },
+            "title": "Union: posición temporal independiente al combinar"
           },
           {
             "id": 421,
@@ -4921,7 +4944,7 @@
                 "localized_name": "model",
                 "name": "model",
                 "type": "MODEL",
-                "link": 816
+                "link": 877
               },
               {
                 "localized_name": "lora_name",
@@ -4981,68 +5004,6 @@
             }
           },
           {
-            "id": 423,
-            "type": "ComfySwitchNode",
-            "pos": [
-              2730,
-              5400
-            ],
-            "size": [
-              300,
-              145
-            ],
-            "flags": {},
-            "order": 61,
-            "mode": 0,
-            "inputs": [
-              {
-                "localized_name": "en_falso",
-                "name": "on_false",
-                "shape": 7,
-                "type": "IMAGE",
-                "link": 818
-              },
-              {
-                "localized_name": "en_verdadero",
-                "name": "on_true",
-                "shape": 7,
-                "type": "IMAGE",
-                "link": 819
-              },
-              {
-                "localized_name": "interruptor",
-                "name": "switch",
-                "type": "BOOLEAN",
-                "widget": {
-                  "name": "switch"
-                },
-                "link": 820
-              }
-            ],
-            "outputs": [
-              {
-                "localized_name": "salida",
-                "name": "output",
-                "type": "IMAGE",
-                "links": [
-                  831
-                ]
-              }
-            ],
-            "title": "Guía Motion / Union",
-            "properties": {
-              "Node name for S&R": "ComfySwitchNode",
-              "cnr_id": "comfy-core",
-              "ver": "0.22.0"
-            },
-            "widgets_values": [
-              false
-            ],
-            "widgets_values_named": {
-              "switch": false
-            }
-          },
-          {
             "id": 424,
             "type": "ComfySwitchNode",
             "pos": [
@@ -5062,7 +5023,7 @@
                 "name": "on_false",
                 "shape": 7,
                 "type": "MODEL",
-                "link": 821
+                "link": 878
               },
               {
                 "localized_name": "en_verdadero",
@@ -5091,69 +5052,7 @@
                 ]
               }
             ],
-            "title": "LoRA Motion / Union",
-            "properties": {
-              "Node name for S&R": "ComfySwitchNode",
-              "cnr_id": "comfy-core",
-              "ver": "0.22.0"
-            },
-            "widgets_values": [
-              false
-            ],
-            "widgets_values_named": {
-              "switch": false
-            }
-          },
-          {
-            "id": 425,
-            "type": "ComfySwitchNode",
-            "pos": [
-              2730,
-              4820
-            ],
-            "size": [
-              300,
-              145
-            ],
-            "flags": {},
-            "order": 63,
-            "mode": 0,
-            "inputs": [
-              {
-                "localized_name": "en_falso",
-                "name": "on_false",
-                "shape": 7,
-                "type": "FLOAT",
-                "link": 824
-              },
-              {
-                "localized_name": "en_verdadero",
-                "name": "on_true",
-                "shape": 7,
-                "type": "FLOAT",
-                "link": 825
-              },
-              {
-                "localized_name": "interruptor",
-                "name": "switch",
-                "type": "BOOLEAN",
-                "widget": {
-                  "name": "switch"
-                },
-                "link": 826
-              }
-            ],
-            "outputs": [
-              {
-                "localized_name": "salida",
-                "name": "output",
-                "type": "FLOAT",
-                "links": [
-                  832
-                ]
-              }
-            ],
-            "title": "Factor LoRA Motion / Union",
+            "title": "Modelo combinado Motion + Union",
             "properties": {
               "Node name for S&R": "ComfySwitchNode",
               "cnr_id": "comfy-core",
@@ -5209,7 +5108,7 @@
                 "localized_name": "image",
                 "name": "image",
                 "type": "IMAGE",
-                "link": 831
+                "link": 818
               },
               {
                 "localized_name": "latent_downscale_factor",
@@ -5218,7 +5117,7 @@
                 "widget": {
                   "name": "latent_downscale_factor"
                 },
-                "link": 832
+                "link": 824
               }
             ],
             "outputs": [
@@ -5227,8 +5126,7 @@
                 "name": "positive",
                 "type": "CONDITIONING",
                 "links": [
-                  840,
-                  851
+                  880
                 ]
               },
               {
@@ -5236,8 +5134,7 @@
                 "name": "negative",
                 "type": "CONDITIONING",
                 "links": [
-                  844,
-                  852
+                  883
                 ]
               },
               {
@@ -5245,7 +5142,7 @@
                 "name": "latent",
                 "type": "LATENT",
                 "links": [
-                  833
+                  886
                 ]
               }
             ],
@@ -5261,7 +5158,7 @@
               256,
               64
             ],
-            "title": "Guía IC-LoRA activa"
+            "title": "Guía Motion"
           },
           {
             "id": 427,
@@ -6004,6 +5901,654 @@
               }
             ],
             "title": "Elegir semilla High-res (fija/aleatoria)",
+            "properties": {
+              "Node name for S&R": "ComfySwitchNode",
+              "cnr_id": "comfy-core",
+              "ver": "0.22.0"
+            },
+            "widgets_values": [
+              false
+            ],
+            "widgets_values_named": {
+              "switch": false
+            }
+          },
+          {
+            "id": 448,
+            "type": "PrimitiveBoolean",
+            "pos": [
+              1850,
+              4500
+            ],
+            "size": [
+              320,
+              100
+            ],
+            "flags": {},
+            "order": 108,
+            "mode": 0,
+            "inputs": [
+              {
+                "localized_name": "valor",
+                "name": "value",
+                "type": "BOOLEAN",
+                "widget": {
+                  "name": "value"
+                },
+                "link": 871
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "BOOLEANO",
+                "name": "BOOLEAN",
+                "type": "BOOLEAN",
+                "links": [
+                  873,
+                  875,
+                  876,
+                  881,
+                  884,
+                  887
+                ]
+              }
+            ],
+            "title": "Activar Motion",
+            "properties": {
+              "Node name for S&R": "PrimitiveBoolean",
+              "cnr_id": "comfy-core",
+              "ver": "0.22.0"
+            },
+            "widgets_values": [
+              false
+            ],
+            "widgets_values_named": {
+              "value": false
+            }
+          },
+          {
+            "id": 449,
+            "type": "PrimitiveBoolean",
+            "pos": [
+              1850,
+              4690
+            ],
+            "size": [
+              320,
+              100
+            ],
+            "flags": {},
+            "order": 109,
+            "mode": 0,
+            "inputs": [
+              {
+                "localized_name": "valor",
+                "name": "value",
+                "type": "BOOLEAN",
+                "widget": {
+                  "name": "value"
+                },
+                "link": 872
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "BOOLEANO",
+                "name": "BOOLEAN",
+                "type": "BOOLEAN",
+                "links": [
+                  823,
+                  874,
+                  895,
+                  898,
+                  901
+                ]
+              }
+            ],
+            "title": "Activar Union",
+            "properties": {
+              "Node name for S&R": "PrimitiveBoolean",
+              "cnr_id": "comfy-core",
+              "ver": "0.22.0"
+            },
+            "widgets_values": [
+              false
+            ],
+            "widgets_values_named": {
+              "value": false
+            }
+          },
+          {
+            "id": 450,
+            "type": "ComfySwitchNode",
+            "pos": [
+              3080,
+              4510
+            ],
+            "size": [
+              300,
+              145
+            ],
+            "flags": {},
+            "order": 110,
+            "mode": 0,
+            "inputs": [
+              {
+                "localized_name": "en_falso",
+                "name": "on_false",
+                "shape": 7,
+                "type": "MODEL",
+                "link": 816
+              },
+              {
+                "localized_name": "en_verdadero",
+                "name": "on_true",
+                "shape": 7,
+                "type": "MODEL",
+                "link": 821
+              },
+              {
+                "localized_name": "interruptor",
+                "name": "switch",
+                "type": "BOOLEAN",
+                "widget": {
+                  "name": "switch"
+                },
+                "link": 876
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "salida",
+                "name": "output",
+                "type": "MODEL",
+                "links": [
+                  877,
+                  878
+                ]
+              }
+            ],
+            "title": "Modelo con Motion / Original",
+            "properties": {
+              "Node name for S&R": "ComfySwitchNode",
+              "cnr_id": "comfy-core",
+              "ver": "0.22.0"
+            },
+            "widgets_values": [
+              false
+            ],
+            "widgets_values_named": {
+              "switch": false
+            }
+          },
+          {
+            "id": 451,
+            "type": "ComfySwitchNode",
+            "pos": [
+              2700,
+              6070
+            ],
+            "size": [
+              300,
+              145
+            ],
+            "flags": {},
+            "order": 111,
+            "mode": 0,
+            "inputs": [
+              {
+                "localized_name": "en_falso",
+                "name": "on_false",
+                "shape": 7,
+                "type": "CONDITIONING",
+                "link": 879
+              },
+              {
+                "localized_name": "en_verdadero",
+                "name": "on_true",
+                "shape": 7,
+                "type": "CONDITIONING",
+                "link": 880
+              },
+              {
+                "localized_name": "interruptor",
+                "name": "switch",
+                "type": "BOOLEAN",
+                "widget": {
+                  "name": "switch"
+                },
+                "link": 881
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "salida",
+                "name": "output",
+                "type": "CONDITIONING",
+                "links": [
+                  888,
+                  893
+                ]
+              }
+            ],
+            "title": "Condicionamiento Motion · positivo",
+            "properties": {
+              "Node name for S&R": "ComfySwitchNode",
+              "cnr_id": "comfy-core",
+              "ver": "0.22.0"
+            },
+            "widgets_values": [
+              false
+            ],
+            "widgets_values_named": {
+              "switch": false
+            }
+          },
+          {
+            "id": 452,
+            "type": "ComfySwitchNode",
+            "pos": [
+              2700,
+              6260
+            ],
+            "size": [
+              300,
+              145
+            ],
+            "flags": {},
+            "order": 112,
+            "mode": 0,
+            "inputs": [
+              {
+                "localized_name": "en_falso",
+                "name": "on_false",
+                "shape": 7,
+                "type": "CONDITIONING",
+                "link": 882
+              },
+              {
+                "localized_name": "en_verdadero",
+                "name": "on_true",
+                "shape": 7,
+                "type": "CONDITIONING",
+                "link": 883
+              },
+              {
+                "localized_name": "interruptor",
+                "name": "switch",
+                "type": "BOOLEAN",
+                "widget": {
+                  "name": "switch"
+                },
+                "link": 884
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "salida",
+                "name": "output",
+                "type": "CONDITIONING",
+                "links": [
+                  889,
+                  896
+                ]
+              }
+            ],
+            "title": "Condicionamiento Motion · negativo",
+            "properties": {
+              "Node name for S&R": "ComfySwitchNode",
+              "cnr_id": "comfy-core",
+              "ver": "0.22.0"
+            },
+            "widgets_values": [
+              false
+            ],
+            "widgets_values_named": {
+              "switch": false
+            }
+          },
+          {
+            "id": 453,
+            "type": "ComfySwitchNode",
+            "pos": [
+              2700,
+              6450
+            ],
+            "size": [
+              300,
+              145
+            ],
+            "flags": {},
+            "order": 113,
+            "mode": 0,
+            "inputs": [
+              {
+                "localized_name": "en_falso",
+                "name": "on_false",
+                "shape": 7,
+                "type": "LATENT",
+                "link": 885
+              },
+              {
+                "localized_name": "en_verdadero",
+                "name": "on_true",
+                "shape": 7,
+                "type": "LATENT",
+                "link": 886
+              },
+              {
+                "localized_name": "interruptor",
+                "name": "switch",
+                "type": "BOOLEAN",
+                "widget": {
+                  "name": "switch"
+                },
+                "link": 887
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "salida",
+                "name": "output",
+                "type": "LATENT",
+                "links": [
+                  891,
+                  899
+                ]
+              }
+            ],
+            "title": "Latente Motion · vídeo",
+            "properties": {
+              "Node name for S&R": "ComfySwitchNode",
+              "cnr_id": "comfy-core",
+              "ver": "0.22.0"
+            },
+            "widgets_values": [
+              false
+            ],
+            "widgets_values_named": {
+              "switch": false
+            }
+          },
+          {
+            "id": 454,
+            "type": "LTXAddVideoICLoRAGuide",
+            "pos": [
+              3450,
+              5750
+            ],
+            "size": [
+              316,
+              300
+            ],
+            "flags": {},
+            "order": 114,
+            "mode": 0,
+            "inputs": [
+              {
+                "localized_name": "positive",
+                "name": "positive",
+                "type": "CONDITIONING",
+                "link": 888
+              },
+              {
+                "localized_name": "negative",
+                "name": "negative",
+                "type": "CONDITIONING",
+                "link": 889
+              },
+              {
+                "localized_name": "vae",
+                "name": "vae",
+                "type": "VAE",
+                "link": 890
+              },
+              {
+                "localized_name": "latent",
+                "name": "latent",
+                "type": "LATENT",
+                "link": 891
+              },
+              {
+                "localized_name": "image",
+                "name": "image",
+                "type": "IMAGE",
+                "link": 819
+              },
+              {
+                "name": "frame_idx",
+                "type": "INT",
+                "widget": {
+                  "name": "frame_idx"
+                },
+                "link": 892
+              },
+              {
+                "localized_name": "latent_downscale_factor",
+                "name": "latent_downscale_factor",
+                "type": "FLOAT",
+                "widget": {
+                  "name": "latent_downscale_factor"
+                },
+                "link": 825
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "positive",
+                "name": "positive",
+                "type": "CONDITIONING",
+                "links": [
+                  894
+                ]
+              },
+              {
+                "localized_name": "negative",
+                "name": "negative",
+                "type": "CONDITIONING",
+                "links": [
+                  897
+                ]
+              },
+              {
+                "localized_name": "latent",
+                "name": "latent",
+                "type": "LATENT",
+                "links": [
+                  900
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "LTXAddVideoICLoRAGuide"
+            },
+            "widgets_values": [
+              0,
+              1,
+              1,
+              "disabled",
+              false,
+              256,
+              64
+            ],
+            "title": "Guía Union · independiente"
+          },
+          {
+            "id": 455,
+            "type": "ComfySwitchNode",
+            "pos": [
+              3890,
+              5750
+            ],
+            "size": [
+              300,
+              145
+            ],
+            "flags": {},
+            "order": 115,
+            "mode": 0,
+            "inputs": [
+              {
+                "localized_name": "en_falso",
+                "name": "on_false",
+                "shape": 7,
+                "type": "CONDITIONING",
+                "link": 893
+              },
+              {
+                "localized_name": "en_verdadero",
+                "name": "on_true",
+                "shape": 7,
+                "type": "CONDITIONING",
+                "link": 894
+              },
+              {
+                "localized_name": "interruptor",
+                "name": "switch",
+                "type": "BOOLEAN",
+                "widget": {
+                  "name": "switch"
+                },
+                "link": 895
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "salida",
+                "name": "output",
+                "type": "CONDITIONING",
+                "links": [
+                  840,
+                  851
+                ]
+              }
+            ],
+            "title": "Condicionamiento Union · positivo",
+            "properties": {
+              "Node name for S&R": "ComfySwitchNode",
+              "cnr_id": "comfy-core",
+              "ver": "0.22.0"
+            },
+            "widgets_values": [
+              false
+            ],
+            "widgets_values_named": {
+              "switch": false
+            }
+          },
+          {
+            "id": 456,
+            "type": "ComfySwitchNode",
+            "pos": [
+              3890,
+              5940
+            ],
+            "size": [
+              300,
+              145
+            ],
+            "flags": {},
+            "order": 116,
+            "mode": 0,
+            "inputs": [
+              {
+                "localized_name": "en_falso",
+                "name": "on_false",
+                "shape": 7,
+                "type": "CONDITIONING",
+                "link": 896
+              },
+              {
+                "localized_name": "en_verdadero",
+                "name": "on_true",
+                "shape": 7,
+                "type": "CONDITIONING",
+                "link": 897
+              },
+              {
+                "localized_name": "interruptor",
+                "name": "switch",
+                "type": "BOOLEAN",
+                "widget": {
+                  "name": "switch"
+                },
+                "link": 898
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "salida",
+                "name": "output",
+                "type": "CONDITIONING",
+                "links": [
+                  844,
+                  852
+                ]
+              }
+            ],
+            "title": "Condicionamiento Union · negativo",
+            "properties": {
+              "Node name for S&R": "ComfySwitchNode",
+              "cnr_id": "comfy-core",
+              "ver": "0.22.0"
+            },
+            "widgets_values": [
+              false
+            ],
+            "widgets_values_named": {
+              "switch": false
+            }
+          },
+          {
+            "id": 457,
+            "type": "ComfySwitchNode",
+            "pos": [
+              3890,
+              6130
+            ],
+            "size": [
+              300,
+              145
+            ],
+            "flags": {},
+            "order": 117,
+            "mode": 0,
+            "inputs": [
+              {
+                "localized_name": "en_falso",
+                "name": "on_false",
+                "shape": 7,
+                "type": "LATENT",
+                "link": 899
+              },
+              {
+                "localized_name": "en_verdadero",
+                "name": "on_true",
+                "shape": 7,
+                "type": "LATENT",
+                "link": 900
+              },
+              {
+                "localized_name": "interruptor",
+                "name": "switch",
+                "type": "BOOLEAN",
+                "widget": {
+                  "name": "switch"
+                },
+                "link": 901
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "salida",
+                "name": "output",
+                "type": "LATENT",
+                "links": [
+                  833
+                ]
+              }
+            ],
+            "title": "Latente Union · vídeo",
             "properties": {
               "Node name for S&R": "ComfySwitchNode",
               "cnr_id": "comfy-core",
@@ -6869,22 +7414,6 @@
             "type": "IMAGE"
           },
           {
-            "id": 812,
-            "origin_id": -10,
-            "origin_slot": 14,
-            "target_id": 419,
-            "target_slot": 0,
-            "type": "INT"
-          },
-          {
-            "id": 813,
-            "origin_id": -10,
-            "origin_slot": 14,
-            "target_id": 420,
-            "target_slot": 0,
-            "type": "INT"
-          },
-          {
             "id": 814,
             "origin_id": 384,
             "origin_slot": 0,
@@ -6904,7 +7433,7 @@
             "id": 816,
             "origin_id": 384,
             "origin_slot": 0,
-            "target_id": 422,
+            "target_id": 450,
             "target_slot": 0,
             "type": "MODEL"
           },
@@ -6920,32 +7449,24 @@
             "id": 818,
             "origin_id": 416,
             "origin_slot": 0,
-            "target_id": 423,
-            "target_slot": 0,
+            "target_id": 426,
+            "target_slot": 4,
             "type": "IMAGE"
           },
           {
             "id": 819,
             "origin_id": 418,
             "origin_slot": 0,
-            "target_id": 423,
-            "target_slot": 1,
+            "target_id": 454,
+            "target_slot": 4,
             "type": "IMAGE"
-          },
-          {
-            "id": 820,
-            "origin_id": 419,
-            "origin_slot": 2,
-            "target_id": 423,
-            "target_slot": 2,
-            "type": "BOOLEAN"
           },
           {
             "id": 821,
             "origin_id": 421,
             "origin_slot": 0,
-            "target_id": 424,
-            "target_slot": 0,
+            "target_id": 450,
+            "target_slot": 1,
             "type": "MODEL"
           },
           {
@@ -6958,8 +7479,8 @@
           },
           {
             "id": 823,
-            "origin_id": 419,
-            "origin_slot": 2,
+            "origin_id": 449,
+            "origin_slot": 0,
             "target_id": 424,
             "target_slot": 2,
             "type": "BOOLEAN"
@@ -6968,25 +7489,17 @@
             "id": 824,
             "origin_id": 421,
             "origin_slot": 1,
-            "target_id": 425,
-            "target_slot": 0,
+            "target_id": 426,
+            "target_slot": 5,
             "type": "FLOAT"
           },
           {
             "id": 825,
             "origin_id": 422,
             "origin_slot": 1,
-            "target_id": 425,
-            "target_slot": 1,
+            "target_id": 454,
+            "target_slot": 6,
             "type": "FLOAT"
-          },
-          {
-            "id": 826,
-            "origin_id": 419,
-            "origin_slot": 2,
-            "target_id": 425,
-            "target_slot": 2,
-            "type": "BOOLEAN"
           },
           {
             "id": 827,
@@ -7021,25 +7534,9 @@
             "type": "LATENT"
           },
           {
-            "id": 831,
-            "origin_id": 423,
-            "origin_slot": 0,
-            "target_id": 426,
-            "target_slot": 4,
-            "type": "IMAGE"
-          },
-          {
-            "id": 832,
-            "origin_id": 425,
-            "origin_slot": 0,
-            "target_id": 426,
-            "target_slot": 5,
-            "type": "FLOAT"
-          },
-          {
             "id": 833,
-            "origin_id": 426,
-            "origin_slot": 2,
+            "origin_id": 457,
+            "origin_slot": 0,
             "target_id": 427,
             "target_slot": 0,
             "type": "LATENT"
@@ -7070,7 +7567,7 @@
           },
           {
             "id": 837,
-            "origin_id": 420,
+            "origin_id": 419,
             "origin_slot": 2,
             "target_id": 428,
             "target_slot": 2,
@@ -7094,7 +7591,7 @@
           },
           {
             "id": 840,
-            "origin_id": 426,
+            "origin_id": 455,
             "origin_slot": 0,
             "target_id": 429,
             "target_slot": 1,
@@ -7102,7 +7599,7 @@
           },
           {
             "id": 841,
-            "origin_id": 420,
+            "origin_id": 419,
             "origin_slot": 2,
             "target_id": 429,
             "target_slot": 2,
@@ -7126,15 +7623,15 @@
           },
           {
             "id": 844,
-            "origin_id": 426,
-            "origin_slot": 1,
+            "origin_id": 456,
+            "origin_slot": 0,
             "target_id": 430,
             "target_slot": 1,
             "type": "CONDITIONING"
           },
           {
             "id": 845,
-            "origin_id": 420,
+            "origin_id": 419,
             "origin_slot": 2,
             "target_id": 430,
             "target_slot": 2,
@@ -7166,7 +7663,7 @@
           },
           {
             "id": 849,
-            "origin_id": 420,
+            "origin_id": 419,
             "origin_slot": 2,
             "target_id": 431,
             "target_slot": 2,
@@ -7182,7 +7679,7 @@
           },
           {
             "id": 851,
-            "origin_id": 426,
+            "origin_id": 455,
             "origin_slot": 0,
             "target_id": 432,
             "target_slot": 0,
@@ -7190,8 +7687,8 @@
           },
           {
             "id": 852,
-            "origin_id": 426,
-            "origin_slot": 1,
+            "origin_id": 456,
+            "origin_slot": 0,
             "target_id": 432,
             "target_slot": 1,
             "type": "CONDITIONING"
@@ -7222,7 +7719,7 @@
           },
           {
             "id": 856,
-            "origin_id": 420,
+            "origin_id": 419,
             "origin_slot": 2,
             "target_id": 433,
             "target_slot": 2,
@@ -7254,7 +7751,7 @@
           },
           {
             "id": 860,
-            "origin_id": 420,
+            "origin_id": 419,
             "origin_slot": 2,
             "target_id": 434,
             "target_slot": 2,
@@ -7286,7 +7783,7 @@
           },
           {
             "id": 864,
-            "origin_id": 420,
+            "origin_id": 419,
             "origin_slot": 2,
             "target_id": 435,
             "target_slot": 2,
@@ -7339,6 +7836,254 @@
             "target_id": 338,
             "target_slot": 0,
             "type": "INT"
+          },
+          {
+            "id": 871,
+            "origin_id": -10,
+            "origin_slot": 15,
+            "target_id": 448,
+            "target_slot": 0,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 872,
+            "origin_id": -10,
+            "origin_slot": 17,
+            "target_id": 449,
+            "target_slot": 0,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 873,
+            "origin_id": 448,
+            "origin_slot": 0,
+            "target_id": 419,
+            "target_slot": 0,
+            "type": "FLOAT,INT,BOOLEAN"
+          },
+          {
+            "id": 874,
+            "origin_id": 449,
+            "origin_slot": 0,
+            "target_id": 419,
+            "target_slot": 1,
+            "type": "FLOAT,INT,BOOLEAN"
+          },
+          {
+            "id": 875,
+            "origin_id": 448,
+            "origin_slot": 0,
+            "target_id": 420,
+            "target_slot": 0,
+            "type": "FLOAT,INT,BOOLEAN"
+          },
+          {
+            "id": 876,
+            "origin_id": 448,
+            "origin_slot": 0,
+            "target_id": 450,
+            "target_slot": 2,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 877,
+            "origin_id": 450,
+            "origin_slot": 0,
+            "target_id": 422,
+            "target_slot": 0,
+            "type": "MODEL"
+          },
+          {
+            "id": 878,
+            "origin_id": 450,
+            "origin_slot": 0,
+            "target_id": 424,
+            "target_slot": 0,
+            "type": "MODEL"
+          },
+          {
+            "id": 879,
+            "origin_id": 365,
+            "origin_slot": 0,
+            "target_id": 451,
+            "target_slot": 0,
+            "type": "CONDITIONING"
+          },
+          {
+            "id": 880,
+            "origin_id": 426,
+            "origin_slot": 0,
+            "target_id": 451,
+            "target_slot": 1,
+            "type": "CONDITIONING"
+          },
+          {
+            "id": 881,
+            "origin_id": 448,
+            "origin_slot": 0,
+            "target_id": 451,
+            "target_slot": 2,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 882,
+            "origin_id": 365,
+            "origin_slot": 1,
+            "target_id": 452,
+            "target_slot": 0,
+            "type": "CONDITIONING"
+          },
+          {
+            "id": 883,
+            "origin_id": 426,
+            "origin_slot": 1,
+            "target_id": 452,
+            "target_slot": 1,
+            "type": "CONDITIONING"
+          },
+          {
+            "id": 884,
+            "origin_id": 448,
+            "origin_slot": 0,
+            "target_id": 452,
+            "target_slot": 2,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 885,
+            "origin_id": 357,
+            "origin_slot": 0,
+            "target_id": 453,
+            "target_slot": 0,
+            "type": "LATENT"
+          },
+          {
+            "id": 886,
+            "origin_id": 426,
+            "origin_slot": 2,
+            "target_id": 453,
+            "target_slot": 1,
+            "type": "LATENT"
+          },
+          {
+            "id": 887,
+            "origin_id": 448,
+            "origin_slot": 0,
+            "target_id": 453,
+            "target_slot": 2,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 888,
+            "origin_id": 451,
+            "origin_slot": 0,
+            "target_id": 454,
+            "target_slot": 0,
+            "type": "CONDITIONING"
+          },
+          {
+            "id": 889,
+            "origin_id": 452,
+            "origin_slot": 0,
+            "target_id": 454,
+            "target_slot": 1,
+            "type": "CONDITIONING"
+          },
+          {
+            "id": 890,
+            "origin_id": 385,
+            "origin_slot": 0,
+            "target_id": 454,
+            "target_slot": 2,
+            "type": "VAE"
+          },
+          {
+            "id": 891,
+            "origin_id": 453,
+            "origin_slot": 0,
+            "target_id": 454,
+            "target_slot": 3,
+            "type": "LATENT"
+          },
+          {
+            "id": 892,
+            "origin_id": 420,
+            "origin_slot": 1,
+            "target_id": 454,
+            "target_slot": 5,
+            "type": "INT"
+          },
+          {
+            "id": 893,
+            "origin_id": 451,
+            "origin_slot": 0,
+            "target_id": 455,
+            "target_slot": 0,
+            "type": "CONDITIONING"
+          },
+          {
+            "id": 894,
+            "origin_id": 454,
+            "origin_slot": 0,
+            "target_id": 455,
+            "target_slot": 1,
+            "type": "CONDITIONING"
+          },
+          {
+            "id": 895,
+            "origin_id": 449,
+            "origin_slot": 0,
+            "target_id": 455,
+            "target_slot": 2,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 896,
+            "origin_id": 452,
+            "origin_slot": 0,
+            "target_id": 456,
+            "target_slot": 0,
+            "type": "CONDITIONING"
+          },
+          {
+            "id": 897,
+            "origin_id": 454,
+            "origin_slot": 1,
+            "target_id": 456,
+            "target_slot": 1,
+            "type": "CONDITIONING"
+          },
+          {
+            "id": 898,
+            "origin_id": 449,
+            "origin_slot": 0,
+            "target_id": 456,
+            "target_slot": 2,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 899,
+            "origin_id": 453,
+            "origin_slot": 0,
+            "target_id": 457,
+            "target_slot": 0,
+            "type": "LATENT"
+          },
+          {
+            "id": 900,
+            "origin_id": 454,
+            "origin_slot": 2,
+            "target_id": 457,
+            "target_slot": 1,
+            "type": "LATENT"
+          },
+          {
+            "id": 901,
+            "origin_id": 449,
+            "origin_slot": 0,
+            "target_id": 457,
+            "target_slot": 2,
+            "type": "BOOLEAN"
           }
         ],
         "extra": {}
