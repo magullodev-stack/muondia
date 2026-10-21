@@ -130,7 +130,7 @@
       ],
       "size": [
         550,
-        710
+        740
       ],
       "flags": {},
       "order": 2,
@@ -190,6 +190,15 @@
           "type": "INT",
           "widget": {
             "name": "resolution_multiple"
+          },
+          "link": null
+        },
+        {
+          "name": "enable_upscale_2x",
+          "label": "Activar escalado ×2",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "enable_upscale_2x"
           },
           "link": null
         },
@@ -352,6 +361,7 @@
         0.9,
         32,
         false,
+        false,
         900359092894726,
         false,
         0.7,
@@ -384,7 +394,8 @@
         "vae_name_1": "ltx-2.5-audio-vae-bf16.safetensors",
         "clip_name_1": "gemma4_e2b_it_int8_convrot.safetensors",
         "value_1": false,
-        "initial_image_strength": 0.7
+        "initial_image_strength": 0.7,
+        "enable_upscale_2x": false
       }
     },
     {
@@ -471,8 +482,8 @@
         "version": 1,
         "state": {
           "lastGroupId": 0,
-          "lastNodeId": 474,
-          "lastLinkId": 946,
+          "lastNodeId": 483,
+          "lastLinkId": 968,
           "lastRerouteId": 0
         },
         "revision": 0,
@@ -484,7 +495,7 @@
             -750,
             6250,
             240,
-            536
+            562
           ]
         },
         "outputNode": {
@@ -589,6 +600,21 @@
             ]
           },
           {
+            "id": "dev-upscale-2x-enabled",
+            "name": "enable_upscale_2x",
+            "label": "Activar escalado ×2",
+            "type": "BOOLEAN",
+            "pos": [
+              -700,
+              6472
+            ],
+            "linkIds": [
+              947,
+              948,
+              949
+            ]
+          },
+          {
             "id": "a85f8d9b-b217-411d-953c-f00c3c1984a4",
             "name": "include_audio",
             "type": "BOOLEAN",
@@ -598,7 +624,7 @@
             "label": "Activar audio",
             "pos": [
               -700,
-              6472
+              6498
             ]
           },
           {
@@ -611,7 +637,7 @@
             "label": "Semilla Low-res",
             "pos": [
               -700,
-              6498
+              6524
             ]
           },
           {
@@ -624,7 +650,7 @@
             "label": "Aleatorizar Low-res",
             "pos": [
               -700,
-              6524
+              6550
             ]
           },
           {
@@ -634,7 +660,7 @@
             "type": "FLOAT",
             "pos": [
               -700,
-              6550
+              6576
             ],
             "linkIds": [
               946
@@ -650,7 +676,7 @@
             ],
             "pos": [
               -700,
-              6576
+              6602
             ]
           },
           {
@@ -663,7 +689,7 @@
             ],
             "pos": [
               -700,
-              6602
+              6628
             ]
           },
           {
@@ -676,7 +702,7 @@
             ],
             "pos": [
               -700,
-              6628
+              6654
             ]
           },
           {
@@ -689,7 +715,7 @@
             "label": "Modelo de vídeo",
             "pos": [
               -700,
-              6654
+              6680
             ]
           },
           {
@@ -702,7 +728,7 @@
             "label": "Codificador de texto",
             "pos": [
               -700,
-              6680
+              6706
             ]
           },
           {
@@ -715,7 +741,7 @@
             "label": "VAE vídeo",
             "pos": [
               -700,
-              6706
+              6732
             ]
           },
           {
@@ -728,7 +754,7 @@
             "label": "VAE audio",
             "pos": [
               -700,
-              6732
+              6758
             ]
           },
           {
@@ -741,7 +767,7 @@
             "label": "Modelo de mejora del prompt",
             "pos": [
               -700,
-              6758
+              6784
             ]
           },
           {
@@ -754,7 +780,7 @@
             "label": "Activar mejora del prompt",
             "pos": [
               -700,
-              6784
+              6810
             ]
           }
         ],
@@ -1390,7 +1416,8 @@
                 "name": "BOOLEAN",
                 "type": "BOOLEAN",
                 "links": [
-                  693
+                  693,
+                  958
                 ]
               }
             ],
@@ -1530,7 +1557,9 @@
                 "type": "VAE",
                 "links": [
                   727,
-                  775
+                  775,
+                  954,
+                  955
                 ]
               }
             ],
@@ -1687,7 +1716,8 @@
                 "name": "SAMPLER",
                 "type": "SAMPLER",
                 "links": [
-                  671
+                  671,
+                  965
                 ]
               }
             ],
@@ -1748,7 +1778,8 @@
                 "name": "NOISE",
                 "type": "NOISE",
                 "links": [
-                  670
+                  670,
+                  963
                 ]
               }
             ],
@@ -1899,7 +1930,8 @@
                 "name": "GUIDER",
                 "type": "GUIDER",
                 "links": [
-                  733
+                  733,
+                  964
                 ]
               }
             ],
@@ -2200,7 +2232,8 @@
                 "name": "video_latent",
                 "type": "LATENT",
                 "links": [
-                  709
+                  950,
+                  952
                 ]
               },
               {
@@ -2208,7 +2241,8 @@
                 "name": "audio_latent",
                 "type": "LATENT",
                 "links": [
-                  694
+                  694,
+                  960
                 ]
               }
             ],
@@ -2375,7 +2409,7 @@
                 "name": "values.b",
                 "shape": 7,
                 "type": "FLOAT,INT,BOOLEAN",
-                "link": null
+                "link": 947
               }
             ],
             "outputs": [
@@ -2418,12 +2452,12 @@
               }
             },
             "widgets_values": [
-              "a"
+              "a / (1 + b)"
             ],
             "widgets_values_named": {
-              "expression": "a"
+              "expression": "a / (1 + b)"
             },
-            "title": "DEV · Ancho final"
+            "title": "DEV · Ancho base (÷2 con escalado)"
           },
           {
             "id": 355,
@@ -2454,7 +2488,7 @@
                 "name": "values.b",
                 "shape": 7,
                 "type": "FLOAT,INT,BOOLEAN",
-                "link": null
+                "link": 948
               }
             ],
             "outputs": [
@@ -2497,12 +2531,12 @@
               }
             },
             "widgets_values": [
-              "a"
+              "a / (1 + b)"
             ],
             "widgets_values_named": {
-              "expression": "a"
+              "expression": "a / (1 + b)"
             },
-            "title": "DEV · Alto final"
+            "title": "DEV · Alto base (÷2 con escalado)"
           },
           {
             "id": 350,
@@ -2533,7 +2567,8 @@
                 "type": "IMAGE",
                 "links": [
                   691,
-                  757
+                  757,
+                  956
                 ]
               }
             ],
@@ -3577,6 +3612,620 @@
               "stretch": true,
               "terminal": 0.1
             }
+          },
+          {
+            "id": 475,
+            "type": "LatentUpscaleModelLoader",
+            "pos": [
+              3070,
+              7090
+            ],
+            "size": [
+              410,
+              140
+            ],
+            "flags": {},
+            "order": 485,
+            "mode": 0,
+            "inputs": [
+              {
+                "localized_name": "model_name",
+                "name": "model_name",
+                "type": "COMBO",
+                "widget": {
+                  "name": "model_name"
+                },
+                "link": null
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "LATENT_UPSCALE_MODEL",
+                "name": "LATENT_UPSCALE_MODEL",
+                "type": "LATENT_UPSCALE_MODEL",
+                "links": [
+                  953
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "LatentUpscaleModelLoader",
+              "cnr_id": "comfy-core",
+              "ver": "0.7.0",
+              "models": [
+                {
+                  "name": "ltx-2.5-latent-spatial-upscaler-x2-bf16-1.0.safetensors",
+                  "url": "https://huggingface.co/Lightricks/LTX-2.5/resolve/main/latent_upscale_models/ltx-2.5-latent-spatial-upscaler-x2-bf16-1.0.safetensors",
+                  "directory": "latent_upscale_models"
+                }
+              ],
+              "enableTabs": false,
+              "tabWidth": 65,
+              "tabXOffset": 10,
+              "hasSecondTab": false,
+              "secondTabText": "Send Back",
+              "secondTabOffset": 80,
+              "secondTabWidth": 65,
+              "ue_properties": {
+                "widget_ue_connectable": {},
+                "version": "7.7",
+                "input_ue_unconnectable": {}
+              }
+            },
+            "widgets_values": [
+              "ltx-2.5-latent-spatial-upscaler-x2-bf16-1.0.safetensors"
+            ],
+            "widgets_values_named": {
+              "model_name": "ltx-2.5-latent-spatial-upscaler-x2-bf16-1.0.safetensors"
+            },
+            "title": "DEV ×2 · Modelo de reescalado"
+          },
+          {
+            "id": 476,
+            "type": "LTXVLatentUpsampler",
+            "pos": [
+              3160,
+              6360
+            ],
+            "size": [
+              330,
+              120
+            ],
+            "flags": {},
+            "order": 486,
+            "mode": 0,
+            "inputs": [
+              {
+                "localized_name": "muestras",
+                "name": "samples",
+                "type": "LATENT",
+                "link": 952
+              },
+              {
+                "localized_name": "modelo_de_escalado",
+                "name": "upscale_model",
+                "type": "LATENT_UPSCALE_MODEL",
+                "link": 953
+              },
+              {
+                "localized_name": "vae",
+                "name": "vae",
+                "type": "VAE",
+                "link": 954
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "LATENTE",
+                "name": "LATENT",
+                "type": "LATENT",
+                "links": [
+                  957
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "LTXVLatentUpsampler",
+              "cnr_id": "comfy-core",
+              "ver": "0.14.1",
+              "enableTabs": false,
+              "tabWidth": 65,
+              "tabXOffset": 10,
+              "hasSecondTab": false,
+              "secondTabText": "Send Back",
+              "secondTabOffset": 80,
+              "secondTabWidth": 65,
+              "ue_properties": {
+                "widget_ue_connectable": {},
+                "version": "7.7",
+                "input_ue_unconnectable": {}
+              }
+            },
+            "title": "DEV ×2 · Latent Upsampler"
+          },
+          {
+            "id": 477,
+            "type": "LTXVImgToVideoInplace",
+            "pos": [
+              3450,
+              6760
+            ],
+            "size": [
+              300,
+              180
+            ],
+            "flags": {},
+            "order": 487,
+            "mode": 0,
+            "inputs": [
+              {
+                "localized_name": "vae",
+                "name": "vae",
+                "type": "VAE",
+                "link": 955
+              },
+              {
+                "localized_name": "imagen",
+                "name": "image",
+                "type": "IMAGE",
+                "link": 956
+              },
+              {
+                "localized_name": "latente",
+                "name": "latent",
+                "type": "LATENT",
+                "link": 957
+              },
+              {
+                "localized_name": "omitir",
+                "name": "bypass",
+                "type": "BOOLEAN",
+                "widget": {
+                  "name": "bypass"
+                },
+                "link": 958
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "latente",
+                "name": "latent",
+                "type": "LATENT",
+                "links": [
+                  959,
+                  961
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "LTXVImgToVideoInplace",
+              "cnr_id": "comfy-core",
+              "ver": "0.7.0",
+              "enableTabs": false,
+              "tabWidth": 65,
+              "tabXOffset": 10,
+              "hasSecondTab": false,
+              "secondTabText": "Send Back",
+              "secondTabOffset": 80,
+              "secondTabWidth": 65,
+              "ue_properties": {
+                "widget_ue_connectable": {},
+                "version": "7.7",
+                "input_ue_unconnectable": {}
+              }
+            },
+            "widgets_values": [
+              1,
+              false
+            ],
+            "widgets_values_named": {
+              "strength": 1,
+              "bypass": false
+            },
+            "title": "DEV ×2 · Imagen inicial high-res"
+          },
+          {
+            "id": 478,
+            "type": "LTXVConcatAVLatent",
+            "pos": [
+              3700,
+              6750
+            ],
+            "size": [
+              280,
+              100
+            ],
+            "flags": {},
+            "order": 488,
+            "mode": 0,
+            "inputs": [
+              {
+                "localized_name": "video_latent",
+                "name": "video_latent",
+                "type": "LATENT",
+                "link": 959
+              },
+              {
+                "localized_name": "audio_latent",
+                "name": "audio_latent",
+                "type": "LATENT",
+                "link": 960
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "latent",
+                "name": "latent",
+                "type": "LATENT",
+                "links": [
+                  967
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "LTXVConcatAVLatent",
+              "cnr_id": "comfy-core",
+              "ver": "0.5.1",
+              "enableTabs": false,
+              "tabWidth": 65,
+              "tabXOffset": 10,
+              "hasSecondTab": false,
+              "secondTabText": "Send Back",
+              "secondTabOffset": 80,
+              "secondTabWidth": 65,
+              "ue_properties": {
+                "widget_ue_connectable": {},
+                "version": "7.7",
+                "input_ue_unconnectable": {}
+              }
+            },
+            "title": "DEV ×2 · Combinar vídeo y audio"
+          },
+          {
+            "id": 479,
+            "type": "LTXVScheduler",
+            "pos": [
+              3660,
+              7110
+            ],
+            "size": [
+              340,
+              255
+            ],
+            "flags": {},
+            "order": 489,
+            "mode": 0,
+            "title": "DEV ×2 · Scheduler high-res (32 pasos)",
+            "inputs": [
+              {
+                "name": "steps",
+                "type": "INT",
+                "widget": {
+                  "name": "steps"
+                },
+                "link": null
+              },
+              {
+                "name": "max_shift",
+                "type": "FLOAT",
+                "widget": {
+                  "name": "max_shift"
+                },
+                "link": null
+              },
+              {
+                "name": "base_shift",
+                "type": "FLOAT",
+                "widget": {
+                  "name": "base_shift"
+                },
+                "link": null
+              },
+              {
+                "name": "stretch",
+                "type": "BOOLEAN",
+                "widget": {
+                  "name": "stretch"
+                },
+                "link": null
+              },
+              {
+                "name": "terminal",
+                "type": "FLOAT",
+                "widget": {
+                  "name": "terminal"
+                },
+                "link": null
+              },
+              {
+                "name": "latent",
+                "type": "LATENT",
+                "shape": 7,
+                "link": 961
+              }
+            ],
+            "outputs": [
+              {
+                "name": "SIGMAS",
+                "type": "SIGMAS",
+                "links": [
+                  962
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "LTXVScheduler",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              32,
+              2.05,
+              0.95,
+              true,
+              0.1
+            ],
+            "widgets_values_named": {
+              "steps": 32,
+              "max_shift": 2.05,
+              "base_shift": 0.95,
+              "stretch": true,
+              "terminal": 0.1
+            }
+          },
+          {
+            "id": 480,
+            "type": "SplitSigmas",
+            "title": "DEV ×2 · Últimos 12 pasos de refinado",
+            "pos": [
+              4060,
+              7190
+            ],
+            "size": [
+              310,
+              120
+            ],
+            "flags": {},
+            "order": 490,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "sigmas",
+                "type": "SIGMAS",
+                "link": 962
+              },
+              {
+                "name": "step",
+                "type": "INT",
+                "widget": {
+                  "name": "step"
+                },
+                "link": null
+              }
+            ],
+            "outputs": [
+              {
+                "name": "high_sigmas",
+                "type": "SIGMAS",
+                "links": []
+              },
+              {
+                "name": "low_sigmas",
+                "type": "SIGMAS",
+                "links": [
+                  966
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "SplitSigmas",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              20
+            ],
+            "widgets_values_named": {
+              "step": 20
+            }
+          },
+          {
+            "id": 481,
+            "type": "SamplerCustomAdvanced",
+            "pos": [
+              4160,
+              6380
+            ],
+            "size": [
+              230,
+              170
+            ],
+            "flags": {},
+            "order": 491,
+            "mode": 0,
+            "inputs": [
+              {
+                "localized_name": "ruido",
+                "name": "noise",
+                "type": "NOISE",
+                "link": 963
+              },
+              {
+                "localized_name": "guía",
+                "name": "guider",
+                "type": "GUIDER",
+                "link": 964
+              },
+              {
+                "localized_name": "muestreador",
+                "name": "sampler",
+                "type": "SAMPLER",
+                "link": 965
+              },
+              {
+                "localized_name": "sigmas",
+                "name": "sigmas",
+                "type": "SIGMAS",
+                "link": 966
+              },
+              {
+                "localized_name": "imagen_latente",
+                "name": "latent_image",
+                "type": "LATENT",
+                "link": 967
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "salida",
+                "name": "output",
+                "type": "LATENT",
+                "links": [
+                  968
+                ]
+              },
+              {
+                "localized_name": "salida_sin_ruido",
+                "name": "denoised_output",
+                "type": "LATENT",
+                "links": []
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "SamplerCustomAdvanced",
+              "cnr_id": "comfy-core",
+              "ver": "0.3.60",
+              "enableTabs": false,
+              "tabWidth": 65,
+              "tabXOffset": 10,
+              "hasSecondTab": false,
+              "secondTabText": "Send Back",
+              "secondTabOffset": 80,
+              "secondTabWidth": 65,
+              "ue_properties": {
+                "widget_ue_connectable": {},
+                "version": "7.7",
+                "input_ue_unconnectable": {}
+              }
+            },
+            "title": "DEV ×2 · Refinado high-res (12 pasos)"
+          },
+          {
+            "id": 482,
+            "type": "LTXVSeparateAVLatent",
+            "pos": [
+              4460,
+              6400
+            ],
+            "size": [
+              230,
+              100
+            ],
+            "flags": {},
+            "order": 492,
+            "mode": 0,
+            "inputs": [
+              {
+                "localized_name": "av_latente",
+                "name": "av_latent",
+                "type": "LATENT",
+                "link": 968
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "latente_video",
+                "name": "video_latent",
+                "type": "LATENT",
+                "links": [
+                  951
+                ]
+              },
+              {
+                "localized_name": "latente_audio",
+                "name": "audio_latent",
+                "type": "LATENT",
+                "links": []
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "LTXVSeparateAVLatent",
+              "cnr_id": "comfy-core",
+              "ver": "0.5.1",
+              "enableTabs": false,
+              "tabWidth": 65,
+              "tabXOffset": 10,
+              "hasSecondTab": false,
+              "secondTabText": "Send Back",
+              "secondTabOffset": 80,
+              "secondTabWidth": 65,
+              "ue_properties": {
+                "widget_ue_connectable": {},
+                "version": "7.7",
+                "input_ue_unconnectable": {}
+              }
+            },
+            "title": "DEV ×2 · Separar latentes finales"
+          },
+          {
+            "id": 483,
+            "type": "ComfySwitchNode",
+            "pos": [
+              4560,
+              6140
+            ],
+            "size": [
+              300,
+              145
+            ],
+            "flags": {},
+            "order": 493,
+            "mode": 0,
+            "inputs": [
+              {
+                "localized_name": "en_falso",
+                "name": "on_false",
+                "shape": 7,
+                "type": "LATENT",
+                "link": 950
+              },
+              {
+                "localized_name": "en_verdadero",
+                "name": "on_true",
+                "shape": 7,
+                "type": "LATENT",
+                "link": 951
+              },
+              {
+                "localized_name": "interruptor",
+                "name": "switch",
+                "type": "BOOLEAN",
+                "widget": {
+                  "name": "switch"
+                },
+                "link": 949
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "salida",
+                "name": "output",
+                "type": "LATENT",
+                "links": [
+                  709
+                ]
+              }
+            ],
+            "title": "DEV · Sin escalado / Con ×2",
+            "properties": {
+              "Node name for S&R": "ComfySwitchNode",
+              "cnr_id": "comfy-core",
+              "ver": "0.22.0"
+            },
+            "widgets_values": [
+              false
+            ],
+            "widgets_values_named": {
+              "switch": false
+            }
           }
         ],
         "groups": [],
@@ -3783,7 +4432,7 @@
           },
           {
             "id": 709,
-            "origin_id": 367,
+            "origin_id": 483,
             "origin_slot": 0,
             "target_id": 374,
             "target_slot": 0,
@@ -3848,7 +4497,7 @@
           {
             "id": 766,
             "origin_id": -10,
-            "origin_slot": 19,
+            "origin_slot": 20,
             "target_id": 383,
             "target_slot": 0,
             "type": "BOOLEAN"
@@ -3896,7 +4545,7 @@
           {
             "id": 777,
             "origin_id": -10,
-            "origin_slot": 14,
+            "origin_slot": 15,
             "target_id": 384,
             "target_slot": 0,
             "type": "COMBO"
@@ -3904,7 +4553,7 @@
           {
             "id": 778,
             "origin_id": -10,
-            "origin_slot": 16,
+            "origin_slot": 17,
             "target_id": 385,
             "target_slot": 0,
             "type": "COMBO"
@@ -3912,7 +4561,7 @@
           {
             "id": 779,
             "origin_id": -10,
-            "origin_slot": 17,
+            "origin_slot": 18,
             "target_id": 386,
             "target_slot": 0,
             "type": "COMBO"
@@ -3920,7 +4569,7 @@
           {
             "id": 780,
             "origin_id": -10,
-            "origin_slot": 15,
+            "origin_slot": 16,
             "target_id": 387,
             "target_slot": 0,
             "type": "COMBO"
@@ -3928,7 +4577,7 @@
           {
             "id": 782,
             "origin_id": -10,
-            "origin_slot": 18,
+            "origin_slot": 19,
             "target_id": 393,
             "target_slot": 0,
             "type": "COMBO"
@@ -3944,7 +4593,7 @@
           {
             "id": 786,
             "origin_id": -10,
-            "origin_slot": 8,
+            "origin_slot": 9,
             "target_id": 405,
             "target_slot": 0,
             "type": "INT"
@@ -3952,7 +4601,7 @@
           {
             "id": 787,
             "origin_id": -10,
-            "origin_slot": 9,
+            "origin_slot": 10,
             "target_id": 407,
             "target_slot": 0,
             "type": "BOOLEAN"
@@ -4032,7 +4681,7 @@
           {
             "id": 797,
             "origin_id": -10,
-            "origin_slot": 7,
+            "origin_slot": 8,
             "target_id": 409,
             "target_slot": 0,
             "type": "BOOLEAN"
@@ -4160,7 +4809,7 @@
           {
             "id": 942,
             "origin_id": -10,
-            "origin_slot": 11,
+            "origin_slot": 12,
             "target_id": 474,
             "target_slot": 0,
             "type": "INT"
@@ -4176,7 +4825,7 @@
           {
             "id": 944,
             "origin_id": -10,
-            "origin_slot": 12,
+            "origin_slot": 13,
             "target_id": 388,
             "target_slot": 3,
             "type": "FLOAT"
@@ -4184,7 +4833,7 @@
           {
             "id": 945,
             "origin_id": -10,
-            "origin_slot": 13,
+            "origin_slot": 14,
             "target_id": 388,
             "target_slot": 4,
             "type": "FLOAT"
@@ -4192,10 +4841,186 @@
           {
             "id": 946,
             "origin_id": -10,
-            "origin_slot": 10,
+            "origin_slot": 11,
             "target_id": 357,
             "target_slot": 3,
             "type": "FLOAT"
+          },
+          {
+            "id": 947,
+            "origin_id": -10,
+            "origin_slot": 7,
+            "target_id": 353,
+            "target_slot": 1,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 948,
+            "origin_id": -10,
+            "origin_slot": 7,
+            "target_id": 355,
+            "target_slot": 1,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 949,
+            "origin_id": -10,
+            "origin_slot": 7,
+            "target_id": 483,
+            "target_slot": 2,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 950,
+            "origin_id": 367,
+            "origin_slot": 0,
+            "target_id": 483,
+            "target_slot": 0,
+            "type": "LATENT"
+          },
+          {
+            "id": 951,
+            "origin_id": 482,
+            "origin_slot": 0,
+            "target_id": 483,
+            "target_slot": 1,
+            "type": "LATENT"
+          },
+          {
+            "id": 952,
+            "origin_id": 367,
+            "origin_slot": 0,
+            "target_id": 476,
+            "target_slot": 0,
+            "type": "LATENT"
+          },
+          {
+            "id": 953,
+            "origin_id": 475,
+            "origin_slot": 0,
+            "target_id": 476,
+            "target_slot": 1,
+            "type": "LATENT_UPSCALE_MODEL"
+          },
+          {
+            "id": 954,
+            "origin_id": 385,
+            "origin_slot": 0,
+            "target_id": 476,
+            "target_slot": 2,
+            "type": "VAE"
+          },
+          {
+            "id": 955,
+            "origin_id": 385,
+            "origin_slot": 0,
+            "target_id": 477,
+            "target_slot": 0,
+            "type": "VAE"
+          },
+          {
+            "id": 956,
+            "origin_id": 350,
+            "origin_slot": 0,
+            "target_id": 477,
+            "target_slot": 1,
+            "type": "IMAGE"
+          },
+          {
+            "id": 957,
+            "origin_id": 476,
+            "origin_slot": 0,
+            "target_id": 477,
+            "target_slot": 2,
+            "type": "LATENT"
+          },
+          {
+            "id": 958,
+            "origin_id": 363,
+            "origin_slot": 0,
+            "target_id": 477,
+            "target_slot": 3,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 959,
+            "origin_id": 477,
+            "origin_slot": 0,
+            "target_id": 478,
+            "target_slot": 0,
+            "type": "LATENT"
+          },
+          {
+            "id": 960,
+            "origin_id": 367,
+            "origin_slot": 1,
+            "target_id": 478,
+            "target_slot": 1,
+            "type": "LATENT"
+          },
+          {
+            "id": 961,
+            "origin_id": 477,
+            "origin_slot": 0,
+            "target_id": 479,
+            "target_slot": 5,
+            "type": "LATENT"
+          },
+          {
+            "id": 962,
+            "origin_id": 479,
+            "origin_slot": 0,
+            "target_id": 480,
+            "target_slot": 0,
+            "type": "SIGMAS"
+          },
+          {
+            "id": 963,
+            "origin_id": 339,
+            "origin_slot": 0,
+            "target_id": 481,
+            "target_slot": 0,
+            "type": "NOISE"
+          },
+          {
+            "id": 964,
+            "origin_id": 388,
+            "origin_slot": 0,
+            "target_id": 481,
+            "target_slot": 1,
+            "type": "GUIDER"
+          },
+          {
+            "id": 965,
+            "origin_id": 352,
+            "origin_slot": 0,
+            "target_id": 481,
+            "target_slot": 2,
+            "type": "SAMPLER"
+          },
+          {
+            "id": 966,
+            "origin_id": 480,
+            "origin_slot": 1,
+            "target_id": 481,
+            "target_slot": 3,
+            "type": "SIGMAS"
+          },
+          {
+            "id": 967,
+            "origin_id": 478,
+            "origin_slot": 0,
+            "target_id": 481,
+            "target_slot": 4,
+            "type": "LATENT"
+          },
+          {
+            "id": 968,
+            "origin_id": 481,
+            "origin_slot": 0,
+            "target_id": 482,
+            "target_slot": 0,
+            "type": "LATENT"
           }
         ],
         "extra": {}
