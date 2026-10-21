@@ -1,8 +1,8 @@
 {
   "id": "8758f3da-3006-49ff-9147-7a9a944326cc",
   "revision": 0,
-  "last_node_id": 418,
-  "last_link_id": 809,
+  "last_node_id": 421,
+  "last_link_id": 812,
   "nodes": [
     {
       "id": 395,
@@ -367,6 +367,30 @@
           "links": [
             759
           ]
+        },
+        {
+          "name": "union_source_fps",
+          "type": "FLOAT",
+          "links": [
+            810
+          ],
+          "label": "FPS original Union"
+        },
+        {
+          "name": "union_frames_used",
+          "type": "INT",
+          "links": [
+            811
+          ],
+          "label": "Fotogramas Union usados"
+        },
+        {
+          "name": "union_frames_target",
+          "type": "INT",
+          "links": [
+            812
+          ],
+          "label": "Fotogramas objetivo"
         }
       ],
       "title": "LTX-2.5 · Configuración",
@@ -645,6 +669,111 @@
       "widgets_values": [
         "**PREPARAR MOTION — sin generar vídeo**\n\n1. Carga la imagen inicial.\n2. Haz clic en la **cabecera** de «EDITOR MOTION» para seleccionarlo.\n3. Clic derecho en su cabecera → **Run Branch** (Ejecutar rama).\n4. Cuando aparezca el fondo, dibuja la trayectoria y genera el vídeo.\n\n*No pulses Ejecutar global para preparar la imagen.*"
       ]
+    },
+    {
+      "id": 419,
+      "type": "PreviewAny",
+      "pos": [
+        1310,
+        1540
+      ],
+      "size": [
+        310,
+        140
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "source",
+          "type": "*",
+          "link": 810
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": []
+        }
+      ],
+      "title": "Union · FPS ORIGINAL (al ejecutar)",
+      "properties": {
+        "Node name for S&R": "PreviewAny",
+        "cnr_id": "comfy-core"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 420,
+      "type": "PreviewAny",
+      "pos": [
+        1650,
+        1540
+      ],
+      "size": [
+        310,
+        140
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "source",
+          "type": "*",
+          "link": 811
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": []
+        }
+      ],
+      "title": "Union · FRAMES UTILIZADOS (al ejecutar)",
+      "properties": {
+        "Node name for S&R": "PreviewAny",
+        "cnr_id": "comfy-core"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 421,
+      "type": "PreviewAny",
+      "pos": [
+        1990,
+        1540
+      ],
+      "size": [
+        310,
+        140
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "source",
+          "type": "*",
+          "link": 812
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": []
+        }
+      ],
+      "title": "Generación · FRAMES OBJETIVO",
+      "properties": {
+        "Node name for S&R": "PreviewAny",
+        "cnr_id": "comfy-core"
+      },
+      "widgets_values": []
     }
   ],
   "links": [
@@ -703,6 +832,30 @@
       398,
       2,
       "VIDEO"
+    ],
+    [
+      810,
+      398,
+      1,
+      419,
+      0,
+      "FLOAT"
+    ],
+    [
+      811,
+      398,
+      2,
+      420,
+      0,
+      "INT"
+    ],
+    [
+      812,
+      398,
+      3,
+      421,
+      0,
+      "INT"
     ]
   ],
   "groups": [],
@@ -713,8 +866,8 @@
         "version": 1,
         "state": {
           "lastGroupId": 28,
-          "lastNodeId": 461,
-          "lastLinkId": 908,
+          "lastNodeId": 464,
+          "lastLinkId": 916,
           "lastRerouteId": 0
         },
         "revision": 0,
@@ -734,8 +887,8 @@
           "bounding": [
             5540,
             6496,
-            128,
-            68
+            220,
+            170
           ]
         },
         "inputs": [
@@ -1090,6 +1243,45 @@
             "pos": [
               5564,
               6520
+            ]
+          },
+          {
+            "id": "union-reference-fps-original",
+            "name": "union_source_fps",
+            "type": "FLOAT",
+            "linkIds": [
+              914
+            ],
+            "label": "FPS original Union",
+            "pos": [
+              5564,
+              6570
+            ]
+          },
+          {
+            "id": "union-frames-used",
+            "name": "union_frames_used",
+            "type": "INT",
+            "linkIds": [
+              915
+            ],
+            "label": "Fotogramas Union usados",
+            "pos": [
+              5564,
+              6600
+            ]
+          },
+          {
+            "id": "union-frames-target",
+            "name": "union_frames_target",
+            "type": "INT",
+            "linkIds": [
+              916
+            ],
+            "label": "Fotogramas objetivo",
+            "pos": [
+              5564,
+              6630
             ]
           }
         ],
@@ -3352,7 +3544,8 @@
                 "links": [
                   717,
                   718,
-                  906
+                  906,
+                  916
                 ]
               },
               {
@@ -4655,7 +4848,9 @@
                 "localized_name": "fps",
                 "name": "fps",
                 "type": "FLOAT",
-                "links": []
+                "links": [
+                  910
+                ]
               },
               {
                 "localized_name": "bit_depth",
@@ -6059,7 +6254,9 @@
                   874,
                   895,
                   898,
-                  901
+                  901,
+                  911,
+                  912
                 ]
               }
             ],
@@ -6852,7 +7049,8 @@
                 "name": "IMAGE",
                 "type": "IMAGE",
                 "links": [
-                  811
+                  811,
+                  909
                 ]
               }
             ],
@@ -6868,6 +7066,167 @@
             "widgets_values_named": {
               "batch_index": 0,
               "length": 97
+            }
+          },
+          {
+            "id": 462,
+            "type": "GetImageSize",
+            "title": "Union · Contar fotogramas usados",
+            "pos": [
+              2660,
+              6030
+            ],
+            "size": [
+              310,
+              90
+            ],
+            "flags": {},
+            "order": 121,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "image",
+                "type": "IMAGE",
+                "link": 909
+              }
+            ],
+            "outputs": [
+              {
+                "name": "width",
+                "type": "INT",
+                "links": []
+              },
+              {
+                "name": "height",
+                "type": "INT",
+                "links": []
+              },
+              {
+                "name": "batch_size",
+                "type": "INT",
+                "links": [
+                  913
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "GetImageSize",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": []
+          },
+          {
+            "id": 463,
+            "type": "ComfySwitchNode",
+            "title": "Union · Mostrar FPS solo si está activado",
+            "pos": [
+              3930,
+              6320
+            ],
+            "size": [
+              300,
+              130
+            ],
+            "flags": {},
+            "order": 122,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "on_false",
+                "type": "FLOAT",
+                "shape": 7,
+                "link": null
+              },
+              {
+                "name": "on_true",
+                "type": "FLOAT",
+                "shape": 7,
+                "link": 910
+              },
+              {
+                "name": "switch",
+                "type": "BOOLEAN",
+                "widget": {
+                  "name": "switch"
+                },
+                "link": 911
+              }
+            ],
+            "outputs": [
+              {
+                "name": "output",
+                "type": "FLOAT",
+                "links": [
+                  914
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ComfySwitchNode",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              false
+            ],
+            "widgets_values_named": {
+              "switch": false
+            }
+          },
+          {
+            "id": 464,
+            "type": "ComfySwitchNode",
+            "title": "Union · Mostrar fotogramas solo si está activado",
+            "pos": [
+              3950,
+              6570
+            ],
+            "size": [
+              330,
+              130
+            ],
+            "flags": {},
+            "order": 123,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "on_false",
+                "type": "INT",
+                "shape": 7,
+                "link": null
+              },
+              {
+                "name": "on_true",
+                "type": "INT",
+                "shape": 7,
+                "link": 913
+              },
+              {
+                "name": "switch",
+                "type": "BOOLEAN",
+                "widget": {
+                  "name": "switch"
+                },
+                "link": 912
+              }
+            ],
+            "outputs": [
+              {
+                "name": "output",
+                "type": "INT",
+                "links": [
+                  915
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ComfySwitchNode",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              false
+            ],
+            "widgets_values_named": {
+              "switch": false
             }
           }
         ],
@@ -8449,6 +8808,70 @@
             "target_id": 459,
             "target_slot": 2,
             "type": "FLOAT"
+          },
+          {
+            "id": 909,
+            "origin_id": 461,
+            "origin_slot": 0,
+            "target_id": 462,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 910,
+            "origin_id": 417,
+            "origin_slot": 2,
+            "target_id": 463,
+            "target_slot": 1,
+            "type": "FLOAT"
+          },
+          {
+            "id": 911,
+            "origin_id": 449,
+            "origin_slot": 0,
+            "target_id": 463,
+            "target_slot": 2,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 912,
+            "origin_id": 449,
+            "origin_slot": 0,
+            "target_id": 464,
+            "target_slot": 2,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 913,
+            "origin_id": 462,
+            "origin_slot": 2,
+            "target_id": 464,
+            "target_slot": 1,
+            "type": "INT"
+          },
+          {
+            "id": 914,
+            "origin_id": 463,
+            "origin_slot": 0,
+            "target_id": -20,
+            "target_slot": 1,
+            "type": "FLOAT"
+          },
+          {
+            "id": 915,
+            "origin_id": 464,
+            "origin_slot": 0,
+            "target_id": -20,
+            "target_slot": 2,
+            "type": "INT"
+          },
+          {
+            "id": 916,
+            "origin_id": 378,
+            "origin_slot": 1,
+            "target_id": -20,
+            "target_slot": 3,
+            "type": "INT"
           }
         ],
         "extra": {}
