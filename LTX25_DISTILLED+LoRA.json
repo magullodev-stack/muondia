@@ -131,7 +131,7 @@
       ],
       "size": [
         550,
-        530
+        554
       ],
       "flags": {},
       "order": 3,
@@ -228,6 +228,15 @@
           "link": null
         },
         {
+          "label": "Aleatorizar Low-res",
+          "name": "randomize_seed",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "randomize_seed"
+          },
+          "link": null
+        },
+        {
           "label": "Semilla High-res",
           "name": "high_noise_seed",
           "type": "INT",
@@ -237,11 +246,11 @@
           "link": null
         },
         {
-          "label": "Aleatorizar Low-res",
-          "name": "randomize_seed",
+          "name": "randomize_high_seed",
+          "label": "Aleatorizar High-res",
           "type": "BOOLEAN",
           "widget": {
-            "name": "randomize_seed"
+            "name": "randomize_high_seed"
           },
           "link": null
         },
@@ -352,7 +361,7 @@
         "previewExposures": []
       },
       "widgets_values": [
-        "No music. No zoom.",
+        "",
         6,
         16,
         "9:16 (Portrait Widescreen)",
@@ -360,6 +369,7 @@
         32,
         false,
         900359092894726,
+        false,
         42,
         false,
         0,
@@ -374,7 +384,7 @@
         false
       ],
       "widgets_values_named": {
-        "value": "No music. No zoom.",
+        "value": "",
         "value_2": 6,
         "value_5": 16,
         "value_3": "9:16 (Portrait Widescreen)",
@@ -382,8 +392,9 @@
         "resolution_multiple": 32,
         "include_audio": false,
         "noise_seed": 900359092894726,
-        "high_noise_seed": 42,
         "randomize_seed": false,
+        "high_noise_seed": 42,
+        "randomize_high_seed": false,
         "control_mode": 0,
         "motion_strength": 1,
         "union_strength": 1,
@@ -420,7 +431,7 @@
           ]
         }
       ],
-      "title": "PROMPT",
+      "title": "PROMPT · Escribe aquí la descripción del vídeo",
       "properties": {
         "Node name for S&R": "PrimitiveStringMultiline",
         "cnr_id": "comfy-core",
@@ -439,10 +450,10 @@
         }
       },
       "widgets_values": [
-        "No music. No zoom."
+        ""
       ],
       "widgets_values_named": {
-        "value": "No music. No zoom."
+        "value": ""
       }
     },
     {
@@ -659,8 +670,8 @@
         "version": 1,
         "state": {
           "lastGroupId": 28,
-          "lastNodeId": 435,
-          "lastLinkId": 865,
+          "lastNodeId": 439,
+          "lastLinkId": 870,
           "lastRerouteId": 0
         },
         "revision": 0,
@@ -829,19 +840,6 @@
             ]
           },
           {
-            "id": "eb5d8e6c-1c09-4c7a-afb0-d58a182f60b1",
-            "name": "high_noise_seed",
-            "type": "INT",
-            "linkIds": [
-              798
-            ],
-            "label": "Semilla High-res",
-            "pos": [
-              -533.56,
-              6605
-            ]
-          },
-          {
             "id": "511c093f-1d59-4b35-8392-4c6a34d16b43",
             "name": "randomize_seed",
             "type": "BOOLEAN",
@@ -851,7 +849,33 @@
             "label": "Aleatorizar Low-res",
             "pos": [
               -533.56,
+              6605
+            ]
+          },
+          {
+            "id": "eb5d8e6c-1c09-4c7a-afb0-d58a182f60b1",
+            "name": "high_noise_seed",
+            "type": "INT",
+            "linkIds": [
+              798
+            ],
+            "label": "Semilla High-res",
+            "pos": [
+              -533.56,
               6625
+            ]
+          },
+          {
+            "id": "ltx-randomize-high-seed",
+            "name": "randomize_high_seed",
+            "label": "Aleatorizar High-res",
+            "type": "BOOLEAN",
+            "linkIds": [
+              869
+            ],
+            "pos": [
+              -533.56,
+              6645
             ]
           },
           {
@@ -865,7 +889,7 @@
             ],
             "pos": [
               -533.56,
-              6645
+              6665
             ]
           },
           {
@@ -878,7 +902,7 @@
             ],
             "pos": [
               -533.56,
-              6665
+              6685
             ]
           },
           {
@@ -891,7 +915,7 @@
             ],
             "pos": [
               -533.56,
-              6685
+              6705
             ]
           },
           {
@@ -904,7 +928,7 @@
             "label": "Modelo de vídeo",
             "pos": [
               -533.56,
-              6705
+              6725
             ]
           },
           {
@@ -917,7 +941,7 @@
             "label": "Codificador de texto",
             "pos": [
               -533.56,
-              6725
+              6745
             ]
           },
           {
@@ -930,7 +954,7 @@
             "label": "VAE vídeo",
             "pos": [
               -533.56,
-              6745
+              6765
             ]
           },
           {
@@ -943,7 +967,7 @@
             "label": "VAE audio",
             "pos": [
               -533.56,
-              6765
+              6785
             ]
           },
           {
@@ -956,7 +980,7 @@
             "label": "Modelo de escalado",
             "pos": [
               -533.56,
-              6785
+              6805
             ]
           },
           {
@@ -969,7 +993,7 @@
             "label": "Modelo de mejora del prompt",
             "pos": [
               -533.56,
-              6805
+              6825
             ]
           },
           {
@@ -982,7 +1006,7 @@
             "label": "Activar mejora del prompt",
             "pos": [
               -533.56,
-              6825
+              6845
             ]
           }
         ],
@@ -1359,10 +1383,10 @@
               }
             },
             "widgets_values": [
-              "Egyptian royal in blue-and-gold headdress and high collar, white dress with golden embroidery and armbands, desert, robot soldiers in formation left and right. She walks steadily forward, head held level and gaze fixed ahead—no dipping or lowering of the head. The camera performs a single, smooth push-in only: starting in a wider shot of her, the robots, and the desert, it moves steadily forward until she is in a medium or medium-close frame, then holds. She stops, posture and head still upright, and says: “The old gods are silent. I am not.” Robot soldiers shift or march in place; sand and fabric move with the wind. No pull-back; the only camera move is the continuous push-in."
+              ""
             ],
             "widgets_values_named": {
-              "value": "Egyptian royal in blue-and-gold headdress and high collar, white dress with golden embroidery and armbands, desert, robot soldiers in formation left and right. She walks steadily forward, head held level and gaze fixed ahead—no dipping or lowering of the head. The camera performs a single, smooth push-in only: starting in a wider shot of her, the robots, and the desert, it moves steadily forward until she is in a medium or medium-close frame, then holds. She stops, posture and head still upright, and says: “The old gods are silent. I am not.” Robot soldiers shift or march in place; sand and fabric move with the wind. No pull-back; the only camera move is the continuous push-in."
+              "value": ""
             }
           },
           {
@@ -3310,7 +3334,7 @@
                 "widget": {
                   "name": "noise_seed"
                 },
-                "link": 798
+                "link": 870
               }
             ],
             "outputs": [
@@ -5791,6 +5815,206 @@
             "widgets_values_named": {
               "switch": false
             }
+          },
+          {
+            "id": 436,
+            "type": "PrimitiveInt",
+            "pos": [
+              2990,
+              5780
+            ],
+            "size": [
+              310,
+              105
+            ],
+            "flags": {},
+            "order": 74,
+            "mode": 0,
+            "inputs": [
+              {
+                "localized_name": "valor",
+                "name": "value",
+                "type": "INT",
+                "widget": {
+                  "name": "value"
+                },
+                "link": 798
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "ENTERO",
+                "name": "INT",
+                "type": "INT",
+                "links": [
+                  866
+                ]
+              }
+            ],
+            "title": "Semilla High-res FIJA",
+            "properties": {
+              "Node name for S&R": "PrimitiveInt",
+              "cnr_id": "comfy-core",
+              "ver": "0.16.3"
+            },
+            "widgets_values": [
+              42,
+              "fixed"
+            ],
+            "widgets_values_named": {
+              "value": 42,
+              "fixed": "fixed"
+            }
+          },
+          {
+            "id": 437,
+            "type": "PrimitiveInt",
+            "pos": [
+              2990,
+              5900
+            ],
+            "size": [
+              310,
+              105
+            ],
+            "flags": {},
+            "order": 75,
+            "mode": 0,
+            "inputs": [],
+            "outputs": [
+              {
+                "localized_name": "ENTERO",
+                "name": "INT",
+                "type": "INT",
+                "links": [
+                  867
+                ]
+              }
+            ],
+            "title": "Semilla High-res ALEATORIA",
+            "properties": {
+              "Node name for S&R": "PrimitiveInt",
+              "cnr_id": "comfy-core",
+              "ver": "0.16.3"
+            },
+            "widgets_values": [
+              1234567,
+              "randomize"
+            ],
+            "widgets_values_named": {
+              "value": 1234567,
+              "fixed": "randomize"
+            }
+          },
+          {
+            "id": 438,
+            "type": "PrimitiveBoolean",
+            "pos": [
+              2990,
+              6020
+            ],
+            "size": [
+              320,
+              100
+            ],
+            "flags": {},
+            "order": 76,
+            "mode": 0,
+            "inputs": [
+              {
+                "localized_name": "valor",
+                "name": "value",
+                "type": "BOOLEAN",
+                "widget": {
+                  "name": "value"
+                },
+                "link": 869
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "BOOLEANO",
+                "name": "BOOLEAN",
+                "type": "BOOLEAN",
+                "links": [
+                  868
+                ]
+              }
+            ],
+            "title": "Aleatorizar High-res",
+            "properties": {
+              "Node name for S&R": "PrimitiveBoolean",
+              "cnr_id": "comfy-core",
+              "ver": "0.22.0"
+            },
+            "widgets_values": [
+              false
+            ],
+            "widgets_values_named": {
+              "value": false
+            }
+          },
+          {
+            "id": 439,
+            "type": "ComfySwitchNode",
+            "pos": [
+              3370,
+              5920
+            ],
+            "size": [
+              300,
+              145
+            ],
+            "flags": {},
+            "order": 77,
+            "mode": 0,
+            "inputs": [
+              {
+                "localized_name": "en_falso",
+                "name": "on_false",
+                "shape": 7,
+                "type": "INT",
+                "link": 866
+              },
+              {
+                "localized_name": "en_verdadero",
+                "name": "on_true",
+                "shape": 7,
+                "type": "INT",
+                "link": 867
+              },
+              {
+                "localized_name": "interruptor",
+                "name": "switch",
+                "type": "BOOLEAN",
+                "widget": {
+                  "name": "switch"
+                },
+                "link": 868
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "salida",
+                "name": "output",
+                "type": "INT",
+                "links": [
+                  870
+                ]
+              }
+            ],
+            "title": "Elegir semilla High-res (fija/aleatoria)",
+            "properties": {
+              "Node name for S&R": "ComfySwitchNode",
+              "cnr_id": "comfy-core",
+              "ver": "0.22.0"
+            },
+            "widgets_values": [
+              false
+            ],
+            "widgets_values_named": {
+              "switch": false
+            }
           }
         ],
         "groups": [
@@ -6279,7 +6503,7 @@
           {
             "id": 766,
             "origin_id": -10,
-            "origin_slot": 22,
+            "origin_slot": 23,
             "target_id": 383,
             "target_slot": 0,
             "type": "BOOLEAN"
@@ -6351,7 +6575,7 @@
           {
             "id": 777,
             "origin_id": -10,
-            "origin_slot": 16,
+            "origin_slot": 17,
             "target_id": 384,
             "target_slot": 0,
             "type": "COMBO"
@@ -6359,7 +6583,7 @@
           {
             "id": 778,
             "origin_id": -10,
-            "origin_slot": 18,
+            "origin_slot": 19,
             "target_id": 385,
             "target_slot": 0,
             "type": "COMBO"
@@ -6367,7 +6591,7 @@
           {
             "id": 779,
             "origin_id": -10,
-            "origin_slot": 19,
+            "origin_slot": 20,
             "target_id": 386,
             "target_slot": 0,
             "type": "COMBO"
@@ -6375,7 +6599,7 @@
           {
             "id": 780,
             "origin_id": -10,
-            "origin_slot": 17,
+            "origin_slot": 18,
             "target_id": 387,
             "target_slot": 0,
             "type": "COMBO"
@@ -6383,7 +6607,7 @@
           {
             "id": 781,
             "origin_id": -10,
-            "origin_slot": 20,
+            "origin_slot": 21,
             "target_id": 371,
             "target_slot": 0,
             "type": "COMBO"
@@ -6391,7 +6615,7 @@
           {
             "id": 782,
             "origin_id": -10,
-            "origin_slot": 21,
+            "origin_slot": 22,
             "target_id": 393,
             "target_slot": 0,
             "type": "COMBO"
@@ -6415,7 +6639,7 @@
           {
             "id": 787,
             "origin_id": -10,
-            "origin_slot": 12,
+            "origin_slot": 11,
             "target_id": 407,
             "target_slot": 0,
             "type": "BOOLEAN"
@@ -6591,8 +6815,8 @@
           {
             "id": 798,
             "origin_id": -10,
-            "origin_slot": 11,
-            "target_id": 338,
+            "origin_slot": 12,
+            "target_id": 436,
             "target_slot": 0,
             "type": "INT"
           },
@@ -6647,7 +6871,7 @@
           {
             "id": 812,
             "origin_id": -10,
-            "origin_slot": 13,
+            "origin_slot": 14,
             "target_id": 419,
             "target_slot": 0,
             "type": "INT"
@@ -6655,7 +6879,7 @@
           {
             "id": 813,
             "origin_id": -10,
-            "origin_slot": 13,
+            "origin_slot": 14,
             "target_id": 420,
             "target_slot": 0,
             "type": "INT"
@@ -6671,7 +6895,7 @@
           {
             "id": 815,
             "origin_id": -10,
-            "origin_slot": 14,
+            "origin_slot": 15,
             "target_id": 421,
             "target_slot": 2,
             "type": "FLOAT"
@@ -6687,7 +6911,7 @@
           {
             "id": 817,
             "origin_id": -10,
-            "origin_slot": 15,
+            "origin_slot": 16,
             "target_id": 422,
             "target_slot": 2,
             "type": "FLOAT"
@@ -7075,6 +7299,46 @@
             "target_id": 367,
             "target_slot": 0,
             "type": "LATENT"
+          },
+          {
+            "id": 866,
+            "origin_id": 436,
+            "origin_slot": 0,
+            "target_id": 439,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 867,
+            "origin_id": 437,
+            "origin_slot": 0,
+            "target_id": 439,
+            "target_slot": 1,
+            "type": "INT"
+          },
+          {
+            "id": 868,
+            "origin_id": 438,
+            "origin_slot": 0,
+            "target_id": 439,
+            "target_slot": 2,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 869,
+            "origin_id": -10,
+            "origin_slot": 13,
+            "target_id": 438,
+            "target_slot": 0,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 870,
+            "origin_id": 439,
+            "origin_slot": 0,
+            "target_id": 338,
+            "target_slot": 0,
+            "type": "INT"
           }
         ],
         "extra": {}
