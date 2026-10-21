@@ -131,7 +131,7 @@
       ],
       "size": [
         550,
-        580
+        610
       ],
       "flags": {},
       "order": 3,
@@ -288,6 +288,15 @@
           "link": null
         },
         {
+          "label": "Resolución referencia Union (px)",
+          "name": "union_reference_max_size",
+          "type": "INT",
+          "widget": {
+            "name": "union_reference_max_size"
+          },
+          "link": null
+        },
+        {
           "label": "Modelo de vídeo",
           "name": "unet_name",
           "type": "COMBO",
@@ -383,6 +392,7 @@
         false,
         1,
         false,
+        512,
         "ltx-2.5-22b-distilled-transformer-comfy-int8-convrot.safetensors",
         "gemma4-12b-with-proj-ltx-2.5-comfy-int8-convrot.safetensors",
         "ltx-2.5-video-vae-bf16.safetensors",
@@ -414,7 +424,8 @@
         "vae_name_1": "ltx-2.5-audio-vae-bf16.safetensors",
         "model_name": "ltx-2.5-latent-spatial-upscaler-x2-bf16-1.0.safetensors",
         "clip_name_1": "gemma4_e2b_it_int8_convrot.safetensors",
-        "value_1": false
+        "value_1": false,
+        "union_reference_max_size": 512
       }
     },
     {
@@ -702,8 +713,8 @@
         "version": 1,
         "state": {
           "lastGroupId": 28,
-          "lastNodeId": 457,
-          "lastLinkId": 901,
+          "lastNodeId": 458,
+          "lastLinkId": 903,
           "lastRerouteId": 0
         },
         "revision": 0,
@@ -715,7 +726,7 @@
             -693.3733595617866,
             6361.238266223688,
             183.814453125,
-            388
+            408
           ]
         },
         "outputNode": {
@@ -963,6 +974,19 @@
             ]
           },
           {
+            "id": "ltx-union-reference-resolution",
+            "name": "union_reference_max_size",
+            "label": "Resolución referencia Union (px)",
+            "type": "INT",
+            "linkIds": [
+              903
+            ],
+            "pos": [
+              -533.56,
+              6745
+            ]
+          },
+          {
             "id": "cbb7ddb9-95d0-4e63-a473-f37c329fbcda",
             "name": "unet_name",
             "type": "COMBO",
@@ -972,7 +996,7 @@
             "label": "Modelo de vídeo",
             "pos": [
               -533.56,
-              6745
+              6765
             ]
           },
           {
@@ -985,7 +1009,7 @@
             "label": "Codificador de texto",
             "pos": [
               -533.56,
-              6765
+              6785
             ]
           },
           {
@@ -998,7 +1022,7 @@
             "label": "VAE vídeo",
             "pos": [
               -533.56,
-              6785
+              6805
             ]
           },
           {
@@ -1011,7 +1035,7 @@
             "label": "VAE audio",
             "pos": [
               -533.56,
-              6805
+              6825
             ]
           },
           {
@@ -1024,7 +1048,7 @@
             "label": "Modelo de escalado",
             "pos": [
               -533.56,
-              6825
+              6845
             ]
           },
           {
@@ -1037,7 +1061,7 @@
             "label": "Modelo de mejora del prompt",
             "pos": [
               -533.56,
-              6845
+              6865
             ]
           },
           {
@@ -1050,7 +1074,7 @@
             "label": "Activar mejora del prompt",
             "pos": [
               -533.56,
-              6865
+              6885
             ]
           }
         ],
@@ -4651,7 +4675,7 @@
             "type": "Canny",
             "title": "Union · Bordes Canny",
             "pos": [
-              2340,
+              2740,
               5750
             ],
             "size": [
@@ -4665,7 +4689,7 @@
               {
                 "name": "image",
                 "type": "IMAGE",
-                "link": 811
+                "link": 902
               },
               {
                 "name": "low_threshold",
@@ -6583,6 +6607,66 @@
             "widgets_values_named": {
               "switch": false
             }
+          },
+          {
+            "id": 458,
+            "type": "ImageScaleToMaxDimension",
+            "pos": [
+              2330,
+              5750
+            ],
+            "size": [
+              340,
+              120
+            ],
+            "flags": {},
+            "order": 85,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "image",
+                "type": "IMAGE",
+                "link": 811
+              },
+              {
+                "name": "upscale_method",
+                "type": "COMBO",
+                "widget": {
+                  "name": "upscale_method"
+                },
+                "link": null
+              },
+              {
+                "name": "largest_size",
+                "type": "INT",
+                "widget": {
+                  "name": "largest_size"
+                },
+                "link": 903
+              }
+            ],
+            "outputs": [
+              {
+                "name": "IMAGE",
+                "type": "IMAGE",
+                "links": [
+                  902
+                ]
+              }
+            ],
+            "title": "Union · Reducir referencia antes de Canny",
+            "properties": {
+              "Node name for S&R": "ImageScaleToMaxDimension",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              "lanczos",
+              512
+            ],
+            "widgets_values_named": {
+              "upscale_method": "lanczos",
+              "largest_size": 512
+            }
           }
         ],
         "groups": [
@@ -7071,7 +7155,7 @@
           {
             "id": 766,
             "origin_id": -10,
-            "origin_slot": 24,
+            "origin_slot": 25,
             "target_id": 383,
             "target_slot": 0,
             "type": "BOOLEAN"
@@ -7143,7 +7227,7 @@
           {
             "id": 777,
             "origin_id": -10,
-            "origin_slot": 18,
+            "origin_slot": 19,
             "target_id": 384,
             "target_slot": 0,
             "type": "COMBO"
@@ -7151,7 +7235,7 @@
           {
             "id": 778,
             "origin_id": -10,
-            "origin_slot": 20,
+            "origin_slot": 21,
             "target_id": 385,
             "target_slot": 0,
             "type": "COMBO"
@@ -7159,7 +7243,7 @@
           {
             "id": 779,
             "origin_id": -10,
-            "origin_slot": 21,
+            "origin_slot": 22,
             "target_id": 386,
             "target_slot": 0,
             "type": "COMBO"
@@ -7167,7 +7251,7 @@
           {
             "id": 780,
             "origin_id": -10,
-            "origin_slot": 19,
+            "origin_slot": 20,
             "target_id": 387,
             "target_slot": 0,
             "type": "COMBO"
@@ -7175,7 +7259,7 @@
           {
             "id": 781,
             "origin_id": -10,
-            "origin_slot": 22,
+            "origin_slot": 23,
             "target_id": 371,
             "target_slot": 0,
             "type": "COMBO"
@@ -7183,7 +7267,7 @@
           {
             "id": 782,
             "origin_id": -10,
-            "origin_slot": 23,
+            "origin_slot": 24,
             "target_id": 393,
             "target_slot": 0,
             "type": "COMBO"
@@ -7432,7 +7516,7 @@
             "id": 811,
             "origin_id": 417,
             "origin_slot": 0,
-            "target_id": 418,
+            "target_id": 458,
             "target_slot": 0,
             "type": "IMAGE"
           },
@@ -8107,6 +8191,22 @@
             "target_id": 457,
             "target_slot": 2,
             "type": "BOOLEAN"
+          },
+          {
+            "id": 902,
+            "origin_id": 458,
+            "origin_slot": 0,
+            "target_id": 418,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 903,
+            "origin_id": -10,
+            "origin_slot": 18,
+            "target_id": 458,
+            "target_slot": 2,
+            "type": "INT"
           }
         ],
         "extra": {}
