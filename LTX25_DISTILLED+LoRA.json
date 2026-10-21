@@ -659,8 +659,8 @@
         "version": 1,
         "state": {
           "lastGroupId": 28,
-          "lastNodeId": 431,
-          "lastLinkId": 850,
+          "lastNodeId": 435,
+          "lastLinkId": 865,
           "lastRerouteId": 0
         },
         "revision": 0,
@@ -1694,9 +1694,9 @@
                 "name": "positive",
                 "type": "CONDITIONING",
                 "links": [
-                  755,
                   827,
-                  839
+                  839,
+                  854
                 ]
               },
               {
@@ -1704,9 +1704,9 @@
                 "name": "negative",
                 "type": "CONDITIONING",
                 "links": [
-                  756,
                   828,
-                  843
+                  843,
+                  858
                 ]
               }
             ],
@@ -2318,7 +2318,8 @@
                 "name": "output",
                 "type": "LATENT",
                 "links": [
-                  702
+                  853,
+                  862
                 ]
               },
               {
@@ -2524,7 +2525,7 @@
                 "localized_name": "av_latente",
                 "name": "av_latent",
                 "type": "LATENT",
-                "link": 702
+                "link": 865
               }
             ],
             "outputs": [
@@ -3478,13 +3479,13 @@
                 "localized_name": "positivo",
                 "name": "positive",
                 "type": "CONDITIONING",
-                "link": 755
+                "link": 857
               },
               {
                 "localized_name": "negativo",
                 "name": "negative",
                 "type": "CONDITIONING",
-                "link": 756
+                "link": 861
               },
               {
                 "localized_name": "video_cfg",
@@ -4767,7 +4768,10 @@
                   837,
                   841,
                   845,
-                  849
+                  849,
+                  856,
+                  860,
+                  864
                 ]
               }
             ],
@@ -5199,7 +5203,8 @@
                 "name": "positive",
                 "type": "CONDITIONING",
                 "links": [
-                  840
+                  840,
+                  851
                 ]
               },
               {
@@ -5207,7 +5212,8 @@
                 "name": "negative",
                 "type": "CONDITIONING",
                 "links": [
-                  844
+                  844,
+                  852
                 ]
               },
               {
@@ -5537,6 +5543,254 @@
             "widgets_values_named": {
               "switch": false
             }
+          },
+          {
+            "id": 432,
+            "type": "LTXVCropGuides",
+            "pos": [
+              4600,
+              5360
+            ],
+            "size": [
+              187.5,
+              100.83333333333334
+            ],
+            "flags": {},
+            "order": 70,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "positive",
+                "type": "CONDITIONING",
+                "link": 851
+              },
+              {
+                "name": "negative",
+                "type": "CONDITIONING",
+                "link": 852
+              },
+              {
+                "name": "latent",
+                "type": "LATENT",
+                "link": 853
+              }
+            ],
+            "outputs": [
+              {
+                "name": "positive",
+                "type": "CONDITIONING",
+                "links": [
+                  855
+                ]
+              },
+              {
+                "name": "negative",
+                "type": "CONDITIONING",
+                "links": [
+                  859
+                ]
+              },
+              {
+                "name": "latent",
+                "type": "LATENT",
+                "links": [
+                  863
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "LTXVCropGuides",
+              "cnr_id": "comfy-core",
+              "ver": "0.3.75"
+            },
+            "widgets_values": [],
+            "title": "Retirar guías tras Low-res"
+          },
+          {
+            "id": 433,
+            "type": "ComfySwitchNode",
+            "pos": [
+              4600,
+              5520
+            ],
+            "size": [
+              300,
+              145
+            ],
+            "flags": {},
+            "order": 71,
+            "mode": 0,
+            "inputs": [
+              {
+                "localized_name": "en_falso",
+                "name": "on_false",
+                "shape": 7,
+                "type": "CONDITIONING",
+                "link": 854
+              },
+              {
+                "localized_name": "en_verdadero",
+                "name": "on_true",
+                "shape": 7,
+                "type": "CONDITIONING",
+                "link": 855
+              },
+              {
+                "localized_name": "interruptor",
+                "name": "switch",
+                "type": "BOOLEAN",
+                "widget": {
+                  "name": "switch"
+                },
+                "link": 856
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "salida",
+                "name": "output",
+                "type": "CONDITIONING",
+                "links": [
+                  857
+                ]
+              }
+            ],
+            "title": "Positivo High-res",
+            "properties": {
+              "Node name for S&R": "ComfySwitchNode",
+              "cnr_id": "comfy-core",
+              "ver": "0.22.0"
+            },
+            "widgets_values": [
+              false
+            ],
+            "widgets_values_named": {
+              "switch": false
+            }
+          },
+          {
+            "id": 434,
+            "type": "ComfySwitchNode",
+            "pos": [
+              4600,
+              5680
+            ],
+            "size": [
+              300,
+              145
+            ],
+            "flags": {},
+            "order": 72,
+            "mode": 0,
+            "inputs": [
+              {
+                "localized_name": "en_falso",
+                "name": "on_false",
+                "shape": 7,
+                "type": "CONDITIONING",
+                "link": 858
+              },
+              {
+                "localized_name": "en_verdadero",
+                "name": "on_true",
+                "shape": 7,
+                "type": "CONDITIONING",
+                "link": 859
+              },
+              {
+                "localized_name": "interruptor",
+                "name": "switch",
+                "type": "BOOLEAN",
+                "widget": {
+                  "name": "switch"
+                },
+                "link": 860
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "salida",
+                "name": "output",
+                "type": "CONDITIONING",
+                "links": [
+                  861
+                ]
+              }
+            ],
+            "title": "Negativo High-res",
+            "properties": {
+              "Node name for S&R": "ComfySwitchNode",
+              "cnr_id": "comfy-core",
+              "ver": "0.22.0"
+            },
+            "widgets_values": [
+              false
+            ],
+            "widgets_values_named": {
+              "switch": false
+            }
+          },
+          {
+            "id": 435,
+            "type": "ComfySwitchNode",
+            "pos": [
+              4600,
+              5840
+            ],
+            "size": [
+              300,
+              145
+            ],
+            "flags": {},
+            "order": 73,
+            "mode": 0,
+            "inputs": [
+              {
+                "localized_name": "en_falso",
+                "name": "on_false",
+                "shape": 7,
+                "type": "LATENT",
+                "link": 862
+              },
+              {
+                "localized_name": "en_verdadero",
+                "name": "on_true",
+                "shape": 7,
+                "type": "LATENT",
+                "link": 863
+              },
+              {
+                "localized_name": "interruptor",
+                "name": "switch",
+                "type": "BOOLEAN",
+                "widget": {
+                  "name": "switch"
+                },
+                "link": 864
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "salida",
+                "name": "output",
+                "type": "LATENT",
+                "links": [
+                  865
+                ]
+              }
+            ],
+            "title": "Latentes High-res",
+            "properties": {
+              "Node name for S&R": "ComfySwitchNode",
+              "cnr_id": "comfy-core",
+              "ver": "0.22.0"
+            },
+            "widgets_values": [
+              false
+            ],
+            "widgets_values_named": {
+              "switch": false
+            }
           }
         ],
         "groups": [
@@ -5815,14 +6069,6 @@
             "type": "INT"
           },
           {
-            "id": 702,
-            "origin_id": 344,
-            "origin_slot": 0,
-            "target_id": 367,
-            "target_slot": 0,
-            "type": "LATENT"
-          },
-          {
             "id": 699,
             "origin_id": 357,
             "origin_slot": 0,
@@ -5917,22 +6163,6 @@
             "target_id": 340,
             "target_slot": 1,
             "type": "LATENT"
-          },
-          {
-            "id": 755,
-            "origin_id": 365,
-            "origin_slot": 0,
-            "target_id": 391,
-            "target_slot": 1,
-            "type": "CONDITIONING"
-          },
-          {
-            "id": 756,
-            "origin_id": 365,
-            "origin_slot": 1,
-            "target_id": 391,
-            "target_slot": 2,
-            "type": "CONDITIONING"
           },
           {
             "id": 703,
@@ -6724,6 +6954,126 @@
             "origin_slot": 0,
             "target_id": 344,
             "target_slot": 4,
+            "type": "LATENT"
+          },
+          {
+            "id": 851,
+            "origin_id": 426,
+            "origin_slot": 0,
+            "target_id": 432,
+            "target_slot": 0,
+            "type": "CONDITIONING"
+          },
+          {
+            "id": 852,
+            "origin_id": 426,
+            "origin_slot": 1,
+            "target_id": 432,
+            "target_slot": 1,
+            "type": "CONDITIONING"
+          },
+          {
+            "id": 853,
+            "origin_id": 344,
+            "origin_slot": 0,
+            "target_id": 432,
+            "target_slot": 2,
+            "type": "LATENT"
+          },
+          {
+            "id": 854,
+            "origin_id": 365,
+            "origin_slot": 0,
+            "target_id": 433,
+            "target_slot": 0,
+            "type": "CONDITIONING"
+          },
+          {
+            "id": 855,
+            "origin_id": 432,
+            "origin_slot": 0,
+            "target_id": 433,
+            "target_slot": 1,
+            "type": "CONDITIONING"
+          },
+          {
+            "id": 856,
+            "origin_id": 420,
+            "origin_slot": 2,
+            "target_id": 433,
+            "target_slot": 2,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 857,
+            "origin_id": 433,
+            "origin_slot": 0,
+            "target_id": 391,
+            "target_slot": 1,
+            "type": "CONDITIONING"
+          },
+          {
+            "id": 858,
+            "origin_id": 365,
+            "origin_slot": 1,
+            "target_id": 434,
+            "target_slot": 0,
+            "type": "CONDITIONING"
+          },
+          {
+            "id": 859,
+            "origin_id": 432,
+            "origin_slot": 1,
+            "target_id": 434,
+            "target_slot": 1,
+            "type": "CONDITIONING"
+          },
+          {
+            "id": 860,
+            "origin_id": 420,
+            "origin_slot": 2,
+            "target_id": 434,
+            "target_slot": 2,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 861,
+            "origin_id": 434,
+            "origin_slot": 0,
+            "target_id": 391,
+            "target_slot": 2,
+            "type": "CONDITIONING"
+          },
+          {
+            "id": 862,
+            "origin_id": 344,
+            "origin_slot": 0,
+            "target_id": 435,
+            "target_slot": 0,
+            "type": "LATENT"
+          },
+          {
+            "id": 863,
+            "origin_id": 432,
+            "origin_slot": 2,
+            "target_id": 435,
+            "target_slot": 1,
+            "type": "LATENT"
+          },
+          {
+            "id": 864,
+            "origin_id": 420,
+            "origin_slot": 2,
+            "target_id": 435,
+            "target_slot": 2,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 865,
+            "origin_id": 435,
+            "origin_slot": 0,
+            "target_id": 367,
+            "target_slot": 0,
             "type": "LATENT"
           }
         ],
