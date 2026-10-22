@@ -3190,12 +3190,18 @@
               {
                 "name": "width",
                 "type": "INT",
-                "link": 31
+                "link": 31,
+                "widget": {
+                  "name": "width"
+                }
               },
               {
                 "name": "height",
                 "type": "INT",
-                "link": 32
+                "link": 32,
+                "widget": {
+                  "name": "height"
+                }
               },
               {
                 "name": "crop",
@@ -3222,6 +3228,8 @@
             },
             "widgets_values": [
               "bilinear",
+              1024,
+              1024,
               "center"
             ]
           },
@@ -3341,7 +3349,10 @@
               {
                 "name": "scale_by",
                 "type": "FLOAT",
-                "link": 38
+                "link": 38,
+                "widget": {
+                  "name": "scale_by"
+                }
               }
             ],
             "outputs": [
