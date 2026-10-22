@@ -1,15 +1,15 @@
 {
   "id": "d9ac44b0-2f2d-4a95-8dd2-44cd82200a80",
-  "revision": 1,
-  "last_node_id": 29,
-  "last_link_id": 34,
+  "revision": 2,
+  "last_node_id": 30,
+  "last_link_id": 36,
   "nodes": [
     {
       "id": 1,
       "type": "LoadImage",
       "pos": [
-        70,
-        170
+        40,
+        110
       ],
       "size": [
         500,
@@ -23,19 +23,15 @@
         {
           "name": "IMAGE",
           "type": "IMAGE",
-          "links": [
-            1
-          ]
+          "links": []
         },
         {
           "name": "MASK",
           "type": "MASK",
-          "links": [
-            2
-          ]
+          "links": []
         }
       ],
-      "title": "01 · CARGAR FOTO",
+      "title": "IMAGEN EXTERNA · disponible para conexión manual",
       "properties": {
         "Node name for S&R": "LoadImage",
         "cnr_id": "comfy-core"
@@ -52,22 +48,22 @@
       "id": 2,
       "type": "7fa8c5a4-1bc2-4c7c-82cb-879c5dd09b30",
       "pos": [
-        680,
-        240
+        5330,
+        1840
       ],
       "size": [
-        630,
-        500
+        620,
+        485
       ],
       "flags": {},
       "order": 1,
-      "mode": 4,
+      "mode": 0,
       "inputs": [
         {
           "name": "image",
           "type": "IMAGE",
-          "label": "Fotografía",
-          "link": 1
+          "label": "Collage 2×2 (imagen de entrada final)",
+          "link": 35
         },
         {
           "name": "value",
@@ -90,7 +86,7 @@
         {
           "name": "value_1",
           "type": "BOOLEAN",
-          "label": "Aumentar resolución",
+          "label": "Upscale · activar / desactivar",
           "widget": {
             "name": "value_1"
           },
@@ -99,7 +95,7 @@
         {
           "name": "value_2",
           "type": "BOOLEAN",
-          "label": "Borrar fondo",
+          "label": "BiRefNet · activar / desactivar",
           "widget": {
             "name": "value_2"
           },
@@ -108,7 +104,7 @@
         {
           "name": "filename_prefix",
           "type": "STRING",
-          "label": "Nombre y carpeta del PNG",
+          "label": "Carpeta / nombre de exportación",
           "widget": {
             "name": "filename_prefix"
           },
@@ -117,8 +113,8 @@
         {
           "name": "mask",
           "type": "MASK",
-          "label": "Transparencia original",
-          "link": 2
+          "label": "Máscara opaca (2048×2048)",
+          "link": 36
         }
       ],
       "outputs": [
@@ -128,7 +124,7 @@
           "links": []
         }
       ],
-      "title": "02 · IMAGE LAB · CONFIGURAR Y GUARDAR",
+      "title": "04 · REFINAMIENTO FINAL · Upscale + BiRefNet · exportar PNG",
       "properties": {
         "cnr_id": "comfy-core",
         "previewExposures": []
@@ -136,16 +132,16 @@
       "widgets_values": [
         4,
         "4xNomos2_hq_dat2.pth",
-        true,
         false,
-        "image_lab/resultado"
+        false,
+        "image_lab/final/collage_2x2"
       ],
       "widgets_values_named": {
         "value": 4,
         "model_name": "4xNomos2_hq_dat2.pth",
-        "value_1": true,
+        "value_1": false,
         "value_2": false,
-        "filename_prefix": "image_lab/resultado"
+        "filename_prefix": "image_lab/final/collage_2x2"
       }
     },
     {
@@ -502,7 +498,7 @@
           "links": []
         }
       ],
-      "title": "Guardar PNG · retrato maestro",
+      "title": "Guardar RETRATO BASE · imagen intermedia (para 2×2)",
       "properties": {
         "Node name for S&R": "SaveImage",
         "cnr_id": "comfy-core"
@@ -1567,7 +1563,8 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            34
+            34,
+            35
           ]
         }
       ],
@@ -1618,7 +1615,7 @@
           "links": []
         }
       ],
-      "title": "Guardar COLLAGE 2x2 · ACTIVAR CUANDO HAYA 4 FOTOS",
+      "title": "Salida SIN refinar (alternativa desactivada)",
       "properties": {
         "Node name for S&R": "SaveImage",
         "cnr_id": "comfy-core"
@@ -1626,25 +1623,69 @@
       "widgets_values": [
         "image_lab/collage/personaje_2x2"
       ]
+    },
+    {
+      "id": 30,
+      "type": "SolidMask",
+      "pos": [
+        4840,
+        2130
+      ],
+      "size": [
+        345,
+        150
+      ],
+      "flags": {},
+      "order": 30,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "FLOAT",
+          "widget": {
+            "name": "value"
+          },
+          "link": null
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "widget": {
+            "name": "width"
+          },
+          "link": null
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "widget": {
+            "name": "height"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": [
+            36
+          ]
+        }
+      ],
+      "title": "Máscara opaca para collage · 2048² · NO eliminar",
+      "properties": {
+        "Node name for S&R": "SolidMask",
+        "cnr_id": "comfy-core"
+      },
+      "widgets_values": [
+        0,
+        2048,
+        2048
+      ]
     }
   ],
   "links": [
-    [
-      1,
-      1,
-      0,
-      2,
-      0,
-      "IMAGE"
-    ],
-    [
-      2,
-      1,
-      1,
-      2,
-      6,
-      "MASK"
-    ],
     [
       3,
       3,
@@ -1900,52 +1941,79 @@
       29,
       0,
       "IMAGE"
+    ],
+    [
+      35,
+      28,
+      0,
+      2,
+      0,
+      "IMAGE"
+    ],
+    [
+      36,
+      30,
+      0,
+      2,
+      6,
+      "MASK"
     ]
   ],
   "groups": [
     {
-      "title": "HERRAMIENTAS AUXILIARES · BIREFNET + NOMOS2 4x (desactivadas)",
+      "title": "00 · INGRESO EXTERNO · disponible por conexión manual",
       "bounding": [
-        47,
-        65,
-        1350,
-        690
+        28,
+        60,
+        585,
+        770
       ],
-      "color": "#64748b",
+      "color": "#6b7280",
       "font_size": 20
     },
     {
-      "title": "01 · GENERACIÓN · RETRATO MAESTRO (checkpoint SDXL compatible)",
+      "title": "01 · GENERACIÓN · RETRATO MAESTRO (checkpoint fotográfico SDXL)",
       "bounding": [
         54,
-        785,
+        790,
         2385,
-        945
+        910
       ],
       "color": "#367c97",
       "font_size": 20
     },
     {
-      "title": "02 · VARIACIONES img2img · opcional (identidad orientativa, no garantizada)",
+      "title": "02 · VARIACIONES IMG2IMG · desactivado hasta cargar referencia",
       "bounding": [
         56,
-        1820,
+        1830,
         2385,
-        800
+        770
       ],
       "color": "#7d7a3a",
       "font_size": 20
     },
     {
-      "title": "03 · COLLAGE 2×2 · cuatro fotos ya generadas · opcional",
+      "title": "03 · COMPOSICIÓN 2×2 · cuatro fotografías",
       "bounding": [
+        2560,
+        770,
         2570,
-        755,
-        2590,
-        1570
+        1555
       ],
       "color": "#4b8b78",
       "font_size": 20
+    },
+    {
+      "title": "04 · REFINAMIENTO FINAL · activar BiRefNet / Upscale desde el nodo",
+      "bounding": [
+        5270,
+        1730,
+        755,
+        665
+      ],
+      "color": "#956eb3",
+      "font_size": 22
     }
   ],
   "definitions": {
@@ -1961,7 +2029,7 @@
         },
         "revision": 0,
         "config": {},
-        "name": "IMAGE LAB · Configuración y PNG",
+        "name": "IMAGE LAB · REFINE FINAL · Upscale/BiRefNet · PNG",
         "description": "Aumento 2x/3x/4x/8x, borrado de fondo opcional con BiRefNet nativo y guardado PNG. Sin extensiones RMBG.",
         "inputNode": {
           "id": -10,
@@ -1985,7 +2053,7 @@
           {
             "name": "image",
             "type": "IMAGE",
-            "label": "Fotografía",
+            "label": "Collage final para procesar",
             "id": "image-lab-img",
             "linkIds": [
               3,
@@ -2026,7 +2094,7 @@
           {
             "name": "value_1",
             "type": "BOOLEAN",
-            "label": "Aumentar resolución",
+            "label": "UPSCALE · Activado",
             "id": "image-lab-enhance",
             "linkIds": [
               20
@@ -2039,7 +2107,7 @@
           {
             "name": "value_2",
             "type": "BOOLEAN",
-            "label": "Borrar fondo",
+            "label": "BiRefNet · Activado",
             "id": "image-lab-remove",
             "linkIds": [
               8
@@ -2052,7 +2120,7 @@
           {
             "name": "filename_prefix",
             "type": "STRING",
-            "label": "Nombre y carpeta del PNG",
+            "label": "Exportar final a:",
             "id": "image-lab-output-name",
             "linkIds": [
               24
@@ -2066,7 +2134,7 @@
             "id": "image-lab-alpha-original",
             "name": "mask",
             "type": "MASK",
-            "label": "Transparencia original",
+            "label": "Máscara opaca",
             "linkIds": [
               25,
               27
@@ -2638,7 +2706,7 @@
               "cnr_id": "comfy-core"
             },
             "widgets_values": [
-              true
+              false
             ],
             "title": "Aumentar resolución (activar/desactivar)"
           },
@@ -2690,7 +2758,7 @@
               "cnr_id": "comfy-core"
             },
             "widgets_values": [
-              true
+              false
             ],
             "title": "Elegir imagen RGB final"
           },
@@ -2737,7 +2805,7 @@
             "widgets_values": [
               "image_lab/resultado"
             ],
-            "title": "Guardar PNG RGBA con transparencia real"
+            "title": "SALIDA FINAL · después de BiRefNet/Upscale"
           },
           {
             "id": 115,
