@@ -1,19 +1,19 @@
 {
   "id": "d9ac44b0-2f2d-4a95-8dd2-44cd82200a80",
-  "revision": 2,
-  "last_node_id": 30,
-  "last_link_id": 36,
+  "revision": 3,
+  "last_node_id": 33,
+  "last_link_id": 44,
   "nodes": [
     {
       "id": 1,
       "type": "LoadImage",
       "pos": [
-        40,
-        110
+        4370,
+        2770
       ],
       "size": [
-        500,
-        590
+        460,
+        525
       ],
       "flags": {},
       "order": 0,
@@ -23,15 +23,19 @@
         {
           "name": "IMAGE",
           "type": "IMAGE",
-          "links": []
+          "links": [
+            38
+          ]
         },
         {
           "name": "MASK",
           "type": "MASK",
-          "links": []
+          "links": [
+            41
+          ]
         }
       ],
-      "title": "IMAGEN EXTERNA · disponible para conexión manual",
+      "title": "AUXILIAR · CARGAR FOTO EXTERNA (PNG/JPG con o sin transparencia)",
       "properties": {
         "Node name for S&R": "LoadImage",
         "cnr_id": "comfy-core"
@@ -48,8 +52,8 @@
       "id": 2,
       "type": "7fa8c5a4-1bc2-4c7c-82cb-879c5dd09b30",
       "pos": [
-        5330,
-        1840
+        5720,
+        1960
       ],
       "size": [
         620,
@@ -62,8 +66,8 @@
         {
           "name": "image",
           "type": "IMAGE",
-          "label": "Collage 2×2 (imagen de entrada final)",
-          "link": 35
+          "label": "IMAGEN ELEGIDA (collage o externa)",
+          "link": 43
         },
         {
           "name": "value",
@@ -113,8 +117,8 @@
         {
           "name": "mask",
           "type": "MASK",
-          "label": "Máscara opaca (2048×2048)",
-          "link": 36
+          "label": "MÁSCARA ALFA DE LA FUENTE",
+          "link": 44
         }
       ],
       "outputs": [
@@ -124,7 +128,7 @@
           "links": []
         }
       ],
-      "title": "04 · REFINAMIENTO FINAL · Upscale + BiRefNet · exportar PNG",
+      "title": "REFINAMIENTO FINAL · Upscale/BiRefNet (ON/OFF) · EXPORTAR",
       "properties": {
         "cnr_id": "comfy-core",
         "previewExposures": []
@@ -134,14 +138,14 @@
         "4xNomos2_hq_dat2.pth",
         false,
         false,
-        "image_lab/final/collage_2x2"
+        "image_lab/final/resultado"
       ],
       "widgets_values_named": {
         "value": 4,
         "model_name": "4xNomos2_hq_dat2.pth",
         "value_1": false,
         "value_2": false,
-        "filename_prefix": "image_lab/final/collage_2x2"
+        "filename_prefix": "image_lab/final/resultado"
       }
     },
     {
@@ -1564,7 +1568,7 @@
           "type": "IMAGE",
           "links": [
             34,
-            35
+            37
           ]
         }
       ],
@@ -1669,7 +1673,7 @@
           "name": "MASK",
           "type": "MASK",
           "links": [
-            36
+            40
           ]
         }
       ],
@@ -1682,6 +1686,147 @@
         0,
         2048,
         2048
+      ]
+    },
+    {
+      "id": 31,
+      "type": "PrimitiveBoolean",
+      "pos": [
+        4870,
+        2660
+      ],
+      "size": [
+        390,
+        106
+      ],
+      "flags": {},
+      "order": 31,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "value"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "BOOLEAN",
+          "type": "BOOLEAN",
+          "links": [
+            39,
+            42
+          ]
+        }
+      ],
+      "title": "ORIGEN · TRUE = FOTO EXTERNA / FALSE = COLLAGE",
+      "properties": {
+        "Node name for S&R": "PrimitiveBoolean",
+        "cnr_id": "comfy-core"
+      },
+      "widgets_values": [
+        true
+      ]
+    },
+    {
+      "id": 32,
+      "type": "ComfySwitchNode",
+      "pos": [
+        5280,
+        2000
+      ],
+      "size": [
+        395,
+        156
+      ],
+      "flags": {},
+      "order": 32,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "on_false",
+          "type": "*",
+          "link": 37
+        },
+        {
+          "name": "on_true",
+          "type": "*",
+          "link": 38
+        },
+        {
+          "name": "switch",
+          "type": "BOOLEAN",
+          "link": 39
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "type": "*",
+          "links": [
+            43
+          ]
+        }
+      ],
+      "title": "SELECCIONAR IMAGEN · Collage / Externa",
+      "properties": {
+        "Node name for S&R": "ComfySwitchNode",
+        "cnr_id": "comfy-core"
+      },
+      "widgets_values": [
+        true
+      ]
+    },
+    {
+      "id": 33,
+      "type": "ComfySwitchNode",
+      "pos": [
+        5280,
+        2300
+      ],
+      "size": [
+        395,
+        156
+      ],
+      "flags": {},
+      "order": 33,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "on_false",
+          "type": "*",
+          "link": 40
+        },
+        {
+          "name": "on_true",
+          "type": "*",
+          "link": 41
+        },
+        {
+          "name": "switch",
+          "type": "BOOLEAN",
+          "link": 42
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "type": "*",
+          "links": [
+            44
+          ]
+        }
+      ],
+      "title": "SELECCIONAR MÁSCARA · Collage / Alfa original",
+      "properties": {
+        "Node name for S&R": "ComfySwitchNode",
+        "cnr_id": "comfy-core"
+      },
+      "widgets_values": [
+        true
       ]
     }
   ],
@@ -1943,16 +2088,64 @@
       "IMAGE"
     ],
     [
-      35,
+      37,
       28,
+      0,
+      32,
+      0,
+      "IMAGE"
+    ],
+    [
+      38,
+      1,
+      0,
+      32,
+      1,
+      "IMAGE"
+    ],
+    [
+      39,
+      31,
+      0,
+      32,
+      2,
+      "BOOLEAN"
+    ],
+    [
+      40,
+      30,
+      0,
+      33,
+      0,
+      "MASK"
+    ],
+    [
+      41,
+      1,
+      1,
+      33,
+      1,
+      "MASK"
+    ],
+    [
+      42,
+      31,
+      0,
+      33,
+      2,
+      "BOOLEAN"
+    ],
+    [
+      43,
+      32,
       0,
       2,
       0,
       "IMAGE"
     ],
     [
-      36,
-      30,
+      44,
+      33,
       0,
       2,
       6,
@@ -1961,59 +2154,59 @@
   ],
   "groups": [
     {
-      "title": "00 · INGRESO EXTERNO · disponible por conexión manual",
+      "title": "01 · GENERACIÓN · RETRATO MAESTRO",
       "bounding": [
-        28,
-        60,
-        585,
-        770
-      ],
-      "color": "#6b7280",
-      "font_size": 20
-    },
-    {
-      "title": "01 · GENERACIÓN · RETRATO MAESTRO (checkpoint fotográfico SDXL)",
-      "bounding": [
-        54,
-        790,
-        2385,
-        910
+        55,
+        805,
+        2360,
+        870
       ],
       "color": "#367c97",
       "font_size": 20
     },
     {
-      "title": "02 · VARIACIONES IMG2IMG · desactivado hasta cargar referencia",
+      "title": "02 · VARIACIONES IMG2IMG · OPCIONAL",
       "bounding": [
-        56,
-        1830,
-        2385,
-        770
+        55,
+        1820,
+        2350,
+        790
       ],
       "color": "#7d7a3a",
       "font_size": 20
     },
     {
-      "title": "03 · COMPOSICIÓN 2×2 · cuatro fotografías",
+      "title": "03 · COLLAGE 2×2 · FOTO A/B/C/D",
       "bounding": [
-        2560,
-        770,
         2570,
-        1555
+        780,
+        2560,
+        1540
       ],
       "color": "#4b8b78",
       "font_size": 20
     },
     {
-      "title": "04 · REFINAMIENTO FINAL · activar BiRefNet / Upscale desde el nodo",
+      "title": "04 · AUXILIAR · CARGAR FOTO EXTERNA Y ELEGIR FUENTE",
       "bounding": [
-        5270,
-        1730,
-        755,
-        665
+        4250,
+        2570,
+        1110,
+        780
+      ],
+      "color": "#c27848",
+      "font_size": 20
+    },
+    {
+      "title": "05 · REFINAMIENTO COMPARTIDO · UPSCALE Y BIREFNET MANUALES",
+      "bounding": [
+        5190,
+        1830,
+        1260,
+        890
       ],
       "color": "#956eb3",
-      "font_size": 22
+      "font_size": 20
     }
   ],
   "definitions": {
@@ -2023,8 +2216,8 @@
         "version": 1,
         "state": {
           "lastGroupId": 0,
-          "lastNodeId": 115,
-          "lastLinkId": 27,
+          "lastNodeId": 124,
+          "lastLinkId": 41,
           "lastRerouteId": 0
         },
         "revision": 0,
@@ -2053,12 +2246,13 @@
           {
             "name": "image",
             "type": "IMAGE",
-            "label": "Collage final para procesar",
+            "label": "Imagen (collage o externa)",
             "id": "image-lab-img",
             "linkIds": [
               3,
               11,
-              12
+              12,
+              30
             ],
             "pos": [
               80,
@@ -2134,10 +2328,9 @@
             "id": "image-lab-alpha-original",
             "name": "mask",
             "type": "MASK",
-            "label": "Máscara opaca",
+            "label": "Máscara alfa de origen (normalizada)",
             "linkIds": [
-              25,
-              27
+              28
             ],
             "pos": [
               80,
@@ -2414,7 +2607,8 @@
                 "name": "output",
                 "type": "*",
                 "links": [
-                  5
+                  34,
+                  35
                 ]
               }
             ],
@@ -2540,7 +2734,8 @@
                 "name": "INT",
                 "type": "INT",
                 "links": [
-                  17
+                  17,
+                  37
                 ]
               }
             ],
@@ -2697,7 +2892,8 @@
                 "name": "BOOLEAN",
                 "type": "BOOLEAN",
                 "links": [
-                  21
+                  21,
+                  41
                 ]
               }
             ],
@@ -2876,6 +3072,449 @@
               0,
               "add"
             ]
+          },
+          {
+            "id": 116,
+            "type": "MaskToImage",
+            "pos": [
+              430,
+              1750
+            ],
+            "size": [
+              305,
+              104
+            ],
+            "flags": {},
+            "order": 116,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "mask",
+                "type": "MASK",
+                "link": 28
+              }
+            ],
+            "outputs": [
+              {
+                "name": "IMAGE",
+                "type": "IMAGE",
+                "links": [
+                  29
+                ]
+              }
+            ],
+            "title": "Máscara original · convertir a imagen",
+            "properties": {
+              "Node name for S&R": "MaskToImage",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": []
+          },
+          {
+            "id": 117,
+            "type": "GetImageSize",
+            "pos": [
+              430,
+              2060
+            ],
+            "size": [
+              320,
+              135
+            ],
+            "flags": {},
+            "order": 117,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "image",
+                "type": "IMAGE",
+                "link": 30
+              }
+            ],
+            "outputs": [
+              {
+                "name": "width",
+                "type": "INT",
+                "links": [
+                  31
+                ]
+              },
+              {
+                "name": "height",
+                "type": "INT",
+                "links": [
+                  32
+                ]
+              },
+              {
+                "name": "batch_size",
+                "type": "INT",
+                "links": []
+              }
+            ],
+            "title": "Leer tamaño REAL de fotografía (evita máscara 64² en JPG)",
+            "properties": {
+              "Node name for S&R": "GetImageSize",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": []
+          },
+          {
+            "id": 118,
+            "type": "ImageScale",
+            "pos": [
+              805,
+              1740
+            ],
+            "size": [
+              340,
+              180
+            ],
+            "flags": {},
+            "order": 118,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "image",
+                "type": "IMAGE",
+                "link": 29
+              },
+              {
+                "name": "upscale_method",
+                "type": "COMBO",
+                "widget": {
+                  "name": "upscale_method"
+                },
+                "link": null
+              },
+              {
+                "name": "width",
+                "type": "INT",
+                "link": 31
+              },
+              {
+                "name": "height",
+                "type": "INT",
+                "link": 32
+              },
+              {
+                "name": "crop",
+                "type": "COMBO",
+                "widget": {
+                  "name": "crop"
+                },
+                "link": null
+              }
+            ],
+            "outputs": [
+              {
+                "name": "IMAGE",
+                "type": "IMAGE",
+                "links": [
+                  33
+                ]
+              }
+            ],
+            "title": "Ajustar máscara al tamaño de la fotografía",
+            "properties": {
+              "Node name for S&R": "ImageScale",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              "bilinear",
+              "center"
+            ]
+          },
+          {
+            "id": 119,
+            "type": "ImageToMask",
+            "pos": [
+              1210,
+              1760
+            ],
+            "size": [
+              330,
+              130
+            ],
+            "flags": {},
+            "order": 119,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "image",
+                "type": "IMAGE",
+                "link": 33
+              },
+              {
+                "name": "channel",
+                "type": "COMBO",
+                "widget": {
+                  "name": "channel"
+                },
+                "link": null
+              }
+            ],
+            "outputs": [
+              {
+                "name": "MASK",
+                "type": "MASK",
+                "links": [
+                  25,
+                  27
+                ]
+              }
+            ],
+            "title": "Máscara original normalizada para alfa",
+            "properties": {
+              "Node name for S&R": "ImageToMask",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              "red"
+            ]
+          },
+          {
+            "id": 120,
+            "type": "MaskToImage",
+            "pos": [
+              2060,
+              1370
+            ],
+            "size": [
+              340,
+              110
+            ],
+            "flags": {},
+            "order": 120,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "mask",
+                "type": "MASK",
+                "link": 35
+              }
+            ],
+            "outputs": [
+              {
+                "name": "IMAGE",
+                "type": "IMAGE",
+                "links": [
+                  36
+                ]
+              }
+            ],
+            "title": "Máscara seleccionada para reescalar",
+            "properties": {
+              "Node name for S&R": "MaskToImage",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": []
+          },
+          {
+            "id": 121,
+            "type": "ImageScaleBy",
+            "pos": [
+              2470,
+              1370
+            ],
+            "size": [
+              365,
+              152
+            ],
+            "flags": {},
+            "order": 121,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "image",
+                "type": "IMAGE",
+                "link": 36
+              },
+              {
+                "name": "upscale_method",
+                "type": "COMBO",
+                "widget": {
+                  "name": "upscale_method"
+                },
+                "link": null
+              },
+              {
+                "name": "scale_by",
+                "type": "FLOAT",
+                "link": 38
+              }
+            ],
+            "outputs": [
+              {
+                "name": "IMAGE",
+                "type": "IMAGE",
+                "links": [
+                  39
+                ]
+              }
+            ],
+            "title": "Escalar alfa igual que foto final",
+            "properties": {
+              "Node name for S&R": "ImageScaleBy",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              "bilinear",
+              1
+            ]
+          },
+          {
+            "id": 122,
+            "type": "ComfyMathExpression",
+            "pos": [
+              1680,
+              1720
+            ],
+            "size": [
+              345,
+              145
+            ],
+            "flags": {},
+            "order": 122,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "values.a",
+                "type": "FLOAT,INT",
+                "link": 37
+              },
+              {
+                "name": "expression",
+                "type": "STRING",
+                "widget": {
+                  "name": "expression"
+                },
+                "link": null
+              }
+            ],
+            "outputs": [
+              {
+                "name": "FLOAT",
+                "type": "FLOAT",
+                "links": [
+                  38
+                ]
+              },
+              {
+                "name": "INT",
+                "type": "INT",
+                "links": []
+              },
+              {
+                "name": "BOOL",
+                "type": "BOOLEAN",
+                "links": []
+              }
+            ],
+            "title": "Ratio original × 2/3/4/8 para máscara",
+            "properties": {
+              "Node name for S&R": "ComfyMathExpression",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              "max(0.01, a)"
+            ]
+          },
+          {
+            "id": 123,
+            "type": "ImageToMask",
+            "pos": [
+              2880,
+              1380
+            ],
+            "size": [
+              335,
+              132
+            ],
+            "flags": {},
+            "order": 123,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "image",
+                "type": "IMAGE",
+                "link": 39
+              },
+              {
+                "name": "channel",
+                "type": "COMBO",
+                "widget": {
+                  "name": "channel"
+                },
+                "link": null
+              }
+            ],
+            "outputs": [
+              {
+                "name": "MASK",
+                "type": "MASK",
+                "links": [
+                  40
+                ]
+              }
+            ],
+            "title": "Máscara RGBA al tamaño final",
+            "properties": {
+              "Node name for S&R": "ImageToMask",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              "red"
+            ]
+          },
+          {
+            "id": 124,
+            "type": "ComfySwitchNode",
+            "pos": [
+              3320,
+              1280
+            ],
+            "size": [
+              385,
+              165
+            ],
+            "flags": {},
+            "order": 124,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "on_false",
+                "type": "*",
+                "link": 34
+              },
+              {
+                "name": "on_true",
+                "type": "*",
+                "link": 40
+              },
+              {
+                "name": "switch",
+                "type": "BOOLEAN",
+                "link": 41
+              }
+            ],
+            "outputs": [
+              {
+                "name": "output",
+                "type": "*",
+                "links": [
+                  5
+                ]
+              }
+            ],
+            "title": "Elegir alfa original o escalado con Upscale",
+            "properties": {
+              "Node name for S&R": "ComfySwitchNode",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              false
+            ]
           }
         ],
         "groups": [],
@@ -2906,7 +3545,7 @@
           },
           {
             "id": 5,
-            "origin_id": 106,
+            "origin_id": 124,
             "origin_slot": 0,
             "target_id": 104,
             "target_slot": 1,
@@ -3058,8 +3697,8 @@
           },
           {
             "id": 25,
-            "origin_id": -10,
-            "origin_slot": 6,
+            "origin_id": 119,
+            "origin_slot": 0,
             "target_id": 106,
             "target_slot": 0,
             "type": "MASK"
@@ -3074,11 +3713,123 @@
           },
           {
             "id": 27,
-            "origin_id": -10,
-            "origin_slot": 6,
+            "origin_id": 119,
+            "origin_slot": 0,
             "target_id": 115,
             "target_slot": 1,
             "type": "MASK"
+          },
+          {
+            "id": 28,
+            "origin_id": -10,
+            "origin_slot": 6,
+            "target_id": 116,
+            "target_slot": 0,
+            "type": "MASK"
+          },
+          {
+            "id": 29,
+            "origin_id": 116,
+            "origin_slot": 0,
+            "target_id": 118,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 30,
+            "origin_id": -10,
+            "origin_slot": 0,
+            "target_id": 117,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 31,
+            "origin_id": 117,
+            "origin_slot": 0,
+            "target_id": 118,
+            "target_slot": 2,
+            "type": "INT"
+          },
+          {
+            "id": 32,
+            "origin_id": 117,
+            "origin_slot": 1,
+            "target_id": 118,
+            "target_slot": 3,
+            "type": "INT"
+          },
+          {
+            "id": 33,
+            "origin_id": 118,
+            "origin_slot": 0,
+            "target_id": 119,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 34,
+            "origin_id": 106,
+            "origin_slot": 0,
+            "target_id": 124,
+            "target_slot": 0,
+            "type": "MASK"
+          },
+          {
+            "id": 35,
+            "origin_id": 106,
+            "origin_slot": 0,
+            "target_id": 120,
+            "target_slot": 0,
+            "type": "MASK"
+          },
+          {
+            "id": 36,
+            "origin_id": 120,
+            "origin_slot": 0,
+            "target_id": 121,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 37,
+            "origin_id": 109,
+            "origin_slot": 0,
+            "target_id": 122,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 38,
+            "origin_id": 122,
+            "origin_slot": 0,
+            "target_id": 121,
+            "target_slot": 2,
+            "type": "FLOAT"
+          },
+          {
+            "id": 39,
+            "origin_id": 121,
+            "origin_slot": 0,
+            "target_id": 123,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 40,
+            "origin_id": 123,
+            "origin_slot": 0,
+            "target_id": 124,
+            "target_slot": 1,
+            "type": "MASK"
+          },
+          {
+            "id": 41,
+            "origin_id": 112,
+            "origin_slot": 0,
+            "target_id": 124,
+            "target_slot": 2,
+            "type": "BOOLEAN"
           }
         ],
         "extra": {},
