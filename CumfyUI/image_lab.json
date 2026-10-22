@@ -1,19 +1,19 @@
 {
   "id": "d9ac44b0-2f2d-4a95-8dd2-44cd82200a80",
-  "revision": 4,
-  "last_node_id": 47,
-  "last_link_id": 60,
+  "revision": 5,
+  "last_node_id": 48,
+  "last_link_id": 61,
   "nodes": [
     {
       "id": 1,
       "type": "LoadImage",
       "pos": [
-        4370,
-        2770
+        4680,
+        400
       ],
       "size": [
-        460,
-        525
+        470,
+        435
       ],
       "flags": {},
       "order": 0,
@@ -52,8 +52,8 @@
       "id": 2,
       "type": "7fa8c5a4-1bc2-4c7c-82cb-879c5dd09b30",
       "pos": [
-        5800,
-        2050
+        5710,
+        315
       ],
       "size": [
         620,
@@ -149,854 +149,11 @@
       }
     },
     {
-      "id": 16,
-      "type": "LoadImage",
-      "pos": [
-        2680,
-        865
-      ],
-      "size": [
-        430,
-        300
-      ],
-      "flags": {},
-      "order": 16,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            22
-          ]
-        },
-        {
-          "name": "MASK",
-          "type": "MASK",
-          "links": []
-        }
-      ],
-      "title": "COLLAGE · Foto 1 · importar desde input",
-      "properties": {
-        "Node name for S&R": "LoadImage",
-        "cnr_id": "comfy-core"
-      },
-      "widgets_values": [
-        ""
-      ]
-    },
-    {
-      "id": 20,
-      "type": "ImageScale",
-      "pos": [
-        2680,
-        1190
-      ],
-      "size": [
-        365,
-        155
-      ],
-      "flags": {},
-      "order": 20,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "link": 22
-        },
-        {
-          "name": "upscale_method",
-          "type": "COMBO",
-          "widget": {
-            "name": "upscale_method"
-          },
-          "link": null
-        },
-        {
-          "name": "width",
-          "type": "INT",
-          "widget": {
-            "name": "width"
-          },
-          "link": null
-        },
-        {
-          "name": "height",
-          "type": "INT",
-          "widget": {
-            "name": "height"
-          },
-          "link": null
-        },
-        {
-          "name": "crop",
-          "type": "COMBO",
-          "widget": {
-            "name": "crop"
-          },
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            26
-          ]
-        }
-      ],
-      "title": "Panel 1 · 1024x1024",
-      "properties": {
-        "Node name for S&R": "ImageScale",
-        "cnr_id": "comfy-core"
-      },
-      "widgets_values": [
-        "lanczos",
-        1024,
-        1024,
-        "center"
-      ]
-    },
-    {
-      "id": 17,
-      "type": "LoadImage",
-      "pos": [
-        3170,
-        865
-      ],
-      "size": [
-        430,
-        300
-      ],
-      "flags": {},
-      "order": 17,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            23
-          ]
-        },
-        {
-          "name": "MASK",
-          "type": "MASK",
-          "links": []
-        }
-      ],
-      "title": "COLLAGE · Foto 2 · importar desde input",
-      "properties": {
-        "Node name for S&R": "LoadImage",
-        "cnr_id": "comfy-core"
-      },
-      "widgets_values": [
-        ""
-      ]
-    },
-    {
-      "id": 21,
-      "type": "ImageScale",
-      "pos": [
-        3170,
-        1190
-      ],
-      "size": [
-        365,
-        155
-      ],
-      "flags": {},
-      "order": 21,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "link": 23
-        },
-        {
-          "name": "upscale_method",
-          "type": "COMBO",
-          "widget": {
-            "name": "upscale_method"
-          },
-          "link": null
-        },
-        {
-          "name": "width",
-          "type": "INT",
-          "widget": {
-            "name": "width"
-          },
-          "link": null
-        },
-        {
-          "name": "height",
-          "type": "INT",
-          "widget": {
-            "name": "height"
-          },
-          "link": null
-        },
-        {
-          "name": "crop",
-          "type": "COMBO",
-          "widget": {
-            "name": "crop"
-          },
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            27
-          ]
-        }
-      ],
-      "title": "Panel 2 · 1024x1024",
-      "properties": {
-        "Node name for S&R": "ImageScale",
-        "cnr_id": "comfy-core"
-      },
-      "widgets_values": [
-        "lanczos",
-        1024,
-        1024,
-        "center"
-      ]
-    },
-    {
-      "id": 18,
-      "type": "LoadImage",
-      "pos": [
-        2680,
-        1305
-      ],
-      "size": [
-        430,
-        300
-      ],
-      "flags": {},
-      "order": 18,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            24
-          ]
-        },
-        {
-          "name": "MASK",
-          "type": "MASK",
-          "links": []
-        }
-      ],
-      "title": "COLLAGE · Foto 3 · importar desde input",
-      "properties": {
-        "Node name for S&R": "LoadImage",
-        "cnr_id": "comfy-core"
-      },
-      "widgets_values": [
-        ""
-      ]
-    },
-    {
-      "id": 22,
-      "type": "ImageScale",
-      "pos": [
-        2680,
-        1630
-      ],
-      "size": [
-        365,
-        155
-      ],
-      "flags": {},
-      "order": 22,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "link": 24
-        },
-        {
-          "name": "upscale_method",
-          "type": "COMBO",
-          "widget": {
-            "name": "upscale_method"
-          },
-          "link": null
-        },
-        {
-          "name": "width",
-          "type": "INT",
-          "widget": {
-            "name": "width"
-          },
-          "link": null
-        },
-        {
-          "name": "height",
-          "type": "INT",
-          "widget": {
-            "name": "height"
-          },
-          "link": null
-        },
-        {
-          "name": "crop",
-          "type": "COMBO",
-          "widget": {
-            "name": "crop"
-          },
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            28
-          ]
-        }
-      ],
-      "title": "Panel 3 · 1024x1024",
-      "properties": {
-        "Node name for S&R": "ImageScale",
-        "cnr_id": "comfy-core"
-      },
-      "widgets_values": [
-        "lanczos",
-        1024,
-        1024,
-        "center"
-      ]
-    },
-    {
-      "id": 19,
-      "type": "LoadImage",
-      "pos": [
-        3170,
-        1305
-      ],
-      "size": [
-        430,
-        300
-      ],
-      "flags": {},
-      "order": 19,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            25
-          ]
-        },
-        {
-          "name": "MASK",
-          "type": "MASK",
-          "links": []
-        }
-      ],
-      "title": "COLLAGE · Foto 4 · importar desde input",
-      "properties": {
-        "Node name for S&R": "LoadImage",
-        "cnr_id": "comfy-core"
-      },
-      "widgets_values": [
-        ""
-      ]
-    },
-    {
-      "id": 23,
-      "type": "ImageScale",
-      "pos": [
-        3170,
-        1630
-      ],
-      "size": [
-        365,
-        155
-      ],
-      "flags": {},
-      "order": 23,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "link": 25
-        },
-        {
-          "name": "upscale_method",
-          "type": "COMBO",
-          "widget": {
-            "name": "upscale_method"
-          },
-          "link": null
-        },
-        {
-          "name": "width",
-          "type": "INT",
-          "widget": {
-            "name": "width"
-          },
-          "link": null
-        },
-        {
-          "name": "height",
-          "type": "INT",
-          "widget": {
-            "name": "height"
-          },
-          "link": null
-        },
-        {
-          "name": "crop",
-          "type": "COMBO",
-          "widget": {
-            "name": "crop"
-          },
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            29
-          ]
-        }
-      ],
-      "title": "Panel 4 · 1024x1024",
-      "properties": {
-        "Node name for S&R": "ImageScale",
-        "cnr_id": "comfy-core"
-      },
-      "widgets_values": [
-        "lanczos",
-        1024,
-        1024,
-        "center"
-      ]
-    },
-    {
-      "id": 24,
-      "type": "EmptyImage",
-      "pos": [
-        2700,
-        1990
-      ],
-      "size": [
-        355,
-        165
-      ],
-      "flags": {},
-      "order": 24,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "width",
-          "type": "INT",
-          "widget": {
-            "name": "width"
-          },
-          "link": null
-        },
-        {
-          "name": "height",
-          "type": "INT",
-          "widget": {
-            "name": "height"
-          },
-          "link": null
-        },
-        {
-          "name": "batch_size",
-          "type": "INT",
-          "widget": {
-            "name": "batch_size"
-          },
-          "link": null
-        },
-        {
-          "name": "color",
-          "type": "INT",
-          "widget": {
-            "name": "color"
-          },
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            30
-          ]
-        }
-      ],
-      "title": "Lienzo negro · collage 2048x2048",
-      "properties": {
-        "Node name for S&R": "EmptyImage",
-        "cnr_id": "comfy-core"
-      },
-      "widgets_values": [
-        2048,
-        2048,
-        1,
-        0
-      ]
-    },
-    {
-      "id": 25,
-      "type": "ImageCompositeMasked",
-      "pos": [
-        3090,
-        1990
-      ],
-      "size": [
-        340,
-        170
-      ],
-      "flags": {},
-      "order": 25,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "destination",
-          "type": "IMAGE",
-          "link": 30
-        },
-        {
-          "name": "source",
-          "type": "IMAGE",
-          "link": 26
-        },
-        {
-          "name": "x",
-          "type": "INT",
-          "widget": {
-            "name": "x"
-          },
-          "link": null
-        },
-        {
-          "name": "y",
-          "type": "INT",
-          "widget": {
-            "name": "y"
-          },
-          "link": null
-        },
-        {
-          "name": "resize_source",
-          "type": "BOOLEAN",
-          "widget": {
-            "name": "resize_source"
-          },
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            31
-          ]
-        }
-      ],
-      "title": "Colocar foto 1 · x=0 y=0",
-      "properties": {
-        "Node name for S&R": "ImageCompositeMasked",
-        "cnr_id": "comfy-core"
-      },
-      "widgets_values": [
-        0,
-        0,
-        false
-      ]
-    },
-    {
-      "id": 26,
-      "type": "ImageCompositeMasked",
-      "pos": [
-        3480,
-        1990
-      ],
-      "size": [
-        340,
-        170
-      ],
-      "flags": {},
-      "order": 26,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "destination",
-          "type": "IMAGE",
-          "link": 31
-        },
-        {
-          "name": "source",
-          "type": "IMAGE",
-          "link": 27
-        },
-        {
-          "name": "x",
-          "type": "INT",
-          "widget": {
-            "name": "x"
-          },
-          "link": null
-        },
-        {
-          "name": "y",
-          "type": "INT",
-          "widget": {
-            "name": "y"
-          },
-          "link": null
-        },
-        {
-          "name": "resize_source",
-          "type": "BOOLEAN",
-          "widget": {
-            "name": "resize_source"
-          },
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            32
-          ]
-        }
-      ],
-      "title": "Colocar foto 2 · x=1024 y=0",
-      "properties": {
-        "Node name for S&R": "ImageCompositeMasked",
-        "cnr_id": "comfy-core"
-      },
-      "widgets_values": [
-        1024,
-        0,
-        false
-      ]
-    },
-    {
-      "id": 27,
-      "type": "ImageCompositeMasked",
-      "pos": [
-        3870,
-        1990
-      ],
-      "size": [
-        340,
-        170
-      ],
-      "flags": {},
-      "order": 27,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "destination",
-          "type": "IMAGE",
-          "link": 32
-        },
-        {
-          "name": "source",
-          "type": "IMAGE",
-          "link": 28
-        },
-        {
-          "name": "x",
-          "type": "INT",
-          "widget": {
-            "name": "x"
-          },
-          "link": null
-        },
-        {
-          "name": "y",
-          "type": "INT",
-          "widget": {
-            "name": "y"
-          },
-          "link": null
-        },
-        {
-          "name": "resize_source",
-          "type": "BOOLEAN",
-          "widget": {
-            "name": "resize_source"
-          },
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            33
-          ]
-        }
-      ],
-      "title": "Colocar foto 3 · x=0 y=1024",
-      "properties": {
-        "Node name for S&R": "ImageCompositeMasked",
-        "cnr_id": "comfy-core"
-      },
-      "widgets_values": [
-        0,
-        1024,
-        false
-      ]
-    },
-    {
-      "id": 28,
-      "type": "ImageCompositeMasked",
-      "pos": [
-        4260,
-        1990
-      ],
-      "size": [
-        340,
-        170
-      ],
-      "flags": {},
-      "order": 28,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "destination",
-          "type": "IMAGE",
-          "link": 33
-        },
-        {
-          "name": "source",
-          "type": "IMAGE",
-          "link": 29
-        },
-        {
-          "name": "x",
-          "type": "INT",
-          "widget": {
-            "name": "x"
-          },
-          "link": null
-        },
-        {
-          "name": "y",
-          "type": "INT",
-          "widget": {
-            "name": "y"
-          },
-          "link": null
-        },
-        {
-          "name": "resize_source",
-          "type": "BOOLEAN",
-          "widget": {
-            "name": "resize_source"
-          },
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            34,
-            55
-          ]
-        }
-      ],
-      "title": "Colocar foto 4 · x=1024 y=1024",
-      "properties": {
-        "Node name for S&R": "ImageCompositeMasked",
-        "cnr_id": "comfy-core"
-      },
-      "widgets_values": [
-        1024,
-        1024,
-        false
-      ]
-    },
-    {
-      "id": 29,
-      "type": "SaveImage",
-      "pos": [
-        4670,
-        1990
-      ],
-      "size": [
-        425,
-        240
-      ],
-      "flags": {},
-      "order": 29,
-      "mode": 4,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 34
-        },
-        {
-          "name": "filename_prefix",
-          "type": "STRING",
-          "widget": {
-            "name": "filename_prefix"
-          },
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "links": []
-        }
-      ],
-      "title": "Salida SIN refinar (alternativa desactivada)",
-      "properties": {
-        "Node name for S&R": "SaveImage",
-        "cnr_id": "comfy-core"
-      },
-      "widgets_values": [
-        "image_lab/collage/personaje_2x2"
-      ]
-    },
-    {
       "id": 31,
       "type": "PrimitiveBoolean",
       "pos": [
-        4870,
-        2660
+        4010,
+        100
       ],
       "size": [
         390,
@@ -1025,21 +182,21 @@
           ]
         }
       ],
-      "title": "ELEGIR MODO · ON FOTO EXTERNA / OFF CADENA",
+      "title": "MODO SALIDA · OFF = Qwen / ON = foto externa sin editar",
       "properties": {
         "Node name for S&R": "PrimitiveBoolean",
         "cnr_id": "comfy-core"
       },
       "widgets_values": [
-        true
+        false
       ]
     },
     {
       "id": 32,
       "type": "ComfySwitchNode",
       "pos": [
-        5280,
-        2000
+        4010,
+        270
       ],
       "size": [
         395,
@@ -1074,21 +231,21 @@
           ]
         }
       ],
-      "title": "SELECCIONAR IMAGEN · Collage / Externa",
+      "title": "ELEGIR SALIDA · Qwen 5 vistas / Foto externa",
       "properties": {
         "Node name for S&R": "ComfySwitchNode",
         "cnr_id": "comfy-core"
       },
       "widgets_values": [
-        true
+        false
       ]
     },
     {
       "id": 33,
       "type": "ComfySwitchNode",
       "pos": [
-        5280,
-        2300
+        4010,
+        560
       ],
       "size": [
         395,
@@ -1129,7 +286,7 @@
         "cnr_id": "comfy-core"
       },
       "widgets_values": [
-        true
+        false
       ]
     },
     {
@@ -1419,12 +576,12 @@
       "id": 39,
       "type": "9fa6af8b-8c99-4446-8681-bccf8ba4ea54",
       "pos": [
-        2340,
-        110
+        2480,
+        165
       ],
       "size": [
-        525,
-        545
+        580,
+        565
       ],
       "flags": {},
       "order": 39,
@@ -1440,7 +597,7 @@
           "label": "image 2 (optional)",
           "name": "image2",
           "type": "IMAGE",
-          "link": null
+          "link": 61
         },
         {
           "label": "image 3 (optional)",
@@ -1521,20 +678,20 @@
         "ver": "0.11.0"
       },
       "widgets_values": [
-        "Edit this photo into a different camera angle, three-quarter right portrait, same fictional ADULT person. Preserve the subject's exact identity, eyes, brow shape, facial structure, hairline, nose, lips, skin marks and age. Keep natural fine skin detail and photographic authenticity, 50mm lens, soft daylight; alter camera angle and pose, not facial identity.",
+        "S := sujeto adulto de la imagen 1\nM := morfología mamaria de la imagen 2\n\nA := (0° frontal, 45° tres cuartos derecho, 90° perfil derecho, 135° tres cuartos posterior derecho, 180° posterior)\n\nV(a) := vista fotorrealista de S con M integrada en su anatomía desde a\n\n∀a ∈ A: identidad, geometría, anatomía, postura y apariencia constantes\n\nC := cámara orbitando horizontalmente, altura y distancia constantes\n\nE := iluminación suave, fondo gris neutro mate (#BFBFBF)\n\nSalida := [V(a) ∀a ∈ A], una sola imagen, cinco paneles iguales en orden de A",
         null,
         null,
         "qwen_image_edit_2511_bf16.safetensors",
         "qwen_2.5_vl_7b_fp8_scaled.safetensors",
         "qwen_image_vae.safetensors"
       ],
-      "title": "02 · EDITAR IDENTIDAD · Qwen-Image-Edit 2511"
+      "title": "QWEN-IMAGE-EDIT 2511 · S + M + 5 VISTAS"
     },
     {
       "id": 44,
       "type": "PrimitiveBoolean",
       "pos": [
-        1240,
+        1250,
         80
       ],
       "size": [
@@ -1577,7 +734,7 @@
       "type": "ComfySwitchNode",
       "pos": [
         1250,
-        230
+        260
       ],
       "size": [
         400,
@@ -1625,8 +782,8 @@
       "id": 38,
       "type": "PrimitiveBoolean",
       "pos": [
-        1800,
-        95
+        1820,
+        115
       ],
       "size": [
         440,
@@ -1655,9 +812,9 @@
         }
       ],
       "widgets_values": [
-        false
+        true
       ],
-      "title": "QWEN FUENTE · OFF generada / ON externa",
+      "title": "IDENTIDAD QWEN · ON = foto de referencia / OFF = actriz generada",
       "properties": {
         "Node name for S&R": "PrimitiveBoolean",
         "cnr_id": "comfy-core"
@@ -1667,12 +824,12 @@
       "id": 47,
       "type": "LoadImage",
       "pos": [
-        1780,
-        675
+        1795,
+        515
       ],
       "size": [
-        450,
-        515
+        460,
+        420
       ],
       "flags": {},
       "order": 47,
@@ -1695,7 +852,7 @@
       "widgets_values": [
         ""
       ],
-      "title": "QWEN · IMAGEN DE REFERENCIA EXTERNA",
+      "title": "S · IDENTIDAD · fotografía actriz adulta ficticia (imagen 1)",
       "properties": {
         "Node name for S&R": "LoadImage",
         "cnr_id": "comfy-core"
@@ -1705,8 +862,8 @@
       "id": 37,
       "type": "ComfySwitchNode",
       "pos": [
-        1810,
-        245
+        1875,
+        275
       ],
       "size": [
         450,
@@ -1755,8 +912,8 @@
       "id": 45,
       "type": "PrimitiveBoolean",
       "pos": [
-        2950,
-        105
+        3240,
+        180
       ],
       "size": [
         410,
@@ -1785,9 +942,9 @@
         }
       ],
       "widgets_values": [
-        false
+        true
       ],
-      "title": "QWEN EDIT · OFF mantener / ON editar",
+      "title": "QWEN · ON = generar 5 vistas / OFF = pasar fotografía",
       "properties": {
         "Node name for S&R": "PrimitiveBoolean",
         "cnr_id": "comfy-core"
@@ -1797,8 +954,8 @@
       "id": 40,
       "type": "ComfySwitchNode",
       "pos": [
-        2950,
-        260
+        3240,
+        365
       ],
       "size": [
         440,
@@ -1829,106 +986,15 @@
           "name": "output",
           "type": "*",
           "links": [
-            56
-          ]
-        }
-      ],
-      "widgets_values": [
-        false
-      ],
-      "title": "Original o edición Qwen · edición opcional",
-      "properties": {
-        "Node name for S&R": "ComfySwitchNode",
-        "cnr_id": "comfy-core"
-      }
-    },
-    {
-      "id": 46,
-      "type": "PrimitiveBoolean",
-      "pos": [
-        4590,
-        925
-      ],
-      "size": [
-        480,
-        91
-      ],
-      "flags": {},
-      "order": 46,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "value",
-          "type": "BOOLEAN",
-          "widget": {
-            "name": "value"
-          },
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "BOOLEAN",
-          "type": "BOOLEAN",
-          "links": [
-            57
-          ]
-        }
-      ],
-      "widgets_values": [
-        true
-      ],
-      "title": "RUTA · OFF collage / ON retrato",
-      "properties": {
-        "Node name for S&R": "PrimitiveBoolean",
-        "cnr_id": "comfy-core"
-      }
-    },
-    {
-      "id": 41,
-      "type": "ComfySwitchNode",
-      "pos": [
-        4650,
-        1130
-      ],
-      "size": [
-        440,
-        145
-      ],
-      "flags": {},
-      "order": 41,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "on_false",
-          "type": "*",
-          "link": 55
-        },
-        {
-          "name": "on_true",
-          "type": "*",
-          "link": 56
-        },
-        {
-          "name": "switch",
-          "type": "BOOLEAN",
-          "link": 57
-        }
-      ],
-      "outputs": [
-        {
-          "name": "output",
-          "type": "*",
-          "links": [
             37,
             58
           ]
         }
       ],
       "widgets_values": [
-        true
+        false
       ],
-      "title": "Enviar collage o retrato al refinamiento final",
+      "title": "QWEN · ORIGINAL / 5 VISTAS GENERADAS",
       "properties": {
         "Node name for S&R": "ComfySwitchNode",
         "cnr_id": "comfy-core"
@@ -1938,8 +1004,8 @@
       "id": 42,
       "type": "GetImageSize",
       "pos": [
-        4645,
-        1430
+        3430,
+        780
       ],
       "size": [
         335,
@@ -1977,7 +1043,7 @@
         }
       ],
       "widgets_values": [],
-      "title": "Obtener tamaño real de la imagen elegida",
+      "title": "Tamaño real del resultado Qwen",
       "properties": {
         "Node name for S&R": "GetImageSize",
         "cnr_id": "comfy-core"
@@ -1987,8 +1053,8 @@
       "id": 43,
       "type": "SolidMask",
       "pos": [
-        5040,
-        1470
+        3830,
+        875
       ],
       "size": [
         335,
@@ -2042,116 +1108,50 @@
         "Node name for S&R": "SolidMask",
         "cnr_id": "comfy-core"
       }
+    },
+    {
+      "id": 48,
+      "type": "LoadImage",
+      "pos": [
+        2360,
+        845
+      ],
+      "size": [
+        475,
+        445
+      ],
+      "flags": {},
+      "order": 48,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            61
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": []
+        }
+      ],
+      "widgets_values": [
+        ""
+      ],
+      "title": "M · MORFOLOGÍA MAMARIA FRONTAL (imagen 2)",
+      "properties": {
+        "Node name for S&R": "LoadImage",
+        "cnr_id": "comfy-core"
+      }
     }
   ],
   "links": [
     [
-      22,
-      16,
-      0,
-      20,
-      0,
-      "IMAGE"
-    ],
-    [
-      26,
-      20,
-      0,
-      25,
-      1,
-      "IMAGE"
-    ],
-    [
-      23,
-      17,
-      0,
-      21,
-      0,
-      "IMAGE"
-    ],
-    [
-      27,
-      21,
-      0,
-      26,
-      1,
-      "IMAGE"
-    ],
-    [
-      24,
-      18,
-      0,
-      22,
-      0,
-      "IMAGE"
-    ],
-    [
-      28,
-      22,
-      0,
-      27,
-      1,
-      "IMAGE"
-    ],
-    [
-      25,
-      19,
-      0,
-      23,
-      0,
-      "IMAGE"
-    ],
-    [
-      29,
-      23,
-      0,
-      28,
-      1,
-      "IMAGE"
-    ],
-    [
-      30,
-      24,
-      0,
-      25,
-      0,
-      "IMAGE"
-    ],
-    [
-      31,
-      25,
-      0,
-      26,
-      0,
-      "IMAGE"
-    ],
-    [
-      32,
-      26,
-      0,
-      27,
-      0,
-      "IMAGE"
-    ],
-    [
-      33,
-      27,
-      0,
-      28,
-      0,
-      "IMAGE"
-    ],
-    [
-      34,
-      28,
-      0,
-      29,
-      0,
-      "IMAGE"
-    ],
-    [
       37,
-      41,
+      40,
       0,
       32,
       0,
@@ -2294,32 +1294,8 @@
       "BOOLEAN"
     ],
     [
-      55,
-      28,
-      0,
-      41,
-      0,
-      "IMAGE"
-    ],
-    [
-      56,
-      40,
-      0,
-      41,
-      1,
-      "IMAGE"
-    ],
-    [
-      57,
-      46,
-      0,
-      41,
-      2,
-      "BOOLEAN"
-    ],
-    [
       58,
-      41,
+      40,
       0,
       42,
       0,
@@ -2340,73 +1316,59 @@
       43,
       2,
       "INT"
+    ],
+    [
+      61,
+      48,
+      0,
+      39,
+      1,
+      "IMAGE"
     ]
   ],
   "groups": [
     {
-      "title": "01 · Z-IMAGE / FLUX · GENERACIÓN ALTERNATIVA · SOLO UNA RAMA",
+      "title": "01 · CREAR ACTRIZ OPCIONAL · Z-IMAGE / FLUX",
       "bounding": [
-        48,
-        45,
-        1620,
-        720
+        50,
+        40,
+        1640,
+        755
       ],
-      "color": "#327c96",
+      "color": "#536881",
       "font_size": 22
     },
     {
-      "title": "02 · QWEN-IMAGE-EDIT · VARIACIONES CON REFERENCIA",
+      "title": "02 · QWEN 2511 · FOTO S + MORFOLOGÍA M + PROMPT → 5 VISTAS",
       "bounding": [
-        1710,
-        48,
         1750,
-        1160
+        42,
+        1800,
+        1280
       ],
-      "color": "#a7824a",
+      "color": "#466b66",
       "font_size": 22
     },
     {
-      "title": "03 · COLLAGE 2×2 · CARGAR CUATRO FOTOS",
+      "title": "03 · RESULTADO QWEN O REFINAR FOTO EXTERNA",
       "bounding": [
-        2570,
-        780,
-        2570,
-        1540
+        3760,
+        55,
+        1465,
+        1100
       ],
-      "color": "#4b8b78",
+      "color": "#8a6952",
       "font_size": 22
     },
     {
-      "title": "04 · ELEGIR RETRATO O COLLAGE",
+      "title": "04 · NOMOS2 / BIREFNET · OPCIONALES · GUARDAR PNG",
       "bounding": [
-        4550,
-        850,
-        650,
-        910
+        5630,
+        230,
+        885,
+        820
       ],
-      "color": "#64748b",
-      "font_size": 21
-    },
-    {
-      "title": "05 · ENTRADA EXTERNA · BYPASS GENERACIÓN / COLLAGE",
-      "bounding": [
-        4300,
-        2570,
-        1570,
-        770
-      ],
-      "color": "#c27848",
-      "font_size": 21
-    },
-    {
-      "title": "06 · NOMOS2 + BIREFNET · REFINAMIENTO FINAL Y EXPORTAR",
-      "bounding": [
-        5210,
-        1840,
-        1340,
-        750
-      ],
-      "color": "#956eb3",
+      "color": "#525b82",
       "font_size": 22
     }
   ],
@@ -5895,11 +4857,11 @@
         "version": 1,
         "state": {
           "lastGroupId": 2,
-          "lastNodeId": 17,
+          "lastNodeId": 18,
           "lastLinkId": 32,
           "lastRerouteId": 0
         },
-        "revision": 0,
+        "revision": 1,
         "config": {},
         "name": "Qwen-Image-Edit 2511 · Identidad y edición",
         "inputNode": {
@@ -6118,8 +5080,7 @@
                 "links": [
                   6,
                   10,
-                  12,
-                  15
+                  12
                 ]
               }
             ],
@@ -6613,58 +5574,6 @@
             "bgcolor": "#353"
           },
           {
-            "id": 14,
-            "type": "VAEEncode",
-            "pos": [
-              511.0465866120977,
-              645.6854435038923
-            ],
-            "size": [
-              187.5,
-              46
-            ],
-            "flags": {},
-            "order": 12,
-            "mode": 0,
-            "inputs": [
-              {
-                "localized_name": "pixels",
-                "name": "pixels",
-                "type": "IMAGE",
-                "link": 14
-              },
-              {
-                "localized_name": "vae",
-                "name": "vae",
-                "type": "VAE",
-                "link": 15
-              }
-            ],
-            "outputs": [
-              {
-                "localized_name": "LATENT",
-                "name": "LATENT",
-                "type": "LATENT",
-                "links": [
-                  19
-                ]
-              }
-            ],
-            "properties": {
-              "cnr_id": "comfy-core",
-              "ver": "0.5.1",
-              "Node name for S&R": "VAEEncode",
-              "enableTabs": false,
-              "tabWidth": 65,
-              "tabXOffset": 10,
-              "hasSecondTab": false,
-              "secondTabText": "Send Back",
-              "secondTabOffset": 80,
-              "secondTabWidth": 65
-            },
-            "widgets_values": []
-          },
-          {
             "id": 15,
             "type": "KSampler",
             "pos": [
@@ -6873,9 +5782,7 @@
                 "name": "IMAGE",
                 "type": "IMAGE",
                 "links": [
-                  7,
                   13,
-                  14,
                   28
                 ]
               }
@@ -6973,6 +5880,71 @@
               "qwen_image",
               "default"
             ]
+          },
+          {
+            "id": 17,
+            "type": "EmptySD3LatentImage",
+            "pos": [
+              525,
+              635
+            ],
+            "size": [
+              315,
+              110
+            ],
+            "flags": {},
+            "order": 15,
+            "mode": 0,
+            "inputs": [
+              {
+                "localized_name": "width",
+                "name": "width",
+                "type": "INT",
+                "widget": {
+                  "name": "width"
+                },
+                "link": null
+              },
+              {
+                "localized_name": "height",
+                "name": "height",
+                "type": "INT",
+                "widget": {
+                  "name": "height"
+                },
+                "link": null
+              },
+              {
+                "localized_name": "batch_size",
+                "name": "batch_size",
+                "type": "INT",
+                "widget": {
+                  "name": "batch_size"
+                },
+                "link": null
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "LATENT",
+                "name": "LATENT",
+                "type": "LATENT",
+                "links": [
+                  19
+                ]
+              }
+            ],
+            "properties": {
+              "cnr_id": "comfy-core",
+              "ver": "0.5.1",
+              "Node name for S&R": "EmptySD3LatentImage"
+            },
+            "widgets_values": [
+              2560,
+              768,
+              1
+            ],
+            "title": "LIENZO · 5 paneles x 512×768 · ancho 2560 / alto 768"
           }
         ],
         "groups": [
@@ -7085,22 +6057,6 @@
             "type": "IMAGE"
           },
           {
-            "id": 14,
-            "origin_id": 16,
-            "origin_slot": 0,
-            "target_id": 14,
-            "target_slot": 0,
-            "type": "IMAGE"
-          },
-          {
-            "id": 15,
-            "origin_id": 3,
-            "origin_slot": 0,
-            "target_id": 14,
-            "target_slot": 1,
-            "type": "VAE"
-          },
-          {
             "id": 16,
             "origin_id": 7,
             "origin_slot": 0,
@@ -7126,7 +6082,7 @@
           },
           {
             "id": 19,
-            "origin_id": 14,
+            "origin_id": 17,
             "origin_slot": 0,
             "target_id": 15,
             "target_slot": 3,
