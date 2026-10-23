@@ -1,8 +1,8 @@
 {
   "id": "d9ac44b0-2f2d-4a95-8dd2-44cd82200a80",
-  "revision": 7,
-  "last_node_id": 55,
-  "last_link_id": 69,
+  "revision": 8,
+  "last_node_id": 61,
+  "last_link_id": 84,
   "nodes": [
     {
       "id": 1,
@@ -182,7 +182,7 @@
           ]
         }
       ],
-      "title": "SALIDA · FALSE Qwen / TRUE refinar foto externa",
+      "title": "REFINAR FOTO EXTERNA · TRUE / FALSE",
       "properties": {
         "Node name for S&R": "PrimitiveBoolean",
         "cnr_id": "comfy-core"
@@ -195,8 +195,8 @@
       "id": 32,
       "type": "ComfySwitchNode",
       "pos": [
-        4010,
-        270
+        3990,
+        370
       ],
       "size": [
         395,
@@ -209,7 +209,7 @@
         {
           "name": "on_false",
           "type": "*",
-          "link": 37
+          "link": 75
         },
         {
           "name": "on_true",
@@ -231,7 +231,7 @@
           ]
         }
       ],
-      "title": "SALIDA · QWEN / FOTO EXTERNA",
+      "title": "SALIDA · Resultado seleccionado / Foto externa",
       "properties": {
         "Node name for S&R": "ComfySwitchNode",
         "cnr_id": "comfy-core"
@@ -244,8 +244,8 @@
       "id": 33,
       "type": "ComfySwitchNode",
       "pos": [
-        4010,
-        560
+        3990,
+        650
       ],
       "size": [
         395,
@@ -311,7 +311,7 @@
           "widget": {
             "name": "text"
           },
-          "link": null
+          "link": 77
         },
         {
           "name": "width",
@@ -319,7 +319,7 @@
           "widget": {
             "name": "width"
           },
-          "link": null
+          "link": 79
         },
         {
           "name": "height",
@@ -327,7 +327,7 @@
           "widget": {
             "name": "height"
           },
-          "link": null
+          "link": 81
         },
         {
           "name": "seed",
@@ -335,7 +335,7 @@
           "widget": {
             "name": "seed"
           },
-          "link": null
+          "link": 83
         },
         {
           "name": "steps",
@@ -430,7 +430,7 @@
         "secondTabWidth": 65
       },
       "widgets_values": [],
-      "title": "01A · GENERAR · Z-Image-Turbo"
+      "title": "ADAPTADOR A · Z-IMAGE · Modelo, CLIP y VAE editables"
     },
     {
       "id": 35,
@@ -454,7 +454,7 @@
           "widget": {
             "name": "text"
           },
-          "link": null
+          "link": 78
         },
         {
           "name": "width",
@@ -462,7 +462,7 @@
           "widget": {
             "name": "width"
           },
-          "link": null
+          "link": 80
         },
         {
           "name": "height",
@@ -470,7 +470,7 @@
           "widget": {
             "name": "height"
           },
-          "link": null
+          "link": 82
         },
         {
           "name": "seed",
@@ -478,7 +478,7 @@
           "widget": {
             "name": "seed"
           },
-          "link": null
+          "link": 84
         },
         {
           "name": "unet_name",
@@ -570,7 +570,7 @@
         "ver": "0.18.1"
       },
       "widgets_values": [],
-      "title": "01B · GENERAR · FLUX.1 Dev"
+      "title": "ADAPTADOR B · FLUX · Modelo, CLIP y VAE editables"
     },
     {
       "id": 39,
@@ -591,7 +591,7 @@
           "label": "REFERENCIA 1 · principal",
           "name": "image1",
           "type": "IMAGE",
-          "link": 51
+          "link": 70
         },
         {
           "label": "REFERENCIA 2 · activar en CONFIGURACIÓN GENERAL",
@@ -698,18 +698,18 @@
         "qwen_2.5_vl_7b_fp8_scaled.safetensors",
         "qwen_image_vae.safetensors"
       ],
-      "title": "QWEN IMAGE EDIT 2511 · 1–3 IMÁGENES · PROMPT LIBRE"
+      "title": "QWEN-IMAGE-EDIT 2511 · PROMPT + 1–3 REFERENCIAS"
     },
     {
       "id": 44,
       "type": "PrimitiveBoolean",
       "pos": [
-        3720,
-        1180
+        1215,
+        425
       ],
       "size": [
-        390,
-        92
+        415,
+        98
       ],
       "flags": {},
       "order": 44,
@@ -736,7 +736,7 @@
       "widgets_values": [
         false
       ],
-      "title": "MOTOR BASE · FALSE Z-Image / TRUE FLUX",
+      "title": "ALTERNATIVO · FALSE Z-IMAGE / TRUE FLUX",
       "properties": {
         "Node name for S&R": "PrimitiveBoolean",
         "cnr_id": "comfy-core"
@@ -746,8 +746,8 @@
       "id": 36,
       "type": "ComfySwitchNode",
       "pos": [
-        1250,
-        260
+        1215,
+        215
       ],
       "size": [
         400,
@@ -778,58 +778,16 @@
           "name": "output",
           "type": "*",
           "links": [
-            48
+            73
           ]
         }
       ],
       "widgets_values": [
         false
       ],
-      "title": "Elegir motor: solo se ejecuta el seleccionado",
+      "title": "MÓDULO ALTERNATIVO · Seleccionar adaptador activo",
       "properties": {
         "Node name for S&R": "ComfySwitchNode",
-        "cnr_id": "comfy-core"
-      }
-    },
-    {
-      "id": 38,
-      "type": "PrimitiveBoolean",
-      "pos": [
-        3720,
-        1300
-      ],
-      "size": [
-        440,
-        88
-      ],
-      "flags": {},
-      "order": 38,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "value",
-          "type": "BOOLEAN",
-          "widget": {
-            "name": "value"
-          },
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "BOOLEAN",
-          "type": "BOOLEAN",
-          "links": [
-            50
-          ]
-        }
-      ],
-      "widgets_values": [
-        true
-      ],
-      "title": "REFERENCIA 1 · FALSE generar / TRUE cargar foto",
-      "properties": {
-        "Node name for S&R": "PrimitiveBoolean",
         "cnr_id": "comfy-core"
       }
     },
@@ -837,8 +795,8 @@
       "id": 47,
       "type": "LoadImage",
       "pos": [
-        1795,
-        515
+        1800,
+        455
       ],
       "size": [
         460,
@@ -853,7 +811,8 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            49
+            70,
+            71
           ]
         },
         {
@@ -865,59 +824,9 @@
       "widgets_values": [
         ""
       ],
-      "title": "REFERENCIA 1 · foto o imagen principal",
+      "title": "QWEN · REFERENCIA 1 · fotografía cargada",
       "properties": {
         "Node name for S&R": "LoadImage",
-        "cnr_id": "comfy-core"
-      }
-    },
-    {
-      "id": 37,
-      "type": "ComfySwitchNode",
-      "pos": [
-        1875,
-        275
-      ],
-      "size": [
-        450,
-        145
-      ],
-      "flags": {},
-      "order": 37,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "on_false",
-          "type": "*",
-          "link": 48
-        },
-        {
-          "name": "on_true",
-          "type": "*",
-          "link": 49
-        },
-        {
-          "name": "switch",
-          "type": "BOOLEAN",
-          "link": 50
-        }
-      ],
-      "outputs": [
-        {
-          "name": "output",
-          "type": "*",
-          "links": [
-            51,
-            52
-          ]
-        }
-      ],
-      "widgets_values": [
-        false
-      ],
-      "title": "PRIMERA REFERENCIA · Foto cargada o actriz generada",
-      "properties": {
-        "Node name for S&R": "ComfySwitchNode",
         "cnr_id": "comfy-core"
       }
     },
@@ -957,7 +866,7 @@
       "widgets_values": [
         true
       ],
-      "title": "GENERAR CON QWEN · TRUE / FALSE",
+      "title": "QWEN · EDITAR FOTO · TRUE / FALSE",
       "properties": {
         "Node name for S&R": "PrimitiveBoolean",
         "cnr_id": "comfy-core"
@@ -981,7 +890,7 @@
         {
           "name": "on_false",
           "type": "*",
-          "link": 52
+          "link": 71
         },
         {
           "name": "on_true",
@@ -999,15 +908,14 @@
           "name": "output",
           "type": "*",
           "links": [
-            37,
-            58
+            72
           ]
         }
       ],
       "widgets_values": [
         false
       ],
-      "title": "QWEN · FOTO DE ENTRADA O RESULTADO",
+      "title": "QWEN · SIN EDITAR / RESULTADO EDITADO",
       "properties": {
         "Node name for S&R": "ComfySwitchNode",
         "cnr_id": "comfy-core"
@@ -1031,7 +939,7 @@
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 58
+          "link": 76
         }
       ],
       "outputs": [
@@ -1465,17 +1373,281 @@
         "Node name for S&R": "ComfySwitchNode",
         "cnr_id": "comfy-core"
       }
+    },
+    {
+      "id": 56,
+      "type": "ComfySwitchNode",
+      "title": "MOTOR DE SALIDA · FALSE QWEN / TRUE ALTERNATIVO",
+      "pos": [
+        3980,
+        125
+      ],
+      "size": [
+        455,
+        155
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "on_false",
+          "type": "*",
+          "link": 72,
+          "shape": 7
+        },
+        {
+          "name": "on_true",
+          "type": "*",
+          "link": 73,
+          "shape": 7
+        },
+        {
+          "name": "switch",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "switch"
+          },
+          "link": 74
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "type": "*",
+          "links": [
+            75,
+            76
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ComfySwitchNode",
+        "cnr_id": "comfy-core"
+      },
+      "widgets_values": [
+        false
+      ]
+    },
+    {
+      "id": 57,
+      "type": "PrimitiveBoolean",
+      "title": "SALIDA · FALSE QWEN / TRUE GENERADOR ALTERNATIVO",
+      "pos": [
+        3720,
+        1300
+      ],
+      "size": [
+        425,
+        98
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "value"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "BOOLEAN",
+          "type": "BOOLEAN",
+          "links": [
+            74
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimitiveBoolean",
+        "cnr_id": "comfy-core"
+      },
+      "widgets_values": [
+        false
+      ]
+    },
+    {
+      "id": 58,
+      "type": "PrimitiveStringMultiline",
+      "title": "PROMPT · GENERADOR ALTERNATIVO · TEXTO LIBRE",
+      "pos": [
+        90,
+        750
+      ],
+      "size": [
+        1015,
+        235
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "STRING",
+          "widget": {
+            "name": "value"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            77,
+            78
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimitiveStringMultiline",
+        "cnr_id": "comfy-core"
+      },
+      "widgets_values": [
+        ""
+      ]
+    },
+    {
+      "id": 59,
+      "type": "PrimitiveInt",
+      "title": "ALTERNATIVO · ANCHO (px)",
+      "pos": [
+        90,
+        1030
+      ],
+      "size": [
+        264,
+        108
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "INT",
+          "widget": {
+            "name": "value"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "INT",
+          "type": "INT",
+          "links": [
+            79,
+            80
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimitiveInt",
+        "cnr_id": "comfy-core"
+      },
+      "widgets_values": [
+        1024,
+        "fixed"
+      ]
+    },
+    {
+      "id": 60,
+      "type": "PrimitiveInt",
+      "title": "ALTERNATIVO · ALTO (px)",
+      "pos": [
+        385,
+        1030
+      ],
+      "size": [
+        264,
+        108
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "INT",
+          "widget": {
+            "name": "value"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "INT",
+          "type": "INT",
+          "links": [
+            81,
+            82
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimitiveInt",
+        "cnr_id": "comfy-core"
+      },
+      "widgets_values": [
+        1024,
+        "fixed"
+      ]
+    },
+    {
+      "id": 61,
+      "type": "PrimitiveInt",
+      "title": "ALTERNATIVO · SEMILLA",
+      "pos": [
+        680,
+        1030
+      ],
+      "size": [
+        264,
+        108
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "INT",
+          "widget": {
+            "name": "value"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "INT",
+          "type": "INT",
+          "links": [
+            83,
+            84
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimitiveInt",
+        "cnr_id": "comfy-core"
+      },
+      "widgets_values": [
+        123456789,
+        "fixed"
+      ]
     }
   ],
   "links": [
-    [
-      37,
-      40,
-      0,
-      32,
-      0,
-      "IMAGE"
-    ],
     [
       38,
       1,
@@ -1557,46 +1729,6 @@
       "BOOLEAN"
     ],
     [
-      48,
-      36,
-      0,
-      37,
-      0,
-      "IMAGE"
-    ],
-    [
-      49,
-      47,
-      0,
-      37,
-      1,
-      "IMAGE"
-    ],
-    [
-      50,
-      38,
-      0,
-      37,
-      2,
-      "BOOLEAN"
-    ],
-    [
-      51,
-      37,
-      0,
-      39,
-      0,
-      "IMAGE"
-    ],
-    [
-      52,
-      37,
-      0,
-      40,
-      0,
-      "IMAGE"
-    ],
-    [
       53,
       39,
       0,
@@ -1611,14 +1743,6 @@
       40,
       2,
       "BOOLEAN"
-    ],
-    [
-      58,
-      40,
-      0,
-      42,
-      0,
-      "IMAGE"
     ],
     [
       59,
@@ -1699,22 +1823,142 @@
       39,
       2,
       "IMAGE"
+    ],
+    [
+      70,
+      47,
+      0,
+      39,
+      0,
+      "IMAGE"
+    ],
+    [
+      71,
+      47,
+      0,
+      40,
+      0,
+      "IMAGE"
+    ],
+    [
+      72,
+      40,
+      0,
+      56,
+      0,
+      "IMAGE"
+    ],
+    [
+      73,
+      36,
+      0,
+      56,
+      1,
+      "IMAGE"
+    ],
+    [
+      74,
+      57,
+      0,
+      56,
+      2,
+      "BOOLEAN"
+    ],
+    [
+      75,
+      56,
+      0,
+      32,
+      0,
+      "IMAGE"
+    ],
+    [
+      76,
+      56,
+      0,
+      42,
+      0,
+      "IMAGE"
+    ],
+    [
+      77,
+      58,
+      0,
+      34,
+      0,
+      "STRING"
+    ],
+    [
+      78,
+      58,
+      0,
+      35,
+      0,
+      "STRING"
+    ],
+    [
+      79,
+      59,
+      0,
+      34,
+      1,
+      "INT"
+    ],
+    [
+      80,
+      59,
+      0,
+      35,
+      1,
+      "INT"
+    ],
+    [
+      81,
+      60,
+      0,
+      34,
+      2,
+      "INT"
+    ],
+    [
+      82,
+      60,
+      0,
+      35,
+      2,
+      "INT"
+    ],
+    [
+      83,
+      61,
+      0,
+      34,
+      3,
+      "INT"
+    ],
+    [
+      84,
+      61,
+      0,
+      35,
+      3,
+      "INT"
     ]
   ],
   "groups": [
     {
-      "title": "01 · GENERADORES OPCIONALES · Z-IMAGE / FLUX",
+      "title": "01 · GENERADOR ALTERNATIVO · PROMPT PROPIO · ADAPTADORES INTERCAMBIABLES",
       "bounding": [
         45,
         36,
         1630,
-        742
+        1195
       ],
       "color": "#536881",
       "font_size": 22
     },
     {
-      "title": "02 · QWEN · 3 ENTRADAS SIEMPRE CABLEADAS · PROMPT EDITABLE",
+      "title": "02 · QWEN · PROMPT PROPIO + HASTA 3 REFERENCIAS",
       "bounding": [
         1738,
         39,
@@ -1725,7 +1969,7 @@
       "font_size": 22
     },
     {
-      "title": "03 · SALIDA QWEN O REFINADO EXTERNO",
+      "title": "03 · ELEGIR SALIDA · QWEN / ALTERNATIVO / FOTO EXTERNA",
       "bounding": [
         3850,
         42,
@@ -1736,7 +1980,7 @@
       "font_size": 22
     },
     {
-      "title": "CONFIGURACIÓN GENERAL · INTERRUPTORES Y DIMENSIONES",
+      "title": "CONFIGURACIÓN GENERAL · MODO DE SALIDA, QWEN Y DIMENSIONES",
       "bounding": [
         3660,
         1120,
