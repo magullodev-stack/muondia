@@ -23,14 +23,46 @@ if (!(Test-Path -LiteralPath $fpsSync)) {
 if (!(Test-Path -LiteralPath (Join-Path $comfy "custom_nodes"))) {
     throw "No existe la carpeta ComfyUI\custom_nodes en $comfy"
 }
-if (!(Get-Command py -ErrorAction SilentlyContinue)) {
-    throw "No encuentro py.exe. Instala Python 3.12 para Windows y vuelve a ejecutar."
+# Buscar Python 3.12 real sin exigir el lanzador 'py.exe'.
+# Ignorar los alias de Microsoft Store: no son una instalacion de Python.
+$candidates = @()
+$pyLauncher = Get-Command py -ErrorAction SilentlyContinue
+if ($pyLauncher) {
+    $candidates += [pscustomobject]@{ Executable = $pyLauncher.Source; Arguments = @("-3.12") }
+}
+foreach ($name in @("python", "python3.12")) {
+    $found = Get-Command $name -ErrorAction SilentlyContinue
+    if ($found -and $found.Source -notmatch "WindowsApps") {
+        $candidates += [pscustomobject]@{ Executable = $found.Source; Arguments = @() }
+    }
+}
+$commonPaths = @(
+    (Join-Path $env:LOCALAPPDATA "Programs\Python\Python312\python.exe"),
+    (Join-Path $env:ProgramFiles "Python312\python.exe")
+)
+foreach ($path in $commonPaths) {
+    if (Test-Path -LiteralPath $path) {
+        $candidates += [pscustomobject]@{ Executable = $path; Arguments = @() }
+    }
 }
 
-& py -3.12 --version
-if ($LASTEXITCODE -ne 0) {
-    throw "Necesitas Python 3.12 instalado en Windows para el entorno aislado de Qwen3-TTS."
+$selected = $null
+foreach ($candidate in $candidates) {
+    $launchArgs = @($candidate.Arguments)
+    try {
+        $detected = & $candidate.Executable @launchArgs -c "import sys; print('YES' if sys.version_info[:2] == (3, 12) else 'NO')" 2>$null
+        if ($LASTEXITCODE -eq 0 -and $detected -eq "YES") {
+            $selected = $candidate
+            break
+        }
+    } catch {
+        # Probar el siguiente candidato.
+    }
 }
+if (-not $selected) {
+    throw "No encuentro Python 3.12 independiente de ComfyUI. Instala con: winget install -e --id Python.Python.3.12; abre otra ventana de PowerShell y reintenta."
+}
+Write-Host "Python 3.12 detectado: $($selected.Executable)"
 
 New-Item -ItemType Directory -Path $lab -Force | Out-Null
 Copy-Item -LiteralPath $bridge -Destination (Join-Path $comfy "custom_nodes\audio_lab_nodes.py") -Force
@@ -38,7 +70,8 @@ Copy-Item -LiteralPath $worker -Destination (Join-Path $lab "tts_worker.py") -Fo
 
 $python = Join-Path $lab ".venv\Scripts\python.exe"
 if (!(Test-Path -LiteralPath $python)) {
-    & py -3.12 -m venv (Join-Path $lab ".venv")
+    $launchArgs = @($selected.Arguments)
+    & $selected.Executable @launchArgs -m venv (Join-Path $lab ".venv")
     if ($LASTEXITCODE -ne 0) { throw "No se ha podido crear AudioLab\.venv" }
 }
 
