@@ -246,6 +246,7 @@ def main():
             results.mkdir()
             env=os.environ.copy()
             env["PATH"]=str(ffmpeg.parent)+os.pathsep+env.get("PATH","")
+            env["PYTHONPATH"]=str(repo/"musetalk"/"utils")+os.pathsep+env.get("PYTHONPATH","")
             run([
                 sys.executable,"-m","scripts.inference",
                 "--inference_config",str(job),
