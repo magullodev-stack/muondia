@@ -28,6 +28,7 @@ class AudioLabVoiceClone:
                 "reference_transcript": ("STRING", {"default": "", "multiline": True}),
                 "language": (["Spanish", "English", "Auto"], {"default": "Spanish"}),
                 "model_size": (["0.6B", "1.7B"], {"default": "0.6B"}),
+                "device": (["Auto", "CPU", "GPU"], {"default": "Auto"}),
                 "seed": ("INT", {"default": 7, "min": 0, "max": 2147483647}),
             }
         }
@@ -37,7 +38,7 @@ class AudioLabVoiceClone:
     FUNCTION = "generate"
     CATEGORY = "AUDIO_LAB"
 
-    def generate(self, reference_audio, dialogue, reference_transcript, language, model_size, seed):
+    def generate(self, reference_audio, dialogue, reference_transcript, language, model_size, device, seed):
         if not dialogue.strip():
             raise ValueError("Escribe un diálogo antes de generar la voz.")
 
@@ -78,6 +79,7 @@ class AudioLabVoiceClone:
                 "--reference-text", reference_transcript.strip(),
                 "--language", language,
                 "--model-size", model_size,
+                "--device", device.lower(),
                 "--seed", str(seed),
             ]
             env = os.environ.copy()
