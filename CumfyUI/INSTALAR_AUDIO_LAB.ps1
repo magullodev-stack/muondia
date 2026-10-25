@@ -84,10 +84,18 @@ if ($LASTEXITCODE -ne 0) { throw "Error instalando Qwen3-TTS en AudioLab\.venv" 
 & $python -c "import torch; print('CUDA disponible en AudioLab:',torch.cuda.is_available()); print('PyTorch:',torch.__version__); print('CUDA runtime:',torch.version.cuda)"
 if ($LASTEXITCODE -ne 0) { throw "No se pudo importar PyTorch en el entorno de AudioLab" }
 
+# PyPI puede instalar PyTorch CPU por defecto en Windows.
+# Corregir SOLO el Python aislado de AUDIO_LAB con la pareja torch/torchaudio CUDA.
 & $python -c "import torch,sys; sys.exit(0 if torch.cuda.is_available() else 2)"
 if ($LASTEXITCODE -ne 0) {
-    Write-Warning "El entorno aislado de voz no tiene CUDA; aún no generará con GPU."
-    Write-Warning "No reinstales PyTorch de ComfyUI: habría que corregir solo AudioLab\.venv."
-} else {
-    Write-Host "AUDIO_LAB preparado. Reinicia ComfyUI e importa AUDIO_LAB.json." -ForegroundColor Green
+    Write-Host "PyTorch CPU detectado en AudioLab. Instalando variante CUDA 12.8 (sin tocar ComfyUI)..." -ForegroundColor Yellow
+    & $python -m pip install --upgrade --force-reinstall --no-deps --no-cache-dir torch torchaudio --index-url https://download.pytorch.org/whl/cu128
+    if ($LASTEXITCODE -ne 0) {
+        throw "No se pudo instalar PyTorch CUDA en AudioLab. Comprueba el controlador NVIDIA con nvidia-smi."
+    }
 }
+& $python -c "import torch; print('PyTorch:',torch.__version__); print('CUDA runtime:',torch.version.cuda); print('CUDA disponible en AudioLab:',torch.cuda.is_available()); print('GPU:',torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'No detectada')"
+if ($LASTEXITCODE -ne 0) { throw "Error comprobando PyTorch CUDA en AudioLab." }
+& $python -c "import torch,sys; sys.exit(0 if torch.cuda.is_available() else 2)"
+if ($LASTEXITCODE -ne 0) { throw "PyTorch CUDA instalado, pero NVIDIA no aparece disponible. Ejecuta nvidia-smi para comprobar el controlador." }
+Write-Host "AUDIO_LAB preparado. Reinicia ComfyUI e importa AUDIO_LAB.json." -ForegroundColor Green
