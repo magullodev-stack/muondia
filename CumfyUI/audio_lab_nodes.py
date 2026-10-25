@@ -365,3 +365,112 @@ class AudioLabSafeMix:
 
 NODE_CLASS_MAPPINGS["AudioLabSafeMix"] = AudioLabSafeMix
 NODE_DISPLAY_NAME_MAPPINGS["AudioLabSafeMix"] = "AUDIO_LAB · Mezcla segura (sin recortar voz)"
+
+
+class AudioLabLipSyncMuseTalk:
+    """Selective two-person lip-sync via isolated MuseTalk 1.5, NOT a passthrough."""
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {"required": {
+            "images": ("IMAGE",),
+            "fps": ("FLOAT", {"default": 25.0, "min": 1.0, "max": 240.0}),
+            "timeline_json": ("STRING", {"forceInput": True}),
+            "voice_a": ("AUDIO",),
+            "voice_b": ("AUDIO",),
+            "person_a_side": (["Left", "Right"], {"default": "Left"}),
+        }}
+
+    RETURN_TYPES = ("IMAGE",)
+    RETURN_NAMES = ("images_lipsynced",)
+    FUNCTION = "render"
+    CATEGORY = "AUDIO_LAB"
+
+    def render(self, images, fps, timeline_json, voice_a, voice_b, person_a_side):
+        from PIL import Image
+
+        if images.ndim != 4 or images.shape[0] < 1 or images.shape[-1] != 3:
+            raise ValueError("Lip-sync necesita una secuencia IMAGE RGB (N, H, W, 3).")
+        if float(fps) <= 0:
+            raise ValueError("FPS del vídeo inválidos.")
+        try:
+            plan = json.loads(timeline_json)
+            turns = plan["turns"]
+        except (ValueError, KeyError, TypeError) as exc:
+            raise ValueError("Falta el plan de diálogos A/B.") from exc
+        if not turns or any(t.get("speaker") not in ("A", "B") for t in turns):
+            raise ValueError("El plan debe contener frases de los personajes A/B.")
+
+        root = Path(__file__).resolve().parents[2] / "AudioLab" / "lipsync"
+        engine = root / ".venv" / "Scripts" / "python.exe"
+        worker = root / "lipsync_worker.py"
+        repo = root / "MuseTalk"
+        if not engine.is_file() or not worker.is_file() or not (repo / "scripts" / "inference.py").is_file():
+            raise RuntimeError(
+                "Falta el motor MuseTalk 1.5 aislado. AUDIO_LAB NO ha realizado "
+                "lip-sync. Instala el motor en AudioLab/lipsync sin cambiar "
+                "el Python de ComfyUI."
+            )
+        # Fail closed: always run an actual model and validate its outputs.
+        with tempfile.TemporaryDirectory(prefix="al_comfy_lip_") as folder:
+            work = Path(folder)
+            input_dir, output_dir = work / "in", work / "out"
+            input_dir.mkdir()
+            output_dir.mkdir()
+            for i, frame in enumerate(images):
+                arr = (frame.detach().cpu().clamp(0, 1).numpy() * 255).round().astype("uint8")
+                Image.fromarray(arr, "RGB").save(input_dir / f"{i:08d}.png")
+            plan_path = work / "timeline.json"
+            plan_path.write_text(timeline_json, encoding="utf-8")
+            def write_wav(name, audio):
+                sr = int(audio["sample_rate"])
+                w = audio["waveform"]
+                if w.ndim != 3 or w.shape[0] != 1 or sr <= 0:
+                    raise ValueError(f"Pista {name} de voz inválida.")
+                mono = w[0].float().mean(dim=0).detach().cpu().numpy()
+                destination = work / f"{name}.wav"
+                sf.write(str(destination), mono, sr, subtype="PCM_16")
+                return destination
+            file_a = write_wav("voice_a", voice_a)
+            file_b = write_wav("voice_b", voice_b)
+            command = [
+                str(engine), str(worker),
+                "--frames", str(input_dir),
+                "--output", str(output_dir),
+                "--timeline", str(plan_path),
+                "--voice-a", str(file_a),
+                "--voice-b", str(file_b),
+                "--fps", str(fps),
+                "--a-side", person_a_side.lower(),
+                "--musetalk", str(repo)
+            ]
+            log = work / "lipsync.log"
+            with open(log, "w", encoding="utf-8", errors="replace") as log_handle:
+                try:
+                    process = subprocess.run(
+                        command, cwd=str(root), stdout=log_handle,
+                        stderr=subprocess.STDOUT, timeout=14400,
+                        creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
+                except subprocess.TimeoutExpired as exc:
+                    raise RuntimeError("MuseTalk superó el tiempo máximo de procesamiento.") from exc
+            if process.returncode:
+                msg = log.read_text(encoding="utf-8", errors="replace")[-6000:]
+                raise RuntimeError("MuseTalk no completó el lip-sync:\n" + msg)
+            done = sorted(output_dir.glob("*.png"))
+            if len(done) != images.shape[0]:
+                raise RuntimeError(
+                    f"MuseTalk devolvió {len(done)} frames, "
+                    f"esperábamos {images.shape[0]}. No se exportará el vídeo."
+                )
+            frames = []
+            for path in done:
+                with Image.open(path) as im:
+                    arr = np.asarray(im.convert("RGB"), dtype="float32").copy() / 255.0
+                frames.append(torch.from_numpy(arr))
+            result = torch.stack(frames, dim=0)
+            if result.shape != images.shape:
+                raise RuntimeError("El lip-sync cambió resolución o número de frames.")
+            return (result,)
+
+
+NODE_CLASS_MAPPINGS["AudioLabLipSyncMuseTalk"] = AudioLabLipSyncMuseTalk
+NODE_DISPLAY_NAME_MAPPINGS["AudioLabLipSyncMuseTalk"] = "AUDIO_LAB · Lip-sync A/B · MuseTalk 1.5"
