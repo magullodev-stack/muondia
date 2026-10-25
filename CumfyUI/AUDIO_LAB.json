@@ -1,5 +1,5 @@
 {
-  "last_node_id": 504,
+  "last_node_id": 505,
   "last_link_id": 903,
   "nodes": [
     {
@@ -40,7 +40,7 @@
     {
       "id": 501,
       "type": "LoadAudio",
-      "title": "02 · MUESTRA DE VOZ",
+      "title": "02A · MUESTRA DE VOZ A",
       "pos": [
         60,
         465
@@ -73,14 +73,14 @@
     {
       "id": 502,
       "type": "981652b5-7bc8-47e8-9bcb-179a117ac7e9",
-      "title": "03 · AUDIO_LAB · DIÁLOGO + FOLEY (SIN LIP-SYNC)",
+      "title": "03 · AUDIO_LAB · PLANIFICAR A/B + FOLEY (SIN LIP-SYNC)",
       "pos": [
         540,
         70
       ],
       "size": [
-        610,
-        610
+        670,
+        775
       ],
       "flags": {},
       "order": 2,
@@ -95,6 +95,12 @@
           "name": "voz_referencia",
           "type": "AUDIO",
           "link": 901
+        },
+        {
+          "name": "voz_referencia_b",
+          "type": "AUDIO",
+          "link": null,
+          "shape": 7
         }
       ],
       "outputs": [
@@ -111,6 +117,11 @@
           "links": [
             903
           ]
+        },
+        {
+          "name": "timeline_json",
+          "type": "STRING",
+          "links": null
         }
       ],
       "widgets_values": [],
@@ -118,11 +129,15 @@
         "proxyWidgets": [
           [
             "300",
-            "dialogue"
+            "script"
           ],
           [
             "300",
-            "reference_transcript"
+            "transcript_a"
+          ],
+          [
+            "300",
+            "transcript_b"
           ],
           [
             "300",
@@ -147,7 +162,7 @@
       "id": 503,
       "type": "SaveAudioAdvanced",
       "pos": [
-        1250,
+        1310,
         125
       ],
       "size": [
@@ -185,7 +200,7 @@
       "id": 504,
       "type": "SaveVideo",
       "pos": [
-        1250,
+        1310,
         365
       ],
       "size": [
@@ -220,6 +235,37 @@
         "auto",
         "auto",
         "auto"
+      ]
+    },
+    {
+      "id": 505,
+      "type": "LoadAudio",
+      "title": "02B · MUESTRA DE VOZ B (CONECTAR SI SE USA)",
+      "pos": [
+        60,
+        685
+      ],
+      "size": [
+        390,
+        175
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "AUDIO",
+          "type": "AUDIO",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadAudio",
+        "cnr_id": "comfy-core"
+      },
+      "widgets_values": [
+        ""
       ]
     }
   ],
@@ -277,19 +323,19 @@
         "state": {
           "lastGroupId": 0,
           "lastNodeId": 303,
-          "lastLinkId": 404,
+          "lastLinkId": 408,
           "lastRerouteId": 0
         },
         "revision": 0,
         "config": {},
-        "name": "AUDIO_LAB · Voz clonada y Foley",
+        "name": "AUDIO_LAB · Diálogos A/B + Foley · SIN LIP-SYNC",
         "inputNode": {
           "id": -10,
           "bounding": [
             125,
             280,
             155,
-            90
+            110
           ]
         },
         "outputNode": {
@@ -298,7 +344,7 @@
             3160,
             200,
             155,
-            70
+            90
           ]
         },
         "inputs": [
@@ -325,6 +371,18 @@
               260,
               320
             ]
+          },
+          {
+            "id": "8be1af06-cebd-4285-ad8a-2fa50b3ce3f2",
+            "name": "voz_referencia_b",
+            "type": "AUDIO",
+            "linkIds": [
+              406
+            ],
+            "pos": [
+              260,
+              340
+            ]
           }
         ],
         "outputs": [
@@ -350,6 +408,18 @@
             "pos": [
               3170,
               260
+            ]
+          },
+          {
+            "id": "53b7a80c-c4dd-48ae-aa38-5b82671dbf3a",
+            "name": "timeline_json",
+            "type": "STRING",
+            "linkIds": [
+              407
+            ],
+            "pos": [
+              3170,
+              280
             ]
           }
         ],
@@ -575,7 +645,9 @@
                 "name": "FLOAT",
                 "type": "FLOAT",
                 "links": [
-                  184
+                  184,
+                  405,
+                  408
                 ]
               },
               {
@@ -725,24 +797,35 @@
           },
           {
             "id": 300,
-            "type": "AudioLabVoiceClone",
-            "title": "Voz clonada · Qwen3-TTS aislado",
+            "type": "AudioLabDialoguePlanner",
+            "title": "Qwen3-TTS · Guion A/B + tiempo automático",
             "pos": [
-              1420,
-              505
+              1415,
+              500
             ],
             "size": [
-              580,
-              490
+              620,
+              640
             ],
             "flags": {},
             "order": 7,
             "mode": 0,
             "inputs": [
               {
-                "name": "reference_audio",
+                "name": "reference_a",
                 "type": "AUDIO",
                 "link": 404
+              },
+              {
+                "name": "video_duration",
+                "type": "FLOAT",
+                "link": 405
+              },
+              {
+                "name": "reference_b",
+                "type": "AUDIO",
+                "link": 406,
+                "shape": 7
               }
             ],
             "outputs": [
@@ -752,9 +835,27 @@
                 "links": [
                   401
                 ]
+              },
+              {
+                "name": "timeline_json",
+                "type": "STRING",
+                "links": [
+                  407
+                ]
+              },
+              {
+                "name": "voice_A",
+                "type": "AUDIO",
+                "links": null
+              },
+              {
+                "name": "voice_B",
+                "type": "AUDIO",
+                "links": null
               }
             ],
             "widgets_values": [
+              "A: ¿Has oído eso?",
               "",
               "",
               "Spanish",
@@ -762,7 +863,7 @@
               7
             ],
             "properties": {
-              "Node name for S&R": "AudioLabVoiceClone"
+              "Node name for S&R": "AudioLabDialoguePlanner"
             }
           },
           {
@@ -814,8 +915,8 @@
           },
           {
             "id": 303,
-            "type": "AudioMerge",
-            "title": "Mezclar diálogo + Foley",
+            "type": "AudioLabSafeMix",
+            "title": "Mezcla Foley + diálogos sin cortes",
             "pos": [
               2520,
               50
@@ -829,27 +930,24 @@
             "mode": 0,
             "inputs": [
               {
-                "name": "audio1",
+                "name": "foley",
                 "type": "AUDIO",
                 "link": 171
               },
               {
-                "name": "audio2",
+                "name": "dialogue",
                 "type": "AUDIO",
                 "link": 401
               },
               {
-                "name": "merge_method",
-                "type": "COMBO",
-                "widget": {
-                  "name": "merge_method"
-                },
-                "link": null
+                "name": "video_duration",
+                "type": "FLOAT",
+                "link": 408
               }
             ],
             "outputs": [
               {
-                "name": "AUDIO",
+                "name": "audio_mezclado",
                 "type": "AUDIO",
                 "links": [
                   402,
@@ -857,12 +955,9 @@
                 ]
               }
             ],
-            "widgets_values": [
-              "add"
-            ],
+            "widgets_values": [],
             "properties": {
-              "Node name for S&R": "AudioMerge",
-              "cnr_id": "comfy-core"
+              "Node name for S&R": "AudioLabSafeMix"
             }
           }
         ],
@@ -1011,6 +1106,38 @@
             "target_id": 300,
             "target_slot": 0,
             "type": "AUDIO"
+          },
+          {
+            "id": 405,
+            "origin_id": 113,
+            "origin_slot": 0,
+            "target_id": 300,
+            "target_slot": 1,
+            "type": "FLOAT"
+          },
+          {
+            "id": 406,
+            "origin_id": -10,
+            "origin_slot": 2,
+            "target_id": 300,
+            "target_slot": 2,
+            "type": "AUDIO"
+          },
+          {
+            "id": 407,
+            "origin_id": 300,
+            "origin_slot": 1,
+            "target_id": -20,
+            "target_slot": 2,
+            "type": "STRING"
+          },
+          {
+            "id": 408,
+            "origin_id": 113,
+            "origin_slot": 0,
+            "target_id": 303,
+            "target_slot": 2,
+            "type": "FLOAT"
           }
         ],
         "extra": {
@@ -1023,7 +1150,7 @@
           }
         },
         "category": "AUDIO_LAB",
-        "description": "Genera un diálogo mediante Qwen3-TTS aislado, añade Foley MMAudio y mezcla ambas pistas. Esta versión todavía NO modifica labios."
+        "description": "Planifica las intervenciones A/B y genera voces ajustadas al vídeo. No realiza lip-sync todavía."
       }
     ]
   }
