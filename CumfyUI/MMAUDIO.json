@@ -1,17 +1,17 @@
 {
-  "last_node_id": 115,
-  "last_link_id": 186,
+  "last_node_id": 116,
+  "last_link_id": 190,
   "nodes": [
     {
-      "id": 85,
-      "type": "MMAudioModelLoader",
+      "id": 110,
+      "type": "LoadVideo",
       "pos": [
-        460,
-        -160
+        65,
+        75
       ],
       "size": [
-        370,
-        100
+        400,
+        320
       ],
       "flags": {},
       "order": 0,
@@ -19,69 +19,43 @@
       "inputs": [],
       "outputs": [
         {
-          "name": "mmaudio_model",
-          "type": "MMAUDIO_MODEL",
+          "name": "VIDEO",
+          "type": "VIDEO",
           "links": [
-            152
-          ],
-          "slot_index": 0
+            187
+          ]
         }
       ],
       "properties": {
-        "Node name for S&R": "MMAudioModelLoader"
+        "Node name for S&R": "LoadVideo",
+        "cnr_id": "comfy-core",
+        "ver": "0.10.0"
       },
+      "title": "01 · CARGAR VÍDEO",
       "widgets_values": [
-        "mmaudio_large_44k_v2_fp16.safetensors",
-        "fp16"
-      ],
-      "title": "MMAudio · Modelo"
+        "",
+        "image"
+      ]
     },
     {
-      "id": 92,
-      "type": "MMAudioFPSSyncSampler",
+      "id": 116,
+      "type": "8d5a9ee7-58bd-46ec-836e-450a58c91e2a",
       "pos": [
-        1325,
-        -155
+        555,
+        70
       ],
       "size": [
-        640,
-        635
+        585,
+        500
       ],
       "flags": {},
       "order": 1,
       "mode": 0,
       "inputs": [
         {
-          "name": "mmaudio_model",
-          "type": "MMAUDIO_MODEL",
-          "link": 152
-        },
-        {
-          "name": "feature_utils",
-          "type": "MMAUDIO_FEATUREUTILS",
-          "link": 166
-        },
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 170,
-          "shape": 7
-        },
-        {
-          "name": "duration",
-          "type": "FLOAT",
-          "link": 184,
-          "widget": {
-            "name": "duration"
-          }
-        },
-        {
-          "name": "source_fps",
-          "type": "FLOAT",
-          "link": 186,
-          "widget": {
-            "name": "source_fps"
-          }
+          "name": "video",
+          "type": "VIDEO",
+          "link": 187
         }
       ],
       "outputs": [
@@ -89,40 +63,47 @@
           "name": "audio",
           "type": "AUDIO",
           "links": [
-            163,
-            171,
-            177
-          ],
-          "slot_index": 0
+            188,
+            189
+          ]
+        },
+        {
+          "name": "video",
+          "type": "VIDEO",
+          "links": [
+            190
+          ]
         }
       ],
+      "title": "02 · MMAUDIO · GENERAR SONIDO",
       "properties": {
-        "Node name for S&R": "MMAudioFPSSyncSampler"
+        "proxyWidgets": [
+          [
+            "92",
+            "prompt"
+          ],
+          [
+            "92",
+            "negative_prompt"
+          ],
+          [
+            "92",
+            "seed"
+          ]
+        ]
       },
-      "widgets_values": [
-        6,
-        24,
-        25,
-        4.5,
-        7,
-        "fixed",
-        "",
-        "",
-        false,
-        true
-      ],
-      "title": "MMAudio · Generar audio (FPS sincronizados)"
+      "widgets_values": []
     },
     {
       "id": 98,
       "type": "PreviewAudio",
       "pos": [
-        2010,
-        -155
+        1220,
+        80
       ],
       "size": [
-        330,
-        120
+        345,
+        130
       ],
       "flags": {},
       "order": 2,
@@ -131,7 +112,7 @@
         {
           "name": "audio",
           "type": "AUDIO",
-          "link": 163
+          "link": 188
         }
       ],
       "outputs": [],
@@ -141,70 +122,27 @@
       "widgets_values": [
         null
       ],
-      "title": "Escuchar audio"
+      "title": "03 · ESCUCHAR AUDIO"
     },
     {
-      "id": 102,
-      "type": "MMAudioFeatureUtilsLoader",
+      "id": 106,
+      "type": "SaveAudioAdvanced",
       "pos": [
-        860,
-        -160
+        1220,
+        275
       ],
       "size": [
-        410,
-        170
+        345,
+        145
       ],
       "flags": {},
       "order": 3,
       "mode": 0,
       "inputs": [
         {
-          "name": "bigvgan_vocoder_model",
-          "type": "VOCODER_MODEL",
-          "link": null,
-          "shape": 7
-        }
-      ],
-      "outputs": [
-        {
-          "name": "mmaudio_featureutils",
-          "type": "MMAUDIO_FEATUREUTILS",
-          "links": [
-            166
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "MMAudioFeatureUtilsLoader"
-      },
-      "widgets_values": [
-        "mmaudio_vae_44k_fp16.safetensors",
-        "mmaudio_synchformer_fp16.safetensors",
-        "apple_DFN5B-CLIP-ViT-H-14-384_fp16.safetensors",
-        "44k",
-        "fp16"
-      ],
-      "title": "MMAudio · Componentes"
-    },
-    {
-      "id": 106,
-      "type": "SaveAudioAdvanced",
-      "pos": [
-        2380,
-        -155
-      ],
-      "size": [
-        365,
-        145
-      ],
-      "flags": {},
-      "order": 4,
-      "mode": 0,
-      "inputs": [
-        {
           "name": "audio",
           "type": "AUDIO",
-          "link": 177
+          "link": 189
         }
       ],
       "outputs": [
@@ -218,282 +156,31 @@
         "Node name for S&R": "SaveAudioAdvanced",
         "cnr_id": "comfy-core"
       },
-      "title": "Guardar audio FLAC",
+      "title": "04 · GUARDAR AUDIO · FLAC",
       "widgets_values": [
         "audio/MMAUDIO_Foley",
         "flac"
       ]
     },
     {
-      "id": 110,
-      "type": "LoadVideo",
-      "pos": [
-        60,
-        120
-      ],
-      "size": [
-        355,
-        280
-      ],
-      "flags": {},
-      "order": 5,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "VIDEO",
-          "type": "VIDEO",
-          "links": [
-            178
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "LoadVideo",
-        "cnr_id": "comfy-core",
-        "ver": "0.10.0"
-      },
-      "title": "Cargar vídeo",
-      "widgets_values": [
-        "",
-        "image"
-      ]
-    },
-    {
-      "id": 111,
-      "type": "GetVideoComponents",
-      "pos": [
-        465,
-        130
-      ],
-      "size": [
-        360,
-        165
-      ],
-      "flags": {},
-      "order": 6,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "video",
-          "type": "VIDEO",
-          "link": 178
-        }
-      ],
-      "outputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "links": [
-            170,
-            179,
-            181
-          ]
-        },
-        {
-          "name": "audio",
-          "type": "AUDIO",
-          "links": null
-        },
-        {
-          "name": "fps",
-          "type": "FLOAT",
-          "links": [
-            180,
-            182,
-            186
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "GetVideoComponents",
-        "cnr_id": "comfy-core",
-        "ver": "0.13.0"
-      },
-      "title": "Extraer fotogramas y FPS"
-    },
-    {
-      "id": 112,
-      "type": "GetImageSize",
-      "pos": [
-        865,
-        145
-      ],
-      "size": [
-        330,
-        150
-      ],
-      "flags": {},
-      "order": 7,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "link": 181
-        }
-      ],
-      "outputs": [
-        {
-          "name": "width",
-          "type": "INT",
-          "links": null
-        },
-        {
-          "name": "height",
-          "type": "INT",
-          "links": null
-        },
-        {
-          "name": "batch_size",
-          "type": "INT",
-          "links": [
-            183
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "GetImageSize",
-        "cnr_id": "comfy-core",
-        "ver": "0.13.0"
-      },
-      "title": "Contar fotogramas"
-    },
-    {
-      "id": 113,
-      "type": "ComfyMathExpression",
-      "pos": [
-        870,
-        340
-      ],
-      "size": [
-        325,
-        185
-      ],
-      "flags": {},
-      "order": 8,
-      "mode": 0,
-      "inputs": [
-        {
-          "label": "a",
-          "localized_name": "values.a",
-          "name": "values.a",
-          "type": "FLOAT,INT",
-          "link": 183
-        },
-        {
-          "label": "b",
-          "localized_name": "values.b",
-          "name": "values.b",
-          "type": "FLOAT,INT",
-          "link": 182
-        },
-        {
-          "name": "expression",
-          "type": "STRING",
-          "widget": {
-            "name": "expression"
-          },
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "FLOAT",
-          "type": "FLOAT",
-          "links": [
-            184
-          ]
-        },
-        {
-          "name": "INT",
-          "type": "INT",
-          "links": null
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "ComfyMathExpression",
-        "cnr_id": "comfy-core",
-        "ver": "0.13.0"
-      },
-      "title": "Calcular duración",
-      "widgets_values": [
-        "a / b"
-      ]
-    },
-    {
-      "id": 114,
-      "type": "CreateVideo",
-      "pos": [
-        2010,
-        180
-      ],
-      "size": [
-        365,
-        190
-      ],
-      "flags": {},
-      "order": 9,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 179
-        },
-        {
-          "name": "audio",
-          "type": "AUDIO",
-          "shape": 7,
-          "link": 171
-        },
-        {
-          "name": "fps",
-          "type": "FLOAT",
-          "widget": {
-            "name": "fps"
-          },
-          "link": 180
-        }
-      ],
-      "outputs": [
-        {
-          "name": "VIDEO",
-          "type": "VIDEO",
-          "links": [
-            185
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "CreateVideo",
-        "cnr_id": "comfy-core",
-        "ver": "0.13.0"
-      },
-      "title": "Componer vídeo con audio",
-      "widgets_values": [
-        16
-      ]
-    },
-    {
       "id": 115,
       "type": "SaveVideo",
       "pos": [
-        2420,
-        180
+        1220,
+        490
       ],
       "size": [
-        390,
-        460
+        345,
+        260
       ],
       "flags": {},
-      "order": 10,
+      "order": 4,
       "mode": 0,
       "inputs": [
         {
           "name": "video",
           "type": "VIDEO",
-          "link": 185
+          "link": 190
         }
       ],
       "outputs": [
@@ -508,7 +195,7 @@
         "cnr_id": "comfy-core",
         "ver": "0.5.1"
       },
-      "title": "Guardar vídeo",
+      "title": "05 · GUARDAR VÍDEO CON AUDIO",
       "widgets_values": [
         "video/MMAUDIO_Foley",
         "auto",
@@ -519,136 +206,621 @@
   ],
   "links": [
     [
-      152,
-      85,
+      187,
+      110,
       0,
-      92,
+      116,
       0,
-      "MMAUDIO_MODEL"
+      "VIDEO"
     ],
     [
-      163,
-      92,
+      188,
+      116,
       0,
       98,
       0,
       "AUDIO"
     ],
     [
-      166,
-      102,
-      0,
-      92,
-      1,
-      "MMAUDIO_FEATUREUTILS"
-    ],
-    [
-      177,
-      92,
+      189,
+      116,
       0,
       106,
       0,
       "AUDIO"
     ],
     [
-      170,
-      111,
-      0,
-      92,
-      2,
-      "IMAGE"
-    ],
-    [
-      171,
-      92,
-      0,
-      114,
+      190,
+      116,
       1,
-      "AUDIO"
-    ],
-    [
-      178,
-      110,
-      0,
-      111,
-      0,
-      "VIDEO"
-    ],
-    [
-      179,
-      111,
-      0,
-      114,
-      0,
-      "IMAGE"
-    ],
-    [
-      180,
-      111,
-      2,
-      114,
-      2,
-      "FLOAT"
-    ],
-    [
-      181,
-      111,
-      0,
-      112,
-      0,
-      "IMAGE"
-    ],
-    [
-      182,
-      111,
-      2,
-      113,
-      1,
-      "FLOAT"
-    ],
-    [
-      183,
-      112,
-      2,
-      113,
-      0,
-      "INT"
-    ],
-    [
-      184,
-      113,
-      0,
-      92,
-      3,
-      "FLOAT"
-    ],
-    [
-      185,
-      114,
-      0,
       115,
       0,
       "VIDEO"
-    ],
-    [
-      186,
-      111,
-      2,
-      92,
-      4,
-      "FLOAT"
     ]
   ],
   "groups": [],
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.62,
+      "scale": 0.76,
       "offset": [
-        20,
-        250
+        45,
+        95
       ]
     }
   },
-  "version": 0.4
+  "version": 0.4,
+  "definitions": {
+    "subgraphs": [
+      {
+        "id": "8d5a9ee7-58bd-46ec-836e-450a58c91e2a",
+        "version": 1,
+        "state": {
+          "lastGroupId": 0,
+          "lastNodeId": 114,
+          "lastLinkId": 186,
+          "lastRerouteId": 0
+        },
+        "revision": 0,
+        "config": {},
+        "name": "MMAudio · Generar sonido",
+        "inputNode": {
+          "id": -10,
+          "bounding": [
+            105,
+            365,
+            155,
+            50
+          ]
+        },
+        "outputNode": {
+          "id": -20,
+          "bounding": [
+            2590,
+            95,
+            160,
+            80
+          ]
+        },
+        "inputs": [
+          {
+            "id": "842e0b8f-dc35-40ca-a129-0e237c5d04a8",
+            "name": "video",
+            "type": "VIDEO",
+            "linkIds": [
+              178
+            ],
+            "pos": [
+              255,
+              385
+            ]
+          }
+        ],
+        "outputs": [
+          {
+            "id": "ee6d992a-0ac5-4f47-b5e1-d924601bf91a",
+            "name": "audio",
+            "type": "AUDIO",
+            "linkIds": [
+              163
+            ],
+            "pos": [
+              2590,
+              120
+            ]
+          },
+          {
+            "id": "184b6b03-7c81-4397-bc50-ed4dc8ed67ab",
+            "name": "video",
+            "type": "VIDEO",
+            "linkIds": [
+              185
+            ],
+            "pos": [
+              2590,
+              140
+            ]
+          }
+        ],
+        "widgets": [],
+        "nodes": [
+          {
+            "id": 85,
+            "type": "MMAudioModelLoader",
+            "pos": [
+              470,
+              -250
+            ],
+            "size": [
+              370,
+              100
+            ],
+            "flags": {},
+            "order": 0,
+            "mode": 0,
+            "inputs": [],
+            "outputs": [
+              {
+                "name": "mmaudio_model",
+                "type": "MMAUDIO_MODEL",
+                "links": [
+                  152
+                ],
+                "slot_index": 0
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "MMAudioModelLoader"
+            },
+            "widgets_values": [
+              "mmaudio_large_44k_v2_fp16.safetensors",
+              "fp16"
+            ],
+            "title": "MMAudio · Modelo"
+          },
+          {
+            "id": 102,
+            "type": "MMAudioFeatureUtilsLoader",
+            "pos": [
+              880,
+              -250
+            ],
+            "size": [
+              410,
+              170
+            ],
+            "flags": {},
+            "order": 1,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "bigvgan_vocoder_model",
+                "type": "VOCODER_MODEL",
+                "link": null,
+                "shape": 7
+              }
+            ],
+            "outputs": [
+              {
+                "name": "mmaudio_featureutils",
+                "type": "MMAUDIO_FEATUREUTILS",
+                "links": [
+                  166
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "MMAudioFeatureUtilsLoader"
+            },
+            "widgets_values": [
+              "mmaudio_vae_44k_fp16.safetensors",
+              "mmaudio_synchformer_fp16.safetensors",
+              "apple_DFN5B-CLIP-ViT-H-14-384_fp16.safetensors",
+              "44k",
+              "fp16"
+            ],
+            "title": "MMAudio · Componentes"
+          },
+          {
+            "id": 111,
+            "type": "GetVideoComponents",
+            "pos": [
+              430,
+              325
+            ],
+            "size": [
+              360,
+              165
+            ],
+            "flags": {},
+            "order": 2,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "video",
+                "type": "VIDEO",
+                "link": 178
+              }
+            ],
+            "outputs": [
+              {
+                "name": "images",
+                "type": "IMAGE",
+                "links": [
+                  170,
+                  179,
+                  181
+                ]
+              },
+              {
+                "name": "audio",
+                "type": "AUDIO",
+                "links": null
+              },
+              {
+                "name": "fps",
+                "type": "FLOAT",
+                "links": [
+                  180,
+                  182,
+                  186
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "GetVideoComponents",
+              "cnr_id": "comfy-core",
+              "ver": "0.13.0"
+            },
+            "title": "Extraer fotogramas y FPS"
+          },
+          {
+            "id": 112,
+            "type": "GetImageSize",
+            "pos": [
+              860,
+              330
+            ],
+            "size": [
+              330,
+              150
+            ],
+            "flags": {},
+            "order": 3,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "image",
+                "type": "IMAGE",
+                "link": 181
+              }
+            ],
+            "outputs": [
+              {
+                "name": "width",
+                "type": "INT",
+                "links": null
+              },
+              {
+                "name": "height",
+                "type": "INT",
+                "links": null
+              },
+              {
+                "name": "batch_size",
+                "type": "INT",
+                "links": [
+                  183
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "GetImageSize",
+              "cnr_id": "comfy-core",
+              "ver": "0.13.0"
+            },
+            "title": "Contar fotogramas"
+          },
+          {
+            "id": 113,
+            "type": "ComfyMathExpression",
+            "pos": [
+              865,
+              550
+            ],
+            "size": [
+              325,
+              185
+            ],
+            "flags": {},
+            "order": 4,
+            "mode": 0,
+            "inputs": [
+              {
+                "label": "a",
+                "localized_name": "values.a",
+                "name": "values.a",
+                "type": "FLOAT,INT",
+                "link": 183
+              },
+              {
+                "label": "b",
+                "localized_name": "values.b",
+                "name": "values.b",
+                "type": "FLOAT,INT",
+                "link": 182
+              },
+              {
+                "name": "expression",
+                "type": "STRING",
+                "widget": {
+                  "name": "expression"
+                },
+                "link": null
+              }
+            ],
+            "outputs": [
+              {
+                "name": "FLOAT",
+                "type": "FLOAT",
+                "links": [
+                  184
+                ]
+              },
+              {
+                "name": "INT",
+                "type": "INT",
+                "links": null
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ComfyMathExpression",
+              "cnr_id": "comfy-core",
+              "ver": "0.13.0"
+            },
+            "title": "Calcular duración",
+            "widgets_values": [
+              "a / b"
+            ]
+          },
+          {
+            "id": 92,
+            "type": "MMAudioFPSSyncSampler",
+            "pos": [
+              1360,
+              -225
+            ],
+            "size": [
+              640,
+              635
+            ],
+            "flags": {},
+            "order": 5,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "mmaudio_model",
+                "type": "MMAUDIO_MODEL",
+                "link": 152
+              },
+              {
+                "name": "feature_utils",
+                "type": "MMAUDIO_FEATUREUTILS",
+                "link": 166
+              },
+              {
+                "name": "images",
+                "type": "IMAGE",
+                "link": 170,
+                "shape": 7
+              },
+              {
+                "name": "duration",
+                "type": "FLOAT",
+                "link": 184,
+                "widget": {
+                  "name": "duration"
+                }
+              },
+              {
+                "name": "source_fps",
+                "type": "FLOAT",
+                "link": 186,
+                "widget": {
+                  "name": "source_fps"
+                }
+              }
+            ],
+            "outputs": [
+              {
+                "name": "audio",
+                "type": "AUDIO",
+                "links": [
+                  163,
+                  171
+                ],
+                "slot_index": 0
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "MMAudioFPSSyncSampler"
+            },
+            "widgets_values": [
+              6,
+              24,
+              25,
+              4.5,
+              7,
+              "fixed",
+              "",
+              "",
+              false,
+              true
+            ],
+            "title": "MMAudio · Generar audio (FPS sincronizados)"
+          },
+          {
+            "id": 114,
+            "type": "CreateVideo",
+            "pos": [
+              2135,
+              100
+            ],
+            "size": [
+              365,
+              190
+            ],
+            "flags": {},
+            "order": 6,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "images",
+                "type": "IMAGE",
+                "link": 179
+              },
+              {
+                "name": "audio",
+                "type": "AUDIO",
+                "shape": 7,
+                "link": 171
+              },
+              {
+                "name": "fps",
+                "type": "FLOAT",
+                "widget": {
+                  "name": "fps"
+                },
+                "link": 180
+              }
+            ],
+            "outputs": [
+              {
+                "name": "VIDEO",
+                "type": "VIDEO",
+                "links": [
+                  185
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "CreateVideo",
+              "cnr_id": "comfy-core",
+              "ver": "0.13.0"
+            },
+            "title": "Componer vídeo con audio",
+            "widgets_values": [
+              16
+            ]
+          }
+        ],
+        "groups": [],
+        "links": [
+          {
+            "id": 152,
+            "origin_id": 85,
+            "origin_slot": 0,
+            "target_id": 92,
+            "target_slot": 0,
+            "type": "MMAUDIO_MODEL"
+          },
+          {
+            "id": 163,
+            "origin_id": 92,
+            "origin_slot": 0,
+            "target_id": -20,
+            "target_slot": 0,
+            "type": "AUDIO"
+          },
+          {
+            "id": 166,
+            "origin_id": 102,
+            "origin_slot": 0,
+            "target_id": 92,
+            "target_slot": 1,
+            "type": "MMAUDIO_FEATUREUTILS"
+          },
+          {
+            "id": 170,
+            "origin_id": 111,
+            "origin_slot": 0,
+            "target_id": 92,
+            "target_slot": 2,
+            "type": "IMAGE"
+          },
+          {
+            "id": 171,
+            "origin_id": 92,
+            "origin_slot": 0,
+            "target_id": 114,
+            "target_slot": 1,
+            "type": "AUDIO"
+          },
+          {
+            "id": 178,
+            "origin_id": -10,
+            "origin_slot": 0,
+            "target_id": 111,
+            "target_slot": 0,
+            "type": "VIDEO"
+          },
+          {
+            "id": 179,
+            "origin_id": 111,
+            "origin_slot": 0,
+            "target_id": 114,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 180,
+            "origin_id": 111,
+            "origin_slot": 2,
+            "target_id": 114,
+            "target_slot": 2,
+            "type": "FLOAT"
+          },
+          {
+            "id": 181,
+            "origin_id": 111,
+            "origin_slot": 0,
+            "target_id": 112,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 182,
+            "origin_id": 111,
+            "origin_slot": 2,
+            "target_id": 113,
+            "target_slot": 1,
+            "type": "FLOAT"
+          },
+          {
+            "id": 183,
+            "origin_id": 112,
+            "origin_slot": 2,
+            "target_id": 113,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 184,
+            "origin_id": 113,
+            "origin_slot": 0,
+            "target_id": 92,
+            "target_slot": 3,
+            "type": "FLOAT"
+          },
+          {
+            "id": 185,
+            "origin_id": 114,
+            "origin_slot": 0,
+            "target_id": -20,
+            "target_slot": 1,
+            "type": "VIDEO"
+          },
+          {
+            "id": 186,
+            "origin_id": 111,
+            "origin_slot": 2,
+            "target_id": 92,
+            "target_slot": 4,
+            "type": "FLOAT"
+          }
+        ],
+        "extra": {
+          "ds": {
+            "scale": 0.74,
+            "offset": [
+              25,
+              290
+            ]
+          }
+        },
+        "category": "MMAudio",
+        "description": "Genera sonido sincronizado para cualquier vídeo. Cambia prompt, exclusiones y semilla."
+      }
+    ]
+  }
 }
