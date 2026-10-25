@@ -1,0 +1,652 @@
+{
+  "last_node_id": 109,
+  "last_link_id": 177,
+  "nodes": [
+    {
+      "id": 85,
+      "type": "MMAudioModelLoader",
+      "pos": [
+        80,
+        -240
+      ],
+      "size": [
+        430,
+        110
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "mmaudio_model",
+          "type": "MMAUDIO_MODEL",
+          "links": [
+            152
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MMAudioModelLoader"
+      },
+      "widgets_values": [
+        "mmaudio_large_44k_v2_fp16.safetensors",
+        "fp16"
+      ],
+      "title": "MODELO · MMAudio Large 44k v2"
+    },
+    {
+      "id": 91,
+      "type": "VHS_LoadVideo",
+      "pos": [
+        80,
+        220
+      ],
+      "size": [
+        470,
+        730
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "meta_batch",
+          "type": "VHS_BatchManager",
+          "link": null,
+          "shape": 7
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": null,
+          "shape": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            161,
+            170
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "frame_count",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": null
+        },
+        {
+          "name": "video_info",
+          "type": "VHS_VIDEOINFO",
+          "links": [
+            172
+          ],
+          "slot_index": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VHS_LoadVideo"
+      },
+      "widgets_values": {
+        "video": "",
+        "force_rate": 0,
+        "force_size": "Disabled",
+        "custom_width": 512,
+        "custom_height": 512,
+        "frame_load_cap": 0,
+        "skip_first_frames": 0,
+        "select_every_nth": 1,
+        "choose video to upload": "image"
+      },
+      "title": "VÍDEO · Carga el MP4 exportado de LTX"
+    },
+    {
+      "id": 92,
+      "type": "MMAudioSampler",
+      "pos": [
+        1160,
+        -240
+      ],
+      "size": [
+        685,
+        560
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "mmaudio_model",
+          "type": "MMAUDIO_MODEL",
+          "link": 152
+        },
+        {
+          "name": "feature_utils",
+          "type": "MMAUDIO_FEATUREUTILS",
+          "link": 166
+        },
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 170,
+          "shape": 7
+        },
+        {
+          "name": "duration",
+          "type": "FLOAT",
+          "link": 175,
+          "widget": {
+            "name": "duration"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            163,
+            171,
+            177
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MMAudioSampler"
+      },
+      "widgets_values": [
+        6,
+        25,
+        4.5,
+        7,
+        "fixed",
+        "Close, natural sounds of chess pieces being picked up, gently moved across a wooden chessboard and placed down. Distinct small wooden taps only when pieces touch the board, with delicate wood-on-wood friction. Nearly silent indoor room. Sparse, realistic, intimate Foley synchronized to visible chess moves.",
+        "Human voices, dialogue, speech, unintelligible speech, whispering, singing, chanting, music, piano, drone, electrical hum, buzzing, hiss, crackle, random clicks, synthetic effects, cinematic soundtrack, reverberant ambience, loud background noise.",
+        false,
+        true
+      ],
+      "title": "FOLEY · Prompt, exclusiones y generación"
+    },
+    {
+      "id": 97,
+      "type": "VHS_VideoCombine",
+      "pos": [
+        2180,
+        205
+      ],
+      "size": [
+        640,
+        930
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 161
+        },
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 171,
+          "shape": 7
+        },
+        {
+          "name": "meta_batch",
+          "type": "VHS_BatchManager",
+          "link": null,
+          "shape": 7
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": null,
+          "shape": 7
+        },
+        {
+          "name": "frame_rate",
+          "type": "FLOAT",
+          "link": 176,
+          "widget": {
+            "name": "frame_rate"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Filenames",
+          "type": "VHS_FILENAMES",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VHS_VideoCombine"
+      },
+      "widgets_values": {
+        "frame_rate": 16,
+        "loop_count": 0,
+        "filename_prefix": "video/MMAUDIO_Foley",
+        "format": "video/h264-mp4",
+        "pix_fmt": "yuv420p",
+        "crf": 19,
+        "save_metadata": true,
+        "pingpong": false,
+        "save_output": true
+      },
+      "title": "MP4 · Vídeo original + Foley MMAudio"
+    },
+    {
+      "id": 98,
+      "type": "PreviewAudio",
+      "pos": [
+        2170,
+        -235
+      ],
+      "size": [
+        340,
+        160
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 163
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PreviewAudio"
+      },
+      "widgets_values": [
+        null
+      ],
+      "title": "ESCUCHA · Previsualizar Foley"
+    },
+    {
+      "id": 102,
+      "type": "MMAudioFeatureUtilsLoader",
+      "pos": [
+        540,
+        -240
+      ],
+      "size": [
+        525,
+        190
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "bigvgan_vocoder_model",
+          "type": "VOCODER_MODEL",
+          "link": null,
+          "shape": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "mmaudio_featureutils",
+          "type": "MMAUDIO_FEATUREUTILS",
+          "links": [
+            166
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MMAudioFeatureUtilsLoader"
+      },
+      "widgets_values": [
+        "mmaudio_vae_44k_fp16.safetensors",
+        "mmaudio_synchformer_fp16.safetensors",
+        "apple_DFN5B-CLIP-ViT-H-14-384_fp16.safetensors",
+        "44k",
+        "fp16"
+      ],
+      "title": "COMPONENTES · VAE / Synchformer / CLIP"
+    },
+    {
+      "id": 105,
+      "type": "VHS_VideoInfo",
+      "pos": [
+        595,
+        220
+      ],
+      "size": [
+        320,
+        285
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "video_info",
+          "type": "VHS_VIDEOINFO",
+          "link": 172
+        }
+      ],
+      "outputs": [
+        {
+          "name": "source_fps🟨",
+          "type": "FLOAT",
+          "links": null
+        },
+        {
+          "name": "source_frame_count🟨",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "source_duration🟨",
+          "type": "FLOAT",
+          "links": null
+        },
+        {
+          "name": "source_width🟨",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "source_height🟨",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "loaded_fps🟦",
+          "type": "FLOAT",
+          "links": [
+            176
+          ],
+          "slot_index": 5
+        },
+        {
+          "name": "loaded_frame_count🟦",
+          "type": "INT",
+          "links": null,
+          "slot_index": 6
+        },
+        {
+          "name": "loaded_duration🟦",
+          "type": "FLOAT",
+          "links": [
+            175
+          ],
+          "slot_index": 7
+        },
+        {
+          "name": "loaded_width🟦",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "loaded_height🟦",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VHS_VideoInfo"
+      },
+      "widgets_values": {},
+      "title": "TIEMPO · FPS y duración automáticos"
+    },
+    {
+      "id": 106,
+      "type": "SaveAudio",
+      "pos": [
+        2570,
+        -235
+      ],
+      "size": [
+        310,
+        130
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 177
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SaveAudio",
+        "cnr_id": "comfy-core"
+      },
+      "title": "FLAC · Guardar Foley por separado",
+      "widgets_values": [
+        "audio/MMAUDIO_Foley"
+      ]
+    },
+    {
+      "id": 107,
+      "type": "MarkdownNote",
+      "pos": [
+        590,
+        555
+      ],
+      "size": [
+        380,
+        365
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "GUÍA · VIDEO",
+      "properties": {},
+      "widgets_values": [
+        "## 01 · Vídeo de LTX\n\n1. Selecciona **VHS Load Video** y carga el MP4 que generaste con LTX-2.5.\n2. Mantén `force_rate = 0`, `frame_load_cap = 0`, `skip_first_frames = 0` y `select_every_nth = 1` para utilizar todos los fotogramas a su FPS original.\n3. `VHS VideoInfo` conecta **duración cargada** al sampler y **FPS cargados** al MP4 automáticamente.\n\n**Importante:** MMAudio reemplaza la pista sonora. No recupera el audio original del vídeo."
+      ]
+    },
+    {
+      "id": 108,
+      "type": "MarkdownNote",
+      "pos": [
+        1160,
+        360
+      ],
+      "size": [
+        690,
+        375
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "GUÍA · DISEÑO SONORO",
+      "properties": {},
+      "widgets_values": [
+        "## 02 · Diseño de sonido\n\nEn **FOLEY · Prompt, exclusiones y generación**:\n\n- `prompt`: describe únicamente los sonidos presentes en la escena.\n- `negative_prompt`: excluye voces, música, zumbidos y efectos aleatorios.\n- `steps = 25`, `cfg = 4.5`: punto de partida.\n- `seed`: fija el número para comparar pruebas A/B.\n- `mask_away_clip = false`: **mantener el condicionamiento visual**.\n- `force_offload = true`: reduce el uso de VRAM entre pasos.\n\nLa sincronía exacta de impactos pequeños **no está garantizada**. Primero escucha el resultado antes de darlo por válido."
+      ]
+    },
+    {
+      "id": 109,
+      "type": "MarkdownNote",
+      "pos": [
+        2180,
+        1220
+      ],
+      "size": [
+        635,
+        265
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "GUÍA · SALIDAS",
+      "properties": {},
+      "widgets_values": [
+        "## 03 · Salidas\n\n- **ESCUCHA**: audio de MMAudio sin mezclar.\n- **FLAC**: fichero de audio separado en `output/audio/`.\n- **MP4**: vídeo con Foley en `output/video/`.\n\nSe genera una nueva pista completa. No es mezcla con el audio nativo LTX.\n\n**Licencia:** comprueba las condiciones de los pesos MMAudio antes de usarlos comercialmente."
+      ]
+    }
+  ],
+  "links": [
+    [
+      152,
+      85,
+      0,
+      92,
+      0,
+      "MMAUDIO_MODEL"
+    ],
+    [
+      161,
+      91,
+      0,
+      97,
+      0,
+      "IMAGE"
+    ],
+    [
+      163,
+      92,
+      0,
+      98,
+      0,
+      "AUDIO"
+    ],
+    [
+      166,
+      102,
+      0,
+      92,
+      1,
+      "MMAUDIO_FEATUREUTILS"
+    ],
+    [
+      170,
+      91,
+      0,
+      92,
+      2,
+      "IMAGE"
+    ],
+    [
+      171,
+      92,
+      0,
+      97,
+      1,
+      "AUDIO"
+    ],
+    [
+      172,
+      91,
+      3,
+      105,
+      0,
+      "VHS_VIDEOINFO"
+    ],
+    [
+      175,
+      105,
+      7,
+      92,
+      3,
+      "FLOAT"
+    ],
+    [
+      176,
+      105,
+      5,
+      97,
+      4,
+      "FLOAT"
+    ],
+    [
+      177,
+      92,
+      0,
+      106,
+      0,
+      "AUDIO"
+    ]
+  ],
+  "groups": [
+    {
+      "title": "01 · VÍDEO DE ENTRADA",
+      "bounding": [
+        35,
+        130,
+        960,
+        890
+      ],
+      "color": "#487e94",
+      "font_size": 24
+    },
+    {
+      "title": "02 · MODELOS MMAUDIO 44K",
+      "bounding": [
+        35,
+        -315,
+        1100,
+        355
+      ],
+      "color": "#8d7e58",
+      "font_size": 24
+    },
+    {
+      "title": "03 · GENERACIÓN DE FOLEY",
+      "bounding": [
+        1115,
+        -315,
+        785,
+        1100
+      ],
+      "color": "#4f9073",
+      "font_size": 24
+    },
+    {
+      "title": "04 · ESCUCHAR Y EXPORTAR",
+      "bounding": [
+        2115,
+        -315,
+        810,
+        1860
+      ],
+      "color": "#80659e",
+      "font_size": 24
+    }
+  ],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.53,
+      "offset": [
+        25,
+        360
+      ]
+    }
+  },
+  "version": 0.4
+}
