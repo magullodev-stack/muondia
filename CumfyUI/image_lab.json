@@ -1,6 +1,6 @@
 {
   "id": "d9ac44b0-2f2d-4a95-8dd2-44cd82200a80",
-  "revision": 8,
+  "revision": 9,
   "last_node_id": 61,
   "last_link_id": 84,
   "nodes": [
@@ -694,7 +694,7 @@
         "S := sujeto de la imagen 1\nA := (0° frontal, 45° tres cuartos derecho, 90° perfil derecho, 135° tres cuartos posterior derecho, 180° posterior)\nV(a) := vista fotorrealista de S desde a\n∀a ∈ A: identidad, geometría, apariencia y postura constantes\nC := cámara orbitando horizontalmente, altura y distancia constantes\nE := iluminación suave, fondo gris neutro mate (#BFBFBF)\nSalida := [V(a) ∀a ∈ A], una sola imagen, paneles iguales en orden de A",
         null,
         null,
-        "qwen_image_edit_2511_bf16.safetensors",
+        "qwen_image_edit_2511_fp8mixed.safetensors",
         "qwen_2.5_vl_7b_fp8_scaled.safetensors",
         "qwen_image_vae.safetensors"
       ],
@@ -3859,7 +3859,7 @@
               "secondTabWidth": 65
             },
             "widgets_values": [
-              "qwen_3_4b.safetensors",
+              "qwen_3_4b_fp8_mixed.safetensors",
               "lumina2",
               "default"
             ]
@@ -4083,7 +4083,7 @@
               "secondTabWidth": 65
             },
             "widgets_values": [
-              "z_image_turbo_bf16.safetensors",
+              "z_image_turbo_int8_convrot.safetensors",
               "default"
             ]
           },
@@ -4794,7 +4794,7 @@
               ]
             },
             "widgets_values": [
-              "ae.safetensors"
+              "ae_flux.safetensors"
             ]
           },
           {
@@ -4948,7 +4948,7 @@
             },
             "widgets_values": [
               "clip_l.safetensors",
-              "t5xxl_fp16.safetensors",
+              "t5xxl_fp8_e4m3fn_scaled.safetensors",
               "flux",
               "default"
             ]
@@ -5828,7 +5828,7 @@
               "secondTabWidth": 65
             },
             "widgets_values": [
-              "qwen_image_edit_2511_bf16.safetensors",
+              "qwen_image_edit_2511_fp8mixed.safetensors",
               "default"
             ]
           },
