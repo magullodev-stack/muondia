@@ -73,7 +73,7 @@
     {
       "id": 502,
       "type": "981652b5-7bc8-47e8-9bcb-179a117ac7e9",
-      "title": "03 · AUDIO_LAB · GUION A/B + LIP-SYNC + FOLEY",
+      "title": "03 · AUDIO_LAB · INICIOS EXACTOS + LIP-SYNC + FOLEY",
       "pos": [
         540,
         70
@@ -803,7 +803,7 @@
           {
             "id": 300,
             "type": "AudioLabDialoguePlanner",
-            "title": "Qwen3-TTS · Guion A/B + tiempo automático",
+            "title": "Qwen3-TTS · Guion con tiempos exactos A/B",
             "pos": [
               1415,
               500
@@ -869,7 +869,7 @@
             ],
             "widgets_values": [
               20,
-              "A: ¿Has oído eso?",
+              "A@8.000: ¿Has oído eso?\nB@12.000: Sí, lo he oído.",
               "",
               "",
               "Spanish",
@@ -1271,7 +1271,7 @@
           }
         },
         "category": "AUDIO_LAB",
-        "description": "Guion A/B -> voces y timeline -> MuseTalk por rostro -> Foley -> vídeo final. MuseTalk requiere instalación aislada."
+        "description": "Tiempos explícitos: A@8.250: frase. Opcional: B@12.000-15.500: frase. No se eligen tiempos automáticamente."
       }
     ]
   }
