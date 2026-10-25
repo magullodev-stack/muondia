@@ -80,24 +80,25 @@ def track_faces(image_paths, side, used):
             all_found.append(faces_in_image(detector, frame))
     first = cv2.imread(str(image_paths[0]))
     height, width = first.shape[:2]
-    if "B" in used:
-        anchors = [(i, boxes) for i,boxes in enumerate(all_found) if len(boxes)==2]
-        if not anchors:
-            raise ValueError(
-                "Para asignar A/B automáticamente necesito un fotograma con "
-                "las dos caras visibles. No cambiaré la cara equivocada."
-            )
-        pivot, boxes = anchors[0]
+    two = [(i, boxes) for i,boxes in enumerate(all_found) if len(boxes)==2]
+    if two:
+        pivot, boxes = two[0]
         ordered = sorted(boxes, key=lambda b:center(b)[0])
         if side == "right":
             ordered.reverse()
         seeds = {"A":ordered[0], "B":ordered[1]}
     else:
+        if "B" in used:
+            raise ValueError(
+                "Para asignar A/B necesito al menos un fotograma con dos caras "
+                "visibles; no puedo identificar automáticamente rostros en planos "
+                "separados sin un modelo adicional de identidad."
+            )
         anchors = [(i,boxes) for i,boxes in enumerate(all_found) if boxes]
         if not anchors:
             raise ValueError("No se ha detectado ningún rostro en el vídeo.")
         pivot, boxes = anchors[0]
-        seeds = {"A":max(boxes, key=lambda b:(b[2]-b[0])*(b[3]-b[1]))}
+        seeds = {"A":boxes[0]}
 
     tracks = {who:[None]*len(image_paths) for who in seeds}
     for who,box in seeds.items():
@@ -212,6 +213,15 @@ def main():
             for j,i in enumerate(range(start,stop)):
                 src=cv2.imread(str(source[i]))
                 x,y,s=crop_geometry(tracks[who][i],width,height)
+                other = "B" if who == "A" else "A"
+                if other in tracks and tracks[other][i] is not None:
+                    ox,oy=center(tracks[other][i])
+                    if x <= ox < x+s and y <= oy < y+s:
+                        raise ValueError(
+                            f"Los rostros están demasiado juntos en el fotograma {i}: "
+                            "el recorte de lip-sync contendría las dos caras. "
+                            "No modificaré el personaje equivocado."
+                        )
                 geometries.append((x,y,s))
                 fragment=src[y:y+s,x:x+s]
                 cv2.imwrite(str(crops/f"{j:08d}.png"),fragment)
