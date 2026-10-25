@@ -1,63 +1,133 @@
 {
   "id": "d9ac44b0-2f2d-4a95-8dd2-44cd82200a80",
-  "revision": 10,
-  "last_node_id": 121,
-  "last_link_id": 516,
+  "revision": 11,
+  "last_node_id": 130,
+  "last_link_id": 703,
   "nodes": [
     {
-      "id": 1,
-      "type": "LoadImage",
+      "id": 130,
+      "type": "ImageLabPanel",
       "pos": [
-        1390,
-        95
+        75,
+        130
       ],
       "size": [
-        590,
-        405
+        840,
+        960
       ],
       "flags": {},
       "order": 0,
       "mode": 0,
-      "inputs": [],
-      "outputs": [
+      "inputs": [
         {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            503
-          ]
+          "name": "modelo",
+          "type": "COMBO",
+          "widget": {
+            "name": "modelo"
+          },
+          "link": null
         },
         {
-          "name": "MASK",
-          "type": "MASK",
+          "name": "imagen_base",
+          "type": "COMBO",
+          "widget": {
+            "name": "imagen_base"
+          },
+          "link": null
+        },
+        {
+          "name": "referencia_2",
+          "type": "COMBO",
+          "widget": {
+            "name": "referencia_2"
+          },
+          "link": null
+        },
+        {
+          "name": "referencia_3",
+          "type": "COMBO",
+          "widget": {
+            "name": "referencia_3"
+          },
+          "link": null
+        },
+        {
+          "name": "foto_externa",
+          "type": "COMBO",
+          "widget": {
+            "name": "foto_externa"
+          },
+          "link": null
+        },
+        {
+          "name": "prompt",
+          "type": "STRING",
+          "widget": {
+            "name": "prompt"
+          },
+          "link": null
+        },
+        {
+          "name": "ancho",
+          "type": "INT",
+          "widget": {
+            "name": "ancho"
+          },
+          "link": null
+        },
+        {
+          "name": "alto",
+          "type": "INT",
+          "widget": {
+            "name": "alto"
+          },
+          "link": null
+        },
+        {
+          "name": "semilla",
+          "type": "INT",
+          "widget": {
+            "name": "semilla"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "configuracion",
+          "type": "IMAGE_LAB_CONTEXT",
           "links": [
-            504
+            700
           ]
         }
       ],
-      "title": "IMAGEN EXTERNA · SOLO REFINADO, SIN GENERAR",
       "properties": {
-        "Node name for S&R": "LoadImage",
-        "cnr_id": "comfy-core"
+        "Node name for S&R": "ImageLabPanel"
       },
       "widgets_values": [
-        ""
+        "Qwen · Editar imagen",
+        "(ninguna)",
+        "(ninguna)",
+        "(ninguna)",
+        "(ninguna)",
+        "",
+        1024,
+        1024,
+        123456789,
+        "fixed"
       ],
-      "widgets_values_named": {
-        "image": "",
-        "upload": "image"
-      }
+      "title": "IMAGE LAB · 1. Elegir modelo / Imágenes / Prompt / Tamaño / Seed"
     },
     {
       "id": 2,
       "type": "7fa8c5a4-1bc2-4c7c-82cb-879c5dd09b30",
       "pos": [
-        1390,
-        810
+        1050,
+        130
       ],
       "size": [
-        625,
-        470
+        670,
+        500
       ],
       "flags": {},
       "order": 1,
@@ -67,7 +137,7 @@
           "name": "image",
           "type": "IMAGE",
           "label": "IMAGEN ELEGIDA (collage o externa)",
-          "link": 514
+          "link": 701
         },
         {
           "name": "value",
@@ -118,7 +188,7 @@
           "name": "mask",
           "type": "MASK",
           "label": "MÁSCARA ALFA DE LA FUENTE",
-          "link": 515
+          "link": 702
         }
       ],
       "outputs": [
@@ -126,11 +196,11 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            516
+            703
           ]
         }
       ],
-      "title": "ACABADO · Upscale / Quitar fondo / Guardar PNG",
+      "title": "IMAGE LAB · 2. Upscale / Quitar fondo / Guardar PNG",
       "properties": {
         "cnr_id": "comfy-core",
         "previewExposures": []
@@ -151,634 +221,15 @@
       }
     },
     {
-      "id": 31,
-      "type": "PrimitiveBoolean",
-      "pos": [
-        1390,
-        545
-      ],
-      "size": [
-        590,
-        100
-      ],
-      "flags": {},
-      "order": 31,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "value",
-          "type": "BOOLEAN",
-          "widget": {
-            "name": "value"
-          },
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "BOOLEAN",
-          "type": "BOOLEAN",
-          "links": [
-            511
-          ]
-        }
-      ],
-      "title": "SOLO REFINAR FOTO EXTERNA · ACTIVAR AQUÍ",
-      "properties": {
-        "Node name for S&R": "PrimitiveBoolean",
-        "cnr_id": "comfy-core"
-      },
-      "widgets_values": [
-        false
-      ]
-    },
-    {
-      "id": 44,
-      "type": "PrimitiveBoolean",
-      "pos": [
-        645,
-        1010
-      ],
-      "size": [
-        550,
-        95
-      ],
-      "flags": {},
-      "order": 44,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "value",
-          "type": "BOOLEAN",
-          "widget": {
-            "name": "value"
-          },
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "BOOLEAN",
-          "type": "BOOLEAN",
-          "links": [
-            510
-          ]
-        }
-      ],
-      "widgets_values": [
-        false
-      ],
-      "title": "TEXTO A IMAGEN · OFF = Z-IMAGE / ON = FLUX",
-      "properties": {
-        "Node name for S&R": "PrimitiveBoolean",
-        "cnr_id": "comfy-core"
-      }
-    },
-    {
-      "id": 47,
-      "type": "LoadImage",
-      "pos": [
-        60,
-        95
-      ],
-      "size": [
-        355,
-        370
-      ],
-      "flags": {},
-      "order": 47,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            500
-          ]
-        },
-        {
-          "name": "MASK",
-          "type": "MASK",
-          "links": []
-        }
-      ],
-      "widgets_values": [
-        ""
-      ],
-      "title": "01 · IMAGEN BASE · Qwen",
-      "properties": {
-        "Node name for S&R": "LoadImage",
-        "cnr_id": "comfy-core"
-      }
-    },
-    {
-      "id": 48,
-      "type": "LoadImage",
-      "pos": [
-        450,
-        95
-      ],
-      "size": [
-        355,
-        370
-      ],
-      "flags": {},
-      "order": 48,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            501
-          ]
-        },
-        {
-          "name": "MASK",
-          "type": "MASK",
-          "links": []
-        }
-      ],
-      "widgets_values": [
-        ""
-      ],
-      "title": "02 · REFERENCIA ADICIONAL",
-      "properties": {
-        "Node name for S&R": "LoadImage",
-        "cnr_id": "comfy-core"
-      }
-    },
-    {
-      "id": 49,
-      "type": "LoadImage",
-      "pos": [
-        840,
-        95
-      ],
-      "size": [
-        355,
-        370
-      ],
-      "flags": {},
-      "order": 49,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            502
-          ]
-        },
-        {
-          "name": "MASK",
-          "type": "MASK",
-          "links": []
-        }
-      ],
-      "widgets_values": [
-        ""
-      ],
-      "title": "03 · REFERENCIA ADICIONAL",
-      "properties": {
-        "Node name for S&R": "LoadImage",
-        "cnr_id": "comfy-core"
-      }
-    },
-    {
-      "id": 52,
-      "type": "PrimitiveBoolean",
-      "pos": [
-        60,
-        1150
-      ],
-      "size": [
-        550,
-        95
-      ],
-      "flags": {},
-      "order": 52,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "value",
-          "type": "BOOLEAN",
-          "widget": {
-            "name": "value"
-          },
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "BOOLEAN",
-          "type": "BOOLEAN",
-          "links": [
-            512
-          ]
-        }
-      ],
-      "widgets_values": [
-        false
-      ],
-      "title": "ACTIVAR REFERENCIA 2",
-      "properties": {
-        "Node name for S&R": "PrimitiveBoolean",
-        "cnr_id": "comfy-core"
-      }
-    },
-    {
-      "id": 53,
-      "type": "PrimitiveBoolean",
-      "pos": [
-        645,
-        1150
-      ],
-      "size": [
-        550,
-        95
-      ],
-      "flags": {},
-      "order": 53,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "value",
-          "type": "BOOLEAN",
-          "widget": {
-            "name": "value"
-          },
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "BOOLEAN",
-          "type": "BOOLEAN",
-          "links": [
-            513
-          ]
-        }
-      ],
-      "widgets_values": [
-        false
-      ],
-      "title": "ACTIVAR REFERENCIA 3",
-      "properties": {
-        "Node name for S&R": "PrimitiveBoolean",
-        "cnr_id": "comfy-core"
-      }
-    },
-    {
-      "id": 57,
-      "type": "PrimitiveBoolean",
-      "title": "MODELO · OFF = QWEN / ON = TEXTO A IMAGEN",
-      "pos": [
-        60,
-        1010
-      ],
-      "size": [
-        550,
-        95
-      ],
-      "flags": {},
-      "order": 0,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "value",
-          "type": "BOOLEAN",
-          "widget": {
-            "name": "value"
-          },
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "BOOLEAN",
-          "type": "BOOLEAN",
-          "links": [
-            509
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimitiveBoolean",
-        "cnr_id": "comfy-core"
-      },
-      "widgets_values": [
-        false
-      ]
-    },
-    {
-      "id": 58,
-      "type": "PrimitiveStringMultiline",
-      "title": "PROMPT · único para el modelo seleccionado",
-      "pos": [
-        60,
-        530
-      ],
-      "size": [
-        1135,
-        260
-      ],
-      "flags": {},
-      "order": 0,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "value",
-          "type": "STRING",
-          "widget": {
-            "name": "value"
-          },
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "STRING",
-          "type": "STRING",
-          "links": [
-            505
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimitiveStringMultiline",
-        "cnr_id": "comfy-core"
-      },
-      "widgets_values": [
-        ""
-      ]
-    },
-    {
-      "id": 59,
-      "type": "PrimitiveInt",
-      "title": "ANCHO · píxeles",
-      "pos": [
-        60,
-        865
-      ],
-      "size": [
-        260,
-        95
-      ],
-      "flags": {},
-      "order": 0,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "value",
-          "type": "INT",
-          "widget": {
-            "name": "value"
-          },
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "INT",
-          "type": "INT",
-          "links": [
-            506
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimitiveInt",
-        "cnr_id": "comfy-core"
-      },
-      "widgets_values": [
-        1024,
-        "fixed"
-      ]
-    },
-    {
-      "id": 60,
-      "type": "PrimitiveInt",
-      "title": "ALTO · píxeles",
-      "pos": [
-        345,
-        865
-      ],
-      "size": [
-        260,
-        95
-      ],
-      "flags": {},
-      "order": 0,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "value",
-          "type": "INT",
-          "widget": {
-            "name": "value"
-          },
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "INT",
-          "type": "INT",
-          "links": [
-            507
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimitiveInt",
-        "cnr_id": "comfy-core"
-      },
-      "widgets_values": [
-        1024,
-        "fixed"
-      ]
-    },
-    {
-      "id": 61,
-      "type": "PrimitiveInt",
-      "title": "SEED · semilla de generación",
-      "pos": [
-        635,
-        865
-      ],
-      "size": [
-        560,
-        95
-      ],
-      "flags": {},
-      "order": 0,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "value",
-          "type": "INT",
-          "widget": {
-            "name": "value"
-          },
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "INT",
-          "type": "INT",
-          "links": [
-            508
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimitiveInt",
-        "cnr_id": "comfy-core"
-      },
-      "widgets_values": [
-        123456789,
-        "fixed"
-      ]
-    },
-    {
-      "id": 120,
-      "type": "624ea3d1-e843-4e7f-8e07-5122d434991e",
-      "pos": [
-        2190,
-        300
-      ],
-      "size": [
-        470,
-        650
-      ],
-      "flags": {
-        "collapsed": true
-      },
-      "order": 60,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "reference",
-          "type": "IMAGE",
-          "label": "Imagen base Qwen",
-          "link": 500
-        },
-        {
-          "name": "reference2",
-          "type": "IMAGE",
-          "label": "Referencia 2",
-          "link": 501
-        },
-        {
-          "name": "reference3",
-          "type": "IMAGE",
-          "label": "Referencia 3",
-          "link": 502
-        },
-        {
-          "name": "external",
-          "type": "IMAGE",
-          "label": "Foto externa",
-          "link": 503
-        },
-        {
-          "name": "externalMask",
-          "type": "MASK",
-          "label": "Alfa externo",
-          "link": 504
-        },
-        {
-          "name": "prompt",
-          "type": "STRING",
-          "label": "Prompt único",
-          "link": 505
-        },
-        {
-          "name": "width",
-          "type": "INT",
-          "label": "Ancho",
-          "link": 506
-        },
-        {
-          "name": "height",
-          "type": "INT",
-          "label": "Alto",
-          "link": 507
-        },
-        {
-          "name": "seed",
-          "type": "INT",
-          "label": "Semilla",
-          "link": 508
-        },
-        {
-          "name": "alternative",
-          "type": "BOOLEAN",
-          "label": "Generar desde cero",
-          "link": 509
-        },
-        {
-          "name": "flux",
-          "type": "BOOLEAN",
-          "label": "Usar FLUX / Z-Image",
-          "link": 510
-        },
-        {
-          "name": "externalMode",
-          "type": "BOOLEAN",
-          "label": "Solo refinar foto",
-          "link": 511
-        },
-        {
-          "name": "useRef2",
-          "type": "BOOLEAN",
-          "label": "Usar referencia 2",
-          "link": 512
-        },
-        {
-          "name": "useRef3",
-          "type": "BOOLEAN",
-          "label": "Usar referencia 3",
-          "link": 513
-        }
-      ],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            514
-          ]
-        },
-        {
-          "name": "MASK",
-          "type": "MASK",
-          "links": [
-            515
-          ]
-        }
-      ],
-      "properties": {
-        "cnr_id": "comfy-core"
-      },
-      "widgets_values": [],
-      "title": "MOTOR INTERNO · No hace falta abrirlo"
-    },
-    {
       "id": 121,
       "type": "PreviewImage",
       "pos": [
-        2090,
-        1000
+        1050,
+        745
       ],
       "size": [
-        520,
-        310
+        670,
+        360
       ],
       "flags": {},
       "order": 61,
@@ -787,7 +238,7 @@
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 516
+          "link": 703
         }
       ],
       "outputs": [],
@@ -796,124 +247,66 @@
         "cnr_id": "comfy-core"
       },
       "widgets_values": [],
-      "title": "RESULTADO · VISTA PREVIA"
+      "title": "IMAGE LAB · Resultado"
+    },
+    {
+      "id": 120,
+      "type": "624ea3d1-e843-4e7f-8e07-5122d434991e",
+      "pos": [
+        1910,
+        130
+      ],
+      "size": [
+        300,
+        100
+      ],
+      "flags": {
+        "collapsed": true
+      },
+      "order": 60,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "context",
+          "type": "IMAGE_LAB_CONTEXT",
+          "label": "Configuración",
+          "link": 700
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            701
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": [
+            702
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core"
+      },
+      "widgets_values": [],
+      "title": "MOTOR INTERNO · AUTOMÁTICO"
     }
   ],
   "links": [
     [
-      500,
-      47,
+      700,
+      130,
       0,
       120,
       0,
-      "IMAGE"
+      "IMAGE_LAB_CONTEXT"
     ],
     [
-      501,
-      48,
-      0,
-      120,
-      1,
-      "IMAGE"
-    ],
-    [
-      502,
-      49,
-      0,
-      120,
-      2,
-      "IMAGE"
-    ],
-    [
-      503,
-      1,
-      0,
-      120,
-      3,
-      "IMAGE"
-    ],
-    [
-      504,
-      1,
-      1,
-      120,
-      4,
-      "MASK"
-    ],
-    [
-      505,
-      58,
-      0,
-      120,
-      5,
-      "STRING"
-    ],
-    [
-      506,
-      59,
-      0,
-      120,
-      6,
-      "INT"
-    ],
-    [
-      507,
-      60,
-      0,
-      120,
-      7,
-      "INT"
-    ],
-    [
-      508,
-      61,
-      0,
-      120,
-      8,
-      "INT"
-    ],
-    [
-      509,
-      57,
-      0,
-      120,
-      9,
-      "BOOLEAN"
-    ],
-    [
-      510,
-      44,
-      0,
-      120,
-      10,
-      "BOOLEAN"
-    ],
-    [
-      511,
-      31,
-      0,
-      120,
-      11,
-      "BOOLEAN"
-    ],
-    [
-      512,
-      52,
-      0,
-      120,
-      12,
-      "BOOLEAN"
-    ],
-    [
-      513,
-      53,
-      0,
-      120,
-      13,
-      "BOOLEAN"
-    ],
-    [
-      514,
+      701,
       120,
       0,
       2,
@@ -921,7 +314,7 @@
       "IMAGE"
     ],
     [
-      515,
+      702,
       120,
       1,
       2,
@@ -929,7 +322,7 @@
       "MASK"
     ],
     [
-      516,
+      703,
       2,
       0,
       121,
@@ -939,47 +332,36 @@
   ],
   "groups": [
     {
-      "title": "01 · GENERAR O EDITAR · Referencias / Prompt / Modelo / Tamaño / Seed",
+      "title": "01 · IMAGE LAB · Modelo único / Fotografías / Prompt / Tamaño / Seed",
       "bounding": [
-        25,
         35,
-        1205,
-        1265
+        50,
+        945,
+        1135
       ],
-      "color": "#436d6a",
-      "font_size": 24
+      "color": "#426c69",
+      "font_size": 22
     },
     {
-      "title": "02 · SOLO REFINAR UNA FOTO · Sin generación",
+      "title": "02 · ACABADO · Upscale / Quitar fondo / Resultado",
       "bounding": [
-        1355,
-        35,
-        690,
-        690
+        1010,
+        50,
+        780,
+        1160
       ],
-      "color": "#59718c",
-      "font_size": 24
+      "color": "#60668c",
+      "font_size": 22
     },
     {
-      "title": "03 · Acabado · Upscale / Quitar fondo / PNG",
+      "title": "Motor automático · No hace falta abrirlo",
       "bounding": [
-        1355,
-        740,
-        1320,
-        635
+        1840,
+        50,
+        390,
+        245
       ],
-      "color": "#77618a",
-      "font_size": 24
-    },
-    {
-      "title": "MOTOR TÉCNICO · No hace falta tocarlo",
-      "bounding": [
-        2140,
-        220,
-        555,
-        730
-      ],
-      "color": "#454a57",
+      "color": "#46535a",
       "font_size": 18
     }
   ],
@@ -5875,11 +5257,11 @@
         "version": 1,
         "state": {
           "lastGroupId": 0,
-          "lastNodeId": 56,
-          "lastLinkId": 236,
+          "lastNodeId": 1900,
+          "lastLinkId": 310,
           "lastRerouteId": 0
         },
-        "revision": 1,
+        "revision": 2,
         "config": {},
         "name": "IMAGE LAB · MOTOR INTERNO · No hace falta abrirlo",
         "description": "Motor encapsulado para Qwen-Image-Edit, Z-Image y FLUX. El usuario trabaja desde el panel exterior.",
@@ -5903,194 +5285,16 @@
         },
         "inputs": [
           {
-            "name": "reference",
-            "type": "IMAGE",
-            "label": "Imagen base Qwen",
-            "id": "image-lab-v10-port-0",
+            "name": "context",
+            "type": "IMAGE_LAB_CONTEXT",
+            "label": "Configuración de Image Lab",
+            "id": "image-lab-v11-context",
             "linkIds": [
-              218
+              310
             ],
             "pos": [
-              -180,
-              180
-            ]
-          },
-          {
-            "name": "reference2",
-            "type": "IMAGE",
-            "label": "Referencia 2",
-            "id": "image-lab-v10-port-1",
-            "linkIds": [
-              219
-            ],
-            "pos": [
-              -180,
-              204
-            ]
-          },
-          {
-            "name": "reference3",
-            "type": "IMAGE",
-            "label": "Referencia 3",
-            "id": "image-lab-v10-port-2",
-            "linkIds": [
-              222
-            ],
-            "pos": [
-              -180,
-              228
-            ]
-          },
-          {
-            "name": "external",
-            "type": "IMAGE",
-            "label": "Foto externa",
-            "id": "image-lab-v10-port-3",
-            "linkIds": [
-              209
-            ],
-            "pos": [
-              -180,
-              252
-            ]
-          },
-          {
-            "name": "externalMask",
-            "type": "MASK",
-            "label": "Alfa externo",
-            "id": "image-lab-v10-port-4",
-            "linkIds": [
-              211
-            ],
-            "pos": [
-              -180,
-              276
-            ]
-          },
-          {
-            "name": "prompt",
-            "type": "STRING",
-            "label": "Prompt único",
-            "id": "image-lab-v10-port-5",
-            "linkIds": [
-              225,
-              229,
-              233
-            ],
-            "pos": [
-              -180,
-              300
-            ]
-          },
-          {
-            "name": "width",
-            "type": "INT",
-            "label": "Ancho",
-            "id": "image-lab-v10-port-6",
-            "linkIds": [
-              226,
-              230,
-              234
-            ],
-            "pos": [
-              -180,
-              324
-            ]
-          },
-          {
-            "name": "height",
-            "type": "INT",
-            "label": "Alto",
-            "id": "image-lab-v10-port-7",
-            "linkIds": [
-              227,
-              231,
-              235
-            ],
-            "pos": [
-              -180,
-              348
-            ]
-          },
-          {
-            "name": "seed",
-            "type": "INT",
-            "label": "Semilla",
-            "id": "image-lab-v10-port-8",
-            "linkIds": [
-              228,
-              232,
-              236
-            ],
-            "pos": [
-              -180,
-              372
-            ]
-          },
-          {
-            "name": "alternative",
-            "type": "BOOLEAN",
-            "label": "Generar desde cero",
-            "id": "image-lab-v10-port-9",
-            "linkIds": [
-              206
-            ],
-            "pos": [
-              -180,
-              396
-            ]
-          },
-          {
-            "name": "flux",
-            "type": "BOOLEAN",
-            "label": "Usar FLUX / Z-Image",
-            "id": "image-lab-v10-port-10",
-            "linkIds": [
-              203
-            ],
-            "pos": [
-              -180,
-              420
-            ]
-          },
-          {
-            "name": "externalMode",
-            "type": "BOOLEAN",
-            "label": "Solo refinar foto",
-            "id": "image-lab-v10-port-11",
-            "linkIds": [
-              210,
-              212
-            ],
-            "pos": [
-              -180,
-              444
-            ]
-          },
-          {
-            "name": "useRef2",
-            "type": "BOOLEAN",
-            "label": "Usar referencia 2",
-            "id": "image-lab-v10-port-12",
-            "linkIds": [
-              220
-            ],
-            "pos": [
-              -180,
-              468
-            ]
-          },
-          {
-            "name": "useRef3",
-            "type": "BOOLEAN",
-            "label": "Usar referencia 3",
-            "id": "image-lab-v10-port-13",
-            "linkIds": [
-              223
-            ],
-            "pos": [
-              -180,
-              492
+              -240,
+              310
             ]
           }
         ],
@@ -6124,6 +5328,144 @@
         ],
         "widgets": [],
         "nodes": [
+          {
+            "id": 1900,
+            "type": "ImageLabUnpack",
+            "pos": [
+              -40,
+              250
+            ],
+            "size": [
+              400,
+              450
+            ],
+            "flags": {
+              "collapsed": false
+            },
+            "order": 0,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "context",
+                "type": "IMAGE_LAB_CONTEXT",
+                "link": 310
+              }
+            ],
+            "outputs": [
+              {
+                "name": "imagen_base",
+                "type": "IMAGE",
+                "links": [
+                  218
+                ]
+              },
+              {
+                "name": "referencia_2",
+                "type": "IMAGE",
+                "links": [
+                  219
+                ]
+              },
+              {
+                "name": "referencia_3",
+                "type": "IMAGE",
+                "links": [
+                  222
+                ]
+              },
+              {
+                "name": "foto_externa",
+                "type": "IMAGE",
+                "links": [
+                  209
+                ]
+              },
+              {
+                "name": "mascara_externa",
+                "type": "MASK",
+                "links": [
+                  211
+                ]
+              },
+              {
+                "name": "prompt",
+                "type": "STRING",
+                "links": [
+                  225,
+                  229,
+                  233
+                ]
+              },
+              {
+                "name": "ancho",
+                "type": "INT",
+                "links": [
+                  226,
+                  230,
+                  234
+                ]
+              },
+              {
+                "name": "alto",
+                "type": "INT",
+                "links": [
+                  227,
+                  231,
+                  235
+                ]
+              },
+              {
+                "name": "semilla",
+                "type": "INT",
+                "links": [
+                  228,
+                  232,
+                  236
+                ]
+              },
+              {
+                "name": "usar_texto_a_imagen",
+                "type": "BOOLEAN",
+                "links": [
+                  206
+                ]
+              },
+              {
+                "name": "usar_flux",
+                "type": "BOOLEAN",
+                "links": [
+                  203
+                ]
+              },
+              {
+                "name": "solo_refinar",
+                "type": "BOOLEAN",
+                "links": [
+                  210,
+                  212
+                ]
+              },
+              {
+                "name": "usar_referencia_2",
+                "type": "BOOLEAN",
+                "links": [
+                  220
+                ]
+              },
+              {
+                "name": "usar_referencia_3",
+                "type": "BOOLEAN",
+                "links": [
+                  223
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ImageLabUnpack"
+            },
+            "widgets_values": [],
+            "title": "CONFIGURACIÓN INTERNA · Automática"
+          },
           {
             "id": 32,
             "type": "ComfySwitchNode",
@@ -6971,7 +6313,7 @@
           },
           {
             "id": 203,
-            "origin_id": -10,
+            "origin_id": 1900,
             "origin_slot": 10,
             "target_id": 36,
             "target_slot": 2,
@@ -6995,7 +6337,7 @@
           },
           {
             "id": 206,
-            "origin_id": -10,
+            "origin_id": 1900,
             "origin_slot": 9,
             "target_id": 56,
             "target_slot": 2,
@@ -7019,7 +6361,7 @@
           },
           {
             "id": 209,
-            "origin_id": -10,
+            "origin_id": 1900,
             "origin_slot": 3,
             "target_id": 32,
             "target_slot": 1,
@@ -7027,7 +6369,7 @@
           },
           {
             "id": 210,
-            "origin_id": -10,
+            "origin_id": 1900,
             "origin_slot": 11,
             "target_id": 32,
             "target_slot": 2,
@@ -7035,7 +6377,7 @@
           },
           {
             "id": 211,
-            "origin_id": -10,
+            "origin_id": 1900,
             "origin_slot": 4,
             "target_id": 33,
             "target_slot": 1,
@@ -7043,7 +6385,7 @@
           },
           {
             "id": 212,
-            "origin_id": -10,
+            "origin_id": 1900,
             "origin_slot": 11,
             "target_id": 33,
             "target_slot": 2,
@@ -7091,7 +6433,7 @@
           },
           {
             "id": 218,
-            "origin_id": -10,
+            "origin_id": 1900,
             "origin_slot": 0,
             "target_id": 39,
             "target_slot": 0,
@@ -7099,7 +6441,7 @@
           },
           {
             "id": 219,
-            "origin_id": -10,
+            "origin_id": 1900,
             "origin_slot": 1,
             "target_id": 54,
             "target_slot": 1,
@@ -7107,7 +6449,7 @@
           },
           {
             "id": 220,
-            "origin_id": -10,
+            "origin_id": 1900,
             "origin_slot": 12,
             "target_id": 54,
             "target_slot": 2,
@@ -7123,7 +6465,7 @@
           },
           {
             "id": 222,
-            "origin_id": -10,
+            "origin_id": 1900,
             "origin_slot": 2,
             "target_id": 55,
             "target_slot": 1,
@@ -7131,7 +6473,7 @@
           },
           {
             "id": 223,
-            "origin_id": -10,
+            "origin_id": 1900,
             "origin_slot": 13,
             "target_id": 55,
             "target_slot": 2,
@@ -7147,7 +6489,7 @@
           },
           {
             "id": 225,
-            "origin_id": -10,
+            "origin_id": 1900,
             "origin_slot": 5,
             "target_id": 34,
             "target_slot": 0,
@@ -7155,7 +6497,7 @@
           },
           {
             "id": 226,
-            "origin_id": -10,
+            "origin_id": 1900,
             "origin_slot": 6,
             "target_id": 34,
             "target_slot": 1,
@@ -7163,7 +6505,7 @@
           },
           {
             "id": 227,
-            "origin_id": -10,
+            "origin_id": 1900,
             "origin_slot": 7,
             "target_id": 34,
             "target_slot": 2,
@@ -7171,7 +6513,7 @@
           },
           {
             "id": 228,
-            "origin_id": -10,
+            "origin_id": 1900,
             "origin_slot": 8,
             "target_id": 34,
             "target_slot": 3,
@@ -7179,7 +6521,7 @@
           },
           {
             "id": 229,
-            "origin_id": -10,
+            "origin_id": 1900,
             "origin_slot": 5,
             "target_id": 35,
             "target_slot": 0,
@@ -7187,7 +6529,7 @@
           },
           {
             "id": 230,
-            "origin_id": -10,
+            "origin_id": 1900,
             "origin_slot": 6,
             "target_id": 35,
             "target_slot": 1,
@@ -7195,7 +6537,7 @@
           },
           {
             "id": 231,
-            "origin_id": -10,
+            "origin_id": 1900,
             "origin_slot": 7,
             "target_id": 35,
             "target_slot": 2,
@@ -7203,7 +6545,7 @@
           },
           {
             "id": 232,
-            "origin_id": -10,
+            "origin_id": 1900,
             "origin_slot": 8,
             "target_id": 35,
             "target_slot": 3,
@@ -7211,7 +6553,7 @@
           },
           {
             "id": 233,
-            "origin_id": -10,
+            "origin_id": 1900,
             "origin_slot": 5,
             "target_id": 39,
             "target_slot": 3,
@@ -7219,7 +6561,7 @@
           },
           {
             "id": 234,
-            "origin_id": -10,
+            "origin_id": 1900,
             "origin_slot": 6,
             "target_id": 39,
             "target_slot": 7,
@@ -7227,7 +6569,7 @@
           },
           {
             "id": 235,
-            "origin_id": -10,
+            "origin_id": 1900,
             "origin_slot": 7,
             "target_id": 39,
             "target_slot": 8,
@@ -7235,11 +6577,19 @@
           },
           {
             "id": 236,
-            "origin_id": -10,
+            "origin_id": 1900,
             "origin_slot": 8,
             "target_id": 39,
             "target_slot": 9,
             "type": "INT"
+          },
+          {
+            "id": 310,
+            "origin_id": -10,
+            "origin_slot": 0,
+            "target_id": 1900,
+            "target_slot": 0,
+            "type": "IMAGE_LAB_CONTEXT"
           }
         ],
         "extra": {
@@ -7252,10 +6602,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.64,
+      "scale": 0.67,
       "offset": [
-        85,
-        70
+        55,
+        60
       ]
     },
     "frontendVersion": "1.55.18"
