@@ -311,3 +311,57 @@ class AudioLabDialoguePlanner:
 
 NODE_CLASS_MAPPINGS["AudioLabDialoguePlanner"] = AudioLabDialoguePlanner
 NODE_DISPLAY_NAME_MAPPINGS["AudioLabDialoguePlanner"] = "AUDIO_LAB · Planificar diálogos A/B"
+
+
+class AudioLabSafeMix:
+    """Mix full-length dialogue with Foley without cutting the last spoken word."""
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {"required": {
+            "foley": ("AUDIO",),
+            "dialogue": ("AUDIO",),
+            "video_duration": ("FLOAT", {"default": 20.0, "min": 0.1}),
+        }}
+
+    RETURN_TYPES = ("AUDIO",)
+    RETURN_NAMES = ("audio_mezclado",)
+    FUNCTION = "mix"
+    CATEGORY = "AUDIO_LAB"
+
+    def mix(self, foley, dialogue, video_duration):
+        import comfy.audio
+
+        sr = int(foley["sample_rate"])
+        if sr <= 0 or video_duration <= 0:
+            raise ValueError("Frecuencia o duración de vídeo inválida.")
+        samples = round(float(video_duration) * sr)
+        fw = foley["waveform"].float().cpu()
+        dw = dialogue["waveform"].float().cpu()
+        if fw.ndim != 3 or dw.ndim != 3 or fw.shape[0] != 1 or dw.shape[0] != 1:
+            raise ValueError("AUDIO_LAB necesita pistas de audio con un solo clip.")
+        if int(dialogue["sample_rate"]) != sr:
+            dw = comfy.audio.resample(dw, int(dialogue["sample_rate"]), sr)
+        channels = max(fw.shape[1], dw.shape[1])
+        if channels not in (1, 2):
+            raise ValueError("Solo se permiten pistas mono o estéreo.")
+        if fw.shape[1] == 1 and channels == 2:
+            fw = fw.repeat(1, 2, 1)
+        if dw.shape[1] == 1 and channels == 2:
+            dw = dw.repeat(1, 2, 1)
+        if dw.shape[-1] > samples:
+            spill = dw[..., samples:]
+            if spill.numel() and torch.max(torch.abs(spill)).item() > 1e-4:
+                raise ValueError("La voz excede la duración del vídeo; no se recortará.")
+        result = torch.zeros((1, channels, samples), dtype=torch.float32)
+        fcount = min(samples, fw.shape[-1])
+        dcount = min(samples, dw.shape[-1])
+        result[..., :fcount] += fw[..., :fcount]
+        result[..., :dcount] += dw[..., :dcount]
+        peak = float(result.abs().max().item())
+        if peak > 1:
+            result /= peak
+        return ({"waveform": result, "sample_rate": sr},)
+
+
+NODE_CLASS_MAPPINGS["AudioLabSafeMix"] = AudioLabSafeMix
+NODE_DISPLAY_NAME_MAPPINGS["AudioLabSafeMix"] = "AUDIO_LAB · Mezcla segura (sin recortar voz)"
