@@ -78,7 +78,7 @@ foreach ($pair in @(
 Write-Host ""
 Write-Host "AUDIO_LAB actualizado: control temporal exacto A/B, lip-sync MuseTalk y mezcla segura."
 Write-Host "Abre el editor temporal con este comando:"
-Write-Host "  Start-Process \"$editorDest\""
+Write-Host ('  Start-Process "' + $editorDest + '"')
 Write-Host "Cierra cualquier pestana antigua, reinicia ComfyUI y carga:"
 Write-Host "  $workflow"
 Write-Host "Importante: MuseTalk requiere ejecutar INSTALAR_LIPSYNC_MUSETALK.ps1 por separado."
