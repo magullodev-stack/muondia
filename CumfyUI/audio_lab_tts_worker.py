@@ -19,6 +19,7 @@ def main():
     p.add_argument("--reference-text", default="")
     p.add_argument("--language", choices=("Spanish", "English", "Auto"), default="Spanish")
     p.add_argument("--model-size", choices=("0.6B", "1.7B"), default="0.6B")
+    p.add_argument("--device", choices=("auto", "cpu", "gpu"), default="auto")
     p.add_argument("--seed", type=int, default=7)
     args = p.parse_args()
 
@@ -28,15 +29,21 @@ def main():
     random.seed(args.seed)
     np.random.seed(args.seed % (2**32))
     torch.manual_seed(args.seed)
-    if torch.cuda.is_available():
+    cuda_available = torch.cuda.is_available()
+    if args.device == "gpu" and not cuda_available:
+        raise RuntimeError(
+            "Has seleccionado GPU pero este entorno no tiene PyTorch con CUDA activo. "
+            "Selecciona CPU/Auto para continuar, o instala PyTorch CUDA SOLO en AudioLab/.venv."
+        )
+    use_gpu = args.device == "gpu" or (args.device == "auto" and cuda_available)
+    if use_gpu:
         torch.cuda.manual_seed_all(args.seed)
         dtype = torch.bfloat16 if torch.cuda.is_bf16_supported() else torch.float16
         device = "cuda:0"
     else:
-        raise RuntimeError(
-            "El entorno Python aislado no detecta CUDA. "
-            "Instala PyTorch CUDA en AudioLab/.venv; no cambies el Python de ComfyUI."
-        )
+        dtype = torch.float32  # Float32 for compatibility with PyTorch CPU kernels.
+        device = "cpu"
+    print(f"AUDIO_LAB TTS: mode={args.device}, device={device}, dtype={dtype}", flush=True)
 
     repo = f"Qwen/Qwen3-TTS-12Hz-{args.model_size}-Base"
     model = Qwen3TTSModel.from_pretrained(
