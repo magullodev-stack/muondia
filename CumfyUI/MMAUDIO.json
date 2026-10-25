@@ -6,12 +6,12 @@
       "id": 85,
       "type": "MMAudioModelLoader",
       "pos": [
-        80,
-        -240
+        460,
+        -160
       ],
       "size": [
-        430,
-        110
+        370,
+        100
       ],
       "flags": {},
       "order": 0,
@@ -34,18 +34,18 @@
         "mmaudio_large_44k_v2_fp16.safetensors",
         "fp16"
       ],
-      "title": "MODELO · MMAudio Large 44k v2"
+      "title": "MMAudio · Modelo"
     },
     {
       "id": 92,
       "type": "MMAudioSampler",
       "pos": [
-        1160,
-        -240
+        1325,
+        -155
       ],
       "size": [
-        685,
-        560
+        600,
+        570
       ],
       "flags": {},
       "order": 1,
@@ -97,23 +97,23 @@
         4.5,
         7,
         "fixed",
-        "Close, natural sounds of chess pieces being picked up, gently moved across a wooden chessboard and placed down. Distinct small wooden taps only when pieces touch the board, with delicate wood-on-wood friction. Nearly silent indoor room. Sparse, realistic, intimate Foley synchronized to visible chess moves.",
-        "Human voices, dialogue, speech, unintelligible speech, whispering, singing, chanting, music, piano, drone, electrical hum, buzzing, hiss, crackle, random clicks, synthetic effects, cinematic soundtrack, reverberant ambience, loud background noise.",
+        "",
+        "",
         false,
         true
       ],
-      "title": "FOLEY · Prompt, exclusiones y generación"
+      "title": "MMAudio · Generar audio"
     },
     {
       "id": 98,
       "type": "PreviewAudio",
       "pos": [
-        2170,
-        -235
+        2010,
+        -155
       ],
       "size": [
-        340,
-        160
+        330,
+        120
       ],
       "flags": {},
       "order": 2,
@@ -132,18 +132,18 @@
       "widgets_values": [
         null
       ],
-      "title": "ESCUCHA · Previsualizar Foley"
+      "title": "Escuchar audio"
     },
     {
       "id": 102,
       "type": "MMAudioFeatureUtilsLoader",
       "pos": [
-        540,
-        -240
+        860,
+        -160
       ],
       "size": [
-        525,
-        190
+        410,
+        170
       ],
       "flags": {},
       "order": 3,
@@ -175,18 +175,18 @@
         "44k",
         "fp16"
       ],
-      "title": "COMPONENTES · VAE / Synchformer / CLIP"
+      "title": "MMAudio · Componentes"
     },
     {
       "id": 106,
       "type": "SaveAudio",
       "pos": [
-        2570,
-        -235
+        2380,
+        -155
       ],
       "size": [
-        310,
-        130
+        360,
+        120
       ],
       "flags": {},
       "order": 4,
@@ -209,90 +209,24 @@
         "Node name for S&R": "SaveAudio",
         "cnr_id": "comfy-core"
       },
-      "title": "FLAC · Guardar Foley por separado",
+      "title": "Guardar audio FLAC",
       "widgets_values": [
         "audio/MMAUDIO_Foley"
-      ]
-    },
-    {
-      "id": 107,
-      "type": "MarkdownNote",
-      "pos": [
-        80,
-        565
-      ],
-      "size": [
-        545,
-        375
-      ],
-      "flags": {},
-      "order": 5,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [],
-      "title": "GUÍA · VIDEO",
-      "properties": {},
-      "widgets_values": [
-        "## 01 · Vídeo sin sonido de LTX\n\n1. Genera y exporta el **MP4 sin audio** desde LTX-2.5.\n2. Carga ese MP4 en **VÍDEO · Cargar MP4 (nativo de ComfyUI)**.\n3. `Get Video Components` extrae los fotogramas y FPS; `Get Image Size` cuenta los fotogramas y `Math Expression` obtiene **duración = fotogramas / FPS**.\n4. MMAudio genera **una nueva pista de sonido a partir del vídeo y del prompt**.\n5. La rama de salida une los fotogramas del vídeo con ese Foley.\n\n**Entrada: vídeo sin sonido. Salida: el mismo contenido visual con audio generado por MMAudio.**"
-      ]
-    },
-    {
-      "id": 108,
-      "type": "MarkdownNote",
-      "pos": [
-        1160,
-        360
-      ],
-      "size": [
-        690,
-        375
-      ],
-      "flags": {},
-      "order": 6,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [],
-      "title": "GUÍA · DISEÑO SONORO",
-      "properties": {},
-      "widgets_values": [
-        "## 02 · Diseño de sonido\n\nEn **FOLEY · Prompt, exclusiones y generación**:\n\n- `prompt`: describe únicamente los sonidos presentes en la escena.\n- `negative_prompt`: excluye voces, música, zumbidos y efectos aleatorios.\n- `steps = 25`, `cfg = 4.5`: punto de partida.\n- `seed`: fija el número para comparar pruebas A/B.\n- `mask_away_clip = false`: **mantener el condicionamiento visual**.\n- `force_offload = true`: reduce el uso de VRAM entre pasos.\n\nLa sincronía exacta de impactos pequeños **no está garantizada**. Primero escucha el resultado antes de darlo por válido."
-      ]
-    },
-    {
-      "id": 109,
-      "type": "MarkdownNote",
-      "pos": [
-        2180,
-        1220
-      ],
-      "size": [
-        635,
-        265
-      ],
-      "flags": {},
-      "order": 7,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [],
-      "title": "GUÍA · SALIDAS",
-      "properties": {},
-      "widgets_values": [
-        "## 03 · Escucha y exportación\n\n- **ESCUCHA**: previsualiza el Foley generado por MMAudio.\n- **FLAC**: guarda esa pista de sonido independiente en `output/audio/`.\n- **MP4**: guarda el vídeo de entrada junto con el Foley recién generado en `output/video/`.\n\n**Este workflow parte de un vídeo sin audio.** No necesita ninguna pista sonora de LTX ni intenta recuperarla.\n\n**Licencia:** verifica las condiciones de los pesos MMAudio antes de usarlos comercialmente."
       ]
     },
     {
       "id": 110,
       "type": "LoadVideo",
       "pos": [
-        80,
-        225
+        60,
+        120
       ],
       "size": [
-        430,
-        275
+        355,
+        280
       ],
       "flags": {},
-      "order": 8,
+      "order": 5,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -309,7 +243,7 @@
         "cnr_id": "comfy-core",
         "ver": "0.10.0"
       },
-      "title": "VÍDEO · Cargar MP4 (nativo de ComfyUI)",
+      "title": "Cargar vídeo",
       "widgets_values": [
         "",
         "image"
@@ -319,15 +253,15 @@
       "id": 111,
       "type": "GetVideoComponents",
       "pos": [
-        570,
-        225
+        465,
+        130
       ],
       "size": [
-        440,
-        175
+        360,
+        165
       ],
       "flags": {},
-      "order": 9,
+      "order": 6,
       "mode": 0,
       "inputs": [
         {
@@ -365,21 +299,21 @@
         "cnr_id": "comfy-core",
         "ver": "0.13.0"
       },
-      "title": "EXTRAER · Fotogramas y FPS"
+      "title": "Extraer fotogramas y FPS"
     },
     {
       "id": 112,
       "type": "GetImageSize",
       "pos": [
-        1070,
-        225
+        865,
+        145
       ],
       "size": [
-        370,
-        165
+        330,
+        150
       ],
       "flags": {},
-      "order": 10,
+      "order": 7,
       "mode": 0,
       "inputs": [
         {
@@ -412,21 +346,21 @@
         "cnr_id": "comfy-core",
         "ver": "0.13.0"
       },
-      "title": "CONTAR · Fotogramas del vídeo"
+      "title": "Contar fotogramas"
     },
     {
       "id": 113,
       "type": "ComfyMathExpression",
       "pos": [
-        1070,
-        455
+        870,
+        340
       ],
       "size": [
-        390,
-        225
+        325,
+        185
       ],
       "flags": {},
-      "order": 11,
+      "order": 8,
       "mode": 0,
       "inputs": [
         {
@@ -471,7 +405,7 @@
         "cnr_id": "comfy-core",
         "ver": "0.13.0"
       },
-      "title": "DURACIÓN AUTO · Fotogramas ÷ FPS",
+      "title": "Calcular duración",
       "widgets_values": [
         "a / b"
       ]
@@ -480,15 +414,15 @@
       "id": 114,
       "type": "CreateVideo",
       "pos": [
-        2180,
-        265
+        2010,
+        180
       ],
       "size": [
-        400,
-        220
+        365,
+        190
       ],
       "flags": {},
-      "order": 12,
+      "order": 9,
       "mode": 0,
       "inputs": [
         {
@@ -525,7 +459,7 @@
         "cnr_id": "comfy-core",
         "ver": "0.13.0"
       },
-      "title": "COMPONER · Vídeo + Foley (nativo)",
+      "title": "Componer vídeo con audio",
       "widgets_values": [
         16
       ]
@@ -534,15 +468,15 @@
       "id": 115,
       "type": "SaveVideo",
       "pos": [
-        2630,
-        265
+        2420,
+        180
       ],
       "size": [
-        440,
-        520
+        390,
+        460
       ],
       "flags": {},
-      "order": 13,
+      "order": 10,
       "mode": 0,
       "inputs": [
         {
@@ -563,7 +497,7 @@
         "cnr_id": "comfy-core",
         "ver": "0.5.1"
       },
-      "title": "GUARDAR · MP4 con sonido nuevo",
+      "title": "Guardar vídeo",
       "widgets_values": [
         "video/MMAUDIO_Foley",
         "auto",
@@ -686,59 +620,14 @@
       "VIDEO"
     ]
   ],
-  "groups": [
-    {
-      "title": "01 · VÍDEO Y TIEMPO (NATIVO)",
-      "bounding": [
-        35,
-        130,
-        1465,
-        850
-      ],
-      "color": "#487e94",
-      "font_size": 24
-    },
-    {
-      "title": "02 · MODELOS MMAUDIO 44K",
-      "bounding": [
-        35,
-        -315,
-        1100,
-        360
-      ],
-      "color": "#8d7e58",
-      "font_size": 24
-    },
-    {
-      "title": "03 · GENERACIÓN DE FOLEY",
-      "bounding": [
-        1115,
-        -315,
-        785,
-        1130
-      ],
-      "color": "#4f9073",
-      "font_size": 24
-    },
-    {
-      "title": "04 · ESCUCHAR Y EXPORTAR",
-      "bounding": [
-        2115,
-        -315,
-        1050,
-        1860
-      ],
-      "color": "#80659e",
-      "font_size": 24
-    }
-  ],
+  "groups": [],
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.53,
+      "scale": 0.62,
       "offset": [
-        25,
-        360
+        20,
+        250
       ]
     }
   },
