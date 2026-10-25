@@ -113,73 +113,77 @@ import re
 
 
 def _parse_dialogue(script):
-    lines = [s.strip() for s in script.splitlines() if s.strip()]
+    """Only user-chosen start times are allowed. Optional end is a hard cap.
+
+    A@8.250: Frase
+    B@12.000-15.000: Respuesta
+    """
+    lines = [(i, s.strip()) for i, s in enumerate(script.splitlines(), 1)
+             if s.strip() and not s.strip().startswith("#")]
     if not lines:
-        raise ValueError("Escribe al menos una frase.")
-    if len(lines) == 1 and not re.match(r"^[ABab](?:@[0-9.]+)?\s*:", lines[0]):
-        lines = ["A: " + lines[0]]  # Keep single-speaker drafts compatible.
+        raise ValueError("Escribe un guion con tiempos, por ejemplo: A@8.250: Hola.")
     if len(lines) > 40:
         raise ValueError("Máximo 40 intervenciones por vídeo.")
     turns = []
-    for number, line in enumerate(lines, 1):
-        m = re.fullmatch(r"([ABab])(?:@(\d+(?:\.\d+)?))?\s*:\s*(.+)", line)
+    last_start = -1.0
+    pattern = (r"([ABab])@(\d+(?:\.\d{1,3})?)"
+               r"(?:-(\d+(?:\.\d{1,3})?))?\s*:\s*(.+)")
+    for number, line in lines:
+        m = re.fullmatch(pattern, line)
         if m is None:
             raise ValueError(
-                f"Diálogo línea {number}: usa 'A: texto', 'B: texto' "
-                "o 'A@12.5: texto'."
+                f"Línea {number}: falta una hora de inicio válida. "
+                "Usa 'A@8.250: frase' o 'B@12.000-16.000: frase'. "
+                "AUDIO_LAB no elegirá el momento de hablar por ti."
             )
-        start = float(m.group(2)) if m.group(2) is not None else None
-        if start is not None and not (0 <= start <= 86400):
+        start = float(m.group(2))
+        window_end = float(m.group(3)) if m.group(3) else None
+        if not (0 <= start <= 86400):
             raise ValueError(f"Inicio inválido en línea {number}.")
-        turns.append({"speaker": m.group(1).upper(), "start": start,
-                      "text": m.group(3).strip()})
+        if window_end is not None and not (start < window_end <= 86400):
+            raise ValueError(f"Final del intervalo inválido en línea {number}.")
+        if start <= last_start:
+            raise ValueError(
+                f"Línea {number}: los comienzos deben ser crecientes. "
+                "Ordena las intervenciones por tiempo."
+            )
+        turns.append({
+            "speaker": m.group(1).upper(),
+            "start": start,
+            "window_end": window_end,
+            "text": m.group(4).strip(),
+        })
+        last_start = start
     return turns
 
 
 def _schedule_turns(turns, durations, video_duration):
-    """Place automatic groups between user-fixed anchors; never cut speech."""
-    minimum_gap = 0.12
-    position = 0.0
-    index = 0
-    total = len(turns)
-    while index < total:
-        if turns[index]["start"] is not None:
-            start = turns[index]["start"]
-            if start + 1e-4 < position + (minimum_gap if index > 0 else 0):
-                raise ValueError(f"El diálogo {index+1} se solapa con el anterior.")
-            end = start + durations[index]
-            if end > video_duration + 1e-4:
-                raise ValueError(
-                    f"El diálogo {index+1} termina en {end:.2f}s y "
-                    f"el vídeo acaba en {video_duration:.2f}s."
-                )
-            turns[index]["start"] = start
-            turns[index]["end"] = end
-            position = end
-            index += 1
-            continue
-
-        next_fixed = index
-        while next_fixed < total and turns[next_fixed]["start"] is None:
-            next_fixed += 1
-        limit = (turns[next_fixed]["start"] if next_fixed < total
-                 else video_duration)
-        count = next_fixed - index
-        spoken = sum(durations[index:next_fixed])
-        gap = (limit - position - spoken) / (count + 1)
-        if gap < minimum_gap - 1e-4:
+    """Respect exact user timestamps. Never distribute, slide or truncate speech."""
+    prev_end = 0.0
+    epsilon = 1e-4
+    for index, (turn, spoken_duration) in enumerate(zip(turns, durations), 1):
+        start = float(turn["start"])
+        end = start + float(spoken_duration)
+        limit = turn.get("window_end")
+        if start < prev_end - epsilon:
             raise ValueError(
-                f"Las frases {index+1}-{next_fixed} no caben antes de "
-                f"{limit:.2f}s. Acorta el texto o cambia el vídeo."
+                f"Frase {index}: empieza a {start:.3f}s pero "
+                f"la intervención anterior termina a {prev_end:.3f}s. "
+                "No se moverán las frases automáticamente."
             )
-        for i in range(index, next_fixed):
-            start = position + gap
-            end = start + durations[i]
-            turns[i]["start"] = start
-            turns[i]["end"] = end
-            position = end
-        index = next_fixed
-
+        if limit is not None and end > float(limit) + epsilon:
+            raise ValueError(
+                f"Frase {index}: el audio termina en {end:.3f}s, fuera de "
+                f"tu intervalo {start:.3f}-{float(limit):.3f}s. "
+                "Acorta el texto o amplía el intervalo. No se acelerará la voz."
+            )
+        if end > video_duration + epsilon:
+            raise ValueError(
+                f"Frase {index}: termina en {end:.3f}s pero el vídeo acaba "
+                f"en {video_duration:.3f}s. No se recortará el diálogo."
+            )
+        turn["end"] = end
+        prev_end = end
     return turns
 
 
@@ -191,7 +195,7 @@ class AudioLabDialoguePlanner:
             "required": {
                 "reference_a": ("AUDIO",),
                 "video_duration": ("FLOAT", {"default": 20.0, "min": 0.1, "max": 86400.0}),
-                "script": ("STRING", {"multiline": True, "default": "A: ¿Has oído eso?\nB: Sí, lo he oído."}),
+                "script": ("STRING", {"multiline": True, "default": "A@8.000: ¿Has oído eso?\nB@12.000: Sí, lo he oído."}),
                 "transcript_a": ("STRING", {"multiline": True, "default": ""}),
                 "transcript_b": ("STRING", {"multiline": True, "default": ""}),
                 "language": (["Spanish", "English", "Auto"], {"default": "Spanish"}),
@@ -212,6 +216,14 @@ class AudioLabDialoguePlanner:
         if not (0.1 <= duration <= 86400):
             raise ValueError("La duración del vídeo no es válida.")
         turns = _parse_dialogue(script)
+        for index, turn in enumerate(turns, 1):
+            if turn["start"] >= duration or (
+                turn.get("window_end") is not None and turn["window_end"] > duration
+            ):
+                raise ValueError(
+                    f"Frase {index}: el tiempo elegido queda fuera del "
+                    f"vídeo de {duration:.3f}s."
+                )
         if any(t["speaker"] == "B" for t in turns) and reference_b is None:
             raise ValueError(
                 "El guion contiene frases de B. Conecta una muestra de voz B "
@@ -290,17 +302,17 @@ class AudioLabDialoguePlanner:
                       "B": torch.zeros((1, 1, length), dtype=torch.float32)}
             for turn, clip in zip(turns, clips):
                 offset = round(turn["start"] * sample_rate)
-                if offset + clip.numel() > length:
-                    # Rounding to output sample boundaries, never truncate speech.
-                    offset = length - clip.numel()
-                if offset < 0:
-                    raise ValueError("La frase generada supera la duración del vídeo.")
+                if offset < 0 or offset + clip.numel() > length:
+                    raise ValueError(
+                        "El audio no cabe en el vídeo al redondear muestras; "
+                        "AUDIO_LAB no moverá ni recortará la voz."
+                    )
                 tracks[turn["speaker"]][0, 0, offset:offset + clip.numel()] += clip
             mixed = (tracks["A"] + tracks["B"]).clamp(-1, 1)
             timeline = json.dumps({
                 "video_duration": duration, "sample_rate": sample_rate,
                 "turns": turns,
-                "status": "audio_only_no_lip_sync",
+                "status": "timed_voice_ready_for_lip_sync",
             }, ensure_ascii=False, indent=2)
             print("AUDIO_LAB · Plan de diálogos:\n" + timeline, flush=True)
             def as_audio(wave):
