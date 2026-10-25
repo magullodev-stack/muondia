@@ -122,8 +122,8 @@ foreach ($required in @(
 }
 & $python -m py_compile $worker
 if ($LASTEXITCODE -ne 0) { throw "El lip-sync worker tiene error de sintaxis." }
-& $python -c "import torch, cv2, mediapipe, soundfile;print('LIP-SYNC CUDA:', torch.cuda.is_available());print('GPU:',torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'ninguna')"
-if ($LASTEXITCODE -ne 0) { throw "No se cargan los componentes del motor aislado." }
+& $python -c "import torch, cv2, mediapipe, soundfile, mmcv, mmdet, mmpose; assert torch.cuda.is_available(), 'CUDA no disponible en MuseTalk'; print('LIP-SYNC CUDA:', torch.cuda.is_available()); print('GPU:',torch.cuda.get_device_name(0))"
+if ($LASTEXITCODE -ne 0) { throw "CUDA o dependencias del lip-sync no estan listas en el entorno aislado." }
 
 if (Test-Path -LiteralPath $workerDest) {
     Copy-Item -LiteralPath $workerDest -Destination ($workerDest+".bak") -Force
