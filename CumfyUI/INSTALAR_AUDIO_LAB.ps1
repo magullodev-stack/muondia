@@ -1,4 +1,5 @@
 # AUDIO_LAB: safe Windows Portable setup.
+# CPU operation is fully supported. CUDA is OPTIONAL.
 # Download audio_lab_nodes.py and audio_lab_tts_worker.py first from
 # the authenticated GitHub repo dev/CumfyUI into your Downloads folder.
 # This script does NOT change ComfyUI's embedded Python packages.
@@ -84,18 +85,8 @@ if ($LASTEXITCODE -ne 0) { throw "Error instalando Qwen3-TTS en AudioLab\.venv" 
 & $python -c "import torch; print('CUDA disponible en AudioLab:',torch.cuda.is_available()); print('PyTorch:',torch.__version__); print('CUDA runtime:',torch.version.cuda)"
 if ($LASTEXITCODE -ne 0) { throw "No se pudo importar PyTorch en el entorno de AudioLab" }
 
-# PyPI puede instalar PyTorch CPU por defecto en Windows.
-# Corregir SOLO el Python aislado de AUDIO_LAB con la pareja torch/torchaudio CUDA.
-& $python -c "import torch,sys; sys.exit(0 if torch.cuda.is_available() else 2)"
-if ($LASTEXITCODE -ne 0) {
-    Write-Host "PyTorch CPU detectado en AudioLab. Instalando variante CUDA 12.8 (sin tocar ComfyUI)..." -ForegroundColor Yellow
-    & $python -m pip install --upgrade --force-reinstall --no-deps --no-cache-dir torch torchaudio --index-url https://download.pytorch.org/whl/cu128
-    if ($LASTEXITCODE -ne 0) {
-        throw "No se pudo instalar PyTorch CUDA en AudioLab. Comprueba el controlador NVIDIA con nvidia-smi."
-    }
-}
-& $python -c "import torch; print('PyTorch:',torch.__version__); print('CUDA runtime:',torch.version.cuda); print('CUDA disponible en AudioLab:',torch.cuda.is_available()); print('GPU:',torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'No detectada')"
-if ($LASTEXITCODE -ne 0) { throw "Error comprobando PyTorch CUDA en AudioLab." }
-& $python -c "import torch,sys; sys.exit(0 if torch.cuda.is_available() else 2)"
-if ($LASTEXITCODE -ne 0) { throw "PyTorch CUDA instalado, pero NVIDIA no aparece disponible. Ejecuta nvidia-smi para comprobar el controlador." }
-Write-Host "AUDIO_LAB preparado. Reinicia ComfyUI e importa AUDIO_LAB.json." -ForegroundColor Green
+# CPU es suficiente para iniciar AUDIO_LAB. GPU/CUDA son opcionales.
+# NO forzar cambios en torch o torchaudio: pueden romper la instalacion aislada.
+& $python -c "import torch; print('AUDIO_LAB: dispositivo inicial', 'GPU' if torch.cuda.is_available() else 'CPU'); print('PyTorch:',torch.__version__)"
+if ($LASTEXITCODE -ne 0) { throw "PyTorch no funciona en el entorno de AUDIO_LAB" }
+Write-Host "AUDIO_LAB preparado para CPU; GPU sera opcional. Reinicia ComfyUI e importa AUDIO_LAB.json." -ForegroundColor Green
