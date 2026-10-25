@@ -38,7 +38,7 @@
     },
     {
       "id": 92,
-      "type": "MuondiaMMAudioSyncedSampler",
+      "type": "MMAudioFPSSyncSampler",
       "pos": [
         1325,
         -155
@@ -97,7 +97,7 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "MuondiaMMAudioSyncedSampler"
+        "Node name for S&R": "MMAudioFPSSyncSampler"
       },
       "widgets_values": [
         6,
