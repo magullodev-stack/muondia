@@ -233,7 +233,7 @@
       "title": "GUÍA · VIDEO",
       "properties": {},
       "widgets_values": [
-        "## 01 · Vídeo de LTX\n\n1. En **CARGAR VÍDEO · ComfyUI nativo**, escoge el MP4 de LTX-2.5.\n2. `Get Video Components` extrae los fotogramas y los FPS del vídeo.\n3. `Get Image Size` cuenta los fotogramas y `Math Expression` calcula **duración = fotogramas / FPS**.\n4. La duración se conecta a MMAudio y los FPS al vídeo final sin introducirlos manualmente.\n\n**El audio original se sustituye, no se mezcla.** La interfaz del cargador nativo depende de la versión instalada de ComfyUI; no se garantiza botón para limpiar el campo."
+        "## 01 · Vídeo sin sonido de LTX\n\n1. Genera y exporta el **MP4 sin audio** desde LTX-2.5.\n2. Carga ese MP4 en **VÍDEO · Cargar MP4 (nativo de ComfyUI)**.\n3. `Get Video Components` extrae los fotogramas y FPS; `Get Image Size` cuenta los fotogramas y `Math Expression` obtiene **duración = fotogramas / FPS**.\n4. MMAudio genera **una nueva pista de sonido a partir del vídeo y del prompt**.\n5. La rama de salida une los fotogramas del vídeo con ese Foley.\n\n**Entrada: vídeo sin sonido. Salida: el mismo contenido visual con audio generado por MMAudio.**"
       ]
     },
     {
@@ -277,7 +277,7 @@
       "title": "GUÍA · SALIDAS",
       "properties": {},
       "widgets_values": [
-        "## 03 · Salidas\n\n- **ESCUCHA**: audio de MMAudio sin mezclar.\n- **FLAC**: fichero separado en `output/audio/`.\n- **MP4**: vídeo + Foley guardado con el nodo **Save Video nativo** en `output/video/`.\n\nNo mezcla el audio anterior de LTX.\n\n**Licencia:** comprueba las condiciones de los pesos MMAudio antes de usarlos comercialmente."
+        "## 03 · Escucha y exportación\n\n- **ESCUCHA**: previsualiza el Foley generado por MMAudio.\n- **FLAC**: guarda esa pista de sonido independiente en `output/audio/`.\n- **MP4**: guarda el vídeo de entrada junto con el Foley recién generado en `output/video/`.\n\n**Este workflow parte de un vídeo sin audio.** No necesita ninguna pista sonora de LTX ni intenta recuperarla.\n\n**Licencia:** verifica las condiciones de los pesos MMAudio antes de usarlos comercialmente."
       ]
     },
     {
