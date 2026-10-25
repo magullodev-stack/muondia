@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AUDIO_LAB · Control temporal A/B</title>
+<style>
+:root{color-scheme:dark;--bg:#111720;--panel:#202a39;--line:#43506a;--fg:#f1f5fb;--sub:#a7b5c7;--a:#65b5ff;--b:#ffbf78}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,Segoe UI,sans-serif}
+main{max-width:1150px;margin:0 auto;padding:20px}h1{font-size:24px}h2{font-size:18px;margin:2px 0 12px}
+section{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin:16px 0;padding:18px}
+small,.muted{color:var(--sub)}video{background:#000;width:100%;max-height:500px;border-radius:7px;display:block}
+input,textarea,select,button{font:inherit}input[type=file]{max-width:100%}input[type=number],textarea,select{color:var(--fg);border-radius:6px;border:1px solid var(--line);padding:7px;background:#111a27;width:100%}
+input[type=number]{font-variant-numeric:tabular-nums}button{border-radius:7px;background:#32435c;border:1px solid #5c7899;color:var(--fg);padding:8px 12px;cursor:pointer}
+button:hover{background:#405979}button.primary{background:#17649f}button:disabled{opacity:.4}
+.actions{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin:12px 0}
+.big{font-size:22px;font-weight:700;font-variant-numeric:tabular-nums}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+label{display:block;font-size:13px;color:var(--sub)}
+.track{height:65px;position:relative;border:1px solid var(--line);border-radius:6px;margin:5px 0 14px;background:repeating-linear-gradient(90deg,#1a2635,#1a2635 calc(10% - 1px),#3b4b60 calc(10% - 1px),#3b4b60 10%)}
+.bar{position:absolute;top:15px;height:34px;min-width:4px;padding:6px;font-size:12px;font-weight:bold;color:#17212f;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:ew-resize;touch-action:none;border-radius:5px}
+.bar.A{background:var(--a)}.bar.B{background:var(--b)}
+.bar .handle{position:absolute;right:0;top:0;bottom:0;width:12px;background:#0004;cursor:ew-resize}
+.playhead{position:absolute;top:0;bottom:0;width:2px;background:#f8f3a4;pointer-events:none;z-index:3}
+.ruler{display:flex;justify-content:space-between;color:var(--sub);font-size:12px}
+.entry{border:1px solid var(--line);border-radius:8px;padding:13px;margin:8px 0}
+.entry-grid{display:grid;grid-template-columns:80px 150px 150px 1fr;gap:10px}
+.entry textarea{height:66px}#output{font:14px/1.6 Consolas,monospace;min-height:155px;resize:vertical}
+.ok{color:#c7eac5}.error{color:#ffc0c0}
+@media(max-width:800px){.row,.entry-grid{grid-template-columns:1fr}}
+</style></head><body><main>
+<h1>AUDIO_LAB · Control temporal de diálogos</h1>
+<p class="muted">Abre tu vídeo terminado, detente en el instante exacto y marca cuándo debe hablar A o B. No se reparte nada automáticamente. Editor 100 % local, sin subida del vídeo.</p>
+<section><h2>1 · Visualiza el vídeo y marca las intervenciones</h2>
+<input type="file" id="videoFile" accept="video/*">
+<div class="row"><div>
+<video id="video" controls playsinline></video>
+<div class="actions"><button id="prevFrame">−1 fotograma</button><button id="nextFrame">+1 fotograma</button><strong class="big" id="clock">00:00.000</strong></div>
+</div><div>
+<label for="fps">FPS (para avanzar un fotograma)</label><input id="fps" type="number" value="25" min="1" max="240" step=".001">
+<p>Por ejemplo: A está bebiendo. Reproduce el vídeo, pausa cuando deja de beber y pulsa «A empieza aquí». El inicio queda fijado al milisegundo.</p>
+<div class="actions"><button class="primary" id="markA">A empieza aquí</button><button class="primary" id="markB">B empieza aquí</button></div>
+<p class="muted">Puedes marcar también un límite final para reservar un intervalo y evitar que el diálogo se extienda sobre otra acción. Si la frase dura más que ese intervalo, AUDIO_LAB mostrará un error y no alterará el tiempo elegido.</p>
+</div></div></section>
+<section><h2>2 · Ajuste visual de tiempos</h2>
+<div class="ruler" id="ruler"></div>
+<strong style="color:var(--a)">Personaje A</strong><div class="track" id="trackA"></div>
+<strong style="color:var(--b)">Personaje B</strong><div class="track" id="trackB"></div>
+<small>Haz clic en la pista para buscar un momento del vídeo. Arrastra un bloque para cambiar su inicio; arrastra su borde derecho para ajustar el límite final. También puedes escribir milisegundos en los campos de abajo.</small>
+<p id="status" class="muted"></p></section>
+<section><h2>3 · Edita el guion</h2><div id="entries"></div>
+<div class="actions"><button id="newA">+ Frase A</button><button id="newB">+ Frase B</button></div></section>
+<section><h2>4 · Copia a ComfyUI</h2>
+<p>Copia el resultado en el campo <strong>script</strong> del nodo AUDIO_LAB.</p>
+<textarea id="output" readonly spellcheck="false"></textarea>
+<div class="actions"><button class="primary" id="copy">Copiar guion</button><span class="muted" id="copyResult"></span></div>
+<p class="muted">Los tiempos indican cuándo debe empezar a hablar cada personaje. La duración real se mide después de generar la voz. El lip-sync sigue el audio; este editor no altera la boca ni analiza acciones automáticamente.</p>
+</section></main>
+<script>
+(function(){
+"use strict";
+var $=function(id){return document.getElementById(id)}, v=$("video"), data=[], seq=0, blob=null, drag=null;
+function dur(){return isFinite(v.duration)&&v.duration>0?v.duration:20}
+function fix(n){return (Math.round(n*1000)/1000).toFixed(3)}
+function clamp(n,a,b){return Math.max(a,Math.min(b,n))}
+function clock(t){var m=Math.floor(t/60),s=(t-m*60).toFixed(3);return String(m).padStart(2,"0")+":"+s.padStart(6,"0")}
+function node(tag,cls,txt){var el=document.createElement(tag);if(cls)el.className=cls;if(txt!==undefined)el.textContent=txt;return el}
+function add(who,when){data.push({id:++seq,who:who,start:Number(fix(clamp(when,0,dur()))),end:null,text:""});render()}
+function update(){
+ var lines=data.slice().sort(function(a,b){return a.start-b.start||a.id-b.id});
+ var problems=[],output=[];
+ data.forEach(function(x){
+  if(!x.text.trim())problems.push("Falta texto en una intervención.");
+  if(x.start>=dur())problems.push("Una frase empieza fuera del vídeo.");
+  if(x.end!==null&&x.end<=x.start)problems.push("El límite final debe ser posterior al inicio.");
+ });
+ for(var i=1;i<lines.length;i++)if(lines[i].start<=lines[i-1].start)problems.push("Los inicios de dos frases deben ser distintos.");
+ lines.forEach(function(x){if(!x.text.trim())return;var entry=x.who+"@"+fix(x.start);if(x.end!==null&&x.end>x.start)entry+="-"+fix(x.end);output.push(entry+": "+x.text.replace(/\s+/g," ").trim())});
+ $("output").value=output.join("\n");
+ $("status").textContent=problems.length?problems.join(" "):"Marcadores definidos. La comprobación final de duración se realiza al generar la voz.";
+ $("status").className=problems.length?"error":"ok";
+ $("copy").disabled=!!problems.length||!output.length;
+}
+function inputBox(label,initial,fn){
+ var wrap=node("div"),lab=node("label",null,label),inp=node("input");
+ inp.type="number";inp.min="0";inp.step="0.001";inp.value=initial===null?"":fix(initial);inp.placeholder="Opcional";
+ inp.onchange=function(){fn(inp.value)};
+ wrap.append(lab,inp);return wrap
+}
+function renderEntries(){
+ var area=$("entries");area.replaceChildren();
+ data.forEach(function(x){
+  var entry=node("div","entry"),top=node("div","actions"),title=node("strong",null,"Personaje "+x.who),del=node("button",null,"Eliminar");
+  del.onclick=function(){data=data.filter(function(z){return z.id!==x.id});render()};
+  top.append(title,del);entry.append(top);
+  var row=node("div","entry-grid");
+  var person=node("div"),pl=node("label",null,"Personaje"),select=node("select");
+  ["A","B"].forEach(function(w){var op=node("option",null,w);op.value=w;select.append(op)});
+  select.value=x.who;select.onchange=function(){x.who=select.value;render()};
+  person.append(pl,select);row.append(person);
+  row.append(inputBox("Comienza (segundos)",x.start,function(t){x.start=Number(fix(clamp(Number(t)||0,0,dur())));if(x.end!==null&&x.end<=x.start)x.end=null;render()}));
+  row.append(inputBox("Límite final (opcional)",x.end,function(t){x.end=t.trim()===""?null:Number(fix(clamp(Number(t),0,dur())));render()}));
+  var speech=node("div"),l=node("label",null,"Frase"),textarea=node("textarea");textarea.value=x.text;textarea.oninput=function(){x.text=textarea.value;update();draw()};speech.append(l,textarea);row.append(speech);
+  entry.append(row);
+  var buttons=node("div","actions"),start=node("button",null,"Inicio = fotograma actual"),end=node("button",null,"Fin = fotograma actual"),clear=node("button",null,"Quitar límite final");
+  start.onclick=function(){x.start=Number(fix(v.currentTime||0));if(x.end!==null&&x.end<=x.start)x.end=null;render()};
+  end.onclick=function(){x.end=Number(fix(v.currentTime||0));render()};
+  clear.onclick=function(){x.end=null;render()};
+  buttons.append(start,end,clear);entry.append(buttons);area.append(entry);
+ });
+}
+function draw(){
+ var max=dur(),time=Number(v.currentTime)||0;
+ $("ruler").replaceChildren();for(var k=0;k<=5;k++)$("ruler").append(node("span",null,clock(max*k/5)));
+ ["A","B"].forEach(function(who){
+  var track=$("track"+who);track.replaceChildren();
+  var head=node("div","playhead");head.style.left=(time/max*100)+"%";track.append(head);
+  data.filter(function(x){return x.who===who}).forEach(function(x){
+   var b=node("div","bar "+who,x.text||who+" · "+fix(x.start)+" s");
+   b.style.left=(x.start/max*100)+"%";
+   b.style.width=Math.max(.6,((x.end===null?Math.min(max,x.start+.30):x.end)-x.start)/max*100)+"%";
+   b.title=who+" "+fix(x.start)+" s";
+   if(x.end!==null){var handle=node("span","handle");b.append(handle)}
+   b.onpointerdown=function(ev){ev.preventDefault();ev.stopPropagation();var r=track.getBoundingClientRect();drag={id:x.id,x:ev.clientX,width:r.width,start:x.start,end:x.end,resize:ev.target.classList.contains("handle")};b.setPointerCapture(ev.pointerId)};
+   b.onpointermove=function(ev){
+    if(!drag||drag.id!==x.id)return;
+    var change=Math.round((ev.clientX-drag.x)/drag.width*max*1000)/1000;
+    if(drag.resize){
+     x.end=Number(fix(clamp((drag.end===null?drag.start+.5:drag.end)+change,x.start+.001,max)));
+    }else{
+     var originalSpan=drag.end===null?0:drag.end-drag.start;
+     x.start=Number(fix(clamp(drag.start+change,0,max-originalSpan)));
+     if(drag.end!==null)x.end=Number(fix(x.start+originalSpan));
+    }
+    b.style.left=(x.start/max*100)+"%";
+    b.style.width=Math.max(.6,((x.end===null?Math.min(max,x.start+.30):x.end)-x.start)/max*100)+"%";
+    update();
+   };
+   b.onpointerup=function(){if(drag&&drag.id===x.id){drag=null;render()}};
+   b.onpointercancel=function(){if(drag&&drag.id===x.id){drag=null;render()}};
+   track.append(b);
+  });
+  track.onclick=function(ev){if(ev.target!==track)return;var box=track.getBoundingClientRect();v.currentTime=clamp((ev.clientX-box.left)/box.width*max,0,max)};
+ });
+}
+function render(){renderEntries();update();draw()}
+$("videoFile").onchange=function(){if(blob)URL.revokeObjectURL(blob);if(!this.files||!this.files[0])return;blob=URL.createObjectURL(this.files[0]);v.src=blob;v.load()};
+$("markA").onclick=function(){add("A",v.currentTime||0)};$("markB").onclick=function(){add("B",v.currentTime||0)};
+$("newA").onclick=function(){add("A",0)};$("newB").onclick=function(){add("B",0)};
+$("prevFrame").onclick=function(){v.pause();v.currentTime=clamp((v.currentTime||0)-1/(Number($("fps").value)||25),0,dur())};
+$("nextFrame").onclick=function(){v.pause();v.currentTime=clamp((v.currentTime||0)+1/(Number($("fps").value)||25),0,dur())};
+v.ontimeupdate=function(){$("clock").textContent=clock(v.currentTime||0);draw()};
+v.onloadedmetadata=render;
+$("copy").onclick=async function(){try{await navigator.clipboard.writeText($("output").value);$("copyResult").textContent="Copiado. Pégalo en script de AUDIO_LAB."}catch(err){$("output").focus();$("output").select();$("copyResult").textContent="Pulsa Ctrl+C y pégalo en script."}};
+window.onbeforeunload=function(){if(blob)URL.revokeObjectURL(blob)};
+render();
+})();
+</script></body></html>
