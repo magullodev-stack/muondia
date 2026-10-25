@@ -1,6 +1,6 @@
 {
   "last_node_id": 115,
-  "last_link_id": 185,
+  "last_link_id": 186,
   "nodes": [
     {
       "id": 85,
@@ -38,14 +38,14 @@
     },
     {
       "id": 92,
-      "type": "MMAudioSampler",
+      "type": "MuondiaMMAudioSyncedSampler",
       "pos": [
         1325,
         -155
       ],
       "size": [
-        600,
-        570
+        640,
+        635
       ],
       "flags": {},
       "order": 1,
@@ -74,6 +74,14 @@
           "widget": {
             "name": "duration"
           }
+        },
+        {
+          "name": "source_fps",
+          "type": "FLOAT",
+          "link": 186,
+          "widget": {
+            "name": "source_fps"
+          }
         }
       ],
       "outputs": [
@@ -89,10 +97,11 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "MMAudioSampler"
+        "Node name for S&R": "MuondiaMMAudioSyncedSampler"
       },
       "widgets_values": [
         6,
+        24,
         25,
         4.5,
         7,
@@ -102,7 +111,7 @@
         false,
         true
       ],
-      "title": "MMAudio · Generar audio"
+      "title": "MMAudio · Generar audio (FPS sincronizados)"
     },
     {
       "id": 98,
@@ -179,14 +188,14 @@
     },
     {
       "id": 106,
-      "type": "SaveAudio",
+      "type": "SaveAudioAdvanced",
       "pos": [
         2380,
         -155
       ],
       "size": [
-        360,
-        120
+        365,
+        145
       ],
       "flags": {},
       "order": 4,
@@ -206,12 +215,13 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "SaveAudio",
+        "Node name for S&R": "SaveAudioAdvanced",
         "cnr_id": "comfy-core"
       },
       "title": "Guardar audio FLAC",
       "widgets_values": [
-        "audio/MMAUDIO_Foley"
+        "audio/MMAUDIO_Foley",
+        "flac"
       ]
     },
     {
@@ -290,7 +300,8 @@
           "type": "FLOAT",
           "links": [
             180,
-            182
+            182,
+            186
           ]
         }
       ],
@@ -618,6 +629,14 @@
       115,
       0,
       "VIDEO"
+    ],
+    [
+      186,
+      111,
+      2,
+      92,
+      4,
+      "FLOAT"
     ]
   ],
   "groups": [],
