@@ -1,13 +1,13 @@
 {
   "id": "d9ac44b0-2f2d-4a95-8dd2-44cd82200a80",
-  "revision": 12,
+  "revision": 13,
   "last_node_id": 950,
   "last_link_id": 3026,
   "nodes": [
     {
       "id": 200,
       "type": "f2fdebf6-dfaf-43b6-9eb2-7f70613cfdc1",
-      "title": "01 · Z-IMAGE · GENERAR O IMG2IMG",
+      "title": "Z-IMAGE · Generación",
       "pos": [
         80,
         120
@@ -23,7 +23,7 @@
         {
           "name": "text",
           "type": "STRING",
-          "label": "prompt",
+          "label": "Prompt",
           "link": null,
           "widget": {
             "name": "text"
@@ -32,7 +32,7 @@
         {
           "name": "width",
           "type": "INT",
-          "label": "width",
+          "label": "Ancho (px)",
           "link": null,
           "widget": {
             "name": "width"
@@ -41,7 +41,7 @@
         {
           "name": "height",
           "type": "INT",
-          "label": "height",
+          "label": "Alto (px)",
           "link": null,
           "widget": {
             "name": "height"
@@ -50,7 +50,7 @@
         {
           "name": "seed",
           "type": "INT",
-          "label": "seed",
+          "label": "Semilla",
           "link": null,
           "widget": {
             "name": "seed"
@@ -59,13 +59,13 @@
         {
           "name": "init_image",
           "type": "IMAGE",
-          "label": "Fotografía o boceto inicial",
+          "label": "Imagen inicial",
           "link": 3000
         },
         {
           "name": "use_img2img",
           "type": "BOOLEAN",
-          "label": "IMG2IMG · Imagen inicial ON / Texto solo OFF",
+          "label": "Usar imagen inicial",
           "link": null,
           "widget": {
             "name": "use_img2img"
@@ -74,7 +74,7 @@
         {
           "name": "strength_pct",
           "type": "INT",
-          "label": "Fuerza de transformación (10–100 %)",
+          "label": "Transformación (%)",
           "link": null,
           "widget": {
             "name": "strength_pct"
@@ -105,7 +105,7 @@
     {
       "id": 201,
       "type": "LoadImage",
-      "title": "Z-IMAGE · Boceto inicial (solo si activas img2img)",
+      "title": "Imagen inicial · Z-Image",
       "pos": [
         80,
         575
@@ -143,7 +143,7 @@
     {
       "id": 202,
       "type": "PrimitiveBoolean",
-      "title": "Z-IMAGE · ENVIAR ESTE RESULTADO A ACABADO",
+      "title": "Elegir resultado de Z-Image",
       "pos": [
         80,
         915
@@ -185,7 +185,7 @@
     {
       "id": 300,
       "type": "1fd98b34-59ef-4d8d-afbf-58bdd7a1cd35",
-      "title": "02 · FLUX · GENERAR O IMG2IMG",
+      "title": "FLUX · Generación",
       "pos": [
         730,
         120
@@ -201,7 +201,7 @@
         {
           "name": "text",
           "type": "STRING",
-          "label": "prompt",
+          "label": "Prompt",
           "link": null,
           "widget": {
             "name": "text"
@@ -210,7 +210,7 @@
         {
           "name": "width",
           "type": "INT",
-          "label": "width",
+          "label": "Ancho (px)",
           "link": null,
           "widget": {
             "name": "width"
@@ -219,7 +219,7 @@
         {
           "name": "height",
           "type": "INT",
-          "label": "height",
+          "label": "Alto (px)",
           "link": null,
           "widget": {
             "name": "height"
@@ -228,7 +228,7 @@
         {
           "name": "seed",
           "type": "INT",
-          "label": "seed",
+          "label": "Semilla",
           "link": null,
           "widget": {
             "name": "seed"
@@ -237,13 +237,13 @@
         {
           "name": "init_image",
           "type": "IMAGE",
-          "label": "Fotografía o boceto inicial",
+          "label": "Imagen inicial",
           "link": 3001
         },
         {
           "name": "use_img2img",
           "type": "BOOLEAN",
-          "label": "IMG2IMG · Imagen inicial ON / Texto solo OFF",
+          "label": "Usar imagen inicial",
           "link": null,
           "widget": {
             "name": "use_img2img"
@@ -252,7 +252,7 @@
         {
           "name": "strength_pct",
           "type": "INT",
-          "label": "Fuerza de transformación (10–100 %)",
+          "label": "Transformación (%)",
           "link": null,
           "widget": {
             "name": "strength_pct"
@@ -283,7 +283,7 @@
     {
       "id": 301,
       "type": "LoadImage",
-      "title": "FLUX · Boceto inicial (solo si activas img2img)",
+      "title": "Imagen inicial · FLUX",
       "pos": [
         730,
         575
@@ -321,7 +321,7 @@
     {
       "id": 302,
       "type": "PrimitiveBoolean",
-      "title": "FLUX · ENVIAR ESTE RESULTADO A ACABADO",
+      "title": "Elegir resultado de FLUX",
       "pos": [
         730,
         915
@@ -363,7 +363,7 @@
     {
       "id": 400,
       "type": "9fa6af8b-8c99-4446-8681-bccf8ba4ea54",
-      "title": "03 · QWEN · EDITAR CON REFERENCIAS",
+      "title": "QWEN · Edición",
       "pos": [
         1380,
         120
@@ -379,25 +379,25 @@
         {
           "name": "image1",
           "type": "IMAGE",
-          "label": "image 1",
+          "label": "Imagen principal",
           "link": 3002
         },
         {
           "name": "image2",
           "type": "IMAGE",
-          "label": "image 2 (optional)",
+          "label": "Referencia 2",
           "link": 3005
         },
         {
           "name": "image3",
           "type": "IMAGE",
-          "label": "image 3 (optional)",
+          "label": "Referencia 3",
           "link": 3008
         },
         {
           "name": "prompt",
           "type": "STRING",
-          "label": "prompt",
+          "label": "Prompt",
           "link": null,
           "widget": {
             "name": "prompt"
@@ -406,7 +406,7 @@
         {
           "name": "width",
           "type": "INT",
-          "label": "ANCHO SALIDA · px",
+          "label": "Ancho (px)",
           "link": null,
           "widget": {
             "name": "width"
@@ -415,7 +415,7 @@
         {
           "name": "height",
           "type": "INT",
-          "label": "ALTO SALIDA · px",
+          "label": "Alto (px)",
           "link": null,
           "widget": {
             "name": "height"
@@ -453,7 +453,7 @@
     {
       "id": 401,
       "type": "LoadImage",
-      "title": "QWEN · Imagen principal (obligatoria)",
+      "title": "Imagen principal · Qwen",
       "pos": [
         1380,
         620
@@ -491,7 +491,7 @@
     {
       "id": 402,
       "type": "LoadImage",
-      "title": "QWEN · Referencia 2 (opcional)",
+      "title": "Referencia 2 · Qwen",
       "pos": [
         1380,
         1010
@@ -529,7 +529,7 @@
     {
       "id": 403,
       "type": "LoadImage",
-      "title": "QWEN · Referencia 3 (opcional)",
+      "title": "Referencia 3 · Qwen",
       "pos": [
         1725,
         1010
@@ -567,7 +567,7 @@
     {
       "id": 404,
       "type": "PrimitiveBoolean",
-      "title": "QWEN · USAR REFERENCIA 2",
+      "title": "Incluir referencia 2",
       "pos": [
         1380,
         1280
@@ -609,7 +609,7 @@
     {
       "id": 405,
       "type": "PrimitiveBoolean",
-      "title": "QWEN · USAR REFERENCIA 3",
+      "title": "Incluir referencia 3",
       "pos": [
         1725,
         1280
@@ -749,7 +749,7 @@
     {
       "id": 501,
       "type": "LoadImage",
-      "title": "04 · CARGAR FOTO PARA SOLO REFINAR",
+      "title": "Imagen externa · Refinado directo",
       "pos": [
         2390,
         120
@@ -789,7 +789,7 @@
     {
       "id": 502,
       "type": "PrimitiveBoolean",
-      "title": "FOTO EXTERNA · ENVIAR A ACABADO SIN GENERAR",
+      "title": "Elegir imagen externa",
       "pos": [
         2390,
         540
@@ -1147,13 +1147,13 @@
         {
           "name": "image",
           "type": "IMAGE",
-          "label": "IMAGEN ELEGIDA (collage o externa)",
+          "label": "Imagen final",
           "link": 3018
         },
         {
           "name": "value",
           "type": "INT",
-          "label": "Escala final × (2, 3, 4, 8)",
+          "label": "Ampliación (×)",
           "widget": {
             "name": "value"
           },
@@ -1162,7 +1162,7 @@
         {
           "name": "model_name",
           "type": "COMBO",
-          "label": "Modelo fotográfico de mejora",
+          "label": "Modelo de ampliación",
           "widget": {
             "name": "model_name"
           },
@@ -1171,7 +1171,7 @@
         {
           "name": "value_1",
           "type": "BOOLEAN",
-          "label": "UPSCALE · Sí / No",
+          "label": "Ampliar imagen",
           "widget": {
             "name": "value_1"
           },
@@ -1180,7 +1180,7 @@
         {
           "name": "value_2",
           "type": "BOOLEAN",
-          "label": "QUITAR FONDO · Sí / No",
+          "label": "Quitar fondo",
           "widget": {
             "name": "value_2"
           },
@@ -1189,7 +1189,7 @@
         {
           "name": "filename_prefix",
           "type": "STRING",
-          "label": "Carpeta y nombre PNG",
+          "label": "Guardar como",
           "widget": {
             "name": "filename_prefix"
           },
@@ -1198,7 +1198,7 @@
         {
           "name": "mask",
           "type": "MASK",
-          "label": "MÁSCARA ALFA DE LA FUENTE",
+          "label": "Transparencia original",
           "link": 3025
         }
       ],
@@ -1211,7 +1211,7 @@
           ]
         }
       ],
-      "title": "05 · ACABADO · Upscale / Quitar fondo / Guardar PNG",
+      "title": "ACABADO · Mejorar y guardar PNG",
       "properties": {
         "cnr_id": "comfy-core",
         "previewExposures": []
@@ -1234,7 +1234,7 @@
     {
       "id": 950,
       "type": "PreviewImage",
-      "title": "06 · RESULTADO",
+      "title": "Vista previa · Imagen final",
       "pos": [
         2920,
         990
@@ -1481,7 +1481,7 @@
   ],
   "groups": [
     {
-      "title": "01 · Z-IMAGE · Texto o boceto + prompt",
+      "title": "01 · Z-IMAGE",
       "bounding": [
         40,
         45,
@@ -1492,7 +1492,7 @@
       "font_size": 24
     },
     {
-      "title": "02 · FLUX · Texto o boceto + prompt",
+      "title": "02 · FLUX",
       "bounding": [
         690,
         45,
@@ -1503,7 +1503,7 @@
       "font_size": 24
     },
     {
-      "title": "03 · QWEN · Edición con referencias",
+      "title": "03 · QWEN",
       "bounding": [
         1340,
         45,
@@ -1514,7 +1514,7 @@
       "font_size": 24
     },
     {
-      "title": "04 · FOTO EXTERNA · Solo refinado",
+      "title": "04 · REFINADO DIRECTO",
       "bounding": [
         2345,
         45,
@@ -1525,7 +1525,7 @@
       "font_size": 24
     },
     {
-      "title": "05 · ACABADO / EXPORTAR",
+      "title": "05 · ACABADO",
       "bounding": [
         2890,
         450,
@@ -1536,7 +1536,7 @@
       "font_size": 24
     },
     {
-      "title": "Enrutamiento técnico · No tocar",
+      "title": "Conexiones internas",
       "bounding": [
         2900,
         65,
@@ -1584,7 +1584,7 @@
           {
             "name": "image",
             "type": "IMAGE",
-            "label": "Imagen (collage o externa)",
+            "label": "Imagen final",
             "id": "image-lab-img",
             "linkIds": [
               3,
@@ -1600,7 +1600,7 @@
           {
             "name": "value",
             "type": "INT",
-            "label": "Escala final × (2, 3, 4, 8)",
+            "label": "Ampliación (×)",
             "id": "image-lab-scale",
             "linkIds": [
               16
@@ -1613,7 +1613,7 @@
           {
             "name": "model_name",
             "type": "COMBO",
-            "label": "Modelo fotográfico de mejora",
+            "label": "Modelo de ampliación",
             "id": "image-lab-model",
             "linkIds": [
               13
@@ -1626,7 +1626,7 @@
           {
             "name": "value_1",
             "type": "BOOLEAN",
-            "label": "UPSCALE · Activado",
+            "label": "Ampliar imagen",
             "id": "image-lab-enhance",
             "linkIds": [
               20
@@ -1639,7 +1639,7 @@
           {
             "name": "value_2",
             "type": "BOOLEAN",
-            "label": "BiRefNet · Activado",
+            "label": "Quitar fondo",
             "id": "image-lab-remove",
             "linkIds": [
               8
@@ -1652,7 +1652,7 @@
           {
             "name": "filename_prefix",
             "type": "STRING",
-            "label": "Exportar final a:",
+            "label": "Guardar como",
             "id": "image-lab-output-name",
             "linkIds": [
               24
@@ -1666,7 +1666,7 @@
             "id": "image-lab-alpha-original",
             "name": "mask",
             "type": "MASK",
-            "label": "Máscara alfa de origen (normalizada)",
+            "label": "Transparencia original",
             "linkIds": [
               28
             ],
@@ -1904,7 +1904,7 @@
             "widgets_values": [
               false
             ],
-            "title": "Eliminar fondo (activar/desactivar)"
+            "title": "Quitar fondo"
           },
           {
             "id": 106,
@@ -2242,7 +2242,7 @@
             "widgets_values": [
               false
             ],
-            "title": "Aumentar resolución (activar/desactivar)"
+            "title": "Ampliar imagen"
           },
           {
             "id": 113,
@@ -3222,7 +3222,7 @@
             "linkIds": [
               34
             ],
-            "label": "prompt",
+            "label": "Prompt",
             "pos": [
               -460,
               500
@@ -3239,7 +3239,8 @@
             "pos": [
               -460,
               520
-            ]
+            ],
+            "label": "Ancho (px)"
           },
           {
             "id": "7b08d546-6bb0-4ef9-82e9-ffae5e1ee6bc",
@@ -3252,7 +3253,8 @@
             "pos": [
               -460,
               540
-            ]
+            ],
+            "label": "Alto (px)"
           },
           {
             "id": "f77677f7-6bf6-4c19-a71f-c4a553d5981e",
@@ -3264,13 +3266,14 @@
             "pos": [
               -460,
               560
-            ]
+            ],
+            "label": "Semilla"
           },
           {
             "id": "image-lab-v12-z-init_image",
             "name": "init_image",
             "type": "IMAGE",
-            "label": "Fotografía o boceto inicial",
+            "label": "Imagen inicial",
             "linkIds": [
               2500
             ],
@@ -3283,7 +3286,7 @@
             "id": "image-lab-v12-z-use_img2img",
             "name": "use_img2img",
             "type": "BOOLEAN",
-            "label": "IMG2IMG · Imagen inicial ON / Texto solo OFF",
+            "label": "Usar imagen inicial",
             "linkIds": [
               2507,
               2512
@@ -3297,7 +3300,7 @@
             "id": "image-lab-v12-z-strength_pct",
             "name": "strength_pct",
             "type": "INT",
-            "label": "Fuerza de transformación (10–100 %)",
+            "label": "Transformación (%)",
             "linkIds": [
               2510
             ],
@@ -4194,7 +4197,7 @@
           {
             "id": 1306,
             "type": "ComfySwitchNode",
-            "title": "Elegir denoise automáticamente",
+            "title": "Selector de fuerza (interno)",
             "pos": [
               80,
               1170
@@ -4544,7 +4547,7 @@
             "linkIds": [
               68
             ],
-            "label": "prompt",
+            "label": "Prompt",
             "pos": [
               -990,
               431
@@ -4561,7 +4564,8 @@
             "pos": [
               -990,
               451
-            ]
+            ],
+            "label": "Ancho (px)"
           },
           {
             "id": "5e01104a-ed7f-457b-aaee-934e8ecc088d",
@@ -4574,7 +4578,8 @@
             "pos": [
               -990,
               471
-            ]
+            ],
+            "label": "Alto (px)"
           },
           {
             "id": "ea5ea317-a484-4605-8138-8628a4b8e502",
@@ -4586,13 +4591,14 @@
             "pos": [
               -990,
               491
-            ]
+            ],
+            "label": "Semilla"
           },
           {
             "id": "image-lab-v12-f-init_image",
             "name": "init_image",
             "type": "IMAGE",
-            "label": "Fotografía o boceto inicial",
+            "label": "Imagen inicial",
             "linkIds": [
               3500
             ],
@@ -4605,7 +4611,7 @@
             "id": "image-lab-v12-f-use_img2img",
             "name": "use_img2img",
             "type": "BOOLEAN",
-            "label": "IMG2IMG · Imagen inicial ON / Texto solo OFF",
+            "label": "Usar imagen inicial",
             "linkIds": [
               3507,
               3512
@@ -4619,7 +4625,7 @@
             "id": "image-lab-v12-f-strength_pct",
             "name": "strength_pct",
             "type": "INT",
-            "label": "Fuerza de transformación (10–100 %)",
+            "label": "Transformación (%)",
             "linkIds": [
               3510
             ],
@@ -5453,7 +5459,7 @@
           {
             "id": 1406,
             "type": "ComfySwitchNode",
-            "title": "Elegir denoise automáticamente",
+            "title": "Selector de fuerza (interno)",
             "pos": [
               80,
               1170
