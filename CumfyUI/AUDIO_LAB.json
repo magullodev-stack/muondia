@@ -73,14 +73,14 @@
     {
       "id": 502,
       "type": "981652b5-7bc8-47e8-9bcb-179a117ac7e9",
-      "title": "03 · AUDIO_LAB · PLANIFICAR A/B + FOLEY (SIN LIP-SYNC)",
+      "title": "03 · AUDIO_LAB · GUION A/B + LIP-SYNC + FOLEY",
       "pos": [
         540,
         70
       ],
       "size": [
-        670,
-        775
+        680,
+        810
       ],
       "flags": {},
       "order": 2,
@@ -154,6 +154,10 @@
           [
             "302",
             "volume"
+          ],
+          [
+            "400",
+            "person_a_side"
           ]
         ]
       }
@@ -322,13 +326,13 @@
         "version": 1,
         "state": {
           "lastGroupId": 0,
-          "lastNodeId": 303,
-          "lastLinkId": 408,
+          "lastNodeId": 400,
+          "lastLinkId": 414,
           "lastRerouteId": 0
         },
         "revision": 0,
         "config": {},
-        "name": "AUDIO_LAB · Diálogos A/B + Foley · SIN LIP-SYNC",
+        "name": "AUDIO_LAB · Diálogos A/B + MuseTalk lip-sync + Foley",
         "inputNode": {
           "id": -10,
           "bounding": [
@@ -529,8 +533,8 @@
                 "type": "IMAGE",
                 "links": [
                   170,
-                  179,
-                  181
+                  181,
+                  409
                 ]
               },
               {
@@ -544,7 +548,8 @@
                 "links": [
                   180,
                   182,
-                  186
+                  186,
+                  410
                 ]
               }
             ],
@@ -759,7 +764,7 @@
               {
                 "name": "images",
                 "type": "IMAGE",
-                "link": 179
+                "link": 414
               },
               {
                 "name": "audio",
@@ -843,18 +848,23 @@
                 "name": "timeline_json",
                 "type": "STRING",
                 "links": [
-                  407
+                  407,
+                  411
                 ]
               },
               {
                 "name": "voice_A",
                 "type": "AUDIO",
-                "links": null
+                "links": [
+                  412
+                ]
               },
               {
                 "name": "voice_B",
                 "type": "AUDIO",
-                "links": null
+                "links": [
+                  413
+                ]
               }
             ],
             "widgets_values": [
@@ -968,6 +978,68 @@
             "properties": {
               "Node name for S&R": "AudioLabSafeMix"
             }
+          },
+          {
+            "id": 400,
+            "type": "AudioLabLipSyncMuseTalk",
+            "title": "Lip-sync · MuseTalk 1.5 · Cara A/B",
+            "pos": [
+              2190,
+              540
+            ],
+            "size": [
+              570,
+              320
+            ],
+            "flags": {},
+            "order": 9,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "images",
+                "type": "IMAGE",
+                "link": 409
+              },
+              {
+                "name": "fps",
+                "type": "FLOAT",
+                "link": 410,
+                "widget": {
+                  "name": "fps"
+                }
+              },
+              {
+                "name": "timeline_json",
+                "type": "STRING",
+                "link": 411
+              },
+              {
+                "name": "voice_a",
+                "type": "AUDIO",
+                "link": 412
+              },
+              {
+                "name": "voice_b",
+                "type": "AUDIO",
+                "link": 413
+              }
+            ],
+            "outputs": [
+              {
+                "name": "images_lipsynced",
+                "type": "IMAGE",
+                "links": [
+                  414
+                ]
+              }
+            ],
+            "widgets_values": [
+              25,
+              "Left"
+            ],
+            "properties": {
+              "Node name for S&R": "AudioLabLipSyncMuseTalk"
+            }
           }
         ],
         "groups": [],
@@ -1003,14 +1075,6 @@
             "target_id": 111,
             "target_slot": 0,
             "type": "VIDEO"
-          },
-          {
-            "id": 179,
-            "origin_id": 111,
-            "origin_slot": 0,
-            "target_id": 114,
-            "target_slot": 0,
-            "type": "IMAGE"
           },
           {
             "id": 180,
@@ -1147,6 +1211,54 @@
             "target_id": 303,
             "target_slot": 2,
             "type": "FLOAT"
+          },
+          {
+            "id": 409,
+            "origin_id": 111,
+            "origin_slot": 0,
+            "target_id": 400,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 410,
+            "origin_id": 111,
+            "origin_slot": 2,
+            "target_id": 400,
+            "target_slot": 1,
+            "type": "FLOAT"
+          },
+          {
+            "id": 411,
+            "origin_id": 300,
+            "origin_slot": 1,
+            "target_id": 400,
+            "target_slot": 2,
+            "type": "STRING"
+          },
+          {
+            "id": 412,
+            "origin_id": 300,
+            "origin_slot": 2,
+            "target_id": 400,
+            "target_slot": 3,
+            "type": "AUDIO"
+          },
+          {
+            "id": 413,
+            "origin_id": 300,
+            "origin_slot": 3,
+            "target_id": 400,
+            "target_slot": 4,
+            "type": "AUDIO"
+          },
+          {
+            "id": 414,
+            "origin_id": 400,
+            "origin_slot": 0,
+            "target_id": 114,
+            "target_slot": 0,
+            "type": "IMAGE"
           }
         ],
         "extra": {
@@ -1159,7 +1271,7 @@
           }
         },
         "category": "AUDIO_LAB",
-        "description": "Planifica las intervenciones A/B y genera voces ajustadas al vídeo. No realiza lip-sync todavía."
+        "description": "Guion A/B -> voces y timeline -> MuseTalk por rostro -> Foley -> vídeo final. MuseTalk requiere instalación aislada."
       }
     ]
   }
