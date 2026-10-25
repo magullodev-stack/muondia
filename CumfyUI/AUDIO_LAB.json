@@ -819,7 +819,10 @@
               {
                 "name": "video_duration",
                 "type": "FLOAT",
-                "link": 405
+                "link": 405,
+                "widget": {
+                  "name": "video_duration"
+                }
               },
               {
                 "name": "reference_b",
@@ -855,6 +858,7 @@
               }
             ],
             "widgets_values": [
+              20,
               "A: ¿Has oído eso?",
               "",
               "",
@@ -942,7 +946,10 @@
               {
                 "name": "video_duration",
                 "type": "FLOAT",
-                "link": 408
+                "link": 408,
+                "widget": {
+                  "name": "video_duration"
+                }
               }
             ],
             "outputs": [
@@ -955,7 +962,9 @@
                 ]
               }
             ],
-            "widgets_values": [],
+            "widgets_values": [
+              20
+            ],
             "properties": {
               "Node name for S&R": "AudioLabSafeMix"
             }
