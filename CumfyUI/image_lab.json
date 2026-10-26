@@ -1,8 +1,8 @@
 {
   "id": "d9ac44b0-2f2d-4a95-8dd2-44cd82200a80",
-  "revision": 31,
+  "revision": 32,
   "last_node_id": 950,
-  "last_link_id": 3510,
+  "last_link_id": 3514,
   "nodes": [
     {
       "id": 200,
@@ -39,19 +39,13 @@
           "name": "use_img2img",
           "type": "BOOLEAN",
           "label": "Usar imagen inicial",
-          "link": null,
-          "widget": {
-            "name": "use_img2img"
-          }
+          "link": 3511
         },
         {
           "name": "auto_size",
           "type": "BOOLEAN",
           "label": "Mantener resolución de imagen inicial",
-          "link": null,
-          "widget": {
-            "name": "auto_size"
-          }
+          "link": 3512
         },
         {
           "name": "width",
@@ -113,8 +107,6 @@
       },
       "widgets_values": [
         "A single ultra-realistic studio reference photograph of an adult woman, 30 years old, standing upright in a relaxed neutral anatomical pose, directly facing the camera.\n\nPerfectly frontal view, straight head position, natural symmetrical posture, shoulders level, both arms resting naturally at her sides, unobstructed torso. Framing from the top of the head to the upper hips.\n\nNatural adult female anatomy, realistic body proportions, naturally shaped breasts with anatomically accurate areolas and nipples, believable skin elasticity, subtle natural asymmetry, authentic skin pores, fine skin texture and realistic anatomical transitions.\n\nNatural facial features, relaxed expression, both eyes focused straight ahead, realistic eye alignment, subtle facial asymmetry, no makeup, natural eyebrows.\n\nProfessional full-frame DSLR studio photography, 85mm portrait lens, soft diffused frontal lighting, realistic shadows, neutral color grading, sharp optical detail, unretouched documentary photography.\n\nPure white seamless studio background. Exactly one woman, one photograph, one camera angle, no collage, no fashion pose, no accessories, no clothing covering the torso.",
-        false,
-        true,
         1024,
         1024,
         0,
@@ -123,8 +115,6 @@
       ],
       "widgets_values_named": {
         "text": "A single ultra-realistic studio reference photograph of an adult woman, 30 years old, standing upright in a relaxed neutral anatomical pose, directly facing the camera.\n\nPerfectly frontal view, straight head position, natural symmetrical posture, shoulders level, both arms resting naturally at her sides, unobstructed torso. Framing from the top of the head to the upper hips.\n\nNatural adult female anatomy, realistic body proportions, naturally shaped breasts with anatomically accurate areolas and nipples, believable skin elasticity, subtle natural asymmetry, authentic skin pores, fine skin texture and realistic anatomical transitions.\n\nNatural facial features, relaxed expression, both eyes focused straight ahead, realistic eye alignment, subtle facial asymmetry, no makeup, natural eyebrows.\n\nProfessional full-frame DSLR studio photography, 85mm portrait lens, soft diffused frontal lighting, realistic shadows, neutral color grading, sharp optical detail, unretouched documentary photography.\n\nPure white seamless studio background. Exactly one woman, one photograph, one camera angle, no collage, no fashion pose, no accessories, no clothing covering the torso.",
-        "use_img2img": false,
-        "auto_size": true,
         "width": 1024,
         "height": 1024,
         "strength_pct": 0,
@@ -134,7 +124,7 @@
     },
     {
       "id": 201,
-      "type": "LoadImage",
+      "type": "ImageLabInitialImage",
       "title": "Imagen inicial · Z-Image",
       "pos": [
         80,
@@ -142,12 +132,37 @@
       ],
       "size": [
         540,
-        295
+        355
       ],
       "flags": {},
       "order": 201,
       "mode": 0,
-      "inputs": [],
+      "inputs": [
+        {
+          "name": "image",
+          "type": "COMBO",
+          "widget": {
+            "name": "image"
+          },
+          "link": null
+        },
+        {
+          "name": "Usar imagen inicial",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "Usar imagen inicial"
+          },
+          "link": null
+        },
+        {
+          "name": "Mantener resolución original",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "Mantener resolución original"
+          },
+          "link": null
+        }
+      ],
       "outputs": [
         {
           "name": "IMAGE",
@@ -160,15 +175,35 @@
           "name": "MASK",
           "type": "MASK",
           "links": []
+        },
+        {
+          "name": "usar_imagen_inicial",
+          "type": "BOOLEAN",
+          "links": [
+            3511
+          ]
+        },
+        {
+          "name": "mantener_resolucion",
+          "type": "BOOLEAN",
+          "links": [
+            3512
+          ]
         }
       ],
       "properties": {
-        "Node name for S&R": "LoadImage",
-        "cnr_id": "comfy-core"
+        "Node name for S&R": "ImageLabInitialImage"
       },
       "widgets_values": [
-        ""
-      ]
+        "(sin imagen)",
+        false,
+        true
+      ],
+      "widgets_values_named": {
+        "image": "(sin imagen)",
+        "Usar imagen inicial": false,
+        "Mantener resolución original": true
+      }
     },
     {
       "id": 300,
@@ -205,19 +240,13 @@
           "name": "use_img2img",
           "type": "BOOLEAN",
           "label": "Usar imagen inicial",
-          "link": null,
-          "widget": {
-            "name": "use_img2img"
-          }
+          "link": 3513
         },
         {
           "name": "auto_size",
           "type": "BOOLEAN",
           "label": "Mantener resolución de imagen inicial",
-          "link": null,
-          "widget": {
-            "name": "auto_size"
-          }
+          "link": 3514
         },
         {
           "name": "width",
@@ -306,8 +335,6 @@
       },
       "widgets_values": [
         "A single ultra-realistic studio reference photograph of an adult woman, 30 years old, standing upright in a relaxed neutral anatomical pose, directly facing the camera.\n\nPerfectly frontal view, straight head position, natural symmetrical posture, shoulders level, both arms resting naturally at her sides, unobstructed torso. Framing from the top of the head to the upper hips.\n\nNatural adult female anatomy, realistic body proportions, naturally shaped breasts with anatomically accurate areolas and nipples, believable skin elasticity, subtle natural asymmetry, authentic skin pores, fine skin texture and realistic anatomical transitions.\n\nNatural facial features, relaxed expression, both eyes focused straight ahead, realistic eye alignment, subtle facial asymmetry, no makeup, natural eyebrows.\n\nProfessional full-frame DSLR studio photography, 85mm portrait lens, soft diffused frontal lighting, realistic shadows, neutral color grading, sharp optical detail, unretouched documentary photography.\n\nPure white seamless studio background. Exactly one woman, one photograph, one camera angle, no collage, no fashion pose, no accessories, no clothing covering the torso.",
-        false,
-        false,
         768,
         1024,
         0,
@@ -319,8 +346,6 @@
       ],
       "widgets_values_named": {
         "text": "A single ultra-realistic studio reference photograph of an adult woman, 30 years old, standing upright in a relaxed neutral anatomical pose, directly facing the camera.\n\nPerfectly frontal view, straight head position, natural symmetrical posture, shoulders level, both arms resting naturally at her sides, unobstructed torso. Framing from the top of the head to the upper hips.\n\nNatural adult female anatomy, realistic body proportions, naturally shaped breasts with anatomically accurate areolas and nipples, believable skin elasticity, subtle natural asymmetry, authentic skin pores, fine skin texture and realistic anatomical transitions.\n\nNatural facial features, relaxed expression, both eyes focused straight ahead, realistic eye alignment, subtle facial asymmetry, no makeup, natural eyebrows.\n\nProfessional full-frame DSLR studio photography, 85mm portrait lens, soft diffused frontal lighting, realistic shadows, neutral color grading, sharp optical detail, unretouched documentary photography.\n\nPure white seamless studio background. Exactly one woman, one photograph, one camera angle, no collage, no fashion pose, no accessories, no clothing covering the torso.",
-        "use_img2img": false,
-        "auto_size": false,
         "width": 768,
         "height": 1024,
         "strength_pct": 0,
@@ -333,7 +358,7 @@
     },
     {
       "id": 301,
-      "type": "LoadImage",
+      "type": "ImageLabInitialImage",
       "title": "Imagen inicial · FLUX",
       "pos": [
         730,
@@ -341,12 +366,37 @@
       ],
       "size": [
         540,
-        295
+        355
       ],
       "flags": {},
       "order": 301,
       "mode": 0,
-      "inputs": [],
+      "inputs": [
+        {
+          "name": "image",
+          "type": "COMBO",
+          "widget": {
+            "name": "image"
+          },
+          "link": null
+        },
+        {
+          "name": "Usar imagen inicial",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "Usar imagen inicial"
+          },
+          "link": null
+        },
+        {
+          "name": "Mantener resolución original",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "Mantener resolución original"
+          },
+          "link": null
+        }
+      ],
       "outputs": [
         {
           "name": "IMAGE",
@@ -359,15 +409,35 @@
           "name": "MASK",
           "type": "MASK",
           "links": []
+        },
+        {
+          "name": "usar_imagen_inicial",
+          "type": "BOOLEAN",
+          "links": [
+            3513
+          ]
+        },
+        {
+          "name": "mantener_resolucion",
+          "type": "BOOLEAN",
+          "links": [
+            3514
+          ]
         }
       ],
       "properties": {
-        "Node name for S&R": "LoadImage",
-        "cnr_id": "comfy-core"
+        "Node name for S&R": "ImageLabInitialImage"
       },
       "widgets_values": [
-        ""
-      ]
+        "(sin imagen)",
+        false,
+        false
+      ],
+      "widgets_values_named": {
+        "image": "(sin imagen)",
+        "Usar imagen inicial": false,
+        "Mantener resolución original": false
+      }
     },
     {
       "id": 400,
@@ -901,6 +971,38 @@
       950,
       0,
       "IMAGE"
+    ],
+    [
+      3511,
+      201,
+      2,
+      200,
+      2,
+      "BOOLEAN"
+    ],
+    [
+      3512,
+      201,
+      3,
+      200,
+      3,
+      "BOOLEAN"
+    ],
+    [
+      3513,
+      301,
+      2,
+      300,
+      2,
+      "BOOLEAN"
+    ],
+    [
+      3514,
+      301,
+      3,
+      300,
+      3,
+      "BOOLEAN"
     ]
   ],
   "groups": [
@@ -910,7 +1012,7 @@
         40,
         45,
         615,
-        1060
+        1105
       ],
       "color": "#426a74",
       "font_size": 24
@@ -921,7 +1023,7 @@
         690,
         45,
         615,
-        1175
+        1235
       ],
       "color": "#476c7b",
       "font_size": 24
@@ -3340,7 +3442,7 @@
           "lastLinkId": 4315,
           "lastRerouteId": 0
         },
-        "revision": 6,
+        "revision": 7,
         "config": {},
         "name": "Z-Image-Turbo · Generación",
         "inputNode": {
@@ -5466,7 +5568,7 @@
           "lastLinkId": 4701,
           "lastRerouteId": 0
         },
-        "revision": 8,
+        "revision": 9,
         "config": {},
         "name": "FLUX.1 Dev · Generación",
         "inputNode": {
