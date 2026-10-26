@@ -143,23 +143,53 @@ def _generar(instrucciones, prompt, temperatura, top_p, max_tokens_salida, semil
         raise RuntimeError("Respuesta inesperada de llama.cpp: " + str(data)[:1200]) from e
 
 
-class GGUFLocalAuto:
+class GGUFLocalAdvanced:
+    """Opciones de carga y memoria; separadas de los controles de generación."""
+
     @classmethod
     def INPUT_TYPES(cls):
         return {"required": {
-            "modelo": (list(MODELOS),),
-            "accion": (["generar", "descargar_modelo"],),
-            "instrucciones": ("STRING", {"multiline": True, "default": "Responde en español."}),
-            "prompt": ("STRING", {"multiline": True, "default": "Escribe tu solicitud."}),
             "contexto_tokens": ("INT", {"default": 0, "min": 0, "max": 131072, "step": 512}),
-            "capas_gpu": ("INT", {"default": 20, "min": 0, "max": 999}),
+            "capas_gpu": ("INT", {"default": 8, "min": 0, "max": 999}),
             "flash_attention": ("BOOLEAN", {"default": False}),
             "cache_kv": (["f16", "q8_0"],),
-            "temperatura": ("FLOAT", {"default": 0.8, "min": 0.0, "max": 2.0, "step": 0.05}),
-            "top_p": ("FLOAT", {"default": 0.95, "min": 0.01, "max": 1.0, "step": 0.01}),
-            "max_tokens_salida": ("INT", {"default": 2048, "min": 1, "max": 32768, "step": 128}),
             "semilla": ("INT", {"default": -1, "min": -1, "max": 2147483647}),
+            "operacion": (["Generar texto", "Liberar RAM/VRAM (conserva GGUF)"],),
         }}
+    RETURN_TYPES = ("GGUF_CONFIG",)
+    RETURN_NAMES = ("configuracion",)
+    CATEGORY = "LLM / GGUF local"
+    FUNCTION = "build"
+
+    def build(self, contexto_tokens, capas_gpu, flash_attention, cache_kv, semilla, operacion):
+        return ({
+            "contexto_tokens": contexto_tokens,
+            "capas_gpu": capas_gpu,
+            "flash_attention": flash_attention,
+            "cache_kv": cache_kv,
+            "semilla": semilla,
+            "operacion": operacion,
+        },)
+
+
+class GGUFLocalAuto:
+    """El nodo principal solo presenta controles cotidianos.
+    Las opciones de memoria son un conector opcional a GGUFLocalAdvanced.
+    """
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "modelo": (list(MODELOS),),
+                "instrucciones": ("STRING", {"multiline": True, "default": "Responde en español."}),
+                "prompt": ("STRING", {"multiline": True, "default": "Escribe tu solicitud."}),
+                "temperatura": ("FLOAT", {"default": 0.8, "min": 0.0, "max": 2.0, "step": 0.05}),
+                "top_p": ("FLOAT", {"default": 0.95, "min": 0.01, "max": 1.0, "step": 0.01}),
+                "max_tokens_salida": ("INT", {"default": 2048, "min": 1, "max": 32768, "step": 128}),
+            },
+            "optional": {"configuracion": ("GGUF_CONFIG",)},
+        }
     RETURN_TYPES = ("STRING",)
     RETURN_NAMES = ("texto",)
     CATEGORY = "LLM / GGUF local"
@@ -170,17 +200,27 @@ class GGUFLocalAuto:
     def IS_CHANGED(cls, **kwargs):
         return float("nan")
 
-    def execute(self, modelo, accion, instrucciones, prompt, contexto_tokens,
-                capas_gpu, flash_attention, cache_kv, temperatura, top_p,
-                max_tokens_salida, semilla):
+    def execute(self, modelo, instrucciones, prompt, temperatura, top_p,
+                max_tokens_salida, configuracion=None):
+        defaults = {
+            "contexto_tokens": 0,  # 0 = contexto nativo definido en MODELOS
+            "capas_gpu": 8,       # conservador, NO optimizado para esta GPU
+            "flash_attention": False,
+            "cache_kv": "f16",
+            "semilla": -1,
+            "operacion": "Generar texto",
+        }
+        if configuracion is not None:
+            defaults.update(configuracion)
         with LOCK:
-            if accion == "descargar_modelo":
+            if defaults["operacion"] == "Liberar RAM/VRAM (conserva GGUF)":
                 _stop()
-                texto = "Modelo descargado de memoria."
-            else:
-                _start(modelo, contexto_tokens, capas_gpu, flash_attention, cache_kv)
-                texto = _generar(instrucciones, prompt, temperatura, top_p,
-                                 max_tokens_salida, semilla)
+                return {"ui": {"text": ["Modelo liberado de RAM/VRAM. No se ha borrado ningún GGUF."]},
+                        "result": ("",)}
+            _start(modelo, defaults["contexto_tokens"], defaults["capas_gpu"],
+                   defaults["flash_attention"], defaults["cache_kv"])
+            texto = _generar(instrucciones, prompt, temperatura, top_p,
+                             max_tokens_salida, defaults["semilla"])
             return {"ui": {"text": [texto]}, "result": (texto,)}
 
 
@@ -197,6 +237,9 @@ class GGUFLocalSaveText:
     OUTPUT_NODE = True
 
     def save(self, texto, prefijo):
+        # Evita guardar TXT al liberar el modelo (respuesta vacía).
+        if not texto or not texto.strip():
+            return {"ui": {"text": ["No se ha guardado ningún TXT: no hay texto generado."]}}
         carpeta = ROOT / "output/gguf_chat"
         carpeta.mkdir(parents=True, exist_ok=True)
         nombre = "".join(c for c in prefijo if c.isalnum() or c in "_-")[:45] or "generato_llm"
@@ -207,10 +250,12 @@ class GGUFLocalSaveText:
 
 atexit.register(_stop)
 NODE_CLASS_MAPPINGS = {
+    "GGUF_ConfigAvanzada": GGUFLocalAdvanced,
     "GGUF_LocalChatAuto": GGUFLocalAuto,
     "GGUF_SaveTextAuto": GGUFLocalSaveText,
 }
 NODE_DISPLAY_NAME_MAPPINGS = {
+    "GGUF_ConfigAvanzada": "LLM · Configuración avanzada (opcional)",
     "GGUF_LocalChatAuto": "GGUF Local · Magnum / Euryale (autoinicio)",
     "GGUF_SaveTextAuto": "GGUF Local · Guardar TXT",
 }
