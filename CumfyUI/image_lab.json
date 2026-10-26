@@ -1,6 +1,6 @@
 {
   "id": "d9ac44b0-2f2d-4a95-8dd2-44cd82200a80",
-  "revision": 37,
+  "revision": 38,
   "last_node_id": 950,
   "last_link_id": 3516,
   "nodes": [
@@ -617,7 +617,7 @@
     },
     {
       "id": 401,
-      "type": "LoadImage",
+      "type": "ImageLabInitialImage",
       "title": "Imagen principal · Qwen",
       "pos": [
         1370,
@@ -630,7 +630,40 @@
       "flags": {},
       "order": 401,
       "mode": 0,
-      "inputs": [],
+      "inputs": [
+        {
+          "name": "image",
+          "type": "COMBO",
+          "widget": {
+            "name": "image"
+          },
+          "link": null
+        },
+        {
+          "name": "Usar imagen inicial",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "Usar imagen inicial"
+          },
+          "link": null
+        },
+        {
+          "name": "Mantener resolución original",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "Mantener resolución original"
+          },
+          "link": null
+        },
+        {
+          "name": "Transformación (%)",
+          "type": "INT",
+          "widget": {
+            "name": "Transformación (%)"
+          },
+          "link": null
+        }
+      ],
       "outputs": [
         {
           "name": "IMAGE",
@@ -643,19 +676,42 @@
           "name": "MASK",
           "type": "MASK",
           "links": []
+        },
+        {
+          "name": "usar_imagen_inicial",
+          "type": "BOOLEAN",
+          "links": []
+        },
+        {
+          "name": "mantener_resolucion",
+          "type": "BOOLEAN",
+          "links": []
+        },
+        {
+          "name": "transformacion_pct",
+          "type": "INT",
+          "links": []
         }
       ],
       "properties": {
-        "Node name for S&R": "LoadImage",
-        "cnr_id": "comfy-core"
+        "Node name for S&R": "ImageLabInitialImage"
       },
       "widgets_values": [
-        ""
-      ]
+        "(sin imagen)",
+        true,
+        false,
+        0
+      ],
+      "widgets_values_named": {
+        "image": "(sin imagen)",
+        "usar_imagen_inicial": true,
+        "mantener_resolucion": false,
+        "transformacion_pct": 0
+      }
     },
     {
       "id": 402,
-      "type": "LoadImage",
+      "type": "ImageLabInitialImage",
       "title": "Referencia 2 · Qwen",
       "pos": [
         1370,
@@ -668,7 +724,40 @@
       "flags": {},
       "order": 402,
       "mode": 0,
-      "inputs": [],
+      "inputs": [
+        {
+          "name": "image",
+          "type": "COMBO",
+          "widget": {
+            "name": "image"
+          },
+          "link": null
+        },
+        {
+          "name": "Usar imagen inicial",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "Usar imagen inicial"
+          },
+          "link": null
+        },
+        {
+          "name": "Mantener resolución original",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "Mantener resolución original"
+          },
+          "link": null
+        },
+        {
+          "name": "Transformación (%)",
+          "type": "INT",
+          "widget": {
+            "name": "Transformación (%)"
+          },
+          "link": null
+        }
+      ],
       "outputs": [
         {
           "name": "IMAGE",
@@ -681,19 +770,42 @@
           "name": "MASK",
           "type": "MASK",
           "links": []
+        },
+        {
+          "name": "usar_imagen_inicial",
+          "type": "BOOLEAN",
+          "links": []
+        },
+        {
+          "name": "mantener_resolucion",
+          "type": "BOOLEAN",
+          "links": []
+        },
+        {
+          "name": "transformacion_pct",
+          "type": "INT",
+          "links": []
         }
       ],
       "properties": {
-        "Node name for S&R": "LoadImage",
-        "cnr_id": "comfy-core"
+        "Node name for S&R": "ImageLabInitialImage"
       },
       "widgets_values": [
-        ""
-      ]
+        "(sin imagen)",
+        true,
+        false,
+        0
+      ],
+      "widgets_values_named": {
+        "image": "(sin imagen)",
+        "usar_imagen_inicial": true,
+        "mantener_resolucion": false,
+        "transformacion_pct": 0
+      }
     },
     {
       "id": 403,
-      "type": "LoadImage",
+      "type": "ImageLabInitialImage",
       "title": "Referencia 3 · Qwen",
       "pos": [
         1710,
@@ -706,7 +818,40 @@
       "flags": {},
       "order": 403,
       "mode": 0,
-      "inputs": [],
+      "inputs": [
+        {
+          "name": "image",
+          "type": "COMBO",
+          "widget": {
+            "name": "image"
+          },
+          "link": null
+        },
+        {
+          "name": "Usar imagen inicial",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "Usar imagen inicial"
+          },
+          "link": null
+        },
+        {
+          "name": "Mantener resolución original",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "Mantener resolución original"
+          },
+          "link": null
+        },
+        {
+          "name": "Transformación (%)",
+          "type": "INT",
+          "widget": {
+            "name": "Transformación (%)"
+          },
+          "link": null
+        }
+      ],
       "outputs": [
         {
           "name": "IMAGE",
@@ -719,19 +864,42 @@
           "name": "MASK",
           "type": "MASK",
           "links": []
+        },
+        {
+          "name": "usar_imagen_inicial",
+          "type": "BOOLEAN",
+          "links": []
+        },
+        {
+          "name": "mantener_resolucion",
+          "type": "BOOLEAN",
+          "links": []
+        },
+        {
+          "name": "transformacion_pct",
+          "type": "INT",
+          "links": []
         }
       ],
       "properties": {
-        "Node name for S&R": "LoadImage",
-        "cnr_id": "comfy-core"
+        "Node name for S&R": "ImageLabInitialImage"
       },
       "widgets_values": [
-        ""
-      ]
+        "(sin imagen)",
+        true,
+        false,
+        0
+      ],
+      "widgets_values_named": {
+        "image": "(sin imagen)",
+        "usar_imagen_inicial": true,
+        "mantener_resolucion": false,
+        "transformacion_pct": 0
+      }
     },
     {
       "id": 501,
-      "type": "LoadImage",
+      "type": "ImageLabInitialImage",
       "title": "Imagen externa · Refinado directo",
       "pos": [
         2065,
@@ -744,7 +912,40 @@
       "flags": {},
       "order": 501,
       "mode": 0,
-      "inputs": [],
+      "inputs": [
+        {
+          "name": "image",
+          "type": "COMBO",
+          "widget": {
+            "name": "image"
+          },
+          "link": null
+        },
+        {
+          "name": "Usar imagen inicial",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "Usar imagen inicial"
+          },
+          "link": null
+        },
+        {
+          "name": "Mantener resolución original",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "Mantener resolución original"
+          },
+          "link": null
+        },
+        {
+          "name": "Transformación (%)",
+          "type": "INT",
+          "widget": {
+            "name": "Transformación (%)"
+          },
+          "link": null
+        }
+      ],
       "outputs": [
         {
           "name": "IMAGE",
@@ -759,15 +960,38 @@
           "links": [
             3509
           ]
+        },
+        {
+          "name": "usar_imagen_inicial",
+          "type": "BOOLEAN",
+          "links": []
+        },
+        {
+          "name": "mantener_resolucion",
+          "type": "BOOLEAN",
+          "links": []
+        },
+        {
+          "name": "transformacion_pct",
+          "type": "INT",
+          "links": []
         }
       ],
       "properties": {
-        "Node name for S&R": "LoadImage",
-        "cnr_id": "comfy-core"
+        "Node name for S&R": "ImageLabInitialImage"
       },
       "widgets_values": [
-        ""
-      ]
+        "(sin imagen)",
+        true,
+        false,
+        0
+      ],
+      "widgets_values_named": {
+        "image": "(sin imagen)",
+        "usar_imagen_inicial": true,
+        "mantener_resolucion": false,
+        "transformacion_pct": 0
+      }
     },
     {
       "id": 2,
