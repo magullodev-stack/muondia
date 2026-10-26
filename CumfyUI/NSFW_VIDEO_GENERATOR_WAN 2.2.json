@@ -77,7 +77,7 @@
     {
       "id": 14,
       "type": "49d31a21-8c17-464a-aeca-2b9178b63940",
-      "title": "03 · WAN MEGA v12.2 · CONFIGURACIÓN VACE",
+      "title": "03 · WAN · CONFIGURACIÓN · Referencia y duración",
       "pos": [
         1240,
         195
@@ -131,7 +131,7 @@
         },
         {
           "name": "fidelity",
-          "label": "Fuerza imagen VACE · %",
+          "label": "Conservar imagen · %",
           "type": "INT",
           "link": null,
           "widget": {
@@ -401,7 +401,7 @@
           {
             "id": "anchor-fidelity-v2",
             "name": "fidelity",
-            "label": "Fuerza imagen VACE · %",
+            "label": "Conservar imagen · %",
             "type": "INT",
             "linkIds": [
               26
