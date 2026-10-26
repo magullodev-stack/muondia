@@ -1,8 +1,8 @@
 {
   "id": "6c73c31e-0c82-4a7d-a803-35ed6c090e7f",
-  "revision": 2,
+  "revision": 3,
   "last_node_id": 34,
-  "last_link_id": 57,
+  "last_link_id": 60,
   "nodes": [
     {
       "id": 1,
@@ -121,12 +121,12 @@
           }
         },
         {
-          "name": "frames",
-          "label": "Fotogramas",
+          "name": "duration_seconds",
+          "label": "Duración · segundos",
           "type": "INT",
           "link": null,
           "widget": {
-            "name": "frames"
+            "name": "duration_seconds"
           }
         },
         {
@@ -175,7 +175,7 @@
         "",
         768,
         448,
-        81,
+        5,
         987654321,
         8
       ],
@@ -183,9 +183,9 @@
         "prompt": "",
         "width": 768,
         "height": 448,
-        "frames": 81,
         "seed": 987654321,
-        "steps": 8
+        "steps": 8,
+        "duration_seconds": 5
       }
     },
     {
@@ -325,8 +325,8 @@
         "version": 1,
         "state": {
           "lastGroupId": 0,
-          "lastNodeId": 32,
-          "lastLinkId": 53,
+          "lastNodeId": 33,
+          "lastLinkId": 60,
           "lastRerouteId": 0
         },
         "revision": 1,
@@ -404,13 +404,12 @@
             ]
           },
           {
-            "id": "widget-frames",
-            "name": "frames",
-            "label": "Fotogramas",
+            "id": "widget-duration-seconds",
+            "name": "duration_seconds",
+            "label": "Duración · segundos",
             "type": "INT",
             "linkIds": [
-              50,
-              51
+              58
             ],
             "pos": [
               -350,
@@ -853,7 +852,7 @@
                 "widget": {
                   "name": "length"
                 },
-                "link": 50
+                "link": 59
               }
             ],
             "outputs": [
@@ -917,7 +916,7 @@
                 "widget": {
                   "name": "frames_number"
                 },
-                "link": 51
+                "link": 60
               }
             ],
             "outputs": [
@@ -1338,6 +1337,66 @@
             },
             "widgets_values": [],
             "title": "LTX2 · Audio VAE decode"
+          },
+          {
+            "id": 33,
+            "type": "ComfyMathExpression",
+            "pos": [
+              620,
+              1060
+            ],
+            "size": [
+              320,
+              100
+            ],
+            "flags": {},
+            "order": 20,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "values.a",
+                "label": "Segundos",
+                "type": "FLOAT,INT,BOOLEAN",
+                "link": 58
+              },
+              {
+                "name": "values.b",
+                "type": "FLOAT,INT,BOOLEAN",
+                "shape": 7,
+                "link": null
+              }
+            ],
+            "outputs": [
+              {
+                "name": "FLOAT",
+                "type": "FLOAT",
+                "links": []
+              },
+              {
+                "name": "INT",
+                "type": "INT",
+                "links": [
+                  59,
+                  60
+                ]
+              },
+              {
+                "name": "BOOL",
+                "type": "BOOLEAN",
+                "links": []
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ComfyMathExpression",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              "a*16+1"
+            ],
+            "widgets_values_named": {
+              "expression": "a*16+1"
+            },
+            "title": "Duración · convertir segundos a fotogramas (16 FPS)"
           }
         ],
         "groups": [],
@@ -1591,22 +1650,6 @@
             "type": "INT"
           },
           {
-            "id": 50,
-            "origin_id": -10,
-            "origin_slot": 4,
-            "target_id": 22,
-            "target_slot": 6,
-            "type": "INT"
-          },
-          {
-            "id": 51,
-            "origin_id": -10,
-            "origin_slot": 4,
-            "target_id": 23,
-            "target_slot": 1,
-            "type": "INT"
-          },
-          {
             "id": 52,
             "origin_id": -10,
             "origin_slot": 5,
@@ -1619,6 +1662,30 @@
             "origin_id": -10,
             "origin_slot": 6,
             "target_id": 28,
+            "target_slot": 1,
+            "type": "INT"
+          },
+          {
+            "id": 58,
+            "origin_id": -10,
+            "origin_slot": 4,
+            "target_id": 33,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 59,
+            "origin_id": 33,
+            "origin_slot": 1,
+            "target_id": 22,
+            "target_slot": 6,
+            "type": "INT"
+          },
+          {
+            "id": 60,
+            "origin_id": 33,
+            "origin_slot": 1,
+            "target_id": 23,
             "target_slot": 1,
             "type": "INT"
           }
