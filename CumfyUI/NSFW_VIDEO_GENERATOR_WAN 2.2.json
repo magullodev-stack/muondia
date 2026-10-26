@@ -1,6 +1,6 @@
 {
   "id": "d4dd74cc-219c-454b-b338-c85618dc1763",
-  "revision": 9,
+  "revision": 10,
   "last_node_id": 14,
   "last_link_id": 48,
   "nodes": [
@@ -164,6 +164,7 @@
         "previewExposures": []
       },
       "widgets_values": [
+        "",
         5,
         512,
         768,
@@ -171,6 +172,7 @@
         192054346835137
       ],
       "widgets_values_named": {
+        "prompt": "",
         "duration_seconds": 5,
         "width": 512,
         "height": 768,
@@ -311,7 +313,7 @@
           "lastLinkId": 30,
           "lastRerouteId": 0
         },
-        "revision": 7,
+        "revision": 8,
         "config": {},
         "name": "WAN MEGA v12.2 · VACE I2V (Phr00t)",
         "inputNode": {
