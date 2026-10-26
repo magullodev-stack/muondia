@@ -94,7 +94,7 @@
         "Node name for S&R": "MarkdownNote"
       },
       "widgets_values": [
-        "**NSFW VIDEO GENERATOR · PHR00T LTX2 v62 · I2V**\n\n1. Selecciona una imagen de entrada en el nodo 01.\n2. Escribe el prompt en el nodo 02.\n3. Coloca `ltx2-phr00tmerge-nsfw-v62.safetensors` en `models/diffusion_models/` (mueve el archivo ya descargado, no lo dupliques).\n4. Este merge es SOLO el modelo de difusión: necesita un encoder Gemma 3, conector LTX2 y VAE separados de video y audio, compatibles con LTX2 (NO LTX-2.5).\n5. La salida MP4 está activada y genera video+audio.\n\nEsta pestaña utiliza SOLO LTX2 v62; no reutiliza el workflow LTX-2.5. El offloading se configura al iniciar ComfyUI.\n\nReferencia del autor: https://huggingface.co/Phr00t/LTX2-Rapid-Merges"
+        "**NSFW VIDEO GENERATOR · PHR00T LTX2 v62 · I2V**\n\n1. Selecciona una imagen de entrada en el nodo 01.\n2. Escribe el prompt en el nodo 02.\n3. Coloca `ltx2-phr00tmerge-nsfw-v62.safetensors` en `models/diffusion_models/` (mueve el archivo ya descargado, no lo dupliques).\n4. Este merge es SOLO el modelo de difusión: necesita un encoder Gemma 3 FP8 scaled (`gemma_3_12B_it_fp8_scaled.safetensors`), conector LTX2 y VAE separados de video y audio, compatibles con LTX2 (NO LTX-2.5).\n5. La salida MP4 está activada y genera video+audio.\n\nEsta pestaña utiliza SOLO LTX2 v62; no reutiliza el workflow LTX-2.5. El offloading se configura al iniciar ComfyUI.\n\nReferencia del autor: https://huggingface.co/Phr00t/LTX2-Rapid-Merges"
       ],
       "title": "NSFW VIDEO GENERATOR · GUÍA DE USO"
     },
@@ -160,7 +160,7 @@
         "Node name for S&R": "DualCLIPLoader"
       },
       "widgets_values": [
-        "gemma_3_12B_it_fp8_e4m3fn.safetensors",
+        "gemma_3_12B_it_fp8_scaled.safetensors",
         "ltx-2-19b-embeddings_connector_distill_bf16.safetensors",
         "ltxv"
       ],
