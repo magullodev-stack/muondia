@@ -1,6 +1,6 @@
 {
   "id": "d9ac44b0-2f2d-4a95-8dd2-44cd82200a80",
-  "revision": 20,
+  "revision": 21,
   "last_node_id": 950,
   "last_link_id": 3510,
   "nodes": [
@@ -712,7 +712,7 @@
         "previewExposures": []
       },
       "widgets_values": [
-        1,
+        3,
         2,
         "4xNomos2_hq_dat2.pth",
         false,
@@ -720,7 +720,7 @@
         "image_lab/final/resultado"
       ],
       "widgets_values_named": {
-        "fuente": 1,
+        "fuente": 3,
         "value": 2,
         "model_name": "4xNomos2_hq_dat2.pth",
         "value_1": false,
@@ -912,11 +912,11 @@
         "version": 1,
         "state": {
           "lastGroupId": 0,
-          "lastNodeId": 962,
-          "lastLinkId": 218,
+          "lastNodeId": 963,
+          "lastLinkId": 219,
           "lastRerouteId": 0
         },
-        "revision": 1,
+        "revision": 2,
         "config": {},
         "name": "IMAGE LAB · REFINE FINAL · Upscale/BiRefNet · PNG",
         "description": "Aumento 2x/3x/4x/8x, borrado de fondo opcional con BiRefNet nativo y guardado PNG. Sin extensiones RMBG.",
@@ -945,9 +945,7 @@
             "label": "Fuente · 1 Z-Image / 2 FLUX / 3 Qwen / 4 Foto",
             "id": "image-lab-v14-finish-0",
             "linkIds": [
-              201,
-              202,
-              203
+              219
             ],
             "pos": [
               70,
@@ -2763,6 +2761,51 @@
             "widgets_values": [
               "max(0, 1 - max(a - 4, 4 - a))"
             ]
+          },
+          {
+            "id": 963,
+            "type": "PrimitiveInt",
+            "title": "Fuente de salida · Control interno",
+            "pos": [
+              165,
+              155
+            ],
+            "size": [
+              315,
+              90
+            ],
+            "flags": {},
+            "order": 963,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "value",
+                "type": "INT",
+                "widget": {
+                  "name": "value"
+                },
+                "link": 219
+              }
+            ],
+            "outputs": [
+              {
+                "name": "INT",
+                "type": "INT",
+                "links": [
+                  201,
+                  202,
+                  203
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "PrimitiveInt",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              3,
+              "fixed"
+            ]
           }
         ],
         "groups": [],
@@ -3081,7 +3124,7 @@
           },
           {
             "id": 201,
-            "origin_id": -10,
+            "origin_id": 963,
             "origin_slot": 0,
             "target_id": 960,
             "target_slot": 0,
@@ -3089,7 +3132,7 @@
           },
           {
             "id": 202,
-            "origin_id": -10,
+            "origin_id": 963,
             "origin_slot": 0,
             "target_id": 961,
             "target_slot": 0,
@@ -3097,7 +3140,7 @@
           },
           {
             "id": 203,
-            "origin_id": -10,
+            "origin_id": 963,
             "origin_slot": 0,
             "target_id": 962,
             "target_slot": 0,
@@ -3222,6 +3265,14 @@
             "target_id": 913,
             "target_slot": 2,
             "type": "BOOLEAN"
+          },
+          {
+            "id": 219,
+            "origin_id": -10,
+            "origin_slot": 0,
+            "target_id": 963,
+            "target_slot": 0,
+            "type": "INT"
           }
         ],
         "extra": {},
