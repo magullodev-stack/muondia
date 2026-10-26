@@ -1,6 +1,6 @@
 {
   "id": "d4dd74cc-219c-454b-b338-c85618dc1763",
-  "revision": 8,
+  "revision": 9,
   "last_node_id": 14,
   "last_link_id": 48,
   "nodes": [
@@ -77,7 +77,7 @@
     {
       "id": 14,
       "type": "49d31a21-8c17-464a-aeca-2b9178b63940",
-      "title": "03 · WAN · CONFIGURACIÓN · Referencia y duración",
+      "title": "03 · WAN MEGA v12.2 · CONFIGURACIÓN VACE",
       "pos": [
         1240,
         195
@@ -131,7 +131,7 @@
         },
         {
           "name": "fidelity",
-          "label": "Conservar imagen · %",
+          "label": "Fuerza imagen VACE · %",
           "type": "INT",
           "link": null,
           "widget": {
@@ -167,15 +167,15 @@
         5,
         512,
         768,
-        95,
+        100,
         192054346835137
       ],
       "widgets_values_named": {
         "duration_seconds": 5,
-        "fidelity": 95,
-        "seed": 192054346835137,
         "width": 512,
-        "height": 768
+        "height": 768,
+        "fidelity": 100,
+        "seed": 192054346835137
       }
     },
     {
@@ -307,29 +307,29 @@
         "version": 1,
         "state": {
           "lastGroupId": 0,
-          "lastNodeId": 24,
-          "lastLinkId": 48,
+          "lastNodeId": 26,
+          "lastLinkId": 30,
           "lastRerouteId": 0
         },
-        "revision": 6,
+        "revision": 7,
         "config": {},
-        "name": "WAN · I2V · primer fotograma anclado",
+        "name": "WAN MEGA v12.2 · VACE I2V (Phr00t)",
         "inputNode": {
           "id": -10,
           "bounding": [
-            -430,
-            80,
+            -450,
+            100,
             190,
-            400
+            440
           ]
         },
         "outputNode": {
           "id": -20,
           "bounding": [
-            2045,
-            100,
-            190,
-            150
+            2950,
+            500,
+            200,
+            160
           ]
         },
         "inputs": [
@@ -339,9 +339,7 @@
             "label": "Imagen inicial",
             "type": "IMAGE",
             "linkIds": [
-              7,
-              8,
-              32
+              1
             ],
             "pos": [
               -350,
@@ -354,7 +352,7 @@
             "label": "PROMPT",
             "type": "STRING",
             "linkIds": [
-              1
+              2
             ],
             "pos": [
               -350,
@@ -367,7 +365,7 @@
             "label": "Duración · segundos",
             "type": "INT",
             "linkIds": [
-              27
+              18
             ],
             "pos": [
               -350,
@@ -380,7 +378,7 @@
             "label": "Ancho · px",
             "type": "INT",
             "linkIds": [
-              43
+              22
             ],
             "pos": [
               -350,
@@ -393,7 +391,7 @@
             "label": "Alto · px",
             "type": "INT",
             "linkIds": [
-              46
+              24
             ],
             "pos": [
               -350,
@@ -403,10 +401,10 @@
           {
             "id": "anchor-fidelity-v2",
             "name": "fidelity",
-            "label": "Conservar imagen · %",
+            "label": "Fuerza imagen VACE · %",
             "type": "INT",
             "linkIds": [
-              29
+              26
             ],
             "pos": [
               -350,
@@ -419,7 +417,7 @@
             "label": "Semilla",
             "type": "INT",
             "linkIds": [
-              22
+              29
             ],
             "pos": [
               -350,
@@ -434,7 +432,7 @@
             "label": "Fotogramas",
             "type": "IMAGE",
             "linkIds": [
-              36
+              17
             ],
             "pos": [
               2065,
@@ -448,15 +446,15 @@
             "id": 4,
             "type": "CheckpointLoaderSimple",
             "pos": [
-              240,
-              285
+              250,
+              240
             ],
             "size": [
               400,
               110
             ],
             "flags": {},
-            "order": 4,
+            "order": 0,
             "mode": 0,
             "inputs": [],
             "outputs": [
@@ -464,23 +462,23 @@
                 "name": "MODEL",
                 "type": "MODEL",
                 "links": [
-                  11
+                  5
                 ]
               },
               {
                 "name": "CLIP",
                 "type": "CLIP",
                 "links": [
-                  2,
-                  3
+                  3,
+                  4
                 ]
               },
               {
                 "name": "VAE",
                 "type": "VAE",
                 "links": [
-                  4,
-                  17
+                  6,
+                  7
                 ]
               }
             ],
@@ -490,32 +488,32 @@
             "widgets_values": [
               "wan2.2-rapid-mega-aio-nsfw-v12.2.safetensors"
             ],
-            "title": "WAN · Checkpoint original v12.2 NSFW"
+            "title": "WAN MEGA v12.2 · Checkpoint VACE integrado"
           },
           {
             "id": 5,
             "type": "CLIPTextEncode",
             "pos": [
-              240,
-              455
+              675,
+              400
             ],
             "size": [
               390,
               155
             ],
             "flags": {},
-            "order": 5,
+            "order": 1,
             "mode": 0,
             "inputs": [
               {
                 "name": "clip",
                 "type": "CLIP",
-                "link": 2
+                "link": 3
               },
               {
                 "name": "text",
                 "type": "STRING",
-                "link": 1,
+                "link": 2,
                 "widget": {
                   "name": "text"
                 }
@@ -526,7 +524,7 @@
                 "name": "CONDITIONING",
                 "type": "CONDITIONING",
                 "links": [
-                  5
+                  8
                 ]
               }
             ],
@@ -542,21 +540,21 @@
             "id": 6,
             "type": "CLIPTextEncode",
             "pos": [
-              240,
-              655
+              675,
+              620
             ],
             "size": [
               390,
               110
             ],
             "flags": {},
-            "order": 6,
+            "order": 2,
             "mode": 0,
             "inputs": [
               {
                 "name": "clip",
                 "type": "CLIP",
-                "link": 3
+                "link": 4
               }
             ],
             "outputs": [
@@ -564,7 +562,7 @@
                 "name": "CONDITIONING",
                 "type": "CONDITIONING",
                 "links": [
-                  6
+                  9
                 ]
               }
             ],
@@ -577,200 +575,24 @@
             "title": "WAN · Negativo (CFG 1)"
           },
           {
-            "id": 7,
-            "type": "CLIPVisionLoader",
-            "pos": [
-              240,
-              820
-            ],
-            "size": [
-              390,
-              100
-            ],
-            "flags": {},
-            "order": 7,
-            "mode": 0,
-            "inputs": [],
-            "outputs": [
-              {
-                "name": "CLIP_VISION",
-                "type": "CLIP_VISION",
-                "links": [
-                  9
-                ]
-              }
-            ],
-            "properties": {
-              "Node name for S&R": "CLIPVisionLoader"
-            },
-            "widgets_values": [
-              "clip-vision_vit-h.safetensors"
-            ],
-            "title": "WAN · CLIP Vision ViT-H"
-          },
-          {
-            "id": 8,
-            "type": "CLIPVisionEncode",
-            "pos": [
-              715,
-              790
-            ],
-            "size": [
-              350,
-              135
-            ],
-            "flags": {},
-            "order": 8,
-            "mode": 0,
-            "inputs": [
-              {
-                "name": "clip_vision",
-                "type": "CLIP_VISION",
-                "link": 9
-              },
-              {
-                "name": "image",
-                "type": "IMAGE",
-                "link": 8
-              }
-            ],
-            "outputs": [
-              {
-                "name": "CLIP_VISION_OUTPUT",
-                "type": "CLIP_VISION_OUTPUT",
-                "links": [
-                  10
-                ]
-              }
-            ],
-            "properties": {
-              "Node name for S&R": "CLIPVisionEncode"
-            },
-            "widgets_values": [
-              "center"
-            ],
-            "title": "WAN · Codificar imagen"
-          },
-          {
-            "id": 9,
-            "type": "WanImageToVideo",
-            "pos": [
-              705,
-              270
-            ],
-            "size": [
-              390,
-              250
-            ],
-            "flags": {},
-            "order": 9,
-            "mode": 0,
-            "inputs": [
-              {
-                "name": "positive",
-                "type": "CONDITIONING",
-                "link": 5
-              },
-              {
-                "name": "negative",
-                "type": "CONDITIONING",
-                "link": 6
-              },
-              {
-                "name": "vae",
-                "type": "VAE",
-                "link": 4
-              },
-              {
-                "name": "clip_vision_output",
-                "type": "CLIP_VISION_OUTPUT",
-                "link": 10,
-                "shape": 7
-              },
-              {
-                "name": "start_image",
-                "type": "IMAGE",
-                "link": 7,
-                "shape": 7
-              },
-              {
-                "name": "width",
-                "type": "INT",
-                "widget": {
-                  "name": "width"
-                },
-                "link": 44
-              },
-              {
-                "name": "height",
-                "type": "INT",
-                "widget": {
-                  "name": "height"
-                },
-                "link": 47
-              },
-              {
-                "name": "length",
-                "type": "INT",
-                "widget": {
-                  "name": "length"
-                },
-                "link": 28
-              }
-            ],
-            "outputs": [
-              {
-                "name": "positive",
-                "type": "CONDITIONING",
-                "links": [
-                  13
-                ]
-              },
-              {
-                "name": "negative",
-                "type": "CONDITIONING",
-                "links": [
-                  14
-                ]
-              },
-              {
-                "name": "latent",
-                "type": "LATENT",
-                "links": [
-                  15
-                ]
-              }
-            ],
-            "properties": {
-              "Node name for S&R": "WanImageToVideo"
-            },
-            "widgets_values": [
-              512,
-              768,
-              81,
-              1
-            ],
-            "title": "WAN · I2V vertical · 512×768"
-          },
-          {
             "id": 10,
             "type": "ModelSamplingSD3",
             "pos": [
-              1155,
-              260
+              1800,
+              200
             ],
             "size": [
               300,
               90
             ],
             "flags": {},
-            "order": 10,
+            "order": 3,
             "mode": 0,
             "inputs": [
               {
                 "name": "model",
                 "type": "MODEL",
-                "link": 11
+                "link": 5
               }
             ],
             "outputs": [
@@ -794,15 +616,15 @@
             "id": 11,
             "type": "KSampler",
             "pos": [
-              1155,
-              440
+              2160,
+              460
             ],
             "size": [
               350,
               255
             ],
             "flags": {},
-            "order": 11,
+            "order": 4,
             "mode": 0,
             "inputs": [
               {
@@ -831,23 +653,7 @@
                 "widget": {
                   "name": "seed"
                 },
-                "link": 40
-              },
-              {
-                "name": "steps",
-                "type": "INT",
-                "widget": {
-                  "name": "steps"
-                },
-                "link": null
-              },
-              {
-                "name": "denoise",
-                "type": "FLOAT",
-                "widget": {
-                  "name": "denoise"
-                },
-                "link": 31
+                "link": 30
               }
             ],
             "outputs": [
@@ -867,25 +673,25 @@
               "fixed",
               4,
               1,
-              "sa_solver",
+              "ipndm",
               "beta",
               1
             ],
-            "title": "WAN · 4 pasos · CFG 1 · sa_solver / beta"
+            "title": "WAN MEGA · IPNDM / beta · 4 pasos · CFG 1 · denoise 1"
           },
           {
             "id": 12,
             "type": "VAEDecode",
             "pos": [
-              1555,
-              390
+              2560,
+              480
             ],
             "size": [
               260,
               100
             ],
             "flags": {},
-            "order": 12,
+            "order": 5,
             "mode": 0,
             "inputs": [
               {
@@ -896,7 +702,7 @@
               {
                 "name": "vae",
                 "type": "VAE",
-                "link": 17
+                "link": 7
               }
             ],
             "outputs": [
@@ -904,7 +710,7 @@
                 "name": "IMAGE",
                 "type": "IMAGE",
                 "links": [
-                  33
+                  17
                 ]
               }
             ],
@@ -918,22 +724,22 @@
             "id": 13,
             "type": "ComfyMathExpression",
             "pos": [
-              620,
-              1060
+              460,
+              1220
             ],
             "size": [
               320,
               100
             ],
             "flags": {},
-            "order": 10,
+            "order": 6,
             "mode": 0,
             "inputs": [
               {
                 "name": "values.a",
                 "label": "Segundos",
                 "type": "FLOAT,INT,BOOLEAN",
-                "link": 37
+                "link": 19
               },
               {
                 "name": "values.b",
@@ -952,8 +758,8 @@
                 "name": "INT",
                 "type": "INT",
                 "links": [
-                  28,
-                  41
+                  20,
+                  21
                 ]
               },
               {
@@ -978,8 +784,8 @@
             "id": 14,
             "type": "ComfyMathExpression",
             "pos": [
-              770,
-              1200
+              500,
+              1460
             ],
             "size": [
               350,
@@ -987,13 +793,13 @@
             ],
             "flags": {},
             "mode": 0,
-            "order": 10,
+            "order": 7,
             "inputs": [
               {
                 "name": "values.a",
                 "label": "Fidelidad",
                 "type": "FLOAT,INT,BOOLEAN",
-                "link": 38
+                "link": 27
               }
             ],
             "outputs": [
@@ -1001,7 +807,7 @@
                 "name": "FLOAT",
                 "type": "FLOAT",
                 "links": [
-                  31
+                  28
                 ]
               },
               {
@@ -1020,191 +826,19 @@
               "cnr_id": "comfy-core"
             },
             "widgets_values": [
-              "1-0.08*min(1,max(0,a/100))"
+              "max(0,min(1,a/100))"
             ],
             "widgets_values_named": {
-              "expression": "1-0.08*min(1,max(0,a/100))"
+              "expression": "max(0,min(1,a/100))"
             },
-            "title": "WAN · conservar imagen · denoise"
-          },
-          {
-            "id": 15,
-            "type": "ImageScale",
-            "pos": [
-              780,
-              1530
-            ],
-            "size": [
-              310,
-              165
-            ],
-            "flags": {},
-            "mode": 0,
-            "order": 11,
-            "inputs": [
-              {
-                "name": "image",
-                "type": "IMAGE",
-                "link": 32
-              },
-              {
-                "name": "upscale_method",
-                "type": "COMBO",
-                "widget": {
-                  "name": "upscale_method"
-                },
-                "link": null
-              },
-              {
-                "name": "width",
-                "type": "INT",
-                "widget": {
-                  "name": "width"
-                },
-                "link": 45
-              },
-              {
-                "name": "height",
-                "type": "INT",
-                "widget": {
-                  "name": "height"
-                },
-                "link": 48
-              },
-              {
-                "name": "crop",
-                "type": "COMBO",
-                "widget": {
-                  "name": "crop"
-                },
-                "link": null
-              }
-            ],
-            "outputs": [
-              {
-                "name": "IMAGE",
-                "type": "IMAGE",
-                "links": [
-                  34
-                ]
-              }
-            ],
-            "properties": {
-              "Node name for S&R": "ImageScale",
-              "cnr_id": "comfy-core"
-            },
-            "widgets_values": [
-              "lanczos",
-              512,
-              768,
-              "center"
-            ],
-            "title": "Primer fotograma · preparar imagen exacta 512×768"
-          },
-          {
-            "id": 16,
-            "type": "ImageFromBatch",
-            "pos": [
-              2350,
-              1210
-            ],
-            "size": [
-              310,
-              120
-            ],
-            "flags": {},
-            "mode": 0,
-            "order": 12,
-            "inputs": [
-              {
-                "name": "image",
-                "type": "IMAGE",
-                "link": 33
-              },
-              {
-                "name": "batch_index",
-                "type": "INT",
-                "widget": {
-                  "name": "batch_index"
-                },
-                "link": null
-              },
-              {
-                "name": "length",
-                "type": "INT",
-                "widget": {
-                  "name": "length"
-                },
-                "link": 42
-              }
-            ],
-            "outputs": [
-              {
-                "name": "IMAGE",
-                "type": "IMAGE",
-                "links": [
-                  35
-                ]
-              }
-            ],
-            "properties": {
-              "Node name for S&R": "ImageFromBatch",
-              "cnr_id": "comfy-core"
-            },
-            "widgets_values": [
-              1,
-              80
-            ],
-            "title": "Primer fotograma · descartar frame 0 del generador"
-          },
-          {
-            "id": 17,
-            "type": "ImageBatch",
-            "pos": [
-              2690,
-              1210
-            ],
-            "size": [
-              305,
-              105
-            ],
-            "flags": {},
-            "mode": 0,
-            "order": 13,
-            "inputs": [
-              {
-                "name": "image1",
-                "type": "IMAGE",
-                "link": 34
-              },
-              {
-                "name": "image2",
-                "type": "IMAGE",
-                "link": 35
-              }
-            ],
-            "outputs": [
-              {
-                "name": "IMAGE",
-                "type": "IMAGE",
-                "links": [
-                  36
-                ]
-              }
-            ],
-            "properties": {
-              "Node name for S&R": "ImageBatch",
-              "cnr_id": "comfy-core"
-            },
-            "widgets_values": [],
-            "title": "Primer fotograma bloqueado + resto del vídeo"
+            "title": "Conservar imagen (%) → VACE strength (0 a 1)"
           },
           {
             "id": 18,
             "type": "PrimitiveInt",
             "pos": [
-              450,
-              1420
+              120,
+              1210
             ],
             "size": [
               350,
@@ -1212,7 +846,7 @@
             ],
             "flags": {},
             "mode": 0,
-            "order": 15,
+            "order": 8,
             "inputs": [
               {
                 "name": "value",
@@ -1220,7 +854,7 @@
                 "widget": {
                   "name": "value"
                 },
-                "link": 27
+                "link": 18
               }
             ],
             "outputs": [
@@ -1228,7 +862,7 @@
                 "name": "INT",
                 "type": "INT",
                 "links": [
-                  37
+                  19
                 ]
               }
             ],
@@ -1251,8 +885,8 @@
             "id": 19,
             "type": "PrimitiveInt",
             "pos": [
-              450,
-              1600
+              120,
+              1470
             ],
             "size": [
               350,
@@ -1260,7 +894,55 @@
             ],
             "flags": {},
             "mode": 0,
-            "order": 17,
+            "order": 9,
+            "inputs": [
+              {
+                "name": "value",
+                "type": "INT",
+                "widget": {
+                  "name": "value"
+                },
+                "link": 26
+              }
+            ],
+            "outputs": [
+              {
+                "name": "INT",
+                "type": "INT",
+                "links": [
+                  27
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "PrimitiveInt",
+              "cnr_id": "comfy-core",
+              "ver": "0.16.3"
+            },
+            "widgets_values": [
+              100,
+              "fixed"
+            ],
+            "widgets_values_named": {
+              "value": 100,
+              "fixed": "fixed"
+            },
+            "title": "Conservar imagen (%) · control real"
+          },
+          {
+            "id": 21,
+            "type": "PrimitiveInt",
+            "pos": [
+              1500,
+              1200
+            ],
+            "size": [
+              350,
+              110
+            ],
+            "flags": {},
+            "mode": 0,
+            "order": 10,
             "inputs": [
               {
                 "name": "value",
@@ -1276,55 +958,7 @@
                 "name": "INT",
                 "type": "INT",
                 "links": [
-                  38
-                ]
-              }
-            ],
-            "properties": {
-              "Node name for S&R": "PrimitiveInt",
-              "cnr_id": "comfy-core",
-              "ver": "0.16.3"
-            },
-            "widgets_values": [
-              95,
-              "fixed"
-            ],
-            "widgets_values_named": {
-              "value": 95,
-              "fixed": "fixed"
-            },
-            "title": "Conservar imagen (%) · control real"
-          },
-          {
-            "id": 21,
-            "type": "PrimitiveInt",
-            "pos": [
-              450,
-              1960
-            ],
-            "size": [
-              350,
-              110
-            ],
-            "flags": {},
-            "mode": 0,
-            "order": 21,
-            "inputs": [
-              {
-                "name": "value",
-                "type": "INT",
-                "widget": {
-                  "name": "value"
-                },
-                "link": 22
-              }
-            ],
-            "outputs": [
-              {
-                "name": "INT",
-                "type": "INT",
-                "links": [
-                  40
+                  30
                 ]
               }
             ],
@@ -1344,68 +978,12 @@
             "title": "Semilla · valor visible"
           },
           {
-            "id": 22,
-            "type": "ComfyMathExpression",
-            "title": "Primer fotograma · resto = fotogramas generados menos uno",
-            "pos": [
-              1900,
-              1450
-            ],
-            "size": [
-              345,
-              105
-            ],
-            "flags": {
-              "collapsed": true
-            },
-            "mode": 0,
-            "order": 19,
-            "inputs": [
-              {
-                "name": "values.a",
-                "label": "Fotogramas totales",
-                "type": "FLOAT,INT,BOOLEAN",
-                "link": 41
-              }
-            ],
-            "outputs": [
-              {
-                "name": "FLOAT",
-                "type": "FLOAT",
-                "links": []
-              },
-              {
-                "name": "INT",
-                "type": "INT",
-                "links": [
-                  42
-                ]
-              },
-              {
-                "name": "BOOL",
-                "type": "BOOLEAN",
-                "links": []
-              }
-            ],
-            "properties": {
-              "Node name for S&R": "ComfyMathExpression",
-              "cnr_id": "comfy-core",
-              "ver": "0.16.3"
-            },
-            "widgets_values": [
-              "max(1, min(4096, a-1))"
-            ],
-            "widgets_values_named": {
-              "expression": "max(1, min(4096, a-1))"
-            }
-          },
-          {
             "id": 23,
             "type": "PrimitiveInt",
             "title": "Ancho del vídeo · valor visible",
             "pos": [
-              450,
-              2320
+              120,
+              1720
             ],
             "size": [
               350,
@@ -1413,7 +991,7 @@
             ],
             "flags": {},
             "mode": 0,
-            "order": 20,
+            "order": 11,
             "inputs": [
               {
                 "name": "value",
@@ -1421,7 +999,7 @@
                 "widget": {
                   "name": "value"
                 },
-                "link": 43
+                "link": 22
               }
             ],
             "outputs": [
@@ -1429,8 +1007,7 @@
                 "name": "INT",
                 "type": "INT",
                 "links": [
-                  44,
-                  45
+                  23
                 ]
               }
             ],
@@ -1453,8 +1030,8 @@
             "type": "PrimitiveInt",
             "title": "Alto del vídeo · valor visible",
             "pos": [
-              450,
-              2500
+              120,
+              1950
             ],
             "size": [
               350,
@@ -1462,7 +1039,7 @@
             ],
             "flags": {},
             "mode": 0,
-            "order": 21,
+            "order": 12,
             "inputs": [
               {
                 "name": "value",
@@ -1470,7 +1047,7 @@
                 "widget": {
                   "name": "value"
                 },
-                "link": 46
+                "link": 24
               }
             ],
             "outputs": [
@@ -1478,8 +1055,7 @@
                 "name": "INT",
                 "type": "INT",
                 "links": [
-                  47,
-                  48
+                  25
                 ]
               }
             ],
@@ -1496,6 +1072,202 @@
               "value": 768,
               "fixed": "fixed"
             }
+          },
+          {
+            "id": 25,
+            "type": "WanVideoVACEStartToEndFrame",
+            "title": "VACE · Iniciar exactamente desde imagen",
+            "pos": [
+              1100,
+              200
+            ],
+            "size": [
+              350,
+              200
+            ],
+            "flags": {},
+            "order": 13,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "start_image",
+                "type": "IMAGE",
+                "shape": 7,
+                "link": 1
+              },
+              {
+                "name": "end_image",
+                "type": "IMAGE",
+                "shape": 7,
+                "link": null
+              },
+              {
+                "name": "control_images",
+                "type": "IMAGE",
+                "shape": 7,
+                "link": null
+              },
+              {
+                "name": "inpaint_mask",
+                "type": "MASK",
+                "shape": 7,
+                "link": null
+              },
+              {
+                "name": "num_frames",
+                "type": "INT",
+                "widget": {
+                  "name": "num_frames"
+                },
+                "link": 20
+              }
+            ],
+            "outputs": [
+              {
+                "name": "images",
+                "type": "IMAGE",
+                "links": [
+                  10
+                ]
+              },
+              {
+                "name": "masks",
+                "type": "MASK",
+                "links": [
+                  11
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "WanVideoVACEStartToEndFrame"
+            },
+            "widgets_values": [
+              81,
+              0.5,
+              0,
+              -1
+            ]
+          },
+          {
+            "id": 26,
+            "type": "WanVaceToVideo",
+            "title": "VACE · I2V real (sin fotograma sustituido)",
+            "pos": [
+              1520,
+              550
+            ],
+            "size": [
+              390,
+              280
+            ],
+            "flags": {},
+            "order": 14,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "positive",
+                "type": "CONDITIONING",
+                "link": 8
+              },
+              {
+                "name": "negative",
+                "type": "CONDITIONING",
+                "link": 9
+              },
+              {
+                "name": "vae",
+                "type": "VAE",
+                "link": 6
+              },
+              {
+                "name": "control_video",
+                "type": "IMAGE",
+                "shape": 7,
+                "link": 10
+              },
+              {
+                "name": "control_masks",
+                "type": "MASK",
+                "shape": 7,
+                "link": 11
+              },
+              {
+                "name": "reference_image",
+                "type": "IMAGE",
+                "shape": 7,
+                "link": null
+              },
+              {
+                "name": "length",
+                "type": "INT",
+                "widget": {
+                  "name": "length"
+                },
+                "link": 21
+              },
+              {
+                "name": "width",
+                "type": "INT",
+                "widget": {
+                  "name": "width"
+                },
+                "link": 23
+              },
+              {
+                "name": "height",
+                "type": "INT",
+                "widget": {
+                  "name": "height"
+                },
+                "link": 25
+              },
+              {
+                "name": "strength",
+                "type": "FLOAT",
+                "widget": {
+                  "name": "strength"
+                },
+                "link": 28
+              }
+            ],
+            "outputs": [
+              {
+                "name": "positive",
+                "type": "CONDITIONING",
+                "links": [
+                  13
+                ]
+              },
+              {
+                "name": "negative",
+                "type": "CONDITIONING",
+                "links": [
+                  14
+                ]
+              },
+              {
+                "name": "latent",
+                "type": "LATENT",
+                "links": [
+                  15
+                ]
+              },
+              {
+                "name": "trim_latent",
+                "type": "INT",
+                "links": []
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "WanVaceToVideo"
+            },
+            "widgets_values": [
+              512,
+              768,
+              81,
+              1,
+              1
+            ]
           }
         ],
         "groups": [],
@@ -1503,13 +1275,21 @@
           {
             "id": 1,
             "origin_id": -10,
+            "origin_slot": 0,
+            "target_id": 25,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 2,
+            "origin_id": -10,
             "origin_slot": 1,
             "target_id": 5,
             "target_slot": 1,
             "type": "STRING"
           },
           {
-            "id": 2,
+            "id": 3,
             "origin_id": 4,
             "origin_slot": 1,
             "target_id": 5,
@@ -1517,7 +1297,7 @@
             "type": "CLIP"
           },
           {
-            "id": 3,
+            "id": 4,
             "origin_id": 4,
             "origin_slot": 1,
             "target_id": 6,
@@ -1525,68 +1305,60 @@
             "type": "CLIP"
           },
           {
-            "id": 4,
-            "origin_id": 4,
-            "origin_slot": 2,
-            "target_id": 9,
-            "target_slot": 2,
-            "type": "VAE"
-          },
-          {
             "id": 5,
-            "origin_id": 5,
-            "origin_slot": 0,
-            "target_id": 9,
-            "target_slot": 0,
-            "type": "CONDITIONING"
-          },
-          {
-            "id": 6,
-            "origin_id": 6,
-            "origin_slot": 0,
-            "target_id": 9,
-            "target_slot": 1,
-            "type": "CONDITIONING"
-          },
-          {
-            "id": 7,
-            "origin_id": -10,
-            "origin_slot": 0,
-            "target_id": 9,
-            "target_slot": 4,
-            "type": "IMAGE"
-          },
-          {
-            "id": 8,
-            "origin_id": -10,
-            "origin_slot": 0,
-            "target_id": 8,
-            "target_slot": 1,
-            "type": "IMAGE"
-          },
-          {
-            "id": 9,
-            "origin_id": 7,
-            "origin_slot": 0,
-            "target_id": 8,
-            "target_slot": 0,
-            "type": "CLIP_VISION"
-          },
-          {
-            "id": 10,
-            "origin_id": 8,
-            "origin_slot": 0,
-            "target_id": 9,
-            "target_slot": 3,
-            "type": "CLIP_VISION_OUTPUT"
-          },
-          {
-            "id": 11,
             "origin_id": 4,
             "origin_slot": 0,
             "target_id": 10,
             "target_slot": 0,
             "type": "MODEL"
+          },
+          {
+            "id": 6,
+            "origin_id": 4,
+            "origin_slot": 2,
+            "target_id": 26,
+            "target_slot": 2,
+            "type": "VAE"
+          },
+          {
+            "id": 7,
+            "origin_id": 4,
+            "origin_slot": 2,
+            "target_id": 12,
+            "target_slot": 1,
+            "type": "VAE"
+          },
+          {
+            "id": 8,
+            "origin_id": 5,
+            "origin_slot": 0,
+            "target_id": 26,
+            "target_slot": 0,
+            "type": "CONDITIONING"
+          },
+          {
+            "id": 9,
+            "origin_id": 6,
+            "origin_slot": 0,
+            "target_id": 26,
+            "target_slot": 1,
+            "type": "CONDITIONING"
+          },
+          {
+            "id": 10,
+            "origin_id": 25,
+            "origin_slot": 0,
+            "target_id": 26,
+            "target_slot": 3,
+            "type": "IMAGE"
+          },
+          {
+            "id": 11,
+            "origin_id": 25,
+            "origin_slot": 1,
+            "target_id": 26,
+            "target_slot": 4,
+            "type": "MASK"
           },
           {
             "id": 12,
@@ -1598,7 +1370,7 @@
           },
           {
             "id": 13,
-            "origin_id": 9,
+            "origin_id": 26,
             "origin_slot": 0,
             "target_id": 11,
             "target_slot": 1,
@@ -1606,7 +1378,7 @@
           },
           {
             "id": 14,
-            "origin_id": 9,
+            "origin_id": 26,
             "origin_slot": 1,
             "target_id": 11,
             "target_slot": 2,
@@ -1614,7 +1386,7 @@
           },
           {
             "id": 15,
-            "origin_id": 9,
+            "origin_id": 26,
             "origin_slot": 2,
             "target_id": 11,
             "target_slot": 3,
@@ -1630,22 +1402,14 @@
           },
           {
             "id": 17,
-            "origin_id": 4,
-            "origin_slot": 2,
-            "target_id": 12,
-            "target_slot": 1,
-            "type": "VAE"
-          },
-          {
-            "id": 22,
-            "origin_id": -10,
-            "origin_slot": 6,
-            "target_id": 21,
+            "origin_id": 12,
+            "origin_slot": 0,
+            "target_id": -20,
             "target_slot": 0,
-            "type": "INT"
+            "type": "IMAGE"
           },
           {
-            "id": 27,
+            "id": 18,
             "origin_id": -10,
             "origin_slot": 2,
             "target_id": 18,
@@ -1653,71 +1417,7 @@
             "type": "INT"
           },
           {
-            "id": 28,
-            "origin_id": 13,
-            "origin_slot": 1,
-            "target_id": 9,
-            "target_slot": 7,
-            "type": "INT"
-          },
-          {
-            "id": 29,
-            "origin_id": -10,
-            "origin_slot": 5,
-            "target_id": 19,
-            "target_slot": 0,
-            "type": "INT"
-          },
-          {
-            "id": 31,
-            "origin_id": 14,
-            "origin_slot": 0,
-            "target_id": 11,
-            "target_slot": 6,
-            "type": "FLOAT"
-          },
-          {
-            "id": 32,
-            "origin_id": -10,
-            "origin_slot": 0,
-            "target_id": 15,
-            "target_slot": 0,
-            "type": "IMAGE"
-          },
-          {
-            "id": 33,
-            "origin_id": 12,
-            "origin_slot": 0,
-            "target_id": 16,
-            "target_slot": 0,
-            "type": "IMAGE"
-          },
-          {
-            "id": 34,
-            "origin_id": 15,
-            "origin_slot": 0,
-            "target_id": 17,
-            "target_slot": 0,
-            "type": "IMAGE"
-          },
-          {
-            "id": 35,
-            "origin_id": 16,
-            "origin_slot": 0,
-            "target_id": 17,
-            "target_slot": 1,
-            "type": "IMAGE"
-          },
-          {
-            "id": 36,
-            "origin_id": 17,
-            "origin_slot": 0,
-            "target_id": -20,
-            "target_slot": 0,
-            "type": "IMAGE"
-          },
-          {
-            "id": 37,
+            "id": 19,
             "origin_id": 18,
             "origin_slot": 0,
             "target_id": 13,
@@ -1725,39 +1425,23 @@
             "type": "INT"
           },
           {
-            "id": 38,
-            "origin_id": 19,
-            "origin_slot": 0,
-            "target_id": 14,
-            "target_slot": 0,
-            "type": "INT"
-          },
-          {
-            "id": 40,
-            "origin_id": 21,
-            "origin_slot": 0,
-            "target_id": 11,
+            "id": 20,
+            "origin_id": 13,
+            "origin_slot": 1,
+            "target_id": 25,
             "target_slot": 4,
             "type": "INT"
           },
           {
-            "id": 41,
+            "id": 21,
             "origin_id": 13,
             "origin_slot": 1,
-            "target_id": 22,
-            "target_slot": 0,
+            "target_id": 26,
+            "target_slot": 6,
             "type": "INT"
           },
           {
-            "id": 42,
-            "origin_id": 22,
-            "origin_slot": 1,
-            "target_id": 16,
-            "target_slot": 2,
-            "type": "INT"
-          },
-          {
-            "id": 43,
+            "id": 22,
             "origin_id": -10,
             "origin_slot": 3,
             "target_id": 23,
@@ -1765,23 +1449,15 @@
             "type": "INT"
           },
           {
-            "id": 44,
+            "id": 23,
             "origin_id": 23,
             "origin_slot": 0,
-            "target_id": 9,
-            "target_slot": 5,
+            "target_id": 26,
+            "target_slot": 7,
             "type": "INT"
           },
           {
-            "id": 45,
-            "origin_id": 23,
-            "origin_slot": 0,
-            "target_id": 15,
-            "target_slot": 2,
-            "type": "INT"
-          },
-          {
-            "id": 46,
+            "id": 24,
             "origin_id": -10,
             "origin_slot": 4,
             "target_id": 24,
@@ -1789,19 +1465,51 @@
             "type": "INT"
           },
           {
-            "id": 47,
+            "id": 25,
             "origin_id": 24,
             "origin_slot": 0,
-            "target_id": 9,
-            "target_slot": 6,
+            "target_id": 26,
+            "target_slot": 8,
             "type": "INT"
           },
           {
-            "id": 48,
-            "origin_id": 24,
+            "id": 26,
+            "origin_id": -10,
+            "origin_slot": 5,
+            "target_id": 19,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 27,
+            "origin_id": 19,
             "origin_slot": 0,
-            "target_id": 15,
-            "target_slot": 3,
+            "target_id": 14,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 28,
+            "origin_id": 14,
+            "origin_slot": 0,
+            "target_id": 26,
+            "target_slot": 9,
+            "type": "FLOAT"
+          },
+          {
+            "id": 29,
+            "origin_id": -10,
+            "origin_slot": 6,
+            "target_id": 21,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 30,
+            "origin_id": 21,
+            "origin_slot": 0,
+            "target_id": 11,
+            "target_slot": 4,
             "type": "INT"
           }
         ],
