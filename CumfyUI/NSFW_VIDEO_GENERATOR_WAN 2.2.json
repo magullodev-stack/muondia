@@ -1,8 +1,8 @@
 {
   "id": "d4dd74cc-219c-454b-b338-c85618dc1763",
-  "revision": 3,
+  "revision": 4,
   "last_node_id": 14,
-  "last_link_id": 28,
+  "last_link_id": 36,
   "nodes": [
     {
       "id": 1,
@@ -70,21 +70,21 @@
         "Node name for S&R": "PrimitiveStringMultiline"
       },
       "widgets_values": [
-        "Cinematic natural movement, coherent anatomy and facial identity, gentle camera dolly, realistic lighting, consistent composition."
+        "Animate the exact person in the input image. Preserve the same facial identity, hairstyle, clothing, body proportions, and camera framing. Subtle natural motion, realistic temporal consistency, no changes in identity or appearance. Only animate the subject and camera; do not redesign the person."
       ],
       "title": "02 · PROMPT · describe el vídeo"
     },
     {
       "id": 14,
       "type": "49d31a21-8c17-464a-aeca-2b9178b63940",
-      "title": "03 · WAN 2.2 · v12.2 NSFW · CONFIGURACIÓN",
+      "title": "03 · WAN · CONFIGURACIÓN · Identidad y movimiento",
       "pos": [
         1240,
         195
       ],
       "size": [
-        530,
-        350
+        540,
+        315
       ],
       "flags": {},
       "order": 2,
@@ -103,24 +103,6 @@
           "link": 25
         },
         {
-          "name": "width",
-          "label": "Ancho · px",
-          "type": "INT",
-          "link": null,
-          "widget": {
-            "name": "width"
-          }
-        },
-        {
-          "name": "height",
-          "label": "Alto · px",
-          "type": "INT",
-          "link": null,
-          "widget": {
-            "name": "height"
-          }
-        },
-        {
           "name": "duration_seconds",
           "label": "Duración · segundos",
           "type": "INT",
@@ -130,21 +112,30 @@
           }
         },
         {
+          "name": "fidelity",
+          "label": "Fidelidad a imagen · 0 a 1",
+          "type": "FLOAT",
+          "link": null,
+          "widget": {
+            "name": "fidelity"
+          }
+        },
+        {
+          "name": "motion",
+          "label": "Movimiento · 0 a 1",
+          "type": "FLOAT",
+          "link": null,
+          "widget": {
+            "name": "motion"
+          }
+        },
+        {
           "name": "seed",
           "label": "Semilla",
           "type": "INT",
           "link": null,
           "widget": {
             "name": "seed"
-          }
-        },
-        {
-          "name": "steps",
-          "label": "Pasos de muestreo",
-          "type": "INT",
-          "link": null,
-          "widget": {
-            "name": "steps"
           }
         }
       ],
@@ -165,19 +156,17 @@
       },
       "widgets_values": [
         "",
-        512,
-        768,
         5,
-        192054346835137,
-        4
+        0.95,
+        0.35,
+        192054346835137
       ],
       "widgets_values_named": {
         "prompt": "",
-        "width": 512,
-        "height": 768,
-        "seed": 192054346835137,
-        "steps": 4,
-        "duration_seconds": 5
+        "duration_seconds": 5,
+        "fidelity": 0.95,
+        "motion": 0.35,
+        "seed": 192054346835137
       }
     },
     {
@@ -309,13 +298,13 @@
         "version": 1,
         "state": {
           "lastGroupId": 0,
-          "lastNodeId": 13,
-          "lastLinkId": 28,
+          "lastNodeId": 17,
+          "lastLinkId": 36,
           "lastRerouteId": 0
         },
-        "revision": 1,
+        "revision": 2,
         "config": {},
-        "name": "WAN 2.2 · v12.2 NSFW · Configuración",
+        "name": "WAN · I2V · primer fotograma anclado",
         "inputNode": {
           "id": -10,
           "bounding": [
@@ -342,7 +331,8 @@
             "type": "IMAGE",
             "linkIds": [
               7,
-              8
+              8,
+              32
             ],
             "pos": [
               -350,
@@ -359,33 +349,7 @@
             ],
             "pos": [
               -350,
-              158
-            ]
-          },
-          {
-            "id": "widget-width",
-            "name": "width",
-            "label": "Ancho · px",
-            "type": "INT",
-            "linkIds": [
-              19
-            ],
-            "pos": [
-              -350,
-              196
-            ]
-          },
-          {
-            "id": "widget-height",
-            "name": "height",
-            "label": "Alto · px",
-            "type": "INT",
-            "linkIds": [
-              20
-            ],
-            "pos": [
-              -350,
-              234
+              162
             ]
           },
           {
@@ -398,7 +362,33 @@
             ],
             "pos": [
               -350,
-              272
+              204
+            ]
+          },
+          {
+            "id": "anchor-fidelity-v2",
+            "name": "fidelity",
+            "label": "Fidelidad a imagen · 0 a 1",
+            "type": "FLOAT",
+            "linkIds": [
+              29
+            ],
+            "pos": [
+              -350,
+              246
+            ]
+          },
+          {
+            "id": "motion-freedom-v2",
+            "name": "motion",
+            "label": "Movimiento · 0 a 1",
+            "type": "FLOAT",
+            "linkIds": [
+              30
+            ],
+            "pos": [
+              -350,
+              288
             ]
           },
           {
@@ -411,20 +401,7 @@
             ],
             "pos": [
               -350,
-              310
-            ]
-          },
-          {
-            "id": "widget-steps",
-            "name": "steps",
-            "label": "Pasos de muestreo",
-            "type": "INT",
-            "linkIds": [
-              23
-            ],
-            "pos": [
-              -350,
-              348
+              330
             ]
           }
         ],
@@ -435,7 +412,7 @@
             "label": "Fotogramas",
             "type": "IMAGE",
             "linkIds": [
-              18
+              36
             ],
             "pos": [
               2065,
@@ -700,7 +677,7 @@
                 "widget": {
                   "name": "width"
                 },
-                "link": 19
+                "link": null
               },
               {
                 "name": "height",
@@ -708,7 +685,7 @@
                 "widget": {
                   "name": "height"
                 },
-                "link": 20
+                "link": null
               },
               {
                 "name": "length",
@@ -751,7 +728,7 @@
               81,
               1
             ],
-            "title": "WAN · Imagen a vídeo · vertical 2:3 (512×768)"
+            "title": "WAN · I2V vertical · 512×768"
           },
           {
             "id": 10,
@@ -840,7 +817,15 @@
                 "widget": {
                   "name": "steps"
                 },
-                "link": 23
+                "link": null
+              },
+              {
+                "name": "denoise",
+                "type": "FLOAT",
+                "widget": {
+                  "name": "denoise"
+                },
+                "link": 31
               }
             ],
             "outputs": [
@@ -897,7 +882,7 @@
                 "name": "IMAGE",
                 "type": "IMAGE",
                 "links": [
-                  18
+                  33
                 ]
               }
             ],
@@ -965,6 +950,237 @@
               "expression": "a*16+1"
             },
             "title": "Duración · convertir segundos a fotogramas (16 FPS)"
+          },
+          {
+            "id": 14,
+            "type": "ComfyMathExpression",
+            "pos": [
+              770,
+              1200
+            ],
+            "size": [
+              350,
+              110
+            ],
+            "flags": {},
+            "mode": 0,
+            "order": 10,
+            "inputs": [
+              {
+                "name": "values.a",
+                "label": "Fidelidad",
+                "type": "FLOAT,INT,BOOLEAN",
+                "link": 29
+              },
+              {
+                "name": "values.b",
+                "label": "Movimiento",
+                "type": "FLOAT,INT,BOOLEAN",
+                "link": 30
+              }
+            ],
+            "outputs": [
+              {
+                "name": "FLOAT",
+                "type": "FLOAT",
+                "links": [
+                  31
+                ]
+              },
+              {
+                "name": "INT",
+                "type": "INT",
+                "links": []
+              },
+              {
+                "name": "BOOL",
+                "type": "BOOLEAN",
+                "links": []
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ComfyMathExpression",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              "1-0.08*a*(1-b)"
+            ],
+            "widgets_values_named": {
+              "expression": "1-0.08*a*(1-b)"
+            },
+            "title": "Fidelidad / movimiento → denoise conservador"
+          },
+          {
+            "id": 15,
+            "type": "ImageScale",
+            "pos": [
+              780,
+              1530
+            ],
+            "size": [
+              310,
+              165
+            ],
+            "flags": {},
+            "mode": 0,
+            "order": 11,
+            "inputs": [
+              {
+                "name": "image",
+                "type": "IMAGE",
+                "link": 32
+              },
+              {
+                "name": "upscale_method",
+                "type": "COMBO",
+                "widget": {
+                  "name": "upscale_method"
+                },
+                "link": null
+              },
+              {
+                "name": "width",
+                "type": "INT",
+                "widget": {
+                  "name": "width"
+                },
+                "link": null
+              },
+              {
+                "name": "height",
+                "type": "INT",
+                "widget": {
+                  "name": "height"
+                },
+                "link": null
+              },
+              {
+                "name": "crop",
+                "type": "COMBO",
+                "widget": {
+                  "name": "crop"
+                },
+                "link": null
+              }
+            ],
+            "outputs": [
+              {
+                "name": "IMAGE",
+                "type": "IMAGE",
+                "links": [
+                  34
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ImageScale",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              "lanczos",
+              512,
+              768,
+              "center"
+            ],
+            "title": "Primer fotograma · preparar imagen exacta 512×768"
+          },
+          {
+            "id": 16,
+            "type": "ImageFromBatch",
+            "pos": [
+              2350,
+              1210
+            ],
+            "size": [
+              310,
+              120
+            ],
+            "flags": {},
+            "mode": 0,
+            "order": 12,
+            "inputs": [
+              {
+                "name": "image",
+                "type": "IMAGE",
+                "link": 33
+              },
+              {
+                "name": "batch_index",
+                "type": "INT",
+                "widget": {
+                  "name": "batch_index"
+                },
+                "link": null
+              },
+              {
+                "name": "length",
+                "type": "INT",
+                "widget": {
+                  "name": "length"
+                },
+                "link": null
+              }
+            ],
+            "outputs": [
+              {
+                "name": "IMAGE",
+                "type": "IMAGE",
+                "links": [
+                  35
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ImageFromBatch",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              1,
+              9999
+            ],
+            "title": "Primer fotograma · descartar frame 0 del generador"
+          },
+          {
+            "id": 17,
+            "type": "ImageBatch",
+            "pos": [
+              2690,
+              1210
+            ],
+            "size": [
+              305,
+              105
+            ],
+            "flags": {},
+            "mode": 0,
+            "order": 13,
+            "inputs": [
+              {
+                "name": "image1",
+                "type": "IMAGE",
+                "link": 34
+              },
+              {
+                "name": "image2",
+                "type": "IMAGE",
+                "link": 35
+              }
+            ],
+            "outputs": [
+              {
+                "name": "IMAGE",
+                "type": "IMAGE",
+                "links": [
+                  36
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ImageBatch",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [],
+            "title": "Primer fotograma bloqueado + resto del vídeo"
           }
         ],
         "groups": [],
@@ -1106,30 +1322,6 @@
             "type": "VAE"
           },
           {
-            "id": 18,
-            "origin_id": 12,
-            "origin_slot": 0,
-            "target_id": -20,
-            "target_slot": 0,
-            "type": "IMAGE"
-          },
-          {
-            "id": 19,
-            "origin_id": -10,
-            "origin_slot": 2,
-            "target_id": 9,
-            "target_slot": 5,
-            "type": "INT"
-          },
-          {
-            "id": 20,
-            "origin_id": -10,
-            "origin_slot": 3,
-            "target_id": 9,
-            "target_slot": 6,
-            "type": "INT"
-          },
-          {
             "id": 22,
             "origin_id": -10,
             "origin_slot": 5,
@@ -1138,17 +1330,9 @@
             "type": "INT"
           },
           {
-            "id": 23,
-            "origin_id": -10,
-            "origin_slot": 6,
-            "target_id": 11,
-            "target_slot": 5,
-            "type": "INT"
-          },
-          {
             "id": 27,
             "origin_id": -10,
-            "origin_slot": 4,
+            "origin_slot": 2,
             "target_id": 13,
             "target_slot": 0,
             "type": "INT"
@@ -1160,6 +1344,70 @@
             "target_id": 9,
             "target_slot": 7,
             "type": "INT"
+          },
+          {
+            "id": 29,
+            "origin_id": -10,
+            "origin_slot": 3,
+            "target_id": 14,
+            "target_slot": 0,
+            "type": "FLOAT"
+          },
+          {
+            "id": 30,
+            "origin_id": -10,
+            "origin_slot": 4,
+            "target_id": 14,
+            "target_slot": 1,
+            "type": "FLOAT"
+          },
+          {
+            "id": 31,
+            "origin_id": 14,
+            "origin_slot": 0,
+            "target_id": 11,
+            "target_slot": 6,
+            "type": "FLOAT"
+          },
+          {
+            "id": 32,
+            "origin_id": -10,
+            "origin_slot": 0,
+            "target_id": 15,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 33,
+            "origin_id": 12,
+            "origin_slot": 0,
+            "target_id": 16,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 34,
+            "origin_id": 15,
+            "origin_slot": 0,
+            "target_id": 17,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 35,
+            "origin_id": 16,
+            "origin_slot": 0,
+            "target_id": 17,
+            "target_slot": 1,
+            "type": "IMAGE"
+          },
+          {
+            "id": 36,
+            "origin_id": 17,
+            "origin_slot": 0,
+            "target_id": -20,
+            "target_slot": 0,
+            "type": "IMAGE"
           }
         ],
         "extra": {}
