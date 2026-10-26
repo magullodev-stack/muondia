@@ -1,6 +1,6 @@
 {
   "id": "d9ac44b0-2f2d-4a95-8dd2-44cd82200a80",
-  "revision": 24,
+  "revision": 25,
   "last_node_id": 950,
   "last_link_id": 3510,
   "nodes": [
@@ -315,7 +315,7 @@
       "title": "Imagen inicial · FLUX",
       "pos": [
         730,
-        720
+        850
       ],
       "size": [
         540,
@@ -899,7 +899,7 @@
         690,
         45,
         615,
-        1060
+        1145
       ],
       "color": "#476c7b",
       "font_size": 24
