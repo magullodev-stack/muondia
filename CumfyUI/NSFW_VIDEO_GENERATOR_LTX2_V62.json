@@ -1,8 +1,8 @@
 {
   "id": "6c73c31e-0c82-4a7d-a803-35ed6c090e7f",
-  "revision": 3,
+  "revision": 4,
   "last_node_id": 34,
-  "last_link_id": 60,
+  "last_link_id": 72,
   "nodes": [
     {
       "id": 1,
@@ -70,21 +70,21 @@
         "Node name for S&R": "PrimitiveStringMultiline"
       },
       "widgets_values": [
-        "Cinematic natural movement, coherent anatomy and facial identity, gentle camera dolly, realistic lighting, consistent composition."
+        "Animate the exact person in the input image. Preserve the same facial identity, hairstyle, clothing, body proportions, and camera framing. Subtle natural motion, realistic temporal consistency, no changes in identity or appearance. Only animate the subject and camera; do not redesign the person."
       ],
       "title": "02 · PROMPT · describe el vídeo"
     },
     {
       "id": 34,
       "type": "b409964e-46a1-49c1-8d82-b392deff085a",
-      "title": "03 · LTX2 · Phr00t v62 NSFW · CONFIGURACIÓN",
+      "title": "03 · LTX2 · CONFIGURACIÓN · Identidad y movimiento",
       "pos": [
         1240,
         195
       ],
       "size": [
-        530,
-        350
+        540,
+        315
       ],
       "flags": {},
       "order": 2,
@@ -103,24 +103,6 @@
           "link": 55
         },
         {
-          "name": "width",
-          "label": "Ancho · px",
-          "type": "INT",
-          "link": null,
-          "widget": {
-            "name": "width"
-          }
-        },
-        {
-          "name": "height",
-          "label": "Alto · px",
-          "type": "INT",
-          "link": null,
-          "widget": {
-            "name": "height"
-          }
-        },
-        {
           "name": "duration_seconds",
           "label": "Duración · segundos",
           "type": "INT",
@@ -130,21 +112,30 @@
           }
         },
         {
+          "name": "fidelity",
+          "label": "Fidelidad a imagen · 0 a 1",
+          "type": "FLOAT",
+          "link": null,
+          "widget": {
+            "name": "fidelity"
+          }
+        },
+        {
+          "name": "motion",
+          "label": "Movimiento · 0 a 1",
+          "type": "FLOAT",
+          "link": null,
+          "widget": {
+            "name": "motion"
+          }
+        },
+        {
           "name": "seed",
           "label": "Semilla",
           "type": "INT",
           "link": null,
           "widget": {
             "name": "seed"
-          }
-        },
-        {
-          "name": "steps",
-          "label": "Pasos de muestreo",
-          "type": "INT",
-          "link": null,
-          "widget": {
-            "name": "steps"
           }
         }
       ],
@@ -173,19 +164,17 @@
       },
       "widgets_values": [
         "",
-        768,
-        448,
         5,
-        987654321,
-        8
+        0.95,
+        0.35,
+        987654321
       ],
       "widgets_values_named": {
         "prompt": "",
-        "width": 768,
-        "height": 448,
-        "seed": 987654321,
-        "steps": 8,
-        "duration_seconds": 5
+        "duration_seconds": 5,
+        "fidelity": 0.95,
+        "motion": 0.35,
+        "seed": 987654321
       }
     },
     {
@@ -325,13 +314,13 @@
         "version": 1,
         "state": {
           "lastGroupId": 0,
-          "lastNodeId": 33,
-          "lastLinkId": 60,
+          "lastNodeId": 38,
+          "lastLinkId": 72,
           "lastRerouteId": 0
         },
-        "revision": 1,
+        "revision": 2,
         "config": {},
-        "name": "LTX2 · Phr00t v62 NSFW · Configuración",
+        "name": "LTX2 · I2V · primer fotograma anclado",
         "inputNode": {
           "id": -10,
           "bounding": [
@@ -357,7 +346,8 @@
             "label": "Imagen inicial",
             "type": "IMAGE",
             "linkIds": [
-              24
+              24,
+              68
             ],
             "pos": [
               -350,
@@ -374,33 +364,7 @@
             ],
             "pos": [
               -350,
-              158
-            ]
-          },
-          {
-            "id": "widget-width",
-            "name": "width",
-            "label": "Ancho · px",
-            "type": "INT",
-            "linkIds": [
-              48
-            ],
-            "pos": [
-              -350,
-              196
-            ]
-          },
-          {
-            "id": "widget-height",
-            "name": "height",
-            "label": "Alto · px",
-            "type": "INT",
-            "linkIds": [
-              49
-            ],
-            "pos": [
-              -350,
-              234
+              162
             ]
           },
           {
@@ -413,7 +377,33 @@
             ],
             "pos": [
               -350,
-              272
+              204
+            ]
+          },
+          {
+            "id": "anchor-fidelity-v2",
+            "name": "fidelity",
+            "label": "Fidelidad a imagen · 0 a 1",
+            "type": "FLOAT",
+            "linkIds": [
+              61
+            ],
+            "pos": [
+              -350,
+              246
+            ]
+          },
+          {
+            "id": "motion-freedom-v2",
+            "name": "motion",
+            "label": "Movimiento · 0 a 1",
+            "type": "FLOAT",
+            "linkIds": [
+              62
+            ],
+            "pos": [
+              -350,
+              288
             ]
           },
           {
@@ -426,20 +416,7 @@
             ],
             "pos": [
               -350,
-              310
-            ]
-          },
-          {
-            "id": "widget-steps",
-            "name": "steps",
-            "label": "Pasos de muestreo",
-            "type": "INT",
-            "linkIds": [
-              53
-            ],
-            "pos": [
-              -350,
-              348
+              330
             ]
           }
         ],
@@ -450,7 +427,7 @@
             "label": "Fotogramas",
             "type": "IMAGE",
             "linkIds": [
-              46
+              72
             ],
             "pos": [
               3770,
@@ -562,7 +539,8 @@
                 "type": "VAE",
                 "links": [
                   28,
-                  43
+                  43,
+                  63
                 ]
               }
             ],
@@ -783,7 +761,8 @@
                 "name": "output_image",
                 "type": "IMAGE",
                 "links": [
-                  25
+                  25,
+                  64
                 ]
               }
             ],
@@ -836,7 +815,7 @@
                 "widget": {
                   "name": "width"
                 },
-                "link": 48
+                "link": null
               },
               {
                 "name": "height",
@@ -844,7 +823,7 @@
                 "widget": {
                   "name": "height"
                 },
-                "link": 49
+                "link": null
               },
               {
                 "name": "length",
@@ -874,7 +853,7 @@
                 "name": "latent",
                 "type": "LATENT",
                 "links": [
-                  30
+                  65
                 ]
               }
             ],
@@ -882,13 +861,13 @@
               "Node name for S&R": "LTXVImgToVideo"
             },
             "widgets_values": [
+              512,
               768,
-              448,
               81,
               1,
               1
             ],
-            "title": "LTX2 · Imagen a vídeo · 768×448, 81f"
+            "title": "LTX2 · I2V vertical · 512×768"
           },
           {
             "id": 23,
@@ -956,7 +935,7 @@
               {
                 "name": "video_latent",
                 "type": "LATENT",
-                "link": 30
+                "link": 67
               },
               {
                 "name": "audio_latent",
@@ -1128,7 +1107,7 @@
                 "widget": {
                   "name": "steps"
                 },
-                "link": 53
+                "link": null
               }
             ],
             "outputs": [
@@ -1287,7 +1266,7 @@
                 "name": "IMAGE",
                 "type": "IMAGE",
                 "links": [
-                  46
+                  69
                 ]
               }
             ],
@@ -1397,6 +1376,307 @@
               "expression": "a*16+1"
             },
             "title": "Duración · convertir segundos a fotogramas (16 FPS)"
+          },
+          {
+            "id": 34,
+            "type": "ComfyMathExpression",
+            "pos": [
+              770,
+              1200
+            ],
+            "size": [
+              350,
+              110
+            ],
+            "flags": {},
+            "mode": 0,
+            "order": 20,
+            "inputs": [
+              {
+                "name": "values.a",
+                "label": "Fidelidad",
+                "type": "FLOAT,INT,BOOLEAN",
+                "link": 61
+              },
+              {
+                "name": "values.b",
+                "label": "Movimiento",
+                "type": "FLOAT,INT,BOOLEAN",
+                "link": 62
+              }
+            ],
+            "outputs": [
+              {
+                "name": "FLOAT",
+                "type": "FLOAT",
+                "links": [
+                  66
+                ]
+              },
+              {
+                "name": "INT",
+                "type": "INT",
+                "links": []
+              },
+              {
+                "name": "BOOL",
+                "type": "BOOLEAN",
+                "links": []
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ComfyMathExpression",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              "a*(1-0.2*b)"
+            ],
+            "widgets_values_named": {
+              "expression": "a*(1-0.2*b)"
+            },
+            "title": "Fidelidad / movimiento → fuerza de anclaje LTX"
+          },
+          {
+            "id": 35,
+            "type": "LTXVImgToVideoInplace",
+            "pos": [
+              1730,
+              800
+            ],
+            "size": [
+              350,
+              190
+            ],
+            "flags": {},
+            "order": 21,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "vae",
+                "type": "VAE",
+                "link": 63
+              },
+              {
+                "name": "image",
+                "type": "IMAGE",
+                "link": 64
+              },
+              {
+                "name": "latent",
+                "type": "LATENT",
+                "link": 65
+              },
+              {
+                "name": "strength",
+                "type": "FLOAT",
+                "widget": {
+                  "name": "strength"
+                },
+                "link": 66
+              },
+              {
+                "name": "bypass",
+                "type": "BOOLEAN",
+                "widget": {
+                  "name": "bypass"
+                },
+                "link": null
+              }
+            ],
+            "outputs": [
+              {
+                "name": "latent",
+                "type": "LATENT",
+                "links": [
+                  67
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "LTXVImgToVideoInplace",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              0.95,
+              false
+            ],
+            "widgets_values_named": {
+              "strength": 0.95,
+              "bypass": false
+            },
+            "title": "LTX2 · Reinyectar imagen inicial con fuerza ajustable"
+          },
+          {
+            "id": 36,
+            "type": "ImageScale",
+            "pos": [
+              780,
+              1530
+            ],
+            "size": [
+              310,
+              165
+            ],
+            "flags": {},
+            "mode": 0,
+            "order": 22,
+            "inputs": [
+              {
+                "name": "image",
+                "type": "IMAGE",
+                "link": 68
+              },
+              {
+                "name": "upscale_method",
+                "type": "COMBO",
+                "widget": {
+                  "name": "upscale_method"
+                },
+                "link": null
+              },
+              {
+                "name": "width",
+                "type": "INT",
+                "widget": {
+                  "name": "width"
+                },
+                "link": null
+              },
+              {
+                "name": "height",
+                "type": "INT",
+                "widget": {
+                  "name": "height"
+                },
+                "link": null
+              },
+              {
+                "name": "crop",
+                "type": "COMBO",
+                "widget": {
+                  "name": "crop"
+                },
+                "link": null
+              }
+            ],
+            "outputs": [
+              {
+                "name": "IMAGE",
+                "type": "IMAGE",
+                "links": [
+                  70
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ImageScale",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              "lanczos",
+              512,
+              768,
+              "center"
+            ],
+            "title": "Primer fotograma · preparar imagen exacta 512×768"
+          },
+          {
+            "id": 37,
+            "type": "ImageFromBatch",
+            "pos": [
+              2350,
+              1210
+            ],
+            "size": [
+              310,
+              120
+            ],
+            "flags": {},
+            "mode": 0,
+            "order": 23,
+            "inputs": [
+              {
+                "name": "image",
+                "type": "IMAGE",
+                "link": 69
+              },
+              {
+                "name": "batch_index",
+                "type": "INT",
+                "widget": {
+                  "name": "batch_index"
+                },
+                "link": null
+              },
+              {
+                "name": "length",
+                "type": "INT",
+                "widget": {
+                  "name": "length"
+                },
+                "link": null
+              }
+            ],
+            "outputs": [
+              {
+                "name": "IMAGE",
+                "type": "IMAGE",
+                "links": [
+                  71
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ImageFromBatch",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              1,
+              9999
+            ],
+            "title": "Primer fotograma · descartar frame 0 del generador"
+          },
+          {
+            "id": 38,
+            "type": "ImageBatch",
+            "pos": [
+              2690,
+              1210
+            ],
+            "size": [
+              305,
+              105
+            ],
+            "flags": {},
+            "mode": 0,
+            "order": 24,
+            "inputs": [
+              {
+                "name": "image1",
+                "type": "IMAGE",
+                "link": 70
+              },
+              {
+                "name": "image2",
+                "type": "IMAGE",
+                "link": 71
+              }
+            ],
+            "outputs": [
+              {
+                "name": "IMAGE",
+                "type": "IMAGE",
+                "links": [
+                  72
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ImageBatch",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [],
+            "title": "Primer fotograma bloqueado + resto del vídeo"
           }
         ],
         "groups": [],
@@ -1488,14 +1768,6 @@
             "target_id": 23,
             "target_slot": 0,
             "type": "VAE"
-          },
-          {
-            "id": 30,
-            "origin_id": 22,
-            "origin_slot": 2,
-            "target_id": 24,
-            "target_slot": 0,
-            "type": "LATENT"
           },
           {
             "id": 31,
@@ -1618,36 +1890,12 @@
             "type": "VAE"
           },
           {
-            "id": 46,
-            "origin_id": 31,
-            "origin_slot": 0,
-            "target_id": -20,
-            "target_slot": 0,
-            "type": "IMAGE"
-          },
-          {
             "id": 47,
             "origin_id": 32,
             "origin_slot": 0,
             "target_id": -20,
             "target_slot": 1,
             "type": "AUDIO"
-          },
-          {
-            "id": 48,
-            "origin_id": -10,
-            "origin_slot": 2,
-            "target_id": 22,
-            "target_slot": 4,
-            "type": "INT"
-          },
-          {
-            "id": 49,
-            "origin_id": -10,
-            "origin_slot": 3,
-            "target_id": 22,
-            "target_slot": 5,
-            "type": "INT"
           },
           {
             "id": 52,
@@ -1658,17 +1906,9 @@
             "type": "INT"
           },
           {
-            "id": 53,
-            "origin_id": -10,
-            "origin_slot": 6,
-            "target_id": 28,
-            "target_slot": 1,
-            "type": "INT"
-          },
-          {
             "id": 58,
             "origin_id": -10,
-            "origin_slot": 4,
+            "origin_slot": 2,
             "target_id": 33,
             "target_slot": 0,
             "type": "INT"
@@ -1688,6 +1928,102 @@
             "target_id": 23,
             "target_slot": 1,
             "type": "INT"
+          },
+          {
+            "id": 61,
+            "origin_id": -10,
+            "origin_slot": 3,
+            "target_id": 34,
+            "target_slot": 0,
+            "type": "FLOAT"
+          },
+          {
+            "id": 62,
+            "origin_id": -10,
+            "origin_slot": 4,
+            "target_id": 34,
+            "target_slot": 1,
+            "type": "FLOAT"
+          },
+          {
+            "id": 63,
+            "origin_id": 16,
+            "origin_slot": 0,
+            "target_id": 35,
+            "target_slot": 0,
+            "type": "VAE"
+          },
+          {
+            "id": 64,
+            "origin_id": 21,
+            "origin_slot": 0,
+            "target_id": 35,
+            "target_slot": 1,
+            "type": "IMAGE"
+          },
+          {
+            "id": 65,
+            "origin_id": 22,
+            "origin_slot": 2,
+            "target_id": 35,
+            "target_slot": 2,
+            "type": "LATENT"
+          },
+          {
+            "id": 66,
+            "origin_id": 34,
+            "origin_slot": 0,
+            "target_id": 35,
+            "target_slot": 3,
+            "type": "FLOAT"
+          },
+          {
+            "id": 67,
+            "origin_id": 35,
+            "origin_slot": 0,
+            "target_id": 24,
+            "target_slot": 0,
+            "type": "LATENT"
+          },
+          {
+            "id": 68,
+            "origin_id": -10,
+            "origin_slot": 0,
+            "target_id": 36,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 69,
+            "origin_id": 31,
+            "origin_slot": 0,
+            "target_id": 37,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 70,
+            "origin_id": 36,
+            "origin_slot": 0,
+            "target_id": 38,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 71,
+            "origin_id": 37,
+            "origin_slot": 0,
+            "target_id": 38,
+            "target_slot": 1,
+            "type": "IMAGE"
+          },
+          {
+            "id": 72,
+            "origin_id": 38,
+            "origin_slot": 0,
+            "target_id": -20,
+            "target_slot": 0,
+            "type": "IMAGE"
           }
         ],
         "extra": {}
