@@ -1,8 +1,8 @@
 {
   "id": "d9ac44b0-2f2d-4a95-8dd2-44cd82200a80",
-  "revision": 18,
+  "revision": 19,
   "last_node_id": 950,
-  "last_link_id": 3515,
+  "last_link_id": 3510,
   "nodes": [
     {
       "id": 200,
@@ -317,14 +317,14 @@
     {
       "id": 400,
       "type": "9fa6af8b-8c99-4446-8681-bccf8ba4ea54",
-      "title": "QWEN · Edición",
+      "title": "QWEN · Editar con referencias",
       "pos": [
-        1380,
+        1370,
         120
       ],
       "size": [
-        620,
-        540
+        655,
+        595
       ],
       "flags": {},
       "order": 400,
@@ -405,8 +405,11 @@
         {
           "name": "auto_size",
           "type": "BOOLEAN",
-          "label": "Tamaño automático",
-          "link": 3515
+          "label": "Usar tamaño de referencia",
+          "link": null,
+          "widget": {
+            "name": "auto_size"
+          }
         }
       ],
       "outputs": [
@@ -427,11 +430,17 @@
         1024,
         123456789,
         false,
-        false
+        false,
+        true
       ],
       "widgets_values_named": {
+        "prompt": "",
         "width": 1024,
-        "height": 1024
+        "height": 1024,
+        "seed": 123456789,
+        "ref2_enabled": false,
+        "ref3_enabled": false,
+        "auto_size": true
       }
     },
     {
@@ -439,12 +448,12 @@
       "type": "LoadImage",
       "title": "Imagen principal · Qwen",
       "pos": [
-        1380,
-        620
+        1370,
+        755
       ],
       "size": [
-        640,
-        325
+        655,
+        300
       ],
       "flags": {},
       "order": 401,
@@ -477,12 +486,12 @@
       "type": "LoadImage",
       "title": "Referencia 2 · Qwen",
       "pos": [
-        1380,
-        1020
+        1370,
+        1100
       ],
       "size": [
-        300,
-        225
+        306,
+        245
       ],
       "flags": {},
       "order": 402,
@@ -515,12 +524,12 @@
       "type": "LoadImage",
       "title": "Referencia 3 · Qwen",
       "pos": [
-        1725,
-        1020
+        1710,
+        1100
       ],
       "size": [
-        300,
-        225
+        315,
+        245
       ],
       "flags": {},
       "order": 403,
@@ -747,48 +756,6 @@
         "cnr_id": "comfy-core"
       },
       "widgets_values": []
-    },
-    {
-      "id": 803,
-      "type": "PrimitiveBoolean",
-      "pos": [
-        1380,
-        955
-      ],
-      "size": [
-        620,
-        94
-      ],
-      "flags": {},
-      "order": 803,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "value",
-          "type": "BOOLEAN",
-          "widget": {
-            "name": "value"
-          },
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "BOOLEAN",
-          "type": "BOOLEAN",
-          "links": [
-            3515
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimitiveBoolean",
-        "cnr_id": "comfy-core"
-      },
-      "widgets_values": [
-        true
-      ],
-      "title": "QWEN · Usar tamaño de referencia"
     }
   ],
   "links": [
@@ -879,14 +846,6 @@
       950,
       0,
       "IMAGE"
-    ],
-    [
-      3515,
-      803,
-      0,
-      400,
-      9,
-      "BOOLEAN"
     ]
   ],
   "groups": [
@@ -915,10 +874,10 @@
     {
       "title": "03 · QWEN",
       "bounding": [
-        1340,
+        1335,
         45,
-        690,
-        1430
+        725,
+        1370
       ],
       "color": "#467265",
       "font_size": 24
