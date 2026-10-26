@@ -1,18 +1,18 @@
 # AUDIO_LAB: reparar unicamente los pesos ausentes de MuseTalk 1.5.
 # NO instala Python/FFmpeg/PyTorch/dependencias; NO baja MuseTalk 1.0 ni SyncNet.
-# Para usar despues del error "Falta el checkpoint ...whisper\\pytorch_model.bin".
+# Para usar despues del error "Falta el checkpoint ...whisper\pytorch_model.bin".
 $ErrorActionPreference = "Stop"
 $ProgressPreference = "SilentlyContinue"
 
-$root = "G:\\IA\\ComfyUI\\AudioLab\\lipsync"
+$root = "G:\IA\ComfyUI\AudioLab\lipsync"
 $repo = Join-Path $root "MuseTalk"
 $models = Join-Path $repo "models"
-$hf = Join-Path $root ".venv\\Scripts\\huggingface-cli.exe"
-$py = Join-Path $root ".venv\\Scripts\\python.exe"
-$sourceWorker = Join-Path $env:USERPROFILE "Downloads\\audio_lab_lipsync_worker.py"
+$hf = Join-Path $root ".venv\Scripts\huggingface-cli.exe"
+$py = Join-Path $root ".venv\Scripts\python.exe"
+$sourceWorker = Join-Path $env:USERPROFILE "Downloads\audio_lab_lipsync_worker.py"
 $workerDest = Join-Path $root "lipsync_worker.py"
 
-foreach ($required in @($hf, $py, $sourceWorker, (Join-Path $repo "scripts\\inference.py"))) {
+foreach ($required in @($hf, $py, $sourceWorker, (Join-Path $repo "scripts\inference.py"))) {
     if (!(Test-Path -LiteralPath $required)) { throw "Falta un archivo de la instalacion existente: $required" }
 }
 
@@ -32,7 +32,8 @@ $files = @(
 )
 
 foreach ($entry in $files) {
-    $target = Join-Path $entry.dest ($entry.file -replace "/", "\\")
+    $relativeFile = $entry.file.Replace('/', '\')
+    $target = Join-Path $entry.dest $relativeFile
     if ((Test-Path -LiteralPath $target) -and (Get-Item -LiteralPath $target).Length -gt 0) {
         Write-Host "OK (ya existe): $($entry.file)"
         continue
