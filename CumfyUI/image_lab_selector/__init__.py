@@ -36,6 +36,7 @@ class ImageLabInitialImage:
     EMPTY_IMAGE = "(sin imagen)"
     USE_IMAGE = "Usar imagen inicial"
     KEEP_SIZE = "Mantener resolución original"
+    TRANSFORM = "Transformación (%)"
 
     @classmethod
     def INPUT_TYPES(cls):
@@ -48,16 +49,18 @@ class ImageLabInitialImage:
             "image": (images, {"image_upload": True, "default": cls.EMPTY_IMAGE}),
             cls.USE_IMAGE: ("BOOLEAN", {"default": False}),
             cls.KEEP_SIZE: ("BOOLEAN", {"default": False}),
+            cls.TRANSFORM: ("INT", {"default": 0, "min": 0, "max": 100, "step": 1}),
         }}
 
-    RETURN_TYPES = ("IMAGE", "MASK", "BOOLEAN", "BOOLEAN")
-    RETURN_NAMES = ("IMAGE", "MASK", "usar_imagen_inicial", "mantener_resolucion")
+    RETURN_TYPES = ("IMAGE", "MASK", "BOOLEAN", "BOOLEAN", "INT")
+    RETURN_NAMES = ("IMAGE", "MASK", "usar_imagen_inicial", "mantener_resolucion", "transformacion_pct")
     FUNCTION = "load_with_settings"
     CATEGORY = "Image Lab"
 
     def load_with_settings(self, image, **settings):
         use_image = bool(settings[self.USE_IMAGE])
         keep_size = bool(settings[self.KEEP_SIZE])
+        transformation_pct = max(0, min(100, int(settings[self.TRANSFORM])))
 
         if use_image:
             if image in ("", self.EMPTY_IMAGE):
@@ -69,7 +72,7 @@ class ImageLabInitialImage:
             pixels = torch.zeros((1, 64, 64, 3), dtype=torch.float32)
             mask = torch.zeros((1, 64, 64), dtype=torch.float32)
 
-        return (pixels, mask, use_image, keep_size)
+        return (pixels, mask, use_image, keep_size, transformation_pct)
 
     @classmethod
     def VALIDATE_INPUTS(cls, image, **settings):
