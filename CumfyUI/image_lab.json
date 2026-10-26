@@ -1,6 +1,6 @@
 {
   "id": "d9ac44b0-2f2d-4a95-8dd2-44cd82200a80",
-  "revision": 25,
+  "revision": 26,
   "last_node_id": 950,
   "last_link_id": 3510,
   "nodes": [
@@ -48,6 +48,15 @@
           }
         },
         {
+          "name": "auto_size",
+          "type": "BOOLEAN",
+          "label": "Mantener resolución de imagen inicial",
+          "link": null,
+          "widget": {
+            "name": "auto_size"
+          }
+        },
+        {
           "name": "seed",
           "type": "INT",
           "label": "Semilla",
@@ -79,15 +88,6 @@
           "widget": {
             "name": "strength_pct"
           }
-        },
-        {
-          "name": "auto_size",
-          "type": "BOOLEAN",
-          "label": "Usar tamaño de referencia",
-          "link": null,
-          "widget": {
-            "name": "auto_size"
-          }
         }
       ],
       "outputs": [
@@ -106,19 +106,19 @@
         "",
         1024,
         1024,
+        true,
         123456789,
         false,
-        65,
-        true
+        65
       ],
       "widgets_values_named": {
         "text": "",
         "width": 1024,
         "height": 1024,
+        "auto_size": true,
         "seed": 123456789,
         "use_img2img": false,
-        "strength_pct": 65,
-        "auto_size": true
+        "strength_pct": 65
       }
     },
     {
@@ -203,6 +203,15 @@
           }
         },
         {
+          "name": "auto_size",
+          "type": "BOOLEAN",
+          "label": "Mantener resolución de imagen inicial",
+          "link": null,
+          "widget": {
+            "name": "auto_size"
+          }
+        },
+        {
           "name": "seed",
           "type": "INT",
           "label": "Semilla",
@@ -233,15 +242,6 @@
           "link": null,
           "widget": {
             "name": "strength_pct"
-          }
-        },
-        {
-          "name": "auto_size",
-          "type": "BOOLEAN",
-          "label": "Usar tamaño de referencia",
-          "link": null,
-          "widget": {
-            "name": "auto_size"
           }
         },
         {
@@ -288,10 +288,10 @@
         "",
         1024,
         1024,
+        true,
         123456789,
         false,
         65,
-        true,
         65,
         0,
         0
@@ -300,10 +300,10 @@
         "text": "",
         "width": 1024,
         "height": 1024,
+        "auto_size": true,
         "seed": 123456789,
         "use_img2img": false,
         "strength_pct": 65,
-        "auto_size": true,
         "anatomy_lora_pct": 65,
         "fpnd_lora_pct": 0,
         "photo_lora_pct": 0
@@ -409,6 +409,15 @@
           }
         },
         {
+          "name": "auto_size",
+          "type": "BOOLEAN",
+          "label": "Mantener resolución de imagen principal",
+          "link": null,
+          "widget": {
+            "name": "auto_size"
+          }
+        },
+        {
           "name": "seed",
           "type": "INT",
           "label": "Semilla",
@@ -434,15 +443,6 @@
             "name": "ref3_enabled"
           },
           "link": null
-        },
-        {
-          "name": "auto_size",
-          "type": "BOOLEAN",
-          "label": "Usar tamaño de referencia",
-          "link": null,
-          "widget": {
-            "name": "auto_size"
-          }
         }
       ],
       "outputs": [
@@ -461,19 +461,19 @@
         "",
         1024,
         1024,
+        true,
         123456789,
         false,
-        false,
-        true
+        false
       ],
       "widgets_values_named": {
         "prompt": "",
         "width": 1024,
         "height": 1024,
+        "auto_size": true,
         "seed": 123456789,
         "ref2_enabled": false,
-        "ref3_enabled": false,
-        "auto_size": true
+        "ref3_enabled": false
       }
     },
     {
@@ -797,7 +797,7 @@
       201,
       0,
       200,
-      4,
+      5,
       "IMAGE"
     ],
     [
@@ -805,7 +805,7 @@
       301,
       0,
       300,
-      4,
+      5,
       "IMAGE"
     ],
     [
@@ -3318,7 +3318,7 @@
           "lastLinkId": 4303,
           "lastRerouteId": 0
         },
-        "revision": 3,
+        "revision": 4,
         "config": {},
         "name": "Z-Image-Turbo · Generación",
         "inputNode": {
@@ -3350,7 +3350,7 @@
             "label": "Prompt",
             "pos": [
               -460,
-              500
+              290
             ]
           },
           {
@@ -3362,7 +3362,7 @@
             ],
             "pos": [
               -460,
-              520
+              322
             ],
             "label": "Ancho manual (px)"
           },
@@ -3375,9 +3375,22 @@
             ],
             "pos": [
               -460,
-              540
+              354
             ],
             "label": "Alto manual (px)"
+          },
+          {
+            "id": "image-lab-z-image-size-auto-v15",
+            "name": "auto_size",
+            "type": "BOOLEAN",
+            "label": "Mantener resolución de imagen inicial",
+            "linkIds": [
+              4303
+            ],
+            "pos": [
+              -300,
+              386
+            ]
           },
           {
             "id": "f77677f7-6bf6-4c19-a71f-c4a553d5981e",
@@ -3388,7 +3401,7 @@
             ],
             "pos": [
               -460,
-              560
+              418
             ],
             "label": "Semilla"
           },
@@ -3403,7 +3416,7 @@
             ],
             "pos": [
               -300,
-              770
+              450
             ]
           },
           {
@@ -3419,7 +3432,7 @@
             ],
             "pos": [
               -300,
-              800
+              482
             ]
           },
           {
@@ -3432,20 +3445,7 @@
             ],
             "pos": [
               -300,
-              830
-            ]
-          },
-          {
-            "id": "image-lab-z-image-size-auto-v15",
-            "name": "auto_size",
-            "type": "BOOLEAN",
-            "label": "Usar tamaño de referencia",
-            "linkIds": [
-              4303
-            ],
-            "pos": [
-              -300,
-              1140
+              514
             ]
           }
         ],
@@ -4929,7 +4929,7 @@
           {
             "id": 71,
             "origin_id": -10,
-            "origin_slot": 3,
+            "origin_slot": 4,
             "target_id": 3,
             "target_slot": 4,
             "type": "INT"
@@ -4937,7 +4937,7 @@
           {
             "id": 2500,
             "origin_id": -10,
-            "origin_slot": 4,
+            "origin_slot": 5,
             "target_id": 1301,
             "target_slot": 0,
             "type": "IMAGE"
@@ -4977,7 +4977,7 @@
           {
             "id": 2507,
             "origin_id": -10,
-            "origin_slot": 5,
+            "origin_slot": 6,
             "target_id": 1303,
             "target_slot": 2,
             "type": "BOOLEAN"
@@ -5017,7 +5017,7 @@
           {
             "id": 2512,
             "origin_id": -10,
-            "origin_slot": 5,
+            "origin_slot": 6,
             "target_id": 1306,
             "target_slot": 2,
             "type": "BOOLEAN"
@@ -5033,7 +5033,7 @@
           {
             "id": 2700,
             "origin_id": -10,
-            "origin_slot": 4,
+            "origin_slot": 5,
             "target_id": 1600,
             "target_slot": 0,
             "type": "IMAGE"
@@ -5081,7 +5081,7 @@
           {
             "id": 2706,
             "origin_id": -10,
-            "origin_slot": 5,
+            "origin_slot": 6,
             "target_id": 1603,
             "target_slot": 2,
             "type": "BOOLEAN"
@@ -5145,7 +5145,7 @@
           {
             "id": 2714,
             "origin_id": -10,
-            "origin_slot": 5,
+            "origin_slot": 6,
             "target_id": 1604,
             "target_slot": 2,
             "type": "BOOLEAN"
@@ -5185,7 +5185,7 @@
           {
             "id": 4302,
             "origin_id": -10,
-            "origin_slot": 6,
+            "origin_slot": 7,
             "target_id": 2102,
             "target_slot": 0,
             "type": "INT"
@@ -5193,7 +5193,7 @@
           {
             "id": 4303,
             "origin_id": -10,
-            "origin_slot": 7,
+            "origin_slot": 3,
             "target_id": 2103,
             "target_slot": 0,
             "type": "BOOLEAN"
@@ -5214,7 +5214,7 @@
           "lastLinkId": 4614,
           "lastRerouteId": 0
         },
-        "revision": 4,
+        "revision": 5,
         "config": {},
         "name": "FLUX.1 Dev · Generación",
         "inputNode": {
@@ -5246,7 +5246,7 @@
             "label": "Prompt",
             "pos": [
               -990,
-              431
+              290
             ]
           },
           {
@@ -5258,7 +5258,7 @@
             ],
             "pos": [
               -990,
-              451
+              322
             ],
             "label": "Ancho manual (px)"
           },
@@ -5271,9 +5271,22 @@
             ],
             "pos": [
               -990,
-              471
+              354
             ],
             "label": "Alto manual (px)"
+          },
+          {
+            "id": "image-lab-flux-size-auto-v15",
+            "name": "auto_size",
+            "type": "BOOLEAN",
+            "label": "Mantener resolución de imagen inicial",
+            "linkIds": [
+              4403
+            ],
+            "pos": [
+              -300,
+              386
+            ]
           },
           {
             "id": "ea5ea317-a484-4605-8138-8628a4b8e502",
@@ -5284,7 +5297,7 @@
             ],
             "pos": [
               -990,
-              491
+              418
             ],
             "label": "Semilla"
           },
@@ -5299,7 +5312,7 @@
             ],
             "pos": [
               -300,
-              770
+              450
             ]
           },
           {
@@ -5315,7 +5328,7 @@
             ],
             "pos": [
               -300,
-              800
+              482
             ]
           },
           {
@@ -5328,20 +5341,7 @@
             ],
             "pos": [
               -300,
-              830
-            ]
-          },
-          {
-            "id": "image-lab-flux-size-auto-v15",
-            "name": "auto_size",
-            "type": "BOOLEAN",
-            "label": "Usar tamaño de referencia",
-            "linkIds": [
-              4403
-            ],
-            "pos": [
-              -300,
-              1140
+              514
             ]
           },
           {
@@ -5354,7 +5354,7 @@
             ],
             "pos": [
               -300,
-              1195
+              546
             ]
           },
           {
@@ -5367,7 +5367,7 @@
             ],
             "pos": [
               -300,
-              1240
+              578
             ]
           },
           {
@@ -5380,7 +5380,7 @@
             ],
             "pos": [
               -300,
-              1280
+              610
             ]
           }
         ],
@@ -7324,7 +7324,7 @@
           {
             "id": 382,
             "origin_id": -10,
-            "origin_slot": 3,
+            "origin_slot": 4,
             "target_id": 31,
             "target_slot": 4,
             "type": "INT"
@@ -7332,7 +7332,7 @@
           {
             "id": 3500,
             "origin_id": -10,
-            "origin_slot": 4,
+            "origin_slot": 5,
             "target_id": 1401,
             "target_slot": 0,
             "type": "IMAGE"
@@ -7372,7 +7372,7 @@
           {
             "id": 3507,
             "origin_id": -10,
-            "origin_slot": 5,
+            "origin_slot": 6,
             "target_id": 1403,
             "target_slot": 2,
             "type": "BOOLEAN"
@@ -7412,7 +7412,7 @@
           {
             "id": 3512,
             "origin_id": -10,
-            "origin_slot": 5,
+            "origin_slot": 6,
             "target_id": 1406,
             "target_slot": 2,
             "type": "BOOLEAN"
@@ -7428,7 +7428,7 @@
           {
             "id": 3700,
             "origin_id": -10,
-            "origin_slot": 4,
+            "origin_slot": 5,
             "target_id": 1700,
             "target_slot": 0,
             "type": "IMAGE"
@@ -7476,7 +7476,7 @@
           {
             "id": 3706,
             "origin_id": -10,
-            "origin_slot": 5,
+            "origin_slot": 6,
             "target_id": 1703,
             "target_slot": 2,
             "type": "BOOLEAN"
@@ -7540,7 +7540,7 @@
           {
             "id": 3714,
             "origin_id": -10,
-            "origin_slot": 5,
+            "origin_slot": 6,
             "target_id": 1704,
             "target_slot": 2,
             "type": "BOOLEAN"
@@ -7580,7 +7580,7 @@
           {
             "id": 4402,
             "origin_id": -10,
-            "origin_slot": 6,
+            "origin_slot": 7,
             "target_id": 2202,
             "target_slot": 0,
             "type": "INT"
@@ -7588,7 +7588,7 @@
           {
             "id": 4403,
             "origin_id": -10,
-            "origin_slot": 7,
+            "origin_slot": 3,
             "target_id": 2203,
             "target_slot": 0,
             "type": "BOOLEAN"
@@ -7729,7 +7729,7 @@
           "lastLinkId": 4501,
           "lastRerouteId": 0
         },
-        "revision": 6,
+        "revision": 7,
         "config": {},
         "name": "Qwen-Image-Edit 2511 · 1–3 referencias · tamaño libre",
         "inputNode": {
@@ -7762,7 +7762,7 @@
             "label": "image 1",
             "pos": [
               -290.0185781065087,
-              347.2321295314722
+              290
             ]
           },
           {
@@ -7775,7 +7775,7 @@
             "label": "image 2 (optional)",
             "pos": [
               -290.0185781065087,
-              367.2321295314722
+              322
             ]
           },
           {
@@ -7788,7 +7788,7 @@
             "label": "image 3 (optional)",
             "pos": [
               -290.0185781065087,
-              387.2321295314722
+              354
             ]
           },
           {
@@ -7800,7 +7800,7 @@
             ],
             "pos": [
               -290.0185781065087,
-              407.2321295314722
+              386
             ]
           },
           {
@@ -7813,7 +7813,7 @@
             "label": "Ancho manual (px)",
             "pos": [
               -290.0185781065087,
-              487.2321295314722
+              418
             ]
           },
           {
@@ -7826,7 +7826,21 @@
             "label": "Alto manual (px)",
             "pos": [
               -290.0185781065087,
-              507.2321295314722
+              450
+            ]
+          },
+          {
+            "id": "image-lab-qwen-size-auto-v15",
+            "name": "auto_size",
+            "type": "BOOLEAN",
+            "label": "Mantener resolución de imagen principal",
+            "linkIds": [
+              4003,
+              4007
+            ],
+            "pos": [
+              -300,
+              482
             ]
           },
           {
@@ -7839,7 +7853,7 @@
             ],
             "pos": [
               -290,
-              527
+              514
             ]
           },
           {
@@ -7852,7 +7866,7 @@
             ],
             "pos": [
               -290,
-              560
+              546
             ]
           },
           {
@@ -7865,21 +7879,7 @@
             ],
             "pos": [
               -290,
-              585
-            ]
-          },
-          {
-            "id": "image-lab-qwen-size-auto-v15",
-            "name": "auto_size",
-            "type": "BOOLEAN",
-            "label": "Usar tamaño de referencia",
-            "linkIds": [
-              4003,
-              4007
-            ],
-            "pos": [
-              -300,
-              1220
+              578
             ]
           }
         ],
@@ -9406,7 +9406,7 @@
           {
             "id": 130,
             "origin_id": -10,
-            "origin_slot": 6,
+            "origin_slot": 7,
             "target_id": 15,
             "target_slot": 4,
             "type": "INT"
@@ -9422,7 +9422,7 @@
           {
             "id": 181,
             "origin_id": -10,
-            "origin_slot": 7,
+            "origin_slot": 8,
             "target_id": 1800,
             "target_slot": 2,
             "type": "BOOLEAN"
@@ -9438,7 +9438,7 @@
           {
             "id": 183,
             "origin_id": -10,
-            "origin_slot": 8,
+            "origin_slot": 9,
             "target_id": 1801,
             "target_slot": 2,
             "type": "BOOLEAN"
@@ -9470,7 +9470,7 @@
           {
             "id": 4003,
             "origin_id": -10,
-            "origin_slot": 9,
+            "origin_slot": 6,
             "target_id": 1901,
             "target_slot": 2,
             "type": "BOOLEAN"
@@ -9502,7 +9502,7 @@
           {
             "id": 4007,
             "origin_id": -10,
-            "origin_slot": 9,
+            "origin_slot": 6,
             "target_id": 1902,
             "target_slot": 2,
             "type": "BOOLEAN"
