@@ -1,6 +1,6 @@
 {
   "id": "d9ac44b0-2f2d-4a95-8dd2-44cd82200a80",
-  "revision": 33,
+  "revision": 34,
   "last_node_id": 950,
   "last_link_id": 3516,
   "nodes": [
@@ -104,8 +104,8 @@
       },
       "widgets_values": [
         "A single ultra-realistic studio reference photograph of an adult woman, 30 years old, standing upright in a relaxed neutral anatomical pose, directly facing the camera.\n\nPerfectly frontal view, straight head position, natural symmetrical posture, shoulders level, both arms resting naturally at her sides, unobstructed torso. Framing from the top of the head to the upper hips.\n\nNatural adult female anatomy, realistic body proportions, naturally shaped breasts with anatomically accurate areolas and nipples, believable skin elasticity, subtle natural asymmetry, authentic skin pores, fine skin texture and realistic anatomical transitions.\n\nNatural facial features, relaxed expression, both eyes focused straight ahead, realistic eye alignment, subtle facial asymmetry, no makeup, natural eyebrows.\n\nProfessional full-frame DSLR studio photography, 85mm portrait lens, soft diffused frontal lighting, realistic shadows, neutral color grading, sharp optical detail, unretouched documentary photography.\n\nPure white seamless studio background. Exactly one woman, one photograph, one camera angle, no collage, no fashion pose, no accessories, no clothing covering the torso.",
-        null,
-        null,
+        false,
+        true,
         1024,
         1024,
         0,
@@ -118,7 +118,9 @@
         "height": 1024,
         "strength_pct": 0,
         "seed": 1,
-        "turbo_lora_pct": 0
+        "turbo_lora_pct": 0,
+        "use_img2img": false,
+        "auto_size": true
       }
     },
     {
@@ -348,8 +350,8 @@
       },
       "widgets_values": [
         "A single ultra-realistic studio reference photograph of an adult woman, 30 years old, standing upright in a relaxed neutral anatomical pose, directly facing the camera.\n\nPerfectly frontal view, straight head position, natural symmetrical posture, shoulders level, both arms resting naturally at her sides, unobstructed torso. Framing from the top of the head to the upper hips.\n\nNatural adult female anatomy, realistic body proportions, naturally shaped breasts with anatomically accurate areolas and nipples, believable skin elasticity, subtle natural asymmetry, authentic skin pores, fine skin texture and realistic anatomical transitions.\n\nNatural facial features, relaxed expression, both eyes focused straight ahead, realistic eye alignment, subtle facial asymmetry, no makeup, natural eyebrows.\n\nProfessional full-frame DSLR studio photography, 85mm portrait lens, soft diffused frontal lighting, realistic shadows, neutral color grading, sharp optical detail, unretouched documentary photography.\n\nPure white seamless studio background. Exactly one woman, one photograph, one camera angle, no collage, no fashion pose, no accessories, no clothing covering the torso.",
-        null,
-        null,
+        false,
+        false,
         768,
         1024,
         0,
@@ -368,7 +370,9 @@
         "guidance": 3.5,
         "anatomy_lora_pct": 0,
         "fpnd_lora_pct": 0,
-        "photo_lora_pct": 0
+        "photo_lora_pct": 0,
+        "use_img2img": false,
+        "auto_size": false
       }
     },
     {
