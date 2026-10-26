@@ -60,21 +60,34 @@ if (!(Test-Path -LiteralPath $hf)) {
 $env:HF_HOME = Join-Path $root "hf_cache"
 $models = Join-Path $repo "models"
 New-Item -ItemType Directory -Path $models -Force | Out-Null
+# Solo pesos utilizados durante la inferencia 1.5; un archivo por comando.
+# Pasar --include repetidamente hacia que solo se aplicara el ultimo filtro.
 $downloads = @(
-    @{ id="TMElyralab/MuseTalk"; folder=$models; includes=@() },
-    @{ id="stabilityai/sd-vae-ft-mse"; folder=(Join-Path $models "sd-vae"); includes=@("config.json", "diffusion_pytorch_model.bin") },
-    @{ id="openai/whisper-tiny"; folder=(Join-Path $models "whisper"); includes=@("config.json", "pytorch_model.bin", "preprocessor_config.json") },
-    @{ id="yzd-v/DWPose"; folder=(Join-Path $models "dwpose"); includes=@("dw-ll_ucoco_384.pth") },
-    @{ id="ByteDance/LatentSync"; folder=(Join-Path $models "syncnet"); includes=@("latentsync_syncnet.pt") },
-    @{ id="ManyOtherFunctions/face-parse-bisent"; folder=(Join-Path $models "face-parse-bisent"); includes=@("79999_iter.pth", "resnet18-5c106cde.pth") }
+    @{model="TMElyralab/MuseTalk"; file="musetalkV15/unet.pth"; dir=$models},
+    @{model="TMElyralab/MuseTalk"; file="musetalkV15/musetalk.json"; dir=$models},
+    @{model="stabilityai/sd-vae-ft-mse"; file="config.json"; dir=(Join-Path $models "sd-vae")},
+    @{model="stabilityai/sd-vae-ft-mse"; file="diffusion_pytorch_model.bin"; dir=(Join-Path $models "sd-vae")},
+    @{model="openai/whisper-tiny"; file="config.json"; dir=(Join-Path $models "whisper")},
+    @{model="openai/whisper-tiny"; file="pytorch_model.bin"; dir=(Join-Path $models "whisper")},
+    @{model="openai/whisper-tiny"; file="preprocessor_config.json"; dir=(Join-Path $models "whisper")},
+    @{model="yzd-v/DWPose"; file="dw-ll_ucoco_384.pth"; dir=(Join-Path $models "dwpose")},
+    @{model="ManyOtherFunctions/face-parse-bisent"; file="79999_iter.pth"; dir=(Join-Path $models "face-parse-bisent")},
+    @{model="ManyOtherFunctions/face-parse-bisent"; file="resnet18-5c106cde.pth"; dir=(Join-Path $models "face-parse-bisent")}
 )
 foreach ($item in $downloads) {
-    Write-Host "Modelos: $($item.id)"
-    $arguments = @("download", $item.id, "--local-dir", $item.folder)
-    foreach ($include in $item.includes) { $arguments += @("--include", $include) }
-    & $hf @arguments
-    if ($LASTEXITCODE -ne 0) { throw "Fallo la descarga del modelo: $($item.id)" }
+    $target = Join-Path $item.dir $item.file.Replace('/', '\')
+    if ((Test-Path -LiteralPath $target) -and (Get-Item -LiteralPath $target).Length -gt 0) {
+        Write-Host "Conservando archivo existente: $($item.file)"
+        continue
+    }
+    Write-Host "Descargando exclusivamente: $($item.model) $($item.file)"
+    & $hf download $item.model $item.file --local-dir $item.dir
+    if ($LASTEXITCODE -ne 0) { throw "Fallo la descarga: $($item.model) / $($item.file)" }
+    if (!(Test-Path -LiteralPath $target) -or (Get-Item -LiteralPath $target).Length -eq 0) {
+        throw "El archivo sigue ausente: $target"
+    }
 }
+
 foreach ($required in @(
     (Join-Path $repo "models\musetalkV15\unet.pth"),
     (Join-Path $repo "models\musetalkV15\musetalk.json"),
