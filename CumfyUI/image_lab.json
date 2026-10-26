@@ -1,8 +1,8 @@
 {
   "id": "d9ac44b0-2f2d-4a95-8dd2-44cd82200a80",
-  "revision": 32,
+  "revision": 33,
   "last_node_id": 950,
-  "last_link_id": 3514,
+  "last_link_id": 3516,
   "nodes": [
     {
       "id": 200,
@@ -69,10 +69,7 @@
           "name": "strength_pct",
           "type": "INT",
           "label": "Transformación (%)",
-          "link": null,
-          "widget": {
-            "name": "strength_pct"
-          }
+          "link": 3515
         },
         {
           "name": "seed",
@@ -107,6 +104,8 @@
       },
       "widgets_values": [
         "A single ultra-realistic studio reference photograph of an adult woman, 30 years old, standing upright in a relaxed neutral anatomical pose, directly facing the camera.\n\nPerfectly frontal view, straight head position, natural symmetrical posture, shoulders level, both arms resting naturally at her sides, unobstructed torso. Framing from the top of the head to the upper hips.\n\nNatural adult female anatomy, realistic body proportions, naturally shaped breasts with anatomically accurate areolas and nipples, believable skin elasticity, subtle natural asymmetry, authentic skin pores, fine skin texture and realistic anatomical transitions.\n\nNatural facial features, relaxed expression, both eyes focused straight ahead, realistic eye alignment, subtle facial asymmetry, no makeup, natural eyebrows.\n\nProfessional full-frame DSLR studio photography, 85mm portrait lens, soft diffused frontal lighting, realistic shadows, neutral color grading, sharp optical detail, unretouched documentary photography.\n\nPure white seamless studio background. Exactly one woman, one photograph, one camera angle, no collage, no fashion pose, no accessories, no clothing covering the torso.",
+        null,
+        null,
         1024,
         1024,
         0,
@@ -161,6 +160,14 @@
             "name": "Mantener resolución original"
           },
           "link": null
+        },
+        {
+          "name": "Transformación (%)",
+          "type": "INT",
+          "widget": {
+            "name": "Transformación (%)"
+          },
+          "link": null
         }
       ],
       "outputs": [
@@ -189,6 +196,13 @@
           "links": [
             3512
           ]
+        },
+        {
+          "name": "transformacion_pct",
+          "type": "INT",
+          "links": [
+            3515
+          ]
         }
       ],
       "properties": {
@@ -197,12 +211,14 @@
       "widgets_values": [
         "(sin imagen)",
         false,
-        true
+        true,
+        0
       ],
       "widgets_values_named": {
         "image": "(sin imagen)",
         "Usar imagen inicial": false,
-        "Mantener resolución original": true
+        "Mantener resolución original": true,
+        "Transformación (%)": 0
       }
     },
     {
@@ -270,10 +286,7 @@
           "name": "strength_pct",
           "type": "INT",
           "label": "Transformación (%)",
-          "link": null,
-          "widget": {
-            "name": "strength_pct"
-          }
+          "link": 3516
         },
         {
           "name": "seed",
@@ -335,6 +348,8 @@
       },
       "widgets_values": [
         "A single ultra-realistic studio reference photograph of an adult woman, 30 years old, standing upright in a relaxed neutral anatomical pose, directly facing the camera.\n\nPerfectly frontal view, straight head position, natural symmetrical posture, shoulders level, both arms resting naturally at her sides, unobstructed torso. Framing from the top of the head to the upper hips.\n\nNatural adult female anatomy, realistic body proportions, naturally shaped breasts with anatomically accurate areolas and nipples, believable skin elasticity, subtle natural asymmetry, authentic skin pores, fine skin texture and realistic anatomical transitions.\n\nNatural facial features, relaxed expression, both eyes focused straight ahead, realistic eye alignment, subtle facial asymmetry, no makeup, natural eyebrows.\n\nProfessional full-frame DSLR studio photography, 85mm portrait lens, soft diffused frontal lighting, realistic shadows, neutral color grading, sharp optical detail, unretouched documentary photography.\n\nPure white seamless studio background. Exactly one woman, one photograph, one camera angle, no collage, no fashion pose, no accessories, no clothing covering the torso.",
+        null,
+        null,
         768,
         1024,
         0,
@@ -395,6 +410,14 @@
             "name": "Mantener resolución original"
           },
           "link": null
+        },
+        {
+          "name": "Transformación (%)",
+          "type": "INT",
+          "widget": {
+            "name": "Transformación (%)"
+          },
+          "link": null
         }
       ],
       "outputs": [
@@ -423,6 +446,13 @@
           "links": [
             3514
           ]
+        },
+        {
+          "name": "transformacion_pct",
+          "type": "INT",
+          "links": [
+            3516
+          ]
         }
       ],
       "properties": {
@@ -431,12 +461,14 @@
       "widgets_values": [
         "(sin imagen)",
         false,
-        false
+        false,
+        0
       ],
       "widgets_values_named": {
         "image": "(sin imagen)",
         "Usar imagen inicial": false,
-        "Mantener resolución original": false
+        "Mantener resolución original": false,
+        "Transformación (%)": 0
       }
     },
     {
@@ -1003,6 +1035,22 @@
       300,
       3,
       "BOOLEAN"
+    ],
+    [
+      3515,
+      201,
+      4,
+      200,
+      6,
+      "INT"
+    ],
+    [
+      3516,
+      301,
+      4,
+      300,
+      6,
+      "INT"
     ]
   ],
   "groups": [
@@ -3442,7 +3490,7 @@
           "lastLinkId": 4315,
           "lastRerouteId": 0
         },
-        "revision": 7,
+        "revision": 8,
         "config": {},
         "name": "Z-Image-Turbo · Generación",
         "inputNode": {
@@ -5568,7 +5616,7 @@
           "lastLinkId": 4701,
           "lastRerouteId": 0
         },
-        "revision": 9,
+        "revision": 10,
         "config": {},
         "name": "FLUX.1 Dev · Generación",
         "inputNode": {
