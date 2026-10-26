@@ -36,7 +36,7 @@
         "generar",
         "Responde en español respetando el contenido, el tono y las instrucciones del usuario.",
         "Escribe aqui tu solicitud.",
-        32768,
+        0,
         20,
         false,
         "f16",
@@ -97,7 +97,7 @@
       },
       "title": "Instrucciones de uso y contexto",
       "widgets_values": [
-        "GENERATO_LLM · Magnum / Euryale\n\nUN SOLO GENERADOR, UN MODELO A LA VEZ.\n\n1. Selecciona 'modelo' en el nodo GGUF Local. Al cambiar, el nodo libera el modelo anterior y arranca el elegido mediante llama-server local.\n2. CONTEXTO NATIVO: Magnum v2 32B = 32768; Euryale 70B v2.1 = 8192. El campo 'contexto_tokens' es manual y NO cambia automaticamente al cambiar de modelo. Pon 8192 para Euryale y 32768 para Magnum (si deseas sus máximos declarados).\n3. 'capas_gpu' también es manual: 20 inicial en Magnum; para una primera prueba de Euryale usa 8. Son valores provisionales, NO optimizaciones validadas. Ajusta según la memoria de la RTX 3060 12 GB.\n4. Ambos modelos son LLM solo texto. Se necesita custom_nodes/ComfyUI_GGUF_LocalChat instalado para que los dos nodos sean reconocidos.\n5. Para liberar el modelo elige 'descargar_modelo' en 'accion' y ejecuta el workflow.\n6. Ruta del ejecutable: ComfyUI/tools/llama.cpp/llama-server.exe. Pesos: ComfyUI/models/llm/{magnum-v2-32b,euryale-70b}/.\n\nNo hay ejecución concurrente de los dos modelos."
+        "GENERADOR LLM · MAGNUM / EURYALE\n\nNodos requeridos: GGUF_LocalChatAuto y GGUF_SaveTextAuto.\nInstalación: copiar __init__.py y nodes.py a ComfyUI/custom_nodes/ComfyUI_GGUF_LocalChat/, reiniciar ComfyUI.\n\nMODELO: selecciona Magnum 32B Q4_K_M o Euryale 70B Q4_K_M. Solo un modelo estará cargado.\nCONTEXTO: valor 0 = automático según el modelo seleccionado (Magnum 32768; Euryale 8192). Otros valores = manuales; no se amplía mágicamente el contexto nativo.\nCAPAS GPU: 20 es un valor inicial NO optimizado y puede ser excesivo en Euryale. Prueba con menos (p.ej. 8) si falla por VRAM. RTX 3060 12 GB, RAM 64 GB.\nCHAT: cada ejecución es independiente, sin memoria entre prompts. Texto de salida a ComfyUI/output/gguf_chat/.\nLIBERAR: selecciona accion=descargar_modelo y ejecuta.\nRUTAS: motor en tools/llama.cpp/llama-server.exe; pesos en models/llm/.\nNo necesitas ComfyUI Manager."
       ]
     }
   ],
