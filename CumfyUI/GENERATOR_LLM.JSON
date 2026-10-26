@@ -10,8 +10,8 @@
         135
       ],
       "size": [
-        650,
-        540
+        700,
+        670
       ],
       "flags": {},
       "order": 0,
@@ -30,22 +30,26 @@
       "properties": {
         "Node name for S&R": "GGUF_GeneradorLLM"
       },
-      "title": "GENERADOR LLM · Elegir modelo y escribir prompt",
+      "title": "GENERADOR LLM · Magnum / Euryale",
       "widgets_values": [
         "Magnum v2 32B (Q4_K_M)",
-        "Hola, ¿estás ahí?"
+        "",
+        0,
+        0.8,
+        512,
+        8
       ]
     },
     {
       "id": 2,
       "type": "PreviewAny",
       "pos": [
-        835,
+        860,
         135
       ],
       "size": [
-        850,
-        600
+        880,
+        670
       ],
       "flags": {},
       "order": 1,
@@ -68,7 +72,7 @@
         "Node name for S&R": "PreviewAny",
         "cnr_id": "comfy-core"
       },
-      "title": "RESPUESTA DEL MODELO · Ver texto aquí",
+      "title": "RESPUESTA DEL MODELO · Leer aquí",
       "widgets_values": []
     }
   ],
@@ -86,7 +90,7 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.85,
+      "scale": 0.8,
       "offset": [
         120,
         70
