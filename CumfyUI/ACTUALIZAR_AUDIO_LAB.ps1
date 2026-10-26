@@ -33,8 +33,14 @@ if (!(Select-String -LiteralPath $lipWorker -Pattern 'def track_faces' -Quiet)) 
 if (!(Select-String -LiteralPath $bridge -Pattern 'class AudioLabDialoguePlanner' -Quiet)) {
     throw "audio_lab_nodes.py es antiguo: descarga la version actualizada de dev."
 }
-if (!(Select-String -LiteralPath $bridge -Pattern 'AUDIO_LAB no elegirá el momento' -Quiet)) {
-    throw "audio_lab_nodes.py es antiguo: no admite tiempos explicitos."
+# Do not check a localized text string: Windows PowerShell 5.1 may decode
+# UTF-8 sources as the current ANSI codepage and misidentify valid files.
+# These ASCII markers identify the new timestamp parser and lip-sync node.
+$bridgeContent = Get-Content -LiteralPath $bridge -Raw -Encoding UTF8
+if (!$bridgeContent.Contains('window_end') -or
+    !$bridgeContent.Contains('Never distribute, slide or truncate speech.') -or
+    $bridgeContent.Contains('gap = (limit - position - spoken)')) {
+    throw "audio_lab_nodes.py no es la version temporal actual. Descarga de nuevo audio_lab_nodes.py desde dev, pulsa Raw, guarda sobre el existente y repite."
 }
 if (!(Select-String -LiteralPath $editor -Pattern 'id="video"' -Quiet)) {
     throw "AUDIO_LAB_TIMELINE.html es antiguo o incorrecto."
@@ -42,7 +48,7 @@ if (!(Select-String -LiteralPath $editor -Pattern 'id="video"' -Quiet)) {
 if (!(Select-String -LiteralPath $worker -Pattern 'jobs-json' -Quiet)) {
     throw "audio_lab_tts_worker.py es antiguo: descarga la version actualizada de dev."
 }
-$workflowJson = Get-Content -LiteralPath $workflow -Raw | ConvertFrom-Json
+$workflowJson = Get-Content -LiteralPath $workflow -Raw -Encoding UTF8 | ConvertFrom-Json
 $plannerFound = @($workflowJson.definitions.subgraphs[0].nodes |
     Where-Object { $_.type -eq 'AudioLabLipSyncMuseTalk' }).Count -eq 1
 if (!$plannerFound) {
@@ -74,6 +80,10 @@ foreach ($pair in @(
         Copy-Item -LiteralPath $pair.to -Destination ($pair.to + "." + $stamp + ".bak") -Force
     }
     Copy-Item -LiteralPath $pair.from -Destination $pair.to -Force
+    if ((Get-FileHash -Algorithm SHA256 -LiteralPath $pair.from).Hash -ne
+        (Get-FileHash -Algorithm SHA256 -LiteralPath $pair.to).Hash) {
+        throw "La copia no coincide: $($pair.to)."
+    }
 }
 Write-Host ""
 Write-Host "AUDIO_LAB actualizado: control temporal exacto A/B, lip-sync MuseTalk y mezcla segura."
