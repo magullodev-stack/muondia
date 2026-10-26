@@ -1,6 +1,6 @@
 {
   "id": "d9ac44b0-2f2d-4a95-8dd2-44cd82200a80",
-  "revision": 22,
+  "revision": 23,
   "last_node_id": 950,
   "last_link_id": 3510,
   "nodes": [
@@ -169,7 +169,7 @@
       ],
       "size": [
         540,
-        565
+        605
       ],
       "flags": {},
       "order": 300,
@@ -243,6 +243,15 @@
           "widget": {
             "name": "auto_size"
           }
+        },
+        {
+          "name": "anatomy_lora_pct",
+          "type": "INT",
+          "label": "LoRA anatomía (%) · 0 desactiva",
+          "link": null,
+          "widget": {
+            "name": "anatomy_lora_pct"
+          }
         }
       ],
       "outputs": [
@@ -264,7 +273,8 @@
         123456789,
         false,
         65,
-        true
+        true,
+        65
       ],
       "widgets_values_named": {
         "text": "",
@@ -273,7 +283,8 @@
         "seed": 123456789,
         "use_img2img": false,
         "strength_pct": 65,
-        "auto_size": true
+        "auto_size": true,
+        "anatomy_lora_pct": 65
       }
     },
     {
@@ -5177,11 +5188,11 @@
         "version": 1,
         "state": {
           "lastGroupId": 8,
-          "lastNodeId": 2203,
-          "lastLinkId": 4403,
+          "lastNodeId": 2306,
+          "lastLinkId": 4604,
           "lastRerouteId": 0
         },
-        "revision": 3,
+        "revision": 4,
         "config": {},
         "name": "FLUX.1 Dev · Generación",
         "inputNode": {
@@ -5310,6 +5321,19 @@
               -300,
               1140
             ]
+          },
+          {
+            "id": "image-lab-flux-anatomy-strength-v23",
+            "name": "anatomy_lora_pct",
+            "type": "INT",
+            "label": "LoRA anatomía (%) · 0 desactiva",
+            "linkIds": [
+              4604
+            ],
+            "pos": [
+              -300,
+              1195
+            ]
           }
         ],
         "outputs": [
@@ -5425,7 +5449,7 @@
                 "name": "MODEL",
                 "type": "MODEL",
                 "links": [
-                  61
+                  4600
                 ]
               }
             ],
@@ -5509,7 +5533,7 @@
                 "name": "CLIP",
                 "type": "CLIP",
                 "links": [
-                  64
+                  4601
                 ]
               }
             ],
@@ -6602,6 +6626,183 @@
             "widgets_values": [
               true
             ]
+          },
+          {
+            "id": 2304,
+            "type": "LoraLoader",
+            "title": "FLUX · LoRA anatomía (instalado)",
+            "pos": [
+              -480,
+              395
+            ],
+            "size": [
+              310,
+              170
+            ],
+            "flags": {},
+            "order": 2304,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "model",
+                "type": "MODEL",
+                "link": 4600
+              },
+              {
+                "name": "clip",
+                "type": "CLIP",
+                "link": 4601
+              },
+              {
+                "name": "lora_name",
+                "type": "COMBO",
+                "widget": {
+                  "name": "lora_name"
+                },
+                "link": null
+              },
+              {
+                "name": "strength_model",
+                "type": "FLOAT",
+                "widget": {
+                  "name": "strength_model"
+                },
+                "link": 4602
+              },
+              {
+                "name": "strength_clip",
+                "type": "FLOAT",
+                "widget": {
+                  "name": "strength_clip"
+                },
+                "link": null
+              }
+            ],
+            "outputs": [
+              {
+                "name": "MODEL",
+                "type": "MODEL",
+                "links": [
+                  61
+                ]
+              },
+              {
+                "name": "CLIP",
+                "type": "CLIP",
+                "links": [
+                  64
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "LoraLoader",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              "flux\\flux-female-anatomy.safetensors",
+              0.65,
+              0
+            ]
+          },
+          {
+            "id": 2305,
+            "type": "PrimitiveInt",
+            "title": "LoRA · porcentaje",
+            "pos": [
+              -600,
+              1790
+            ],
+            "size": [
+              260,
+              95
+            ],
+            "flags": {},
+            "order": 2305,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "value",
+                "type": "INT",
+                "widget": {
+                  "name": "value"
+                },
+                "link": 4604
+              }
+            ],
+            "outputs": [
+              {
+                "name": "INT",
+                "type": "INT",
+                "links": [
+                  4603
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "PrimitiveInt",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              65,
+              "fixed"
+            ]
+          },
+          {
+            "id": 2306,
+            "type": "ComfyMathExpression",
+            "title": "LoRA · Normalizar intensidad",
+            "pos": [
+              -260,
+              1790
+            ],
+            "size": [
+              310,
+              90
+            ],
+            "flags": {},
+            "order": 2306,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "values.a",
+                "type": "FLOAT,INT",
+                "link": 4603
+              },
+              {
+                "name": "expression",
+                "type": "STRING",
+                "widget": {
+                  "name": "expression"
+                },
+                "link": null
+              }
+            ],
+            "outputs": [
+              {
+                "name": "FLOAT",
+                "type": "FLOAT",
+                "links": [
+                  4602
+                ]
+              },
+              {
+                "name": "INT",
+                "type": "INT",
+                "links": []
+              },
+              {
+                "name": "BOOL",
+                "type": "BOOLEAN",
+                "links": []
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ComfyMathExpression",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              "max(0.0, min(1.0, a / 100.0))"
+            ]
           }
         ],
         "groups": [
@@ -6664,7 +6865,7 @@
           },
           {
             "id": 61,
-            "origin_id": 38,
+            "origin_id": 2304,
             "origin_slot": 0,
             "target_id": 31,
             "target_slot": 0,
@@ -6688,8 +6889,8 @@
           },
           {
             "id": 64,
-            "origin_id": 40,
-            "origin_slot": 0,
+            "origin_id": 2304,
+            "origin_slot": 1,
             "target_id": 45,
             "target_slot": 0,
             "type": "CLIP"
@@ -6989,6 +7190,46 @@
             "target_id": 2203,
             "target_slot": 0,
             "type": "BOOLEAN"
+          },
+          {
+            "id": 4600,
+            "origin_id": 38,
+            "origin_slot": 0,
+            "target_id": 2304,
+            "target_slot": 0,
+            "type": "MODEL"
+          },
+          {
+            "id": 4601,
+            "origin_id": 40,
+            "origin_slot": 0,
+            "target_id": 2304,
+            "target_slot": 1,
+            "type": "CLIP"
+          },
+          {
+            "id": 4602,
+            "origin_id": 2306,
+            "origin_slot": 0,
+            "target_id": 2304,
+            "target_slot": 3,
+            "type": "FLOAT"
+          },
+          {
+            "id": 4603,
+            "origin_id": 2305,
+            "origin_slot": 0,
+            "target_id": 2306,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 4604,
+            "origin_id": -10,
+            "origin_slot": 8,
+            "target_id": 2305,
+            "target_slot": 0,
+            "type": "INT"
           }
         ],
         "extra": {
