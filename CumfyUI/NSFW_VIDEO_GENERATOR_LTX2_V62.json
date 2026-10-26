@@ -1,8 +1,8 @@
 {
   "id": "6c73c31e-0c82-4a7d-a803-35ed6c090e7f",
-  "revision": 5,
+  "revision": 6,
   "last_node_id": 34,
-  "last_link_id": 76,
+  "last_link_id": 78,
   "nodes": [
     {
       "id": 1,
@@ -312,11 +312,11 @@
         "version": 1,
         "state": {
           "lastGroupId": 0,
-          "lastNodeId": 42,
-          "lastLinkId": 76,
+          "lastNodeId": 43,
+          "lastLinkId": 78,
           "lastRerouteId": 0
         },
-        "revision": 3,
+        "revision": 4,
         "config": {},
         "name": "LTX2 · I2V · primer fotograma anclado",
         "inputNode": {
@@ -1354,7 +1354,8 @@
                 "type": "INT",
                 "links": [
                   59,
-                  60
+                  60,
+                  77
                 ]
               },
               {
@@ -1612,7 +1613,7 @@
                 "widget": {
                   "name": "length"
                 },
-                "link": null
+                "link": 78
               }
             ],
             "outputs": [
@@ -1630,7 +1631,7 @@
             },
             "widgets_values": [
               1,
-              9999
+              80
             ],
             "title": "Primer fotograma · descartar frame 0 del generador"
           },
@@ -1867,6 +1868,62 @@
               "fixed": "fixed"
             },
             "title": "Semilla · valor visible"
+          },
+          {
+            "id": 43,
+            "type": "ComfyMathExpression",
+            "title": "Primer fotograma · resto = fotogramas generados menos uno",
+            "pos": [
+              2500,
+              1440
+            ],
+            "size": [
+              345,
+              105
+            ],
+            "flags": {
+              "collapsed": true
+            },
+            "mode": 0,
+            "order": 30,
+            "inputs": [
+              {
+                "name": "values.a",
+                "label": "Fotogramas totales",
+                "type": "FLOAT,INT,BOOLEAN",
+                "link": 77
+              }
+            ],
+            "outputs": [
+              {
+                "name": "FLOAT",
+                "type": "FLOAT",
+                "links": []
+              },
+              {
+                "name": "INT",
+                "type": "INT",
+                "links": [
+                  78
+                ]
+              },
+              {
+                "name": "BOOL",
+                "type": "BOOLEAN",
+                "links": []
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ComfyMathExpression",
+              "cnr_id": "comfy-core",
+              "ver": "0.16.3"
+            },
+            "widgets_values": [
+              "max(1, min(4096, a-1))"
+            ],
+            "widgets_values_named": {
+              "expression": "max(1, min(4096, a-1))"
+            }
           }
         ],
         "groups": [],
@@ -2245,6 +2302,22 @@
             "origin_slot": 0,
             "target_id": 25,
             "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 77,
+            "origin_id": 33,
+            "origin_slot": 1,
+            "target_id": 43,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 78,
+            "origin_id": 43,
+            "origin_slot": 1,
+            "target_id": 37,
+            "target_slot": 2,
             "type": "INT"
           }
         ],
