@@ -1,6 +1,6 @@
 {
   "id": "d9ac44b0-2f2d-4a95-8dd2-44cd82200a80",
-  "revision": 17,
+  "revision": 18,
   "last_node_id": 950,
   "last_link_id": 3515,
   "nodes": [
@@ -428,7 +428,11 @@
         123456789,
         false,
         false
-      ]
+      ],
+      "widgets_values_named": {
+        "width": 1024,
+        "height": 1024
+      }
     },
     {
       "id": 401,
@@ -3269,11 +3273,11 @@
         "version": 1,
         "state": {
           "lastGroupId": 4,
-          "lastNodeId": 1604,
-          "lastLinkId": 2716,
+          "lastNodeId": 2103,
+          "lastLinkId": 4303,
           "lastRerouteId": 0
         },
-        "revision": 2,
+        "revision": 3,
         "config": {},
         "name": "Z-Image-Turbo · Generación",
         "inputNode": {
@@ -3313,8 +3317,7 @@
             "name": "width",
             "type": "INT",
             "linkIds": [
-              2701,
-              2704
+              4300
             ],
             "pos": [
               -460,
@@ -3327,8 +3330,7 @@
             "name": "height",
             "type": "INT",
             "linkIds": [
-              2709,
-              2712
+              4301
             ],
             "pos": [
               -460,
@@ -3385,7 +3387,7 @@
             "type": "INT",
             "label": "Transformación (%)",
             "linkIds": [
-              2510
+              4302
             ],
             "pos": [
               -300,
@@ -3398,8 +3400,7 @@
             "type": "BOOLEAN",
             "label": "Usar tamaño de referencia",
             "linkIds": [
-              2703,
-              2711
+              4303
             ],
             "pos": [
               -300,
@@ -4586,6 +4587,180 @@
             "widgets_values": [
               false
             ]
+          },
+          {
+            "id": 2100,
+            "type": "PrimitiveInt",
+            "title": "Motor · Control width",
+            "pos": [
+              -70,
+              1550
+            ],
+            "size": [
+              310,
+              100
+            ],
+            "flags": {},
+            "order": 4100,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "value",
+                "type": "INT",
+                "widget": {
+                  "name": "value"
+                },
+                "link": 4300
+              }
+            ],
+            "outputs": [
+              {
+                "name": "INT",
+                "type": "INT",
+                "links": [
+                  2701,
+                  2704
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "PrimitiveInt",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              1024,
+              "fixed"
+            ]
+          },
+          {
+            "id": 2101,
+            "type": "PrimitiveInt",
+            "title": "Motor · Control height",
+            "pos": [
+              -70,
+              1675
+            ],
+            "size": [
+              310,
+              100
+            ],
+            "flags": {},
+            "order": 4101,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "value",
+                "type": "INT",
+                "widget": {
+                  "name": "value"
+                },
+                "link": 4301
+              }
+            ],
+            "outputs": [
+              {
+                "name": "INT",
+                "type": "INT",
+                "links": [
+                  2709,
+                  2712
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "PrimitiveInt",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              1024,
+              "fixed"
+            ]
+          },
+          {
+            "id": 2102,
+            "type": "PrimitiveInt",
+            "title": "Motor · Control strength_pct",
+            "pos": [
+              -70,
+              1800
+            ],
+            "size": [
+              310,
+              100
+            ],
+            "flags": {},
+            "order": 4102,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "value",
+                "type": "INT",
+                "widget": {
+                  "name": "value"
+                },
+                "link": 4302
+              }
+            ],
+            "outputs": [
+              {
+                "name": "INT",
+                "type": "INT",
+                "links": [
+                  2510
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "PrimitiveInt",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              65,
+              "fixed"
+            ]
+          },
+          {
+            "id": 2103,
+            "type": "PrimitiveBoolean",
+            "title": "Motor · Control auto_size",
+            "pos": [
+              -70,
+              1925
+            ],
+            "size": [
+              310,
+              100
+            ],
+            "flags": {},
+            "order": 4103,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "value",
+                "type": "BOOLEAN",
+                "widget": {
+                  "name": "value"
+                },
+                "link": 4303
+              }
+            ],
+            "outputs": [
+              {
+                "name": "BOOLEAN",
+                "type": "BOOLEAN",
+                "links": [
+                  2703,
+                  2711
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "PrimitiveBoolean",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              true
+            ]
           }
         ],
         "groups": [
@@ -4784,8 +4959,8 @@
           },
           {
             "id": 2510,
-            "origin_id": -10,
-            "origin_slot": 6,
+            "origin_id": 2102,
+            "origin_slot": 0,
             "target_id": 1305,
             "target_slot": 0,
             "type": "INT"
@@ -4824,8 +4999,8 @@
           },
           {
             "id": 2701,
-            "origin_id": -10,
-            "origin_slot": 1,
+            "origin_id": 2100,
+            "origin_slot": 0,
             "target_id": 1601,
             "target_slot": 0,
             "type": "INT"
@@ -4840,16 +5015,16 @@
           },
           {
             "id": 2703,
-            "origin_id": -10,
-            "origin_slot": 7,
+            "origin_id": 2103,
+            "origin_slot": 0,
             "target_id": 1601,
             "target_slot": 2,
             "type": "BOOLEAN"
           },
           {
             "id": 2704,
-            "origin_id": -10,
-            "origin_slot": 1,
+            "origin_id": 2100,
+            "origin_slot": 0,
             "target_id": 1603,
             "target_slot": 0,
             "type": "INT"
@@ -4888,8 +5063,8 @@
           },
           {
             "id": 2709,
-            "origin_id": -10,
-            "origin_slot": 2,
+            "origin_id": 2101,
+            "origin_slot": 0,
             "target_id": 1602,
             "target_slot": 0,
             "type": "INT"
@@ -4904,16 +5079,16 @@
           },
           {
             "id": 2711,
-            "origin_id": -10,
-            "origin_slot": 7,
+            "origin_id": 2103,
+            "origin_slot": 0,
             "target_id": 1602,
             "target_slot": 2,
             "type": "BOOLEAN"
           },
           {
             "id": 2712,
-            "origin_id": -10,
-            "origin_slot": 2,
+            "origin_id": 2101,
+            "origin_slot": 0,
             "target_id": 1604,
             "target_slot": 0,
             "type": "INT"
@@ -4949,6 +5124,38 @@
             "target_id": 1301,
             "target_slot": 3,
             "type": "INT"
+          },
+          {
+            "id": 4300,
+            "origin_id": -10,
+            "origin_slot": 1,
+            "target_id": 2100,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 4301,
+            "origin_id": -10,
+            "origin_slot": 2,
+            "target_id": 2101,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 4302,
+            "origin_id": -10,
+            "origin_slot": 6,
+            "target_id": 2102,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 4303,
+            "origin_id": -10,
+            "origin_slot": 7,
+            "target_id": 2103,
+            "target_slot": 0,
+            "type": "BOOLEAN"
           }
         ],
         "extra": {
@@ -4962,11 +5169,11 @@
         "version": 1,
         "state": {
           "lastGroupId": 8,
-          "lastNodeId": 1704,
-          "lastLinkId": 3716,
+          "lastNodeId": 2203,
+          "lastLinkId": 4403,
           "lastRerouteId": 0
         },
-        "revision": 2,
+        "revision": 3,
         "config": {},
         "name": "FLUX.1 Dev · Generación",
         "inputNode": {
@@ -5006,8 +5213,7 @@
             "name": "width",
             "type": "INT",
             "linkIds": [
-              3701,
-              3704
+              4400
             ],
             "pos": [
               -990,
@@ -5020,8 +5226,7 @@
             "name": "height",
             "type": "INT",
             "linkIds": [
-              3709,
-              3712
+              4401
             ],
             "pos": [
               -990,
@@ -5078,7 +5283,7 @@
             "type": "INT",
             "label": "Transformación (%)",
             "linkIds": [
-              3510
+              4402
             ],
             "pos": [
               -300,
@@ -5091,8 +5296,7 @@
             "type": "BOOLEAN",
             "label": "Usar tamaño de referencia",
             "linkIds": [
-              3703,
-              3711
+              4403
             ],
             "pos": [
               -300,
@@ -6216,6 +6420,180 @@
             "widgets_values": [
               false
             ]
+          },
+          {
+            "id": 2200,
+            "type": "PrimitiveInt",
+            "title": "Motor · Control width",
+            "pos": [
+              -70,
+              1550
+            ],
+            "size": [
+              310,
+              100
+            ],
+            "flags": {},
+            "order": 4200,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "value",
+                "type": "INT",
+                "widget": {
+                  "name": "value"
+                },
+                "link": 4400
+              }
+            ],
+            "outputs": [
+              {
+                "name": "INT",
+                "type": "INT",
+                "links": [
+                  3701,
+                  3704
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "PrimitiveInt",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              1024,
+              "fixed"
+            ]
+          },
+          {
+            "id": 2201,
+            "type": "PrimitiveInt",
+            "title": "Motor · Control height",
+            "pos": [
+              -70,
+              1675
+            ],
+            "size": [
+              310,
+              100
+            ],
+            "flags": {},
+            "order": 4201,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "value",
+                "type": "INT",
+                "widget": {
+                  "name": "value"
+                },
+                "link": 4401
+              }
+            ],
+            "outputs": [
+              {
+                "name": "INT",
+                "type": "INT",
+                "links": [
+                  3709,
+                  3712
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "PrimitiveInt",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              1024,
+              "fixed"
+            ]
+          },
+          {
+            "id": 2202,
+            "type": "PrimitiveInt",
+            "title": "Motor · Control strength_pct",
+            "pos": [
+              -70,
+              1800
+            ],
+            "size": [
+              310,
+              100
+            ],
+            "flags": {},
+            "order": 4202,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "value",
+                "type": "INT",
+                "widget": {
+                  "name": "value"
+                },
+                "link": 4402
+              }
+            ],
+            "outputs": [
+              {
+                "name": "INT",
+                "type": "INT",
+                "links": [
+                  3510
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "PrimitiveInt",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              65,
+              "fixed"
+            ]
+          },
+          {
+            "id": 2203,
+            "type": "PrimitiveBoolean",
+            "title": "Motor · Control auto_size",
+            "pos": [
+              -70,
+              1925
+            ],
+            "size": [
+              310,
+              100
+            ],
+            "flags": {},
+            "order": 4203,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "value",
+                "type": "BOOLEAN",
+                "widget": {
+                  "name": "value"
+                },
+                "link": 4403
+              }
+            ],
+            "outputs": [
+              {
+                "name": "BOOLEAN",
+                "type": "BOOLEAN",
+                "links": [
+                  3703,
+                  3711
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "PrimitiveBoolean",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              true
+            ]
           }
         ],
         "groups": [
@@ -6406,8 +6784,8 @@
           },
           {
             "id": 3510,
-            "origin_id": -10,
-            "origin_slot": 6,
+            "origin_id": 2202,
+            "origin_slot": 0,
             "target_id": 1405,
             "target_slot": 0,
             "type": "INT"
@@ -6446,8 +6824,8 @@
           },
           {
             "id": 3701,
-            "origin_id": -10,
-            "origin_slot": 1,
+            "origin_id": 2200,
+            "origin_slot": 0,
             "target_id": 1701,
             "target_slot": 0,
             "type": "INT"
@@ -6462,16 +6840,16 @@
           },
           {
             "id": 3703,
-            "origin_id": -10,
-            "origin_slot": 7,
+            "origin_id": 2203,
+            "origin_slot": 0,
             "target_id": 1701,
             "target_slot": 2,
             "type": "BOOLEAN"
           },
           {
             "id": 3704,
-            "origin_id": -10,
-            "origin_slot": 1,
+            "origin_id": 2200,
+            "origin_slot": 0,
             "target_id": 1703,
             "target_slot": 0,
             "type": "INT"
@@ -6510,8 +6888,8 @@
           },
           {
             "id": 3709,
-            "origin_id": -10,
-            "origin_slot": 2,
+            "origin_id": 2201,
+            "origin_slot": 0,
             "target_id": 1702,
             "target_slot": 0,
             "type": "INT"
@@ -6526,16 +6904,16 @@
           },
           {
             "id": 3711,
-            "origin_id": -10,
-            "origin_slot": 7,
+            "origin_id": 2203,
+            "origin_slot": 0,
             "target_id": 1702,
             "target_slot": 2,
             "type": "BOOLEAN"
           },
           {
             "id": 3712,
-            "origin_id": -10,
-            "origin_slot": 2,
+            "origin_id": 2201,
+            "origin_slot": 0,
             "target_id": 1704,
             "target_slot": 0,
             "type": "INT"
@@ -6571,6 +6949,38 @@
             "target_id": 1401,
             "target_slot": 3,
             "type": "INT"
+          },
+          {
+            "id": 4400,
+            "origin_id": -10,
+            "origin_slot": 1,
+            "target_id": 2200,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 4401,
+            "origin_id": -10,
+            "origin_slot": 2,
+            "target_id": 2201,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 4402,
+            "origin_id": -10,
+            "origin_slot": 6,
+            "target_id": 2202,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 4403,
+            "origin_id": -10,
+            "origin_slot": 7,
+            "target_id": 2203,
+            "target_slot": 0,
+            "type": "BOOLEAN"
           }
         ],
         "extra": {
@@ -6584,11 +6994,11 @@
         "version": 1,
         "state": {
           "lastGroupId": 2,
-          "lastNodeId": 1902,
-          "lastLinkId": 4008,
+          "lastNodeId": 2301,
+          "lastLinkId": 4501,
           "lastRerouteId": 0
         },
-        "revision": 5,
+        "revision": 6,
         "config": {},
         "name": "Qwen-Image-Edit 2511 · 1–3 referencias · tamaño libre",
         "inputNode": {
@@ -6667,7 +7077,7 @@
             "name": "width",
             "type": "INT",
             "linkIds": [
-              4001
+              4500
             ],
             "label": "Ancho manual (px)",
             "pos": [
@@ -6680,7 +7090,7 @@
             "name": "height",
             "type": "INT",
             "linkIds": [
-              4005
+              4501
             ],
             "label": "Alto manual (px)",
             "pos": [
@@ -7961,6 +8371,92 @@
             "widgets_values": [
               false
             ]
+          },
+          {
+            "id": 2300,
+            "type": "PrimitiveInt",
+            "title": "Motor · Control width",
+            "pos": [
+              -70,
+              1550
+            ],
+            "size": [
+              310,
+              100
+            ],
+            "flags": {},
+            "order": 4300,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "value",
+                "type": "INT",
+                "widget": {
+                  "name": "value"
+                },
+                "link": 4500
+              }
+            ],
+            "outputs": [
+              {
+                "name": "INT",
+                "type": "INT",
+                "links": [
+                  4001
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "PrimitiveInt",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              1024,
+              "fixed"
+            ]
+          },
+          {
+            "id": 2301,
+            "type": "PrimitiveInt",
+            "title": "Motor · Control height",
+            "pos": [
+              -70,
+              1675
+            ],
+            "size": [
+              310,
+              100
+            ],
+            "flags": {},
+            "order": 4301,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "value",
+                "type": "INT",
+                "widget": {
+                  "name": "value"
+                },
+                "link": 4501
+              }
+            ],
+            "outputs": [
+              {
+                "name": "INT",
+                "type": "INT",
+                "links": [
+                  4005
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "PrimitiveInt",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              1024,
+              "fixed"
+            ]
           }
         ],
         "groups": [
@@ -8226,8 +8722,8 @@
           },
           {
             "id": 4001,
-            "origin_id": -10,
-            "origin_slot": 4,
+            "origin_id": 2300,
+            "origin_slot": 0,
             "target_id": 1901,
             "target_slot": 0,
             "type": "INT"
@@ -8258,8 +8754,8 @@
           },
           {
             "id": 4005,
-            "origin_id": -10,
-            "origin_slot": 5,
+            "origin_id": 2301,
+            "origin_slot": 0,
             "target_id": 1902,
             "target_slot": 0,
             "type": "INT"
@@ -8286,6 +8782,22 @@
             "origin_slot": 0,
             "target_id": 17,
             "target_slot": 1,
+            "type": "INT"
+          },
+          {
+            "id": 4500,
+            "origin_id": -10,
+            "origin_slot": 4,
+            "target_id": 2300,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 4501,
+            "origin_id": -10,
+            "origin_slot": 5,
+            "target_id": 2301,
+            "target_slot": 0,
             "type": "INT"
           }
         ],
