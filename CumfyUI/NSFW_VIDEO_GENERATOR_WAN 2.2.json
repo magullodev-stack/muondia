@@ -1,8 +1,8 @@
 {
   "id": "d4dd74cc-219c-454b-b338-c85618dc1763",
-  "revision": 2,
+  "revision": 3,
   "last_node_id": 14,
-  "last_link_id": 26,
+  "last_link_id": 28,
   "nodes": [
     {
       "id": 1,
@@ -121,12 +121,12 @@
           }
         },
         {
-          "name": "frames",
-          "label": "Fotogramas",
+          "name": "duration_seconds",
+          "label": "Duración · segundos",
           "type": "INT",
           "link": null,
           "widget": {
-            "name": "frames"
+            "name": "duration_seconds"
           }
         },
         {
@@ -165,19 +165,19 @@
       },
       "widgets_values": [
         "",
+        512,
         768,
-        432,
-        81,
+        5,
         192054346835137,
         4
       ],
       "widgets_values_named": {
         "prompt": "",
-        "width": 768,
-        "height": 432,
-        "frames": 81,
+        "width": 512,
+        "height": 768,
         "seed": 192054346835137,
-        "steps": 4
+        "steps": 4,
+        "duration_seconds": 5
       }
     },
     {
@@ -309,8 +309,8 @@
         "version": 1,
         "state": {
           "lastGroupId": 0,
-          "lastNodeId": 12,
-          "lastLinkId": 23,
+          "lastNodeId": 13,
+          "lastLinkId": 28,
           "lastRerouteId": 0
         },
         "revision": 1,
@@ -389,12 +389,12 @@
             ]
           },
           {
-            "id": "widget-frames",
-            "name": "frames",
-            "label": "Fotogramas",
+            "id": "widget-duration-seconds",
+            "name": "duration_seconds",
+            "label": "Duración · segundos",
             "type": "INT",
             "linkIds": [
-              21
+              27
             ],
             "pos": [
               -350,
@@ -716,7 +716,7 @@
                 "widget": {
                   "name": "length"
                 },
-                "link": 21
+                "link": 28
               }
             ],
             "outputs": [
@@ -746,12 +746,12 @@
               "Node name for S&R": "WanImageToVideo"
             },
             "widgets_values": [
+              512,
               768,
-              432,
               81,
               1
             ],
-            "title": "WAN · Imagen a vídeo · 768×432, 81 frames"
+            "title": "WAN · Imagen a vídeo · vertical 2:3 (512×768)"
           },
           {
             "id": 10,
@@ -906,6 +906,65 @@
             },
             "widgets_values": [],
             "title": "WAN · Decode"
+          },
+          {
+            "id": 13,
+            "type": "ComfyMathExpression",
+            "pos": [
+              620,
+              1060
+            ],
+            "size": [
+              320,
+              100
+            ],
+            "flags": {},
+            "order": 10,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "values.a",
+                "label": "Segundos",
+                "type": "FLOAT,INT,BOOLEAN",
+                "link": 27
+              },
+              {
+                "name": "values.b",
+                "type": "FLOAT,INT,BOOLEAN",
+                "shape": 7,
+                "link": null
+              }
+            ],
+            "outputs": [
+              {
+                "name": "FLOAT",
+                "type": "FLOAT",
+                "links": []
+              },
+              {
+                "name": "INT",
+                "type": "INT",
+                "links": [
+                  28
+                ]
+              },
+              {
+                "name": "BOOL",
+                "type": "BOOLEAN",
+                "links": []
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ComfyMathExpression",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              "a*16+1"
+            ],
+            "widgets_values_named": {
+              "expression": "a*16+1"
+            },
+            "title": "Duración · convertir segundos a fotogramas (16 FPS)"
           }
         ],
         "groups": [],
@@ -1071,14 +1130,6 @@
             "type": "INT"
           },
           {
-            "id": 21,
-            "origin_id": -10,
-            "origin_slot": 4,
-            "target_id": 9,
-            "target_slot": 7,
-            "type": "INT"
-          },
-          {
             "id": 22,
             "origin_id": -10,
             "origin_slot": 5,
@@ -1092,6 +1143,22 @@
             "origin_slot": 6,
             "target_id": 11,
             "target_slot": 5,
+            "type": "INT"
+          },
+          {
+            "id": 27,
+            "origin_id": -10,
+            "origin_slot": 4,
+            "target_id": 13,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 28,
+            "origin_id": 13,
+            "origin_slot": 1,
+            "target_id": 9,
+            "target_slot": 7,
             "type": "INT"
           }
         ],
