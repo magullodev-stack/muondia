@@ -1,6 +1,5 @@
-"""Integración local ComfyUI -> llama-server GGUF; un modelo a la vez.
-Requiere llama.cpp y los GGUF ya instalados bajo la raíz de ComfyUI.
-Sin dependencias de pip ni ComfyUI Manager.
+"""Generador GGUF local para ComfyUI: modelo, prompt y salida de texto.
+Solo arranca un llama-server; no instala ni descarga modelos.
 """
 import atexit
 from datetime import datetime
@@ -16,239 +15,175 @@ import urllib.request
 import uuid
 
 ROOT = Path(__file__).resolve().parents[2]
-EXE = ROOT / "tools" / "llama.cpp" / ("llama-server.exe" if os.name == "nt" else "llama-server")
+LLAMA_SERVER = ROOT / "tools" / "llama.cpp" / ("llama-server.exe" if os.name == "nt" else "llama-server")
 MODELOS = {
     "Magnum v2 32B (Q4_K_M)": (ROOT / "models/llm/magnum-v2-32b/magnum-32b-v2-Q4_K_M.gguf", 32768),
     "Euryale 70B v2.1 (Q4_K_M)": (ROOT / "models/llm/euryale-70b/L3-70B-Euryale-v2.1-Q4_K_M.gguf", 8192),
 }
-HOST, PORT = "127.0.0.1", 18889
+HOST = "127.0.0.1"
+PORT = 18889
 LOCK = threading.RLock()
-STATE = {"process": None, "settings": None, "log": None}
-LOG_PATH = ROOT / "output/gguf_chat/llama-server.log"
+STATE = {"process": None, "modelo": None, "log": None}
+OUTPUT = ROOT / "output" / "gguf_chat"
+LOG_PATH = OUTPUT / "llama-server.log"
 
 
-def _tail():
+def _registro():
     try:
-        with LOG_PATH.open("rb") as f:
-            f.seek(0, os.SEEK_END)
-            f.seek(max(0, f.tell() - 7000))
-            return f.read().decode("utf-8", errors="replace")[-3500:]
+        with LOG_PATH.open("rb") as fh:
+            fh.seek(0, os.SEEK_END)
+            fh.seek(max(0, fh.tell() - 5000))
+            return fh.read().decode("utf-8", errors="replace")[-2500:]
     except OSError:
-        return "(sin registro todavía)"
+        return "No se ha creado todavía el registro de llama.cpp."
 
 
-def _stop():
-    p = STATE["process"]
+def _detener():
+    proc = STATE["process"]
     STATE["process"] = None
-    STATE["settings"] = None
-    if p is not None and p.poll() is None:
-        p.terminate()
+    STATE["modelo"] = None
+    if proc is not None and proc.poll() is None:
+        proc.terminate()
         try:
-            p.wait(timeout=15)
+            proc.wait(timeout=12)
         except subprocess.TimeoutExpired:
-            p.kill()
-            p.wait(timeout=5)
-    logfile = STATE["log"]
+            proc.kill()
+            proc.wait(timeout=5)
+    fh = STATE["log"]
     STATE["log"] = None
-    if logfile is not None:
-        logfile.close()
+    if fh is not None:
+        fh.close()
 
 
-def _busy():
+def _puerto_ocupado():
     try:
-        with socket.create_connection((HOST, PORT), timeout=0.3):
+        with socket.create_connection((HOST, PORT), timeout=0.5):
             return True
     except OSError:
         return False
 
 
-def _ready():
+def _salud():
     try:
-        with urllib.request.urlopen("http://%s:%s/health" % (HOST, PORT), timeout=2) as response:
+        with urllib.request.urlopen(f"http://{HOST}:{PORT}/health", timeout=3) as response:
             return response.status == 200
-    except (urllib.error.HTTPError, urllib.error.URLError, OSError, TimeoutError):
+    except (urllib.error.URLError, OSError, TimeoutError):
         return False
 
 
-def _start(modelo, contexto_tokens, capas_gpu, flash_attention, cache_kv):
-    ruta, nativo = MODELOS[modelo]
-    if not ruta.is_file():
-        raise RuntimeError("Falta GGUF: " + str(ruta))
-    if not EXE.is_file():
-        raise RuntimeError("Falta llama-server: " + str(EXE))
-    contexto = nativo if contexto_tokens == 0 else int(contexto_tokens)
-    clave = (str(ruta), contexto, capas_gpu, flash_attention, cache_kv)
-    proceso = STATE["process"]
-    if proceso and proceso.poll() is None and STATE["settings"] == clave and _ready():
+def _iniciar(modelo):
+    gguf, contexto_nativo = MODELOS[modelo]
+    if not gguf.is_file():
+        raise RuntimeError(f"No existe el modelo GGUF: {gguf}")
+    if not LLAMA_SERVER.is_file():
+        raise RuntimeError(f"No existe llama-server.exe: {LLAMA_SERVER}")
+
+    proc = STATE["process"]
+    if proc and proc.poll() is None and STATE["modelo"] == modelo and _salud():
         return
-    _stop()  # libera el anterior antes de cargar otro
-    if _busy():
-        raise RuntimeError("Puerto local 18889 ocupado. No se reutilizan servidores desconocidos.")
-    LOG_PATH.parent.mkdir(parents=True, exist_ok=True)
-    logfile = LOG_PATH.open("w", encoding="utf-8")
-    args = [str(EXE), "-m", str(ruta), "--host", HOST, "--port", str(PORT),
-            "-c", str(contexto), "-ngl", str(capas_gpu), "--parallel", "1"]
-    if flash_attention:
-        args += ["--flash-attn", "on"]
-    if cache_kv == "q8_0":
-        args += ["--cache-type-k", "q8_0", "--cache-type-v", "q8_0"]
+    _detener()  # Nunca se mantienen Magnum y Euryale simultáneamente.
+    if _puerto_ocupado():
+        raise RuntimeError(
+            f"El puerto {PORT} ya está ocupado, posiblemente por otro llama-server. "
+            "Cierra la instancia antigua antes de ejecutar otra vez."
+        )
+
+    OUTPUT.mkdir(parents=True, exist_ok=True)
+    fh = LOG_PATH.open("w", encoding="utf-8")
+    # Parámetros iniciales documentados: contexto declarado por el GGUF,
+    # 8 capas en GPU (estimación conservadora, NO optimizada).
+    args = [str(LLAMA_SERVER), "-m", str(gguf), "--host", HOST,
+            "--port", str(PORT), "-c", str(contexto_nativo), "-ngl", "8",
+            "--parallel", "1"]
     try:
-        proceso = subprocess.Popen(args, cwd=str(EXE.parent), stdout=logfile,
-                                   stderr=subprocess.STDOUT,
-                                   creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
+        proc = subprocess.Popen(
+            args, cwd=str(LLAMA_SERVER.parent), stdout=fh, stderr=subprocess.STDOUT,
+            creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
+        )
     except Exception:
-        logfile.close()
+        fh.close()
         raise
-    STATE.update(process=proceso, settings=clave, log=logfile)
-    limite = time.monotonic() + 600
-    while time.monotonic() < limite:
-        if proceso.poll() is not None:
-            error = _tail()
-            _stop()
-            raise RuntimeError("llama-server terminó al cargar el modelo:\n" + error)
-        if _ready():
+    STATE.update(process=proc, modelo=modelo, log=fh)
+    plazo = time.monotonic() + 600
+    while time.monotonic() < plazo:
+        if proc.poll() is not None:
+            details = _registro()
+            _detener()
+            raise RuntimeError("llama.cpp terminó durante la carga:\n" + details)
+        if _salud():
             return
         time.sleep(1)
-    error = _tail()
-    _stop()
-    raise RuntimeError("Carga superior a 600 segundos:\n" + error)
+    details = _registro()
+    _detener()
+    raise RuntimeError("No terminó de cargar en 10 minutos:\n" + details)
 
 
-def _generar(instrucciones, prompt, temperatura, top_p, max_tokens_salida, semilla):
+def _responder(prompt):
     payload = {
-        "model": "local",
-        "messages": [{"role": "system", "content": instrucciones},
-                     {"role": "user", "content": prompt}],
-        "temperature": temperatura,
-        "top_p": top_p,
-        "max_tokens": max_tokens_salida,
-        "seed": semilla,
-        "stream": False,
+        "messages": [{"role": "user", "content": prompt}],
+        "temperature": 0.8, "top_p": 0.95,
+        "max_tokens": 2048, "stream": False,
     }
     req = urllib.request.Request(
-        "http://%s:%s/v1/chat/completions" % (HOST, PORT),
+        f"http://{HOST}:{PORT}/v1/chat/completions",
         data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
         headers={"Content-Type": "application/json"}, method="POST",
     )
     try:
         with urllib.request.urlopen(req, timeout=1200) as response:
-            data = json.load(response)
-    except urllib.error.HTTPError as e:
-        raise RuntimeError("Error HTTP %s: %s" % (e.code, e.read().decode("utf-8", "replace")[:2500])) from e
-    except Exception as e:
-        raise RuntimeError("Error comunicando con llama.cpp: %s\n%s" % (e, _tail())) from e
+            result = json.load(response)
+    except urllib.error.HTTPError as exc:
+        info = exc.read().decode("utf-8", errors="replace")[:2000]
+        raise RuntimeError(f"llama-server respondió HTTP {exc.code}: {info}") from exc
     try:
-        return data["choices"][0]["message"]["content"] or ""
-    except (KeyError, IndexError, TypeError) as e:
-        raise RuntimeError("Respuesta inesperada de llama.cpp: " + str(data)[:1200]) from e
+        answer = result["choices"][0]["message"]["content"]
+        if not isinstance(answer, str):
+            raise TypeError("Respuesta no textual")
+        return answer
+    except (KeyError, IndexError, TypeError) as exc:
+        raise RuntimeError("Respuesta inesperada de llama.cpp: " + str(result)[:1200]) from exc
 
 
-class GGUFLocalAdvanced:
-    """Opciones de carga y memoria; separadas de los controles de generación."""
+def _guardar(texto):
+    OUTPUT.mkdir(parents=True, exist_ok=True)
+    name = f"generador_llm_{datetime.now():%Y%m%d_%H%M%S}_{uuid.uuid4().hex[:6]}.txt"
+    (OUTPUT / name).write_text(texto, encoding="utf-8")
 
+
+class GeneradorLLM:
     @classmethod
     def INPUT_TYPES(cls):
         return {"required": {
-            "contexto_tokens": ("INT", {"default": 0, "min": 0, "max": 131072, "step": 512}),
-            "capas_gpu": ("INT", {"default": 8, "min": 0, "max": 999}),
-            "flash_attention": ("BOOLEAN", {"default": False}),
-            "cache_kv": (["f16", "q8_0"],),
-            "semilla": ("INT", {"default": -1, "min": -1, "max": 2147483647}),
+            "modelo": (list(MODELOS.keys()),),
+            "prompt": ("STRING", {"multiline": True, "default": "Hola, ¿estás ahí?"}),
         }}
-    RETURN_TYPES = ("GGUF_CONFIG",)
-    RETURN_NAMES = ("configuracion",)
-    CATEGORY = "LLM / GGUF local"
-    FUNCTION = "build"
 
-    def build(self, contexto_tokens, capas_gpu, flash_attention, cache_kv, semilla):
-        return ({
-            "contexto_tokens": contexto_tokens,
-            "capas_gpu": capas_gpu,
-            "flash_attention": flash_attention,
-            "cache_kv": cache_kv,
-            "semilla": semilla,
-        },)
-
-
-class GGUFLocalAuto:
-    """El nodo principal solo presenta controles cotidianos.
-    Las opciones de memoria son un conector opcional a GGUFLocalAdvanced.
-    """
-
-    @classmethod
-    def INPUT_TYPES(cls):
-        return {
-            "required": {
-                "modelo": (list(MODELOS),),
-                "instrucciones": ("STRING", {"multiline": True, "default": "Responde en español."}),
-                "prompt": ("STRING", {"multiline": True, "default": "Escribe tu solicitud."}),
-                "temperatura": ("FLOAT", {"default": 0.8, "min": 0.0, "max": 2.0, "step": 0.05}),
-                "top_p": ("FLOAT", {"default": 0.95, "min": 0.01, "max": 1.0, "step": 0.01}),
-                "max_tokens_salida": ("INT", {"default": 2048, "min": 1, "max": 32768, "step": 128}),
-            },
-            "optional": {"configuracion": ("GGUF_CONFIG",)},
-        }
     RETURN_TYPES = ("STRING",)
-    RETURN_NAMES = ("texto",)
+    RETURN_NAMES = ("respuesta",)
+    FUNCTION = "generar"
     CATEGORY = "LLM / GGUF local"
-    FUNCTION = "execute"
     OUTPUT_NODE = True
 
     @classmethod
     def IS_CHANGED(cls, **kwargs):
         return float("nan")
 
-    def execute(self, modelo, instrucciones, prompt, temperatura, top_p,
-                max_tokens_salida, configuracion=None):
-        defaults = {
-            "contexto_tokens": 0,  # 0 = contexto nativo definido en MODELOS
-            "capas_gpu": 8,       # conservador, NO optimizado para esta GPU
-            "flash_attention": False,
-            "cache_kv": "f16",
-            "semilla": -1,
-        }
-        if configuracion is not None:
-            defaults.update(configuracion)
+    def generar(self, modelo, prompt):
         with LOCK:
-            _start(modelo, defaults["contexto_tokens"], defaults["capas_gpu"],
-                   defaults["flash_attention"], defaults["cache_kv"])
-            texto = _generar(instrucciones, prompt, temperatura, top_p,
-                             max_tokens_salida, defaults["semilla"])
+            try:
+                if not prompt.strip():
+                    raise ValueError("El prompt está vacío.")
+                _iniciar(modelo)
+                texto = _responder(prompt)
+                if texto.strip():
+                    _guardar(texto)
+                else:
+                    texto = "[SIN TEXTO] El servidor terminó, pero devolvió una respuesta vacía. Revisa llama-server.log."
+            except Exception as exc:
+                texto = f"[ERROR DEL GENERADOR] {type(exc).__name__}: {exc}\n\nRegistro reciente de llama.cpp:\n{_registro()}"
             return {"ui": {"text": [texto]}, "result": (texto,)}
 
 
-class GGUFLocalSaveText:
-    @classmethod
-    def INPUT_TYPES(cls):
-        return {"required": {
-            "texto": ("STRING", {"forceInput": True}),
-            "prefijo": ("STRING", {"default": "generato_llm"}),
-        }}
-    RETURN_TYPES = ()
-    FUNCTION = "save"
-    CATEGORY = "LLM / GGUF local"
-    OUTPUT_NODE = True
-
-    def save(self, texto, prefijo):
-        # Evita guardar TXT al liberar el modelo (respuesta vacía).
-        if not texto or not texto.strip():
-            return {"ui": {"text": ["No se ha guardado ningún TXT: no hay texto generado."]}}
-        carpeta = ROOT / "output/gguf_chat"
-        carpeta.mkdir(parents=True, exist_ok=True)
-        nombre = "".join(c for c in prefijo if c.isalnum() or c in "_-")[:45] or "generato_llm"
-        archivo = carpeta / ("%s_%s_%s.txt" % (nombre, datetime.now().strftime("%Y%m%d_%H%M%S"), uuid.uuid4().hex[:6]))
-        archivo.write_text(texto, encoding="utf-8")
-        return {"ui": {"text": [texto]}}
-
-
-atexit.register(_stop)
-NODE_CLASS_MAPPINGS = {
-    "GGUF_ConfigAvanzada": GGUFLocalAdvanced,
-    "GGUF_LocalChatAuto": GGUFLocalAuto,
-    "GGUF_SaveTextAuto": GGUFLocalSaveText,
-}
-NODE_DISPLAY_NAME_MAPPINGS = {
-    "GGUF_ConfigAvanzada": "LLM · Configuración avanzada (opcional)",
-    "GGUF_LocalChatAuto": "GGUF Local · Magnum / Euryale (autoinicio)",
-    "GGUF_SaveTextAuto": "GGUF Local · Guardar TXT",
-}
+atexit.register(_detener)
+NODE_CLASS_MAPPINGS = {"GGUF_GeneradorLLM": GeneradorLLM}
+NODE_DISPLAY_NAME_MAPPINGS = {"GGUF_GeneradorLLM": "GENERADOR LLM · Magnum / Euryale"}
