@@ -154,21 +154,19 @@ class GGUFLocalAdvanced:
             "flash_attention": ("BOOLEAN", {"default": False}),
             "cache_kv": (["f16", "q8_0"],),
             "semilla": ("INT", {"default": -1, "min": -1, "max": 2147483647}),
-            "operacion": (["Generar texto", "Liberar RAM/VRAM (conserva GGUF)"],),
         }}
     RETURN_TYPES = ("GGUF_CONFIG",)
     RETURN_NAMES = ("configuracion",)
     CATEGORY = "LLM / GGUF local"
     FUNCTION = "build"
 
-    def build(self, contexto_tokens, capas_gpu, flash_attention, cache_kv, semilla, operacion):
+    def build(self, contexto_tokens, capas_gpu, flash_attention, cache_kv, semilla):
         return ({
             "contexto_tokens": contexto_tokens,
             "capas_gpu": capas_gpu,
             "flash_attention": flash_attention,
             "cache_kv": cache_kv,
             "semilla": semilla,
-            "operacion": operacion,
         },)
 
 
@@ -208,15 +206,10 @@ class GGUFLocalAuto:
             "flash_attention": False,
             "cache_kv": "f16",
             "semilla": -1,
-            "operacion": "Generar texto",
         }
         if configuracion is not None:
             defaults.update(configuracion)
         with LOCK:
-            if defaults["operacion"] == "Liberar RAM/VRAM (conserva GGUF)":
-                _stop()
-                return {"ui": {"text": ["Modelo liberado de RAM/VRAM. No se ha borrado ningún GGUF."]},
-                        "result": ("",)}
             _start(modelo, defaults["contexto_tokens"], defaults["capas_gpu"],
                    defaults["flash_attention"], defaults["cache_kv"])
             texto = _generar(instrucciones, prompt, temperatura, top_p,
