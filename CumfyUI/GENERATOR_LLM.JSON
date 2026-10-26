@@ -1,6 +1,6 @@
 {
-  "last_node_id": 4,
-  "last_link_id": 2,
+  "last_node_id": 5,
+  "last_link_id": 3,
   "nodes": [
     {
       "id": 1,
@@ -28,7 +28,8 @@
           "name": "texto",
           "type": "STRING",
           "links": [
-            1
+            1,
+            3
           ],
           "slot_index": 0
         }
@@ -50,12 +51,12 @@
       "id": 2,
       "type": "GGUF_SaveTextAuto",
       "pos": [
-        1210,
-        220
+        1215,
+        790
       ],
       "size": [
-        335,
-        140
+        420,
+        165
       ],
       "flags": {},
       "order": 2,
@@ -71,7 +72,7 @@
       "properties": {
         "Node name for S&R": "GGUF_SaveTextAuto"
       },
-      "title": "RESULTADO · Guardar texto en TXT",
+      "title": "ARCHIVO · Copia TXT de la respuesta",
       "widgets_values": [
         "generato_llm"
       ]
@@ -97,7 +98,7 @@
       },
       "title": "GUÍA · Un solo modelo, un solo workflow",
       "widgets_values": [
-        "GENERADOR LLM  |  Magnum v2 32B  /  Euryale 70B v2.1\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\nUSO HABITUAL: elige modelo, escribe instrucciones y prompt y pulsa Queue Prompt. Puedes ajustar temperatura, top_p y el límite de salida sin tocar la configuración avanzada.\n\nCONTEXTO: contexto_tokens = 0 usa automáticamente 32.768 para Magnum y 8.192 para Euryale; NO es un límite decidido por el usuario. Puedes indicar otro valor manual si asumes las limitaciones del modelo.\n\nGPU: capas_gpu = 8 es un valor de arranque prudente para RTX 3060 de 12 GB, NO una medición ni el óptimo. Si tienes memoria libre, aumenta gradualmente comprobando los registros; si falla por memoria, reduce el valor.\n\nflash_attention = falso; cache_kv = f16; semilla = -1 (aleatoria). Se muestran en CONFIGURACIÓN AVANZADA para no saturar el panel principal.\n\n\nGESTIÓN DE MEMORIA AUTOMÁTICA: al cambiar de modelo, se libera el anterior antes de cargar el nuevo; al cerrar ComfyUI normalmente, se termina el proceso auxiliar. No se ejecutan Magnum y Euryale a la vez. Conversación sin historial automático entre ejecuciones.\n\nRUTAS LOCALES: ComfyUI/tools/llama.cpp/llama-server.exe y ComfyUI/models/llm/.\nNODOS PERSONALIZADOS: ComfyUI/custom_nodes/ComfyUI_GGUF_LocalChat/{__init__.py,nodes.py}.\nPara aplicar una actualización del código de nodos, reemplaza nodes.py y reinicia ComfyUI."
+        "GENERADOR LLM · Magnum 32B / Euryale 70B v2.1\nUSO: selecciona el modelo, introduce las instrucciones y tu prompt, pulsa Ejecutar.\nRESPUESTA: aparece dentro del nodo «RESPUESTA DEL MODELO · LEER AQUÍ». También queda archivada como TXT en ComfyUI/output/gguf_chat/.\nEl texto aparece AL TERMINAR la generación (este workflow todavía no implementa streaming token a token).\nCONFIGURACIÓN AVANZADA: contexto_tokens=0 adopta el valor nativo de cada modelo (Magnum 32768; Euryale 8192). capas_gpu=8 es una estimación inicial, no está optimizado. semilla=-1 significa semilla aleatoria y NO implica fallo. max_tokens_salida=2048 es un límite superior, no una duración en segundos.\nGESTIÓN DE MEMORIA AUTOMÁTICA: al cambiar de modelo se detiene el proceso llama-server anterior, y al cerrar normalmente ComfyUI se detiene el proceso auxiliar. NO existe selector «operacion» en la versión actual.\nATENCIÓN: actualizar el JSON de GitHub NO actualiza el Python instalado en tu PC. Debes reemplazar custom_nodes/ComfyUI_GGUF_LocalChat/nodes.py y REINICIAR ComfyUI. Volver a importar el JSON actualizado (no sirve mantener una pestaña del viejo workflow)."
       ]
     },
     {
@@ -136,6 +137,41 @@
         "f16",
         -1
       ]
+    },
+    {
+      "id": 5,
+      "type": "PreviewAny",
+      "title": "RESPUESTA DEL MODELO · LEER AQUÍ",
+      "pos": [
+        1215,
+        160
+      ],
+      "size": [
+        640,
+        570
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "source",
+          "type": "*",
+          "link": 3
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewAny",
+        "cnr_id": "comfy-core"
+      },
+      "widgets_values": []
     }
   ],
   "links": [
@@ -154,6 +190,14 @@
       1,
       0,
       "GGUF_CONFIG"
+    ],
+    [
+      3,
+      1,
+      0,
+      5,
+      0,
+      "STRING"
     ]
   ],
   "groups": [
@@ -185,9 +229,9 @@
       "title": "03 · RESULTADO",
       "bounding": [
         1180,
-        165,
-        420,
-        270
+        95,
+        735,
+        975
       ],
       "color": "#555670",
       "font_size": 18,
