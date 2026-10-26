@@ -1,8 +1,8 @@
 {
   "id": "6c73c31e-0c82-4a7d-a803-35ed6c090e7f",
-  "revision": 6,
+  "revision": 7,
   "last_node_id": 34,
-  "last_link_id": 78,
+  "last_link_id": 84,
   "nodes": [
     {
       "id": 1,
@@ -83,8 +83,8 @@
         195
       ],
       "size": [
-        560,
-        360
+        580,
+        425
       ],
       "flags": {},
       "order": 2,
@@ -112,6 +112,24 @@
           }
         },
         {
+          "name": "width",
+          "label": "Ancho · px",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "width"
+          }
+        },
+        {
+          "name": "height",
+          "label": "Alto · px",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "height"
+          }
+        },
+        {
           "name": "fidelity",
           "label": "Fidelidad a imagen · %",
           "type": "INT",
@@ -122,7 +140,7 @@
         },
         {
           "name": "motion",
-          "label": "Movimiento · %",
+          "label": "Libertad de movimiento · %",
           "type": "INT",
           "link": null,
           "widget": {
@@ -164,6 +182,8 @@
       },
       "widgets_values": [
         5,
+        512,
+        768,
         95,
         35,
         987654321
@@ -172,7 +192,9 @@
         "duration_seconds": 5,
         "fidelity": 95,
         "motion": 35,
-        "seed": 987654321
+        "seed": 987654321,
+        "width": 512,
+        "height": 768
       }
     },
     {
@@ -312,11 +334,11 @@
         "version": 1,
         "state": {
           "lastGroupId": 0,
-          "lastNodeId": 43,
-          "lastLinkId": 78,
+          "lastNodeId": 45,
+          "lastLinkId": 84,
           "lastRerouteId": 0
         },
-        "revision": 4,
+        "revision": 5,
         "config": {},
         "name": "LTX2 · I2V · primer fotograma anclado",
         "inputNode": {
@@ -379,6 +401,32 @@
             ]
           },
           {
+            "id": "exposed-width-v3",
+            "name": "width",
+            "label": "Ancho · px",
+            "type": "INT",
+            "linkIds": [
+              79
+            ],
+            "pos": [
+              -350,
+              246
+            ]
+          },
+          {
+            "id": "exposed-height-v3",
+            "name": "height",
+            "label": "Alto · px",
+            "type": "INT",
+            "linkIds": [
+              82
+            ],
+            "pos": [
+              -350,
+              288
+            ]
+          },
+          {
             "id": "anchor-fidelity-v2",
             "name": "fidelity",
             "label": "Fidelidad a imagen · %",
@@ -388,20 +436,20 @@
             ],
             "pos": [
               -350,
-              246
+              330
             ]
           },
           {
             "id": "motion-freedom-v2",
             "name": "motion",
-            "label": "Movimiento · %",
+            "label": "Libertad de movimiento · %",
             "type": "INT",
             "linkIds": [
               62
             ],
             "pos": [
               -350,
-              288
+              372
             ]
           },
           {
@@ -414,7 +462,7 @@
             ],
             "pos": [
               -350,
-              330
+              414
             ]
           }
         ],
@@ -813,7 +861,7 @@
                 "widget": {
                   "name": "width"
                 },
-                "link": null
+                "link": 80
               },
               {
                 "name": "height",
@@ -821,7 +869,7 @@
                 "widget": {
                   "name": "height"
                 },
-                "link": null
+                "link": 83
               },
               {
                 "name": "length",
@@ -1428,10 +1476,10 @@
               "cnr_id": "comfy-core"
             },
             "widgets_values": [
-              "(a/100)*(1-0.2*b/100)"
+              "min(1,max(0,a/100))*(1-0.2*min(1,max(0,b/100)))"
             ],
             "widgets_values_named": {
-              "expression": "(a/100)*(1-0.2*b/100)"
+              "expression": "min(1,max(0,a/100))*(1-0.2*min(1,max(0,b/100)))"
             },
             "title": "Fidelidad / movimiento → fuerza de anclaje LTX"
           },
@@ -1539,7 +1587,7 @@
                 "widget": {
                   "name": "width"
                 },
-                "link": null
+                "link": 81
               },
               {
                 "name": "height",
@@ -1547,7 +1595,7 @@
                 "widget": {
                   "name": "height"
                 },
-                "link": null
+                "link": 84
               },
               {
                 "name": "crop",
@@ -1924,6 +1972,104 @@
             "widgets_values_named": {
               "expression": "max(1, min(4096, a-1))"
             }
+          },
+          {
+            "id": 44,
+            "type": "PrimitiveInt",
+            "title": "Ancho del vídeo · valor visible",
+            "pos": [
+              450,
+              2320
+            ],
+            "size": [
+              350,
+              110
+            ],
+            "flags": {},
+            "mode": 0,
+            "order": 31,
+            "inputs": [
+              {
+                "name": "value",
+                "type": "INT",
+                "widget": {
+                  "name": "value"
+                },
+                "link": 79
+              }
+            ],
+            "outputs": [
+              {
+                "name": "INT",
+                "type": "INT",
+                "links": [
+                  80,
+                  81
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "PrimitiveInt",
+              "cnr_id": "comfy-core",
+              "ver": "0.16.3"
+            },
+            "widgets_values": [
+              512,
+              "fixed"
+            ],
+            "widgets_values_named": {
+              "value": 512,
+              "fixed": "fixed"
+            }
+          },
+          {
+            "id": 45,
+            "type": "PrimitiveInt",
+            "title": "Alto del vídeo · valor visible",
+            "pos": [
+              450,
+              2500
+            ],
+            "size": [
+              350,
+              110
+            ],
+            "flags": {},
+            "mode": 0,
+            "order": 32,
+            "inputs": [
+              {
+                "name": "value",
+                "type": "INT",
+                "widget": {
+                  "name": "value"
+                },
+                "link": 82
+              }
+            ],
+            "outputs": [
+              {
+                "name": "INT",
+                "type": "INT",
+                "links": [
+                  83,
+                  84
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "PrimitiveInt",
+              "cnr_id": "comfy-core",
+              "ver": "0.16.3"
+            },
+            "widgets_values": [
+              768,
+              "fixed"
+            ],
+            "widgets_values_named": {
+              "value": 768,
+              "fixed": "fixed"
+            }
           }
         ],
         "groups": [],
@@ -2147,7 +2293,7 @@
           {
             "id": 52,
             "origin_id": -10,
-            "origin_slot": 5,
+            "origin_slot": 7,
             "target_id": 42,
             "target_slot": 0,
             "type": "INT"
@@ -2179,7 +2325,7 @@
           {
             "id": 61,
             "origin_id": -10,
-            "origin_slot": 3,
+            "origin_slot": 5,
             "target_id": 40,
             "target_slot": 0,
             "type": "INT"
@@ -2187,7 +2333,7 @@
           {
             "id": 62,
             "origin_id": -10,
-            "origin_slot": 4,
+            "origin_slot": 6,
             "target_id": 41,
             "target_slot": 0,
             "type": "INT"
@@ -2318,6 +2464,54 @@
             "origin_slot": 1,
             "target_id": 37,
             "target_slot": 2,
+            "type": "INT"
+          },
+          {
+            "id": 79,
+            "origin_id": -10,
+            "origin_slot": 3,
+            "target_id": 44,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 80,
+            "origin_id": 44,
+            "origin_slot": 0,
+            "target_id": 22,
+            "target_slot": 4,
+            "type": "INT"
+          },
+          {
+            "id": 81,
+            "origin_id": 44,
+            "origin_slot": 0,
+            "target_id": 36,
+            "target_slot": 2,
+            "type": "INT"
+          },
+          {
+            "id": 82,
+            "origin_id": -10,
+            "origin_slot": 4,
+            "target_id": 45,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 83,
+            "origin_id": 45,
+            "origin_slot": 0,
+            "target_id": 22,
+            "target_slot": 5,
+            "type": "INT"
+          },
+          {
+            "id": 84,
+            "origin_id": 45,
+            "origin_slot": 0,
+            "target_id": 36,
+            "target_slot": 3,
             "type": "INT"
           }
         ],
