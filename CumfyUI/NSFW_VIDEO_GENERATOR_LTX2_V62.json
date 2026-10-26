@@ -1,6 +1,6 @@
 {
   "id": "6c73c31e-0c82-4a7d-a803-35ed6c090e7f",
-  "revision": 7,
+  "revision": 8,
   "last_node_id": 34,
   "last_link_id": 84,
   "nodes": [
@@ -77,14 +77,14 @@
     {
       "id": 34,
       "type": "b409964e-46a1-49c1-8d82-b392deff085a",
-      "title": "03 · LTX2 · CONFIGURACIÓN · Identidad y movimiento",
+      "title": "03 · LTX2 · CONFIGURACIÓN · Referencia y duración",
       "pos": [
         1240,
         195
       ],
       "size": [
-        580,
-        425
+        560,
+        400
       ],
       "flags": {},
       "order": 2,
@@ -131,20 +131,11 @@
         },
         {
           "name": "fidelity",
-          "label": "Fidelidad a imagen · %",
+          "label": "Conservar imagen · %",
           "type": "INT",
           "link": null,
           "widget": {
             "name": "fidelity"
-          }
-        },
-        {
-          "name": "motion",
-          "label": "Libertad de movimiento · %",
-          "type": "INT",
-          "link": null,
-          "widget": {
-            "name": "motion"
           }
         },
         {
@@ -185,13 +176,11 @@
         512,
         768,
         95,
-        35,
         987654321
       ],
       "widgets_values_named": {
         "duration_seconds": 5,
         "fidelity": 95,
-        "motion": 35,
         "seed": 987654321,
         "width": 512,
         "height": 768
@@ -338,7 +327,7 @@
           "lastLinkId": 84,
           "lastRerouteId": 0
         },
-        "revision": 5,
+        "revision": 6,
         "config": {},
         "name": "LTX2 · I2V · primer fotograma anclado",
         "inputNode": {
@@ -429,7 +418,7 @@
           {
             "id": "anchor-fidelity-v2",
             "name": "fidelity",
-            "label": "Fidelidad a imagen · %",
+            "label": "Conservar imagen · %",
             "type": "INT",
             "linkIds": [
               61
@@ -437,19 +426,6 @@
             "pos": [
               -350,
               330
-            ]
-          },
-          {
-            "id": "motion-freedom-v2",
-            "name": "motion",
-            "label": "Libertad de movimiento · %",
-            "type": "INT",
-            "linkIds": [
-              62
-            ],
-            "pos": [
-              -350,
-              372
             ]
           },
           {
@@ -1444,12 +1420,6 @@
                 "label": "Fidelidad",
                 "type": "FLOAT,INT,BOOLEAN",
                 "link": 74
-              },
-              {
-                "name": "values.b",
-                "label": "Movimiento",
-                "type": "FLOAT,INT,BOOLEAN",
-                "link": 75
               }
             ],
             "outputs": [
@@ -1476,12 +1446,12 @@
               "cnr_id": "comfy-core"
             },
             "widgets_values": [
-              "min(1,max(0,a/100))*(1-0.2*min(1,max(0,b/100)))"
+              "min(1,max(0,a/100))"
             ],
             "widgets_values_named": {
-              "expression": "min(1,max(0,a/100))*(1-0.2*min(1,max(0,b/100)))"
+              "expression": "min(1,max(0,a/100))"
             },
-            "title": "Fidelidad / movimiento → fuerza de anclaje LTX"
+            "title": "LTX2 · fuerza de anclaje a la imagen"
           },
           {
             "id": 35,
@@ -1819,55 +1789,7 @@
               "value": 95,
               "fixed": "fixed"
             },
-            "title": "Fidelidad (0–100 %) · valor visible"
-          },
-          {
-            "id": 41,
-            "type": "PrimitiveInt",
-            "pos": [
-              450,
-              1780
-            ],
-            "size": [
-              350,
-              110
-            ],
-            "flags": {},
-            "mode": 0,
-            "order": 30,
-            "inputs": [
-              {
-                "name": "value",
-                "type": "INT",
-                "widget": {
-                  "name": "value"
-                },
-                "link": 62
-              }
-            ],
-            "outputs": [
-              {
-                "name": "INT",
-                "type": "INT",
-                "links": [
-                  75
-                ]
-              }
-            ],
-            "properties": {
-              "Node name for S&R": "PrimitiveInt",
-              "cnr_id": "comfy-core",
-              "ver": "0.16.3"
-            },
-            "widgets_values": [
-              35,
-              "fixed"
-            ],
-            "widgets_values_named": {
-              "value": 35,
-              "fixed": "fixed"
-            },
-            "title": "Movimiento (0–100 %) · valor visible"
+            "title": "Conservar imagen (%) · control real"
           },
           {
             "id": 42,
@@ -2293,7 +2215,7 @@
           {
             "id": 52,
             "origin_id": -10,
-            "origin_slot": 7,
+            "origin_slot": 6,
             "target_id": 42,
             "target_slot": 0,
             "type": "INT"
@@ -2327,14 +2249,6 @@
             "origin_id": -10,
             "origin_slot": 5,
             "target_id": 40,
-            "target_slot": 0,
-            "type": "INT"
-          },
-          {
-            "id": 62,
-            "origin_id": -10,
-            "origin_slot": 6,
-            "target_id": 41,
             "target_slot": 0,
             "type": "INT"
           },
@@ -2432,14 +2346,6 @@
             "origin_slot": 0,
             "target_id": 34,
             "target_slot": 0,
-            "type": "INT"
-          },
-          {
-            "id": 75,
-            "origin_id": 41,
-            "origin_slot": 0,
-            "target_id": 34,
-            "target_slot": 1,
             "type": "INT"
           },
           {
