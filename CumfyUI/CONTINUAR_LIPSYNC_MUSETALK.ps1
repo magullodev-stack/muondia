@@ -28,6 +28,9 @@ Write-Host "[1/5] Preparando instalacion antigua de chumpy (sin recompilar torch
 # chumpy setup.py itself imports pip._internal.req; therefore keep pip
 # available by explicitly opting out of PEP 517 build isolation.
 RunPip @("install", "--no-deps", "pip==24.0", "wheel==0.43.0")
+# Chumpy imports removed NumPy aliases at runtime; NumPy 2.2.6 must be fixed first.
+RunPip @("install", "--force-reinstall", "--no-deps",
+         "numpy==1.23.5", "opencv-contrib-python==4.9.0.80")
 RunPip @("install", "--no-deps", "--no-build-isolation", "chumpy==0.70")
 & $python -c "import chumpy; print('chumpy instalado')"
 if ($LASTEXITCODE -ne 0) { throw "chumpy no se puede importar." }
