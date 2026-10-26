@@ -1,6 +1,6 @@
 {
   "id": "d9ac44b0-2f2d-4a95-8dd2-44cd82200a80",
-  "revision": 19,
+  "revision": 20,
   "last_node_id": 950,
   "last_link_id": 3510,
   "nodes": [
@@ -654,7 +654,7 @@
         {
           "name": "value",
           "type": "INT",
-          "label": "Ampliación (×)",
+          "label": "Escala final (2×, 3× o 4×)",
           "link": null,
           "widget": {
             "name": "value"
@@ -706,14 +706,14 @@
           ]
         }
       ],
-      "title": "SALIDA Y ACABADO · Elegir imagen / Upscale / Quitar fondo / PNG",
+      "title": "SALIDA Y ACABADO · Fuente / 2×–4× / Fondo / PNG",
       "properties": {
         "cnr_id": "comfy-core",
         "previewExposures": []
       },
       "widgets_values": [
         1,
-        4,
+        2,
         "4xNomos2_hq_dat2.pth",
         false,
         false,
@@ -721,7 +721,7 @@
       ],
       "widgets_values_named": {
         "fuente": 1,
-        "value": 4,
+        "value": 2,
         "model_name": "4xNomos2_hq_dat2.pth",
         "value_1": false,
         "value_2": false,
@@ -1022,7 +1022,7 @@
           {
             "name": "value",
             "type": "INT",
-            "label": "Ampliación (×)",
+            "label": "Escala final (2×, 3× o 4×)",
             "id": "image-lab-scale",
             "linkIds": [
               16
@@ -1491,10 +1491,10 @@
               "cnr_id": "comfy-core"
             },
             "widgets_values": [
-              4,
+              2,
               "fixed"
             ],
-            "title": "Escala final: 2 / 3 / 4 / 8"
+            "title": "Escala final 2×–4×"
           },
           {
             "id": 110,
@@ -1550,9 +1550,9 @@
               "cnr_id": "comfy-core"
             },
             "widgets_values": [
-              "max(0.01, a / 4.0)"
+              "max(0.5, min(1.0, a / 4.0))"
             ],
-            "title": "Escala relativa al modelo 4×"
+            "title": "Limitar la escala final al rango 2×–4×"
           },
           {
             "id": 111,
@@ -2169,13 +2169,13 @@
                 "links": []
               }
             ],
-            "title": "Ratio original × 2/3/4/8 para máscara",
+            "title": "Limitar también el tamaño de la máscara a 2×–4×",
             "properties": {
               "Node name for S&R": "ComfyMathExpression",
               "cnr_id": "comfy-core"
             },
             "widgets_values": [
-              "max(0.01, a)"
+              "max(2.0, min(4.0, a))"
             ]
           },
           {
