@@ -1,6 +1,6 @@
 {
   "id": "d9ac44b0-2f2d-4a95-8dd2-44cd82200a80",
-  "revision": 30,
+  "revision": 31,
   "last_node_id": 950,
   "last_link_id": 3510,
   "nodes": [
@@ -30,6 +30,30 @@
           }
         },
         {
+          "name": "init_image",
+          "type": "IMAGE",
+          "label": "Imagen inicial",
+          "link": 3500
+        },
+        {
+          "name": "use_img2img",
+          "type": "BOOLEAN",
+          "label": "Usar imagen inicial",
+          "link": null,
+          "widget": {
+            "name": "use_img2img"
+          }
+        },
+        {
+          "name": "auto_size",
+          "type": "BOOLEAN",
+          "label": "Mantener resolución de imagen inicial",
+          "link": null,
+          "widget": {
+            "name": "auto_size"
+          }
+        },
+        {
           "name": "width",
           "type": "INT",
           "label": "Ancho manual (px)",
@@ -48,12 +72,12 @@
           }
         },
         {
-          "name": "auto_size",
-          "type": "BOOLEAN",
-          "label": "Mantener resolución de imagen inicial",
+          "name": "strength_pct",
+          "type": "INT",
+          "label": "Transformación (%)",
           "link": null,
           "widget": {
-            "name": "auto_size"
+            "name": "strength_pct"
           }
         },
         {
@@ -63,30 +87,6 @@
           "link": null,
           "widget": {
             "name": "seed"
-          }
-        },
-        {
-          "name": "init_image",
-          "type": "IMAGE",
-          "label": "Imagen inicial",
-          "link": 3500
-        },
-        {
-          "name": "use_img2img",
-          "type": "BOOLEAN",
-          "label": "Usar imagen inicial",
-          "link": null,
-          "widget": {
-            "name": "use_img2img"
-          }
-        },
-        {
-          "name": "strength_pct",
-          "type": "INT",
-          "label": "Transformación (%)",
-          "link": null,
-          "widget": {
-            "name": "strength_pct"
           }
         },
         {
@@ -113,22 +113,22 @@
       },
       "widgets_values": [
         "A single ultra-realistic studio reference photograph of an adult woman, 30 years old, standing upright in a relaxed neutral anatomical pose, directly facing the camera.\n\nPerfectly frontal view, straight head position, natural symmetrical posture, shoulders level, both arms resting naturally at her sides, unobstructed torso. Framing from the top of the head to the upper hips.\n\nNatural adult female anatomy, realistic body proportions, naturally shaped breasts with anatomically accurate areolas and nipples, believable skin elasticity, subtle natural asymmetry, authentic skin pores, fine skin texture and realistic anatomical transitions.\n\nNatural facial features, relaxed expression, both eyes focused straight ahead, realistic eye alignment, subtle facial asymmetry, no makeup, natural eyebrows.\n\nProfessional full-frame DSLR studio photography, 85mm portrait lens, soft diffused frontal lighting, realistic shadows, neutral color grading, sharp optical detail, unretouched documentary photography.\n\nPure white seamless studio background. Exactly one woman, one photograph, one camera angle, no collage, no fashion pose, no accessories, no clothing covering the torso.",
-        1024,
-        1024,
-        true,
-        1,
         false,
+        true,
+        1024,
+        1024,
         0,
+        1,
         0
       ],
       "widgets_values_named": {
         "text": "A single ultra-realistic studio reference photograph of an adult woman, 30 years old, standing upright in a relaxed neutral anatomical pose, directly facing the camera.\n\nPerfectly frontal view, straight head position, natural symmetrical posture, shoulders level, both arms resting naturally at her sides, unobstructed torso. Framing from the top of the head to the upper hips.\n\nNatural adult female anatomy, realistic body proportions, naturally shaped breasts with anatomically accurate areolas and nipples, believable skin elasticity, subtle natural asymmetry, authentic skin pores, fine skin texture and realistic anatomical transitions.\n\nNatural facial features, relaxed expression, both eyes focused straight ahead, realistic eye alignment, subtle facial asymmetry, no makeup, natural eyebrows.\n\nProfessional full-frame DSLR studio photography, 85mm portrait lens, soft diffused frontal lighting, realistic shadows, neutral color grading, sharp optical detail, unretouched documentary photography.\n\nPure white seamless studio background. Exactly one woman, one photograph, one camera angle, no collage, no fashion pose, no accessories, no clothing covering the torso.",
+        "use_img2img": false,
+        "auto_size": true,
         "width": 1024,
         "height": 1024,
-        "auto_size": true,
-        "seed": 1,
-        "use_img2img": false,
         "strength_pct": 0,
+        "seed": 1,
         "turbo_lora_pct": 0
       }
     },
@@ -196,6 +196,30 @@
           }
         },
         {
+          "name": "init_image",
+          "type": "IMAGE",
+          "label": "Imagen inicial",
+          "link": 3501
+        },
+        {
+          "name": "use_img2img",
+          "type": "BOOLEAN",
+          "label": "Usar imagen inicial",
+          "link": null,
+          "widget": {
+            "name": "use_img2img"
+          }
+        },
+        {
+          "name": "auto_size",
+          "type": "BOOLEAN",
+          "label": "Mantener resolución de imagen inicial",
+          "link": null,
+          "widget": {
+            "name": "auto_size"
+          }
+        },
+        {
           "name": "width",
           "type": "INT",
           "label": "Ancho manual (px)",
@@ -214,12 +238,12 @@
           }
         },
         {
-          "name": "auto_size",
-          "type": "BOOLEAN",
-          "label": "Mantener resolución de imagen inicial",
+          "name": "strength_pct",
+          "type": "INT",
+          "label": "Transformación (%)",
           "link": null,
           "widget": {
-            "name": "auto_size"
+            "name": "strength_pct"
           }
         },
         {
@@ -238,30 +262,6 @@
           "link": null,
           "widget": {
             "name": "guidance"
-          }
-        },
-        {
-          "name": "init_image",
-          "type": "IMAGE",
-          "label": "Imagen inicial",
-          "link": 3501
-        },
-        {
-          "name": "use_img2img",
-          "type": "BOOLEAN",
-          "label": "Usar imagen inicial",
-          "link": null,
-          "widget": {
-            "name": "use_img2img"
-          }
-        },
-        {
-          "name": "strength_pct",
-          "type": "INT",
-          "label": "Transformación (%)",
-          "link": null,
-          "widget": {
-            "name": "strength_pct"
           }
         },
         {
@@ -306,26 +306,26 @@
       },
       "widgets_values": [
         "A single ultra-realistic studio reference photograph of an adult woman, 30 years old, standing upright in a relaxed neutral anatomical pose, directly facing the camera.\n\nPerfectly frontal view, straight head position, natural symmetrical posture, shoulders level, both arms resting naturally at her sides, unobstructed torso. Framing from the top of the head to the upper hips.\n\nNatural adult female anatomy, realistic body proportions, naturally shaped breasts with anatomically accurate areolas and nipples, believable skin elasticity, subtle natural asymmetry, authentic skin pores, fine skin texture and realistic anatomical transitions.\n\nNatural facial features, relaxed expression, both eyes focused straight ahead, realistic eye alignment, subtle facial asymmetry, no makeup, natural eyebrows.\n\nProfessional full-frame DSLR studio photography, 85mm portrait lens, soft diffused frontal lighting, realistic shadows, neutral color grading, sharp optical detail, unretouched documentary photography.\n\nPure white seamless studio background. Exactly one woman, one photograph, one camera angle, no collage, no fashion pose, no accessories, no clothing covering the torso.",
+        false,
+        false,
         768,
         1024,
-        false,
+        0,
         1,
         3.5,
-        false,
-        0,
         0,
         0,
         0
       ],
       "widgets_values_named": {
         "text": "A single ultra-realistic studio reference photograph of an adult woman, 30 years old, standing upright in a relaxed neutral anatomical pose, directly facing the camera.\n\nPerfectly frontal view, straight head position, natural symmetrical posture, shoulders level, both arms resting naturally at her sides, unobstructed torso. Framing from the top of the head to the upper hips.\n\nNatural adult female anatomy, realistic body proportions, naturally shaped breasts with anatomically accurate areolas and nipples, believable skin elasticity, subtle natural asymmetry, authentic skin pores, fine skin texture and realistic anatomical transitions.\n\nNatural facial features, relaxed expression, both eyes focused straight ahead, realistic eye alignment, subtle facial asymmetry, no makeup, natural eyebrows.\n\nProfessional full-frame DSLR studio photography, 85mm portrait lens, soft diffused frontal lighting, realistic shadows, neutral color grading, sharp optical detail, unretouched documentary photography.\n\nPure white seamless studio background. Exactly one woman, one photograph, one camera angle, no collage, no fashion pose, no accessories, no clothing covering the torso.",
+        "use_img2img": false,
+        "auto_size": false,
         "width": 768,
         "height": 1024,
-        "auto_size": false,
+        "strength_pct": 0,
         "seed": 1,
         "guidance": 3.5,
-        "use_img2img": false,
-        "strength_pct": 0,
         "anatomy_lora_pct": 0,
         "fpnd_lora_pct": 0,
         "photo_lora_pct": 0
@@ -819,7 +819,7 @@
       201,
       0,
       200,
-      5,
+      1,
       "IMAGE"
     ],
     [
@@ -827,7 +827,7 @@
       301,
       0,
       300,
-      6,
+      1,
       "IMAGE"
     ],
     [
@@ -3340,7 +3340,7 @@
           "lastLinkId": 4315,
           "lastRerouteId": 0
         },
-        "revision": 5,
+        "revision": 6,
         "config": {},
         "name": "Z-Image-Turbo · Generación",
         "inputNode": {
@@ -3372,60 +3372,8 @@
             "label": "Prompt",
             "pos": [
               -460,
-              290
+              250
             ]
-          },
-          {
-            "id": "dd780b3c-23e9-46ff-8469-156008f42e5a",
-            "name": "width",
-            "type": "INT",
-            "linkIds": [
-              4300
-            ],
-            "pos": [
-              -460,
-              322
-            ],
-            "label": "Ancho manual (px)"
-          },
-          {
-            "id": "7b08d546-6bb0-4ef9-82e9-ffae5e1ee6bc",
-            "name": "height",
-            "type": "INT",
-            "linkIds": [
-              4301
-            ],
-            "pos": [
-              -460,
-              354
-            ],
-            "label": "Alto manual (px)"
-          },
-          {
-            "id": "image-lab-z-image-size-auto-v15",
-            "name": "auto_size",
-            "type": "BOOLEAN",
-            "label": "Mantener resolución de imagen inicial",
-            "linkIds": [
-              4303
-            ],
-            "pos": [
-              -300,
-              386
-            ]
-          },
-          {
-            "id": "f77677f7-6bf6-4c19-a71f-c4a553d5981e",
-            "name": "seed",
-            "type": "INT",
-            "linkIds": [
-              71
-            ],
-            "pos": [
-              -460,
-              418
-            ],
-            "label": "Semilla"
           },
           {
             "id": "image-lab-v12-z-init_image",
@@ -3438,7 +3386,7 @@
             ],
             "pos": [
               -300,
-              450
+              279
             ]
           },
           {
@@ -3454,8 +3402,47 @@
             ],
             "pos": [
               -300,
-              482
+              308
             ]
+          },
+          {
+            "id": "image-lab-z-image-size-auto-v15",
+            "name": "auto_size",
+            "type": "BOOLEAN",
+            "label": "Mantener resolución de imagen inicial",
+            "linkIds": [
+              4303
+            ],
+            "pos": [
+              -300,
+              337
+            ]
+          },
+          {
+            "id": "dd780b3c-23e9-46ff-8469-156008f42e5a",
+            "name": "width",
+            "type": "INT",
+            "linkIds": [
+              4300
+            ],
+            "pos": [
+              -460,
+              366
+            ],
+            "label": "Ancho manual (px)"
+          },
+          {
+            "id": "7b08d546-6bb0-4ef9-82e9-ffae5e1ee6bc",
+            "name": "height",
+            "type": "INT",
+            "linkIds": [
+              4301
+            ],
+            "pos": [
+              -460,
+              395
+            ],
+            "label": "Alto manual (px)"
           },
           {
             "id": "image-lab-v12-z-strength_pct",
@@ -3467,8 +3454,21 @@
             ],
             "pos": [
               -300,
-              514
+              424
             ]
+          },
+          {
+            "id": "f77677f7-6bf6-4c19-a71f-c4a553d5981e",
+            "name": "seed",
+            "type": "INT",
+            "linkIds": [
+              71
+            ],
+            "pos": [
+              -460,
+              453
+            ],
+            "label": "Semilla"
           },
           {
             "id": "image-lab-z-image-lora-pct-v30",
@@ -3480,7 +3480,7 @@
             ],
             "pos": [
               -300,
-              1130
+              482
             ]
           }
         ],
@@ -5141,7 +5141,7 @@
           {
             "id": 71,
             "origin_id": -10,
-            "origin_slot": 4,
+            "origin_slot": 7,
             "target_id": 3,
             "target_slot": 4,
             "type": "INT"
@@ -5149,7 +5149,7 @@
           {
             "id": 2500,
             "origin_id": -10,
-            "origin_slot": 5,
+            "origin_slot": 1,
             "target_id": 1301,
             "target_slot": 0,
             "type": "IMAGE"
@@ -5189,7 +5189,7 @@
           {
             "id": 2507,
             "origin_id": -10,
-            "origin_slot": 6,
+            "origin_slot": 2,
             "target_id": 1303,
             "target_slot": 2,
             "type": "BOOLEAN"
@@ -5229,7 +5229,7 @@
           {
             "id": 2512,
             "origin_id": -10,
-            "origin_slot": 6,
+            "origin_slot": 2,
             "target_id": 1306,
             "target_slot": 2,
             "type": "BOOLEAN"
@@ -5245,7 +5245,7 @@
           {
             "id": 2700,
             "origin_id": -10,
-            "origin_slot": 5,
+            "origin_slot": 1,
             "target_id": 1600,
             "target_slot": 0,
             "type": "IMAGE"
@@ -5293,7 +5293,7 @@
           {
             "id": 2706,
             "origin_id": -10,
-            "origin_slot": 6,
+            "origin_slot": 2,
             "target_id": 1603,
             "target_slot": 2,
             "type": "BOOLEAN"
@@ -5357,7 +5357,7 @@
           {
             "id": 2714,
             "origin_id": -10,
-            "origin_slot": 6,
+            "origin_slot": 2,
             "target_id": 1604,
             "target_slot": 2,
             "type": "BOOLEAN"
@@ -5381,7 +5381,7 @@
           {
             "id": 4300,
             "origin_id": -10,
-            "origin_slot": 1,
+            "origin_slot": 4,
             "target_id": 2100,
             "target_slot": 0,
             "type": "INT"
@@ -5389,7 +5389,7 @@
           {
             "id": 4301,
             "origin_id": -10,
-            "origin_slot": 2,
+            "origin_slot": 5,
             "target_id": 2101,
             "target_slot": 0,
             "type": "INT"
@@ -5397,7 +5397,7 @@
           {
             "id": 4302,
             "origin_id": -10,
-            "origin_slot": 7,
+            "origin_slot": 6,
             "target_id": 2102,
             "target_slot": 0,
             "type": "INT"
@@ -5466,7 +5466,7 @@
           "lastLinkId": 4701,
           "lastRerouteId": 0
         },
-        "revision": 7,
+        "revision": 8,
         "config": {},
         "name": "FLUX.1 Dev · Generación",
         "inputNode": {
@@ -5498,72 +5498,7 @@
             "label": "Prompt",
             "pos": [
               -990,
-              291
-            ]
-          },
-          {
-            "id": "5a5c0b01-5836-4ca6-a24f-68c0a4fb9802",
-            "name": "width",
-            "type": "INT",
-            "linkIds": [
-              4400
-            ],
-            "pos": [
-              -990,
-              320
-            ],
-            "label": "Ancho manual (px)"
-          },
-          {
-            "id": "5e01104a-ed7f-457b-aaee-934e8ecc088d",
-            "name": "height",
-            "type": "INT",
-            "linkIds": [
-              4401
-            ],
-            "pos": [
-              -990,
-              349
-            ],
-            "label": "Alto manual (px)"
-          },
-          {
-            "id": "image-lab-flux-size-auto-v15",
-            "name": "auto_size",
-            "type": "BOOLEAN",
-            "label": "Mantener resolución de imagen inicial",
-            "linkIds": [
-              4403
-            ],
-            "pos": [
-              -300,
-              378
-            ]
-          },
-          {
-            "id": "ea5ea317-a484-4605-8138-8628a4b8e502",
-            "name": "seed",
-            "type": "INT",
-            "linkIds": [
-              382
-            ],
-            "pos": [
-              -990,
-              407
-            ],
-            "label": "Semilla"
-          },
-          {
-            "id": "image-lab-flux-guidance-v29",
-            "name": "guidance",
-            "type": "FLOAT",
-            "label": "Seguimiento del prompt (guidance)",
-            "linkIds": [
-              4701
-            ],
-            "pos": [
-              -990,
-              436
+              250
             ]
           },
           {
@@ -5577,7 +5512,7 @@
             ],
             "pos": [
               -300,
-              465
+              279
             ]
           },
           {
@@ -5593,8 +5528,47 @@
             ],
             "pos": [
               -300,
-              494
+              308
             ]
+          },
+          {
+            "id": "image-lab-flux-size-auto-v15",
+            "name": "auto_size",
+            "type": "BOOLEAN",
+            "label": "Mantener resolución de imagen inicial",
+            "linkIds": [
+              4403
+            ],
+            "pos": [
+              -300,
+              337
+            ]
+          },
+          {
+            "id": "5a5c0b01-5836-4ca6-a24f-68c0a4fb9802",
+            "name": "width",
+            "type": "INT",
+            "linkIds": [
+              4400
+            ],
+            "pos": [
+              -990,
+              366
+            ],
+            "label": "Ancho manual (px)"
+          },
+          {
+            "id": "5e01104a-ed7f-457b-aaee-934e8ecc088d",
+            "name": "height",
+            "type": "INT",
+            "linkIds": [
+              4401
+            ],
+            "pos": [
+              -990,
+              395
+            ],
+            "label": "Alto manual (px)"
           },
           {
             "id": "image-lab-v12-f-strength_pct",
@@ -5606,7 +5580,33 @@
             ],
             "pos": [
               -300,
-              523
+              424
+            ]
+          },
+          {
+            "id": "ea5ea317-a484-4605-8138-8628a4b8e502",
+            "name": "seed",
+            "type": "INT",
+            "linkIds": [
+              382
+            ],
+            "pos": [
+              -990,
+              453
+            ],
+            "label": "Semilla"
+          },
+          {
+            "id": "image-lab-flux-guidance-v29",
+            "name": "guidance",
+            "type": "FLOAT",
+            "label": "Seguimiento del prompt (guidance)",
+            "linkIds": [
+              4701
+            ],
+            "pos": [
+              -990,
+              482
             ]
           },
           {
@@ -5619,7 +5619,7 @@
             ],
             "pos": [
               -300,
-              552
+              511
             ]
           },
           {
@@ -5632,7 +5632,7 @@
             ],
             "pos": [
               -300,
-              581
+              540
             ]
           },
           {
@@ -5645,7 +5645,7 @@
             ],
             "pos": [
               -300,
-              610
+              569
             ]
           }
         ],
@@ -7636,7 +7636,7 @@
           {
             "id": 382,
             "origin_id": -10,
-            "origin_slot": 4,
+            "origin_slot": 7,
             "target_id": 31,
             "target_slot": 4,
             "type": "INT"
@@ -7644,7 +7644,7 @@
           {
             "id": 3500,
             "origin_id": -10,
-            "origin_slot": 6,
+            "origin_slot": 1,
             "target_id": 1401,
             "target_slot": 0,
             "type": "IMAGE"
@@ -7684,7 +7684,7 @@
           {
             "id": 3507,
             "origin_id": -10,
-            "origin_slot": 7,
+            "origin_slot": 2,
             "target_id": 1403,
             "target_slot": 2,
             "type": "BOOLEAN"
@@ -7724,7 +7724,7 @@
           {
             "id": 3512,
             "origin_id": -10,
-            "origin_slot": 7,
+            "origin_slot": 2,
             "target_id": 1406,
             "target_slot": 2,
             "type": "BOOLEAN"
@@ -7740,7 +7740,7 @@
           {
             "id": 3700,
             "origin_id": -10,
-            "origin_slot": 6,
+            "origin_slot": 1,
             "target_id": 1700,
             "target_slot": 0,
             "type": "IMAGE"
@@ -7788,7 +7788,7 @@
           {
             "id": 3706,
             "origin_id": -10,
-            "origin_slot": 7,
+            "origin_slot": 2,
             "target_id": 1703,
             "target_slot": 2,
             "type": "BOOLEAN"
@@ -7852,7 +7852,7 @@
           {
             "id": 3714,
             "origin_id": -10,
-            "origin_slot": 7,
+            "origin_slot": 2,
             "target_id": 1704,
             "target_slot": 2,
             "type": "BOOLEAN"
@@ -7876,7 +7876,7 @@
           {
             "id": 4400,
             "origin_id": -10,
-            "origin_slot": 1,
+            "origin_slot": 4,
             "target_id": 2200,
             "target_slot": 0,
             "type": "INT"
@@ -7884,7 +7884,7 @@
           {
             "id": 4401,
             "origin_id": -10,
-            "origin_slot": 2,
+            "origin_slot": 5,
             "target_id": 2201,
             "target_slot": 0,
             "type": "INT"
@@ -7892,7 +7892,7 @@
           {
             "id": 4402,
             "origin_id": -10,
-            "origin_slot": 8,
+            "origin_slot": 6,
             "target_id": 2202,
             "target_slot": 0,
             "type": "INT"
@@ -8036,7 +8036,7 @@
           {
             "id": 4701,
             "origin_id": -10,
-            "origin_slot": 5,
+            "origin_slot": 8,
             "target_id": 2330,
             "target_slot": 1,
             "type": "FLOAT"
