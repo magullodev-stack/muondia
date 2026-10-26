@@ -2,6 +2,7 @@
 Solo arranca un llama-server; no instala ni descarga modelos.
 """
 import atexit
+import ctypes
 from datetime import datetime
 import json
 import os
@@ -23,7 +24,7 @@ MODELOS = {
 HOST = "127.0.0.1"
 PORT = 18889
 LOCK = threading.RLock()
-STATE = {"process": None, "configuracion": None, "log": None}
+STATE = {"process": None, "configuracion": None, "log": None, "externo_pid": None}
 OUTPUT = ROOT / "output" / "gguf_chat"
 LOG_PATH = OUTPUT / "llama-server.log"
 
@@ -39,20 +40,30 @@ def _registro():
 
 
 def _detener():
+    """Detiene solamente el servidor propio o uno previamente identificado como propio."""
     proc = STATE["process"]
+    externo_pid = STATE["externo_pid"]
     STATE["process"] = None
+    STATE["externo_pid"] = None
     STATE["configuracion"] = None
-    if proc is not None and proc.poll() is None:
-        proc.terminate()
-        try:
-            proc.wait(timeout=12)
-        except subprocess.TimeoutExpired:
-            proc.kill()
-            proc.wait(timeout=5)
-    fh = STATE["log"]
-    STATE["log"] = None
-    if fh is not None:
-        fh.close()
+    try:
+        if proc is not None and proc.poll() is None:
+            proc.terminate()
+            try:
+                proc.wait(timeout=12)
+            except subprocess.TimeoutExpired:
+                proc.kill()
+                proc.wait(timeout=5)
+        elif externo_pid is not None:
+            actual = _instancia_en_puerto()
+            if (actual and actual["pid"] == externo_pid
+                    and _configuracion_instancia(actual) is not None):
+                _terminar_instancia_externa(actual)
+    finally:
+        fh = STATE["log"]
+        STATE["log"] = None
+        if fh is not None:
+            fh.close()
 
 
 def _puerto_ocupado():
@@ -71,6 +82,127 @@ def _salud():
         return False
 
 
+def _instancia_en_puerto():
+    """Inspecciona el proceso que escucha en nuestro puerto, sin instalar dependencias.
+
+    Get-NetTCPConnection/Win32_Process se usan solamente cuando ya hay un
+    servidor escuchando. Si no puede comprobarse su propietario, NO se detiene.
+    """
+    if os.name != "nt":
+        return None
+    ps = (
+        "$t = Get-NetTCPConnection -LocalPort " + str(PORT)
+        + " -State Listen -ErrorAction SilentlyContinue | "
+        + "Where-Object { $_.LocalAddress -eq '127.0.0.1' } | Select-Object -First 1; "
+        + "if ($t) { $p = Get-CimInstance Win32_Process "
+        + "-Filter ('ProcessId=' + $t.OwningProcess) -ErrorAction SilentlyContinue; "
+        + "if ($p) { [pscustomobject]@{"
+        + "pid=[int]$p.ProcessId; executable=$p.ExecutablePath; "
+        + "command=$p.CommandLine} | ConvertTo-Json -Compress } }"
+    )
+    try:
+        r = subprocess.run(
+            ["powershell.exe", "-NoProfile", "-NonInteractive", "-Command", ps],
+            capture_output=True, text=True, timeout=15,
+            creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
+        )
+    except (OSError, subprocess.TimeoutExpired) as exc:
+        raise RuntimeError("No se pudo identificar el proceso del puerto 18889: " + str(exc)) from exc
+    if r.returncode != 0:
+        raise RuntimeError("Error consultando el proceso del puerto 18889: " + r.stderr[-400:])
+    if not r.stdout.strip():
+        return None
+    try:
+        d = json.loads(r.stdout)
+        return {"pid": int(d["pid"]), "executable": d.get("executable"),
+                "command": d.get("command")}
+    except (ValueError, TypeError, KeyError) as exc:
+        raise RuntimeError("No se pudo interpretar el proceso del puerto 18889.") from exc
+
+
+def _argumentos_windows(linea):
+    """Divide la línea de comandos con las reglas reales de Windows."""
+    if not linea or os.name != "nt":
+        return []
+    argc = ctypes.c_int()
+    fn = ctypes.windll.shell32.CommandLineToArgvW
+    fn.argtypes = [ctypes.c_wchar_p, ctypes.POINTER(ctypes.c_int)]
+    fn.restype = ctypes.POINTER(ctypes.c_wchar_p)
+    ptr = fn(linea, ctypes.byref(argc))
+    if not ptr:
+        return []
+    try:
+        return [ptr[i] for i in range(argc.value)]
+    finally:
+        free = ctypes.windll.kernel32.LocalFree
+        free.argtypes = [ctypes.c_void_p]
+        free.restype = ctypes.c_void_p
+        free(ctypes.cast(ptr, ctypes.c_void_p))
+
+
+def _configuracion_instancia(info):
+    """Reconoce SOLO el llama-server exacto de este ComfyUI con estos GGUF."""
+    if not info or not info.get("executable"):
+        return None
+    def norm(p):
+        return os.path.normcase(os.path.abspath(p))
+    if norm(info["executable"]) != norm(str(LLAMA_SERVER)):
+        return None
+    argv = _argumentos_windows(info.get("command"))
+    try:
+        def opcion(flag):
+            i = argv.index(flag)
+            return argv[i + 1]
+        if opcion("--host") != HOST or int(opcion("--port")) != PORT:
+            return None
+        if int(opcion("--parallel")) != 1:
+            return None
+        ruta = norm(opcion("-m"))
+        nombre = next((name for name, (file, _) in MODELOS.items()
+                       if norm(str(file)) == ruta), None)
+        if nombre is None:
+            return None
+        contexto = int(opcion("-c"))
+        capas = int(opcion("-ngl"))
+        return (nombre, contexto, capas)
+    except (ValueError, IndexError, StopIteration, TypeError):
+        return None
+
+
+def _terminar_instancia_externa(info):
+    """Comprueba de nuevo PID/ruta/argumentos antes de terminar el servidor."""
+    actual = _instancia_en_puerto()
+    if not actual:
+        return
+    if (actual["pid"] != info["pid"]
+            or _configuracion_instancia(actual) is None):
+        raise RuntimeError("El proceso del puerto 18889 ha cambiado: no se detiene.")
+    r = subprocess.run(
+        ["taskkill.exe", "/PID", str(info["pid"]), "/F"],
+        capture_output=True, text=True, timeout=15,
+        creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
+    )
+    if r.returncode != 0 and _puerto_ocupado():
+        raise RuntimeError("No se pudo detener el llama-server antiguo: " + r.stderr[-400:])
+    limite = time.monotonic() + 20
+    while _puerto_ocupado() and time.monotonic() < limite:
+        time.sleep(0.3)
+    if _puerto_ocupado():
+        raise RuntimeError("El puerto 18889 no se liberó tras detener llama-server.")
+
+
+def _esperar_instancia_existente(info):
+    """Espera que termine de cargar el servidor ya reconocido."""
+    limite = time.monotonic() + 600
+    while time.monotonic() < limite:
+        if _salud():
+            return
+        if not _puerto_ocupado():
+            raise RuntimeError("El llama-server anterior terminó durante la carga.")
+        time.sleep(2)
+    raise RuntimeError("El llama-server anterior no terminó de cargar en 10 minutos.")
+
+
 def _iniciar(modelo, contexto_tokens, capas_gpu):
     gguf, contexto_nativo = MODELOS[modelo]
     contexto = contexto_nativo if contexto_tokens == 0 else contexto_tokens
@@ -83,12 +215,27 @@ def _iniciar(modelo, contexto_tokens, capas_gpu):
     proc = STATE["process"]
     if proc and proc.poll() is None and STATE["configuracion"] == configuracion and _salud():
         return
-    _detener()  # Nunca se mantienen Magnum y Euryale simultáneamente.
+    if (STATE["externo_pid"] is not None
+            and STATE["configuracion"] == configuracion and _salud()):
+        return
+    _detener()  # Solo se detiene el servidor del modelo anterior.
+
     if _puerto_ocupado():
-        raise RuntimeError(
-            f"El puerto {PORT} ya está ocupado, posiblemente por otro llama-server. "
-            "Cierra la instancia antigua antes de ejecutar otra vez."
-        )
+        anterior = _instancia_en_puerto()
+        anterior_cfg = _configuracion_instancia(anterior)
+        if anterior_cfg is None:
+            desc = (f"PID {anterior['pid']}" if anterior else "proceso desconocido")
+            raise RuntimeError(
+                f"El puerto {PORT} pertenece a {desc}, pero no puedo verificar que "
+                "sea el llama-server de este workflow. No se detiene por seguridad."
+            )
+        if anterior_cfg == configuracion:
+            _esperar_instancia_existente(anterior)
+            STATE.update(process=None, externo_pid=anterior["pid"],
+                         configuracion=configuracion, log=None)
+            return
+        # Un modelo diferente, pero es nuestro ejecutable con nuestras rutas.
+        _terminar_instancia_externa(anterior)
 
     OUTPUT.mkdir(parents=True, exist_ok=True)
     fh = LOG_PATH.open("w", encoding="utf-8")
@@ -104,7 +251,7 @@ def _iniciar(modelo, contexto_tokens, capas_gpu):
     except Exception:
         fh.close()
         raise
-    STATE.update(process=proc, configuracion=configuracion, log=fh)
+    STATE.update(process=proc, externo_pid=None, configuracion=configuracion, log=fh)
     plazo = time.monotonic() + 600
     while time.monotonic() < plazo:
         if proc.poll() is not None:
@@ -189,6 +336,14 @@ class GeneradorLLM:
             return {"ui": {"text": [texto]}, "result": (texto,)}
 
 
-atexit.register(_detener)
+def _salir():
+    # No hacer fallar la salida de Python si Windows ya ha cerrado el proceso.
+    try:
+        _detener()
+    except Exception:
+        pass
+
+
+atexit.register(_salir)
 NODE_CLASS_MAPPINGS = {"GGUF_GeneradorLLM": GeneradorLLM}
 NODE_DISPLAY_NAME_MAPPINGS = {"GGUF_GeneradorLLM": "GENERADOR LLM · Magnum / Euryale"}
