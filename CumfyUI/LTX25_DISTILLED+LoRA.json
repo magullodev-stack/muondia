@@ -1,8 +1,8 @@
 {
   "id": "8758f3da-3006-49ff-9147-7a9a944326cc",
   "revision": 1,
-  "last_node_id": 428,
-  "last_link_id": 820,
+  "last_node_id": 424,
+  "last_link_id": 814,
   "nodes": [
     {
       "id": 395,
@@ -25,9 +25,7 @@
           "type": "IMAGE",
           "links": [
             764,
-            806,
-            815,
-            817
+            806
           ]
         },
         {
@@ -155,7 +153,7 @@
           "name": "union_video",
           "label": "Vídeo Union",
           "type": "VIDEO",
-          "link": 816
+          "link": 809
         },
         {
           "name": "motion_tracks",
@@ -311,7 +309,7 @@
           "name": "ingredients_image",
           "label": "Imagen Ingredients",
           "type": "IMAGE",
-          "link": 817
+          "link": 813
         },
         {
           "name": "ingredients_enabled",
@@ -673,13 +671,15 @@
       ],
       "flags": {},
       "order": 8,
-      "mode": 4,
+      "mode": 0,
       "inputs": [],
       "outputs": [
         {
           "name": "VIDEO",
           "type": "VIDEO",
-          "links": []
+          "links": [
+            809
+          ]
         }
       ],
       "properties": {
@@ -693,7 +693,7 @@
       ],
       "color": "#232",
       "bgcolor": "#353",
-      "title": "UNION · vídeo opcional (solo activar con archivo)"
+      "title": "VÍDEO UNION · REFERENCIA"
     },
     {
       "id": 418,
@@ -835,13 +835,15 @@
       ],
       "flags": {},
       "order": 15,
-      "mode": 4,
+      "mode": 0,
       "inputs": [],
       "outputs": [
         {
           "name": "IMAGE",
           "type": "IMAGE",
-          "links": []
+          "links": [
+            813
+          ]
         },
         {
           "name": "MASK",
@@ -849,7 +851,7 @@
           "links": null
         }
       ],
-      "title": "INGREDIENTS · imagen opcional (solo activar con archivo)",
+      "title": "IMAGEN INGREDIENTS · REFERENCIA (opcional)",
       "properties": {
         "Node name for S&R": "LoadImage",
         "cnr_id": "comfy-core",
@@ -937,174 +939,6 @@
       "widgets_values": [
         "**RESOLUCIÓN · LTX-2.5 two-stage ×2**\n\n• **Formato exacto DESACTIVADO:** relación + megapíxeles aproximados, con dimensiones redondeadas a múltiplos de 64.\n\n• **Formato exacto ACTIVADO:** preserva exactamente 1:1, 2:3, 3:2, 3:4, 4:3, 9:16, 16:9 y 21:9, ajustando los MP reales al par válido más cercano. Ej.: 16:9 exacto 1024×576; 2:3 exacto 768×1152 (según MP).\n\n• **Después de ejecutar**, mira el indicador RESOLUCIÓN REAL junto a Configuración.\n\n• LOW = FINAL / 2; upscaler latente ×2 conservado. No cambiar a múltiplo 32."
       ]
-    },
-    {
-      "id": 425,
-      "type": "CreateVideo",
-      "title": "Union OFF · Reserva 128 s / 1 fps",
-      "pos": [
-        660,
-        1795
-      ],
-      "size": [
-        490,
-        220
-      ],
-      "flags": {},
-      "order": 0,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 820
-        },
-        {
-          "name": "audio",
-          "type": "AUDIO",
-          "link": null
-        },
-        {
-          "name": "fps",
-          "type": "FLOAT",
-          "link": null,
-          "widget": {
-            "name": "fps"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "VIDEO",
-          "type": "VIDEO",
-          "links": [
-            816
-          ]
-        }
-      ],
-      "widgets_values": [
-        1,
-        "auto",
-        "sRGB",
-        "none"
-      ],
-      "properties": {
-        "Node name for S&R": "CreateVideo",
-        "cnr_id": "comfy-core"
-      }
-    },
-    {
-      "id": 426,
-      "type": "MarkdownNote",
-      "title": "GUIA · Union / Ingredients sin archivos obligatorios",
-      "pos": [
-        670,
-        2100
-      ],
-      "size": [
-        850,
-        440
-      ],
-      "flags": {},
-      "order": 0,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [],
-      "widgets_values": [
-        "REFERENCIAS OPCIONALES: UNION + INGREDIENTS\n\nUSO NORMAL: Union = false, Ingredients = false. Puedes generar sin subir vídeo ni imagen secundaria. Los puertos reciben referencias de reserva basadas en la imagen inicial para evitar la validación de archivos vacíos.\n\nPARA USAR UNION: sube el archivo al nodo UNION; cambia su modo de Bypass a Always (normal), conecta su VIDEO al puerto 'Vídeo Union' sustituyendo el cable de reserva, y activa 'Activar Union'.\n\nPARA USAR INGREDIENTS: sube la imagen al nodo INGREDIENTS; cambia Bypass a Always, conecta IMAGE a 'Imagen Ingredients' sustituyendo el cable de reserva, y activa 'Activar Ingredients'.\n\nPARA VOLVER A DESACTIVAR: apaga los controles, restablece los cables de reserva y deja los cargadores sin conexión. No dejes conectado LoadVideo sin vídeo.\n\nEsto modifica exclusivamente las conexiones del workflow, no los modelos, LoRA, samplers ni valores de generación."
-      ],
-      "properties": {
-        "Node name for S&R": "MarkdownNote",
-        "cnr_id": "comfy-core"
-      }
-    },
-    {
-      "id": 427,
-      "type": "ResizeImageMaskNode",
-      "title": "Reserva Union · Imagen pequeña (64 px)",
-      "pos": [
-        660,
-        1630
-      ],
-      "size": [
-        320,
-        135
-      ],
-      "flags": {},
-      "order": 0,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "input",
-          "type": "IMAGE,MASK",
-          "link": 815
-        }
-      ],
-      "outputs": [
-        {
-          "name": "resized",
-          "type": "IMAGE,MASK",
-          "links": [
-            819
-          ]
-        }
-      ],
-      "widgets_values": [
-        "scale longer dimension",
-        64,
-        "lanczos"
-      ],
-      "properties": {
-        "Node name for S&R": "ResizeImageMaskNode",
-        "cnr_id": "comfy-core"
-      }
-    },
-    {
-      "id": 428,
-      "type": "RepeatImageBatch",
-      "title": "Reserva Union · 128 fotogramas",
-      "pos": [
-        1030,
-        1760
-      ],
-      "size": [
-        350,
-        140
-      ],
-      "flags": {},
-      "order": 0,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "link": 819
-        },
-        {
-          "name": "amount",
-          "type": "INT",
-          "widget": {
-            "name": "amount"
-          },
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            820
-          ]
-        }
-      ],
-      "widgets_values": [
-        128
-      ],
-      "properties": {
-        "Node name for S&R": "RepeatImageBatch",
-        "cnr_id": "comfy-core"
-      }
     }
   ],
   "links": [
@@ -1157,6 +991,14 @@
       "STRING"
     ],
     [
+      809,
+      417,
+      0,
+      398,
+      2,
+      "VIDEO"
+    ],
+    [
       810,
       398,
       1,
@@ -1181,52 +1023,20 @@
       "INT"
     ],
     [
-      814,
-      398,
-      4,
-      423,
-      0,
-      "STRING"
-    ],
-    [
-      816,
-      425,
-      0,
-      398,
-      2,
-      "VIDEO"
-    ],
-    [
-      817,
-      395,
+      813,
+      422,
       0,
       398,
       20,
       "IMAGE"
     ],
     [
-      815,
-      395,
+      814,
+      398,
+      4,
+      423,
       0,
-      427,
-      0,
-      "IMAGE"
-    ],
-    [
-      819,
-      427,
-      0,
-      428,
-      0,
-      "IMAGE"
-    ],
-    [
-      820,
-      428,
-      0,
-      425,
-      0,
-      "IMAGE"
+      "STRING"
     ]
   ],
   "groups": [],
