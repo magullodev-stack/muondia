@@ -1,6 +1,6 @@
 {
   "id": "d4dd74cc-219c-454b-b338-c85618dc1763",
-  "revision": 7,
+  "revision": 8,
   "last_node_id": 14,
   "last_link_id": 48,
   "nodes": [
@@ -77,14 +77,14 @@
     {
       "id": 14,
       "type": "49d31a21-8c17-464a-aeca-2b9178b63940",
-      "title": "03 · WAN · CONFIGURACIÓN · Identidad y movimiento",
+      "title": "03 · WAN · CONFIGURACIÓN · Referencia y duración",
       "pos": [
         1240,
         195
       ],
       "size": [
-        580,
-        425
+        560,
+        400
       ],
       "flags": {},
       "order": 2,
@@ -131,20 +131,11 @@
         },
         {
           "name": "fidelity",
-          "label": "Fidelidad a imagen · %",
+          "label": "Conservar imagen · %",
           "type": "INT",
           "link": null,
           "widget": {
             "name": "fidelity"
-          }
-        },
-        {
-          "name": "motion",
-          "label": "Libertad de movimiento · %",
-          "type": "INT",
-          "link": null,
-          "widget": {
-            "name": "motion"
           }
         },
         {
@@ -177,13 +168,11 @@
         512,
         768,
         95,
-        35,
         192054346835137
       ],
       "widgets_values_named": {
         "duration_seconds": 5,
         "fidelity": 95,
-        "motion": 35,
         "seed": 192054346835137,
         "width": 512,
         "height": 768
@@ -322,7 +311,7 @@
           "lastLinkId": 48,
           "lastRerouteId": 0
         },
-        "revision": 5,
+        "revision": 6,
         "config": {},
         "name": "WAN · I2V · primer fotograma anclado",
         "inputNode": {
@@ -414,7 +403,7 @@
           {
             "id": "anchor-fidelity-v2",
             "name": "fidelity",
-            "label": "Fidelidad a imagen · %",
+            "label": "Conservar imagen · %",
             "type": "INT",
             "linkIds": [
               29
@@ -422,19 +411,6 @@
             "pos": [
               -350,
               330
-            ]
-          },
-          {
-            "id": "motion-freedom-v2",
-            "name": "motion",
-            "label": "Libertad de movimiento · %",
-            "type": "INT",
-            "linkIds": [
-              30
-            ],
-            "pos": [
-              -350,
-              372
             ]
           },
           {
@@ -1018,12 +994,6 @@
                 "label": "Fidelidad",
                 "type": "FLOAT,INT,BOOLEAN",
                 "link": 38
-              },
-              {
-                "name": "values.b",
-                "label": "Movimiento",
-                "type": "FLOAT,INT,BOOLEAN",
-                "link": 39
               }
             ],
             "outputs": [
@@ -1050,12 +1020,12 @@
               "cnr_id": "comfy-core"
             },
             "widgets_values": [
-              "1-0.08*min(1,max(0,a/100))*(1-min(1,max(0,b/100)))"
+              "1-0.08*min(1,max(0,a/100))"
             ],
             "widgets_values_named": {
-              "expression": "1-0.08*min(1,max(0,a/100))*(1-min(1,max(0,b/100)))"
+              "expression": "1-0.08*min(1,max(0,a/100))"
             },
-            "title": "Fidelidad / movimiento → denoise conservador"
+            "title": "WAN · conservar imagen · denoise"
           },
           {
             "id": 15,
@@ -1323,55 +1293,7 @@
               "value": 95,
               "fixed": "fixed"
             },
-            "title": "Fidelidad (0–100 %) · valor visible"
-          },
-          {
-            "id": 20,
-            "type": "PrimitiveInt",
-            "pos": [
-              450,
-              1780
-            ],
-            "size": [
-              350,
-              110
-            ],
-            "flags": {},
-            "mode": 0,
-            "order": 19,
-            "inputs": [
-              {
-                "name": "value",
-                "type": "INT",
-                "widget": {
-                  "name": "value"
-                },
-                "link": 30
-              }
-            ],
-            "outputs": [
-              {
-                "name": "INT",
-                "type": "INT",
-                "links": [
-                  39
-                ]
-              }
-            ],
-            "properties": {
-              "Node name for S&R": "PrimitiveInt",
-              "cnr_id": "comfy-core",
-              "ver": "0.16.3"
-            },
-            "widgets_values": [
-              35,
-              "fixed"
-            ],
-            "widgets_values_named": {
-              "value": 35,
-              "fixed": "fixed"
-            },
-            "title": "Movimiento (0–100 %) · valor visible"
+            "title": "Conservar imagen (%) · control real"
           },
           {
             "id": 21,
@@ -1717,7 +1639,7 @@
           {
             "id": 22,
             "origin_id": -10,
-            "origin_slot": 7,
+            "origin_slot": 6,
             "target_id": 21,
             "target_slot": 0,
             "type": "INT"
@@ -1743,14 +1665,6 @@
             "origin_id": -10,
             "origin_slot": 5,
             "target_id": 19,
-            "target_slot": 0,
-            "type": "INT"
-          },
-          {
-            "id": 30,
-            "origin_id": -10,
-            "origin_slot": 6,
-            "target_id": 20,
             "target_slot": 0,
             "type": "INT"
           },
@@ -1816,14 +1730,6 @@
             "origin_slot": 0,
             "target_id": 14,
             "target_slot": 0,
-            "type": "INT"
-          },
-          {
-            "id": 39,
-            "origin_id": 20,
-            "origin_slot": 0,
-            "target_id": 14,
-            "target_slot": 1,
             "type": "INT"
           },
           {
