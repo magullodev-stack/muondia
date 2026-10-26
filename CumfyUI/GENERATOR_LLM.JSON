@@ -1,116 +1,17 @@
 {
-  "last_node_id": 5,
-  "last_link_id": 3,
+  "last_node_id": 2,
+  "last_link_id": 1,
   "nodes": [
     {
       "id": 1,
-      "type": "GGUF_LocalChatAuto",
-      "pos": [
-        570,
-        130
-      ],
-      "size": [
-        545,
-        580
-      ],
-      "flags": {},
-      "order": 1,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "configuracion",
-          "type": "GGUF_CONFIG",
-          "link": 2
-        }
-      ],
-      "outputs": [
-        {
-          "name": "texto",
-          "type": "STRING",
-          "links": [
-            1,
-            3
-          ],
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "GGUF_LocalChatAuto"
-      },
-      "title": "GENERADOR LLM · Magnum / Euryale",
-      "widgets_values": [
-        "Magnum v2 32B (Q4_K_M)",
-        "Responde en español respetando el contenido, el tono y las instrucciones del usuario.",
-        "Escribe aquí tu solicitud.",
-        0.8,
-        0.95,
-        2048
-      ]
-    },
-    {
-      "id": 2,
-      "type": "GGUF_SaveTextAuto",
-      "pos": [
-        1215,
-        790
-      ],
-      "size": [
-        420,
-        165
-      ],
-      "flags": {},
-      "order": 2,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "texto",
-          "type": "STRING",
-          "link": 1
-        }
-      ],
-      "outputs": [],
-      "properties": {
-        "Node name for S&R": "GGUF_SaveTextAuto"
-      },
-      "title": "ARCHIVO · Copia TXT de la respuesta",
-      "widgets_values": [
-        "generato_llm"
-      ]
-    },
-    {
-      "id": 3,
-      "type": "Note",
-      "pos": [
-        85,
-        570
-      ],
-      "size": [
-        1090,
-        400
-      ],
-      "flags": {},
-      "order": 3,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [],
-      "properties": {
-        "Node name for S&R": "Note"
-      },
-      "title": "GUÍA · Un solo modelo, un solo workflow",
-      "widgets_values": [
-        "GENERADOR LLM · Magnum 32B / Euryale 70B v2.1\nUSO: selecciona el modelo, introduce las instrucciones y tu prompt, pulsa Ejecutar.\nRESPUESTA: aparece dentro del nodo «RESPUESTA DEL MODELO · LEER AQUÍ». También queda archivada como TXT en ComfyUI/output/gguf_chat/.\nEl texto aparece AL TERMINAR la generación (este workflow todavía no implementa streaming token a token).\nCONFIGURACIÓN AVANZADA: contexto_tokens=0 adopta el valor nativo de cada modelo (Magnum 32768; Euryale 8192). capas_gpu=8 es una estimación inicial, no está optimizado. semilla=-1 significa semilla aleatoria y NO implica fallo. max_tokens_salida=2048 es un límite superior, no una duración en segundos.\nGESTIÓN DE MEMORIA AUTOMÁTICA: al cambiar de modelo se detiene el proceso llama-server anterior, y al cerrar normalmente ComfyUI se detiene el proceso auxiliar. NO existe selector «operacion» en la versión actual.\nATENCIÓN: actualizar el JSON de GitHub NO actualiza el Python instalado en tu PC. Debes reemplazar custom_nodes/ComfyUI_GGUF_LocalChat/nodes.py y REINICIAR ComfyUI. Volver a importar el JSON actualizado (no sirve mantener una pestaña del viejo workflow)."
-      ]
-    },
-    {
-      "id": 4,
-      "type": "GGUF_ConfigAvanzada",
+      "type": "GGUF_GeneradorLLM",
       "pos": [
         80,
-        165
+        135
       ],
       "size": [
-        420,
-        345
+        650,
+        540
       ],
       "flags": {},
       "order": 0,
@@ -118,46 +19,42 @@
       "inputs": [],
       "outputs": [
         {
-          "name": "configuracion",
-          "type": "GGUF_CONFIG",
+          "name": "respuesta",
+          "type": "STRING",
           "links": [
-            2
+            1
           ],
           "slot_index": 0
         }
       ],
       "properties": {
-        "Node name for S&R": "GGUF_ConfigAvanzada"
+        "Node name for S&R": "GGUF_GeneradorLLM"
       },
-      "title": "CONFIGURACIÓN AVANZADA · memoria y rendimiento",
+      "title": "GENERADOR LLM · Elegir modelo y escribir prompt",
       "widgets_values": [
-        0,
-        8,
-        false,
-        "f16",
-        -1
+        "Magnum v2 32B (Q4_K_M)",
+        "Hola, ¿estás ahí?"
       ]
     },
     {
-      "id": 5,
+      "id": 2,
       "type": "PreviewAny",
-      "title": "RESPUESTA DEL MODELO · LEER AQUÍ",
       "pos": [
-        1215,
-        160
+        835,
+        135
       ],
       "size": [
-        640,
-        570
+        850,
+        600
       ],
       "flags": {},
-      "order": 3,
+      "order": 1,
       "mode": 0,
       "inputs": [
         {
           "name": "source",
           "type": "*",
-          "link": 3
+          "link": 1
         }
       ],
       "outputs": [
@@ -171,6 +68,7 @@
         "Node name for S&R": "PreviewAny",
         "cnr_id": "comfy-core"
       },
+      "title": "RESPUESTA DEL MODELO · Ver texto aquí",
       "widgets_values": []
     }
   ],
@@ -182,72 +80,18 @@
       2,
       0,
       "STRING"
-    ],
-    [
-      2,
-      4,
-      0,
-      1,
-      0,
-      "GGUF_CONFIG"
-    ],
-    [
-      3,
-      1,
-      0,
-      5,
-      0,
-      "STRING"
     ]
   ],
-  "groups": [
-    {
-      "title": "01 · CONFIGURACIÓN AVANZADA (ajustar solo si es necesario)",
-      "bounding": [
-        52,
-        112,
-        485,
-        442
-      ],
-      "color": "#4f5c66",
-      "font_size": 18,
-      "flags": {}
-    },
-    {
-      "title": "02 · GENERACIÓN DE TEXTO",
-      "bounding": [
-        542,
-        75,
-        610,
-        680
-      ],
-      "color": "#536b58",
-      "font_size": 18,
-      "flags": {}
-    },
-    {
-      "title": "03 · RESULTADO",
-      "bounding": [
-        1180,
-        95,
-        735,
-        975
-      ],
-      "color": "#555670",
-      "font_size": 18,
-      "flags": {}
-    }
-  ],
+  "groups": [],
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.82,
+      "scale": 0.85,
       "offset": [
-        140,
-        75
+        120,
+        70
       ]
-    },
-    "workflowRendererVersion": "LG"
+    }
   },
   "version": 0.4
 }
