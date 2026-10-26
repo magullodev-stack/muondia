@@ -704,9 +704,9 @@
       ],
       "widgets_values_named": {
         "image": "(sin imagen)",
-        "usar_imagen_inicial": true,
-        "mantener_resolucion": false,
-        "transformacion_pct": 0
+        "Usar imagen inicial": true,
+        "Mantener resolución original": false,
+        "Transformación (%)": 0
       }
     },
     {
@@ -798,9 +798,9 @@
       ],
       "widgets_values_named": {
         "image": "(sin imagen)",
-        "usar_imagen_inicial": true,
-        "mantener_resolucion": false,
-        "transformacion_pct": 0
+        "Usar imagen inicial": true,
+        "Mantener resolución original": false,
+        "Transformación (%)": 0
       }
     },
     {
@@ -892,9 +892,9 @@
       ],
       "widgets_values_named": {
         "image": "(sin imagen)",
-        "usar_imagen_inicial": true,
-        "mantener_resolucion": false,
-        "transformacion_pct": 0
+        "Usar imagen inicial": true,
+        "Mantener resolución original": false,
+        "Transformación (%)": 0
       }
     },
     {
@@ -988,9 +988,9 @@
       ],
       "widgets_values_named": {
         "image": "(sin imagen)",
-        "usar_imagen_inicial": true,
-        "mantener_resolucion": false,
-        "transformacion_pct": 0
+        "Usar imagen inicial": true,
+        "Mantener resolución original": false,
+        "Transformación (%)": 0
       }
     },
     {
