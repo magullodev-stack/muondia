@@ -1,0 +1,2012 @@
+{
+  "id": "982ced9a-d244-4ac6-a9b8-3256d17231ef",
+  "revision": 0,
+  "last_node_id": 15,
+  "last_link_id": 49,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "LoadImage",
+      "pos": [
+        80,
+        195
+      ],
+      "size": [
+        510,
+        515
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            24
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "",
+        "image"
+      ],
+      "title": "01 · IMAGEN INICIAL"
+    },
+    {
+      "id": 15,
+      "type": "LoadImage",
+      "pos": [
+        650,
+        195
+      ],
+      "size": [
+        510,
+        515
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            49
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "",
+        "image"
+      ],
+      "title": "02 · IMAGEN FINAL"
+    },
+    {
+      "id": 2,
+      "type": "PrimitiveStringMultiline",
+      "pos": [
+        1240,
+        195
+      ],
+      "size": [
+        530,
+        280
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            25
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimitiveStringMultiline"
+      },
+      "widgets_values": [
+        "Animate the exact person in the input image. Preserve the same facial identity, hairstyle, clothing, body proportions, and camera framing. Subtle natural motion, realistic temporal consistency, no changes in identity or appearance. Only animate the subject and camera; do not redesign the person."
+      ],
+      "title": "03 · PROMPT · transición de A a B"
+    },
+    {
+      "id": 14,
+      "type": "473f8f58-b946-43c3-8ac2-1936ca945c78",
+      "title": "04 · WAN VACE FLF2V · Fotogramas y control",
+      "pos": [
+        1840,
+        195
+      ],
+      "size": [
+        565,
+        470
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "label": "Imagen inicial",
+          "type": "IMAGE",
+          "link": 24
+        },
+        {
+          "name": "end_image",
+          "label": "Imagen final",
+          "type": "IMAGE",
+          "link": 49
+        },
+        {
+          "name": "prompt",
+          "label": "PROMPT",
+          "type": "STRING",
+          "link": 25
+        },
+        {
+          "name": "num_frames",
+          "label": "Fotogramas (4n+1, mínimo 25)",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "num_frames"
+          }
+        },
+        {
+          "name": "width",
+          "label": "Ancho · px",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "width"
+          }
+        },
+        {
+          "name": "height",
+          "label": "Alto · px",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "height"
+          }
+        },
+        {
+          "name": "fidelity",
+          "label": "Conservar imagen · %",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "fidelity"
+          }
+        },
+        {
+          "name": "seed",
+          "label": "Semilla",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "seed"
+          }
+        },
+        {
+          "name": "replace_last_frame",
+          "label": "Sustituir último fotograma",
+          "type": "BOOLEAN",
+          "link": null,
+          "widget": {
+            "name": "replace_last_frame"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "images",
+          "label": "Fotogramas",
+          "type": "IMAGE",
+          "links": [
+            26
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "previewExposures": []
+      },
+      "widgets_values": [
+        "",
+        49,
+        512,
+        768,
+        100,
+        192054346835137,
+        false
+      ],
+      "widgets_values_named": {
+        "prompt": "",
+        "num_frames": 49,
+        "width": 512,
+        "height": 768,
+        "fidelity": 100,
+        "seed": 192054346835137,
+        "replace_last_frame": false
+      }
+    },
+    {
+      "id": 13,
+      "type": "VHS_VideoCombine",
+      "pos": [
+        2465,
+        195
+      ],
+      "size": [
+        530,
+        560
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 26
+        },
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": null,
+          "shape": 7
+        },
+        {
+          "name": "meta_batch",
+          "type": "VHS_BatchManager",
+          "link": null,
+          "shape": 7
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": null,
+          "shape": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Filenames",
+          "type": "VHS_FILENAMES",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VHS_VideoCombine"
+      },
+      "widgets_values": {
+        "frame_rate": 16,
+        "loop_count": 0,
+        "filename_prefix": "NSFW_VIDEO_GENERATOR/WAN_v12_2_FLF2V",
+        "format": "video/h264-mp4",
+        "pix_fmt": "yuv420p",
+        "crf": 18,
+        "save_metadata": true,
+        "trim_to_audio": false,
+        "pingpong": false,
+        "save_output": true,
+        "videopreview": {
+          "hidden": false,
+          "paused": false,
+          "params": {}
+        }
+      },
+      "title": "05 · GUARDAR VÍDEO MP4 · FLF2V"
+    }
+  ],
+  "links": [
+    [
+      24,
+      1,
+      0,
+      14,
+      0,
+      "IMAGE"
+    ],
+    [
+      25,
+      2,
+      0,
+      14,
+      2,
+      "STRING"
+    ],
+    [
+      26,
+      14,
+      0,
+      13,
+      0,
+      "IMAGE"
+    ],
+    [
+      49,
+      15,
+      0,
+      14,
+      1,
+      "IMAGE"
+    ]
+  ],
+  "groups": [
+    {
+      "id": 1,
+      "title": "WAN 2.2 VACE · FLF2V · Fotogramas inicial y final",
+      "bounding": [
+        45,
+        80,
+        2995,
+        740
+      ],
+      "color": "#366d81",
+      "font_size": 25,
+      "flags": {}
+    }
+  ],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.5,
+      "offset": [
+        20,
+        15
+      ]
+    },
+    "ue_links": []
+  },
+  "version": 0.4,
+  "definitions": {
+    "subgraphs": [
+      {
+        "id": "473f8f58-b946-43c3-8ac2-1936ca945c78",
+        "version": 1,
+        "state": {
+          "lastGroupId": 0,
+          "lastNodeId": 31,
+          "lastLinkId": 42,
+          "lastRerouteId": 0
+        },
+        "revision": 0,
+        "config": {},
+        "name": "WAN 2.2 VACE · FLF2V · First / Last Frame",
+        "inputNode": {
+          "id": -10,
+          "bounding": [
+            -450,
+            100,
+            195,
+            535
+          ]
+        },
+        "outputNode": {
+          "id": -20,
+          "bounding": [
+            4120,
+            500,
+            200,
+            160
+          ]
+        },
+        "inputs": [
+          {
+            "id": "ui-image",
+            "name": "image",
+            "label": "Imagen inicial",
+            "type": "IMAGE",
+            "linkIds": [
+              1
+            ],
+            "pos": [
+              -350,
+              120
+            ]
+          },
+          {
+            "id": "ui-end-image",
+            "name": "end_image",
+            "label": "Imagen final",
+            "type": "IMAGE",
+            "linkIds": [
+              31,
+              36
+            ],
+            "pos": [
+              -350,
+              162
+            ]
+          },
+          {
+            "id": "ui-prompt",
+            "name": "prompt",
+            "label": "PROMPT",
+            "type": "STRING",
+            "linkIds": [
+              2
+            ],
+            "pos": [
+              -350,
+              204
+            ]
+          },
+          {
+            "id": "widget-num-frames",
+            "name": "num_frames",
+            "label": "Fotogramas (4n+1, mínimo 25)",
+            "type": "INT",
+            "linkIds": [
+              18
+            ],
+            "pos": [
+              -350,
+              246
+            ]
+          },
+          {
+            "id": "exposed-width-v3",
+            "name": "width",
+            "label": "Ancho · px",
+            "type": "INT",
+            "linkIds": [
+              22
+            ],
+            "pos": [
+              -350,
+              288
+            ]
+          },
+          {
+            "id": "exposed-height-v3",
+            "name": "height",
+            "label": "Alto · px",
+            "type": "INT",
+            "linkIds": [
+              24
+            ],
+            "pos": [
+              -350,
+              330
+            ]
+          },
+          {
+            "id": "anchor-fidelity-v2",
+            "name": "fidelity",
+            "label": "Conservar imagen · %",
+            "type": "INT",
+            "linkIds": [
+              26
+            ],
+            "pos": [
+              -350,
+              372
+            ]
+          },
+          {
+            "id": "widget-seed",
+            "name": "seed",
+            "label": "Semilla",
+            "type": "INT",
+            "linkIds": [
+              29
+            ],
+            "pos": [
+              -350,
+              456
+            ]
+          },
+          {
+            "id": "ui-replace-final",
+            "name": "replace_last_frame",
+            "label": "Sustituir último fotograma",
+            "type": "BOOLEAN",
+            "linkIds": [
+              42
+            ],
+            "pos": [
+              -350,
+              498
+            ]
+          }
+        ],
+        "outputs": [
+          {
+            "id": "out-images",
+            "name": "images",
+            "label": "Fotogramas",
+            "type": "IMAGE",
+            "linkIds": [
+              17
+            ],
+            "pos": [
+              2065,
+              150
+            ]
+          }
+        ],
+        "widgets": [],
+        "nodes": [
+          {
+            "id": 4,
+            "type": "CheckpointLoaderSimple",
+            "pos": [
+              250,
+              240
+            ],
+            "size": [
+              400,
+              110
+            ],
+            "flags": {},
+            "order": 0,
+            "mode": 0,
+            "inputs": [],
+            "outputs": [
+              {
+                "name": "MODEL",
+                "type": "MODEL",
+                "links": [
+                  5
+                ]
+              },
+              {
+                "name": "CLIP",
+                "type": "CLIP",
+                "links": [
+                  3,
+                  4
+                ]
+              },
+              {
+                "name": "VAE",
+                "type": "VAE",
+                "links": [
+                  6,
+                  7
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "CheckpointLoaderSimple"
+            },
+            "widgets_values": [
+              "wan2.2-rapid-mega-aio-nsfw-v12.2.safetensors"
+            ],
+            "title": "WAN MEGA v12.2 · Checkpoint VACE integrado"
+          },
+          {
+            "id": 5,
+            "type": "CLIPTextEncode",
+            "pos": [
+              675,
+              400
+            ],
+            "size": [
+              390,
+              155
+            ],
+            "flags": {},
+            "order": 1,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "clip",
+                "type": "CLIP",
+                "link": 3
+              },
+              {
+                "name": "text",
+                "type": "STRING",
+                "link": 2,
+                "widget": {
+                  "name": "text"
+                }
+              }
+            ],
+            "outputs": [
+              {
+                "name": "CONDITIONING",
+                "type": "CONDITIONING",
+                "links": [
+                  8
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "CLIPTextEncode"
+            },
+            "widgets_values": [
+              ""
+            ],
+            "title": "WAN · Prompt"
+          },
+          {
+            "id": 6,
+            "type": "CLIPTextEncode",
+            "pos": [
+              675,
+              620
+            ],
+            "size": [
+              390,
+              110
+            ],
+            "flags": {},
+            "order": 2,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "clip",
+                "type": "CLIP",
+                "link": 4
+              }
+            ],
+            "outputs": [
+              {
+                "name": "CONDITIONING",
+                "type": "CONDITIONING",
+                "links": [
+                  9
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "CLIPTextEncode"
+            },
+            "widgets_values": [
+              ""
+            ],
+            "title": "WAN · Negativo (CFG 1)"
+          },
+          {
+            "id": 10,
+            "type": "ModelSamplingSD3",
+            "pos": [
+              1800,
+              200
+            ],
+            "size": [
+              300,
+              90
+            ],
+            "flags": {},
+            "order": 3,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "model",
+                "type": "MODEL",
+                "link": 5
+              }
+            ],
+            "outputs": [
+              {
+                "name": "MODEL",
+                "type": "MODEL",
+                "links": [
+                  12
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ModelSamplingSD3"
+            },
+            "widgets_values": [
+              8
+            ],
+            "title": "WAN · Shift 8"
+          },
+          {
+            "id": 11,
+            "type": "KSampler",
+            "pos": [
+              2160,
+              460
+            ],
+            "size": [
+              350,
+              255
+            ],
+            "flags": {},
+            "order": 4,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "model",
+                "type": "MODEL",
+                "link": 12
+              },
+              {
+                "name": "positive",
+                "type": "CONDITIONING",
+                "link": 13
+              },
+              {
+                "name": "negative",
+                "type": "CONDITIONING",
+                "link": 14
+              },
+              {
+                "name": "latent_image",
+                "type": "LATENT",
+                "link": 15
+              },
+              {
+                "name": "seed",
+                "type": "INT",
+                "widget": {
+                  "name": "seed"
+                },
+                "link": 30
+              }
+            ],
+            "outputs": [
+              {
+                "name": "LATENT",
+                "type": "LATENT",
+                "links": [
+                  16
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "KSampler"
+            },
+            "widgets_values": [
+              192054346835137,
+              "fixed",
+              4,
+              1,
+              "ipndm",
+              "beta",
+              1
+            ],
+            "title": "WAN MEGA · IPNDM / beta · 4 pasos · CFG 1 · denoise 1"
+          },
+          {
+            "id": 12,
+            "type": "VAEDecode",
+            "pos": [
+              2560,
+              480
+            ],
+            "size": [
+              260,
+              100
+            ],
+            "flags": {},
+            "order": 5,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "samples",
+                "type": "LATENT",
+                "link": 16
+              },
+              {
+                "name": "vae",
+                "type": "VAE",
+                "link": 7
+              }
+            ],
+            "outputs": [
+              {
+                "name": "IMAGE",
+                "type": "IMAGE",
+                "links": [
+                  32,
+                  33
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "VAEDecode"
+            },
+            "widgets_values": [],
+            "title": "WAN · Decode"
+          },
+          {
+            "id": 13,
+            "type": "ComfyMathExpression",
+            "pos": [
+              460,
+              1220
+            ],
+            "size": [
+              320,
+              100
+            ],
+            "flags": {},
+            "order": 6,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "values.a",
+                "label": "Fotogramas solicitados",
+                "type": "FLOAT,INT,BOOLEAN",
+                "link": 19
+              },
+              {
+                "name": "values.b",
+                "type": "FLOAT,INT,BOOLEAN",
+                "shape": 7,
+                "link": null
+              }
+            ],
+            "outputs": [
+              {
+                "name": "FLOAT",
+                "type": "FLOAT",
+                "links": []
+              },
+              {
+                "name": "INT",
+                "type": "INT",
+                "links": [
+                  20,
+                  21,
+                  34
+                ]
+              },
+              {
+                "name": "BOOL",
+                "type": "BOOLEAN",
+                "links": []
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ComfyMathExpression",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              "max(25,a)-((max(25,a)-1)%4)"
+            ],
+            "widgets_values_named": {
+              "expression": "max(25,a)-((max(25,a)-1)%4)"
+            },
+            "title": "Fotogramas · normalizar a 4n+1 (mínimo 25)"
+          },
+          {
+            "id": 14,
+            "type": "ComfyMathExpression",
+            "pos": [
+              500,
+              1460
+            ],
+            "size": [
+              350,
+              110
+            ],
+            "flags": {},
+            "mode": 0,
+            "order": 7,
+            "inputs": [
+              {
+                "name": "values.a",
+                "label": "Fidelidad",
+                "type": "FLOAT,INT,BOOLEAN",
+                "link": 27
+              }
+            ],
+            "outputs": [
+              {
+                "name": "FLOAT",
+                "type": "FLOAT",
+                "links": [
+                  28
+                ]
+              },
+              {
+                "name": "INT",
+                "type": "INT",
+                "links": []
+              },
+              {
+                "name": "BOOL",
+                "type": "BOOLEAN",
+                "links": []
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ComfyMathExpression",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              "max(0,min(1,a/100))"
+            ],
+            "widgets_values_named": {
+              "expression": "max(0,min(1,a/100))"
+            },
+            "title": "Conservar imagen (%) → VACE strength (0 a 1)"
+          },
+          {
+            "id": 18,
+            "type": "PrimitiveInt",
+            "pos": [
+              120,
+              1210
+            ],
+            "size": [
+              350,
+              110
+            ],
+            "flags": {},
+            "mode": 0,
+            "order": 8,
+            "inputs": [
+              {
+                "name": "value",
+                "type": "INT",
+                "widget": {
+                  "name": "value"
+                },
+                "link": 18
+              }
+            ],
+            "outputs": [
+              {
+                "name": "INT",
+                "type": "INT",
+                "links": [
+                  19
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "PrimitiveInt",
+              "cnr_id": "comfy-core",
+              "ver": "0.16.3"
+            },
+            "widgets_values": [
+              49,
+              "fixed"
+            ],
+            "widgets_values_named": {
+              "value": 49,
+              "fixed": "fixed"
+            },
+            "title": "Fotogramas solicitados · mínimo 25"
+          },
+          {
+            "id": 19,
+            "type": "PrimitiveInt",
+            "pos": [
+              120,
+              1470
+            ],
+            "size": [
+              350,
+              110
+            ],
+            "flags": {},
+            "mode": 0,
+            "order": 9,
+            "inputs": [
+              {
+                "name": "value",
+                "type": "INT",
+                "widget": {
+                  "name": "value"
+                },
+                "link": 26
+              }
+            ],
+            "outputs": [
+              {
+                "name": "INT",
+                "type": "INT",
+                "links": [
+                  27
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "PrimitiveInt",
+              "cnr_id": "comfy-core",
+              "ver": "0.16.3"
+            },
+            "widgets_values": [
+              100,
+              "fixed"
+            ],
+            "widgets_values_named": {
+              "value": 100,
+              "fixed": "fixed"
+            },
+            "title": "Conservar imagen (%) · control real"
+          },
+          {
+            "id": 21,
+            "type": "PrimitiveInt",
+            "pos": [
+              1500,
+              1200
+            ],
+            "size": [
+              350,
+              110
+            ],
+            "flags": {},
+            "mode": 0,
+            "order": 10,
+            "inputs": [
+              {
+                "name": "value",
+                "type": "INT",
+                "widget": {
+                  "name": "value"
+                },
+                "link": 29
+              }
+            ],
+            "outputs": [
+              {
+                "name": "INT",
+                "type": "INT",
+                "links": [
+                  30
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "PrimitiveInt",
+              "cnr_id": "comfy-core",
+              "ver": "0.16.3"
+            },
+            "widgets_values": [
+              192054346835137,
+              "fixed"
+            ],
+            "widgets_values_named": {
+              "value": 192054346835137,
+              "fixed": "fixed"
+            },
+            "title": "Semilla · valor visible"
+          },
+          {
+            "id": 23,
+            "type": "PrimitiveInt",
+            "title": "Ancho del vídeo · valor visible",
+            "pos": [
+              120,
+              1720
+            ],
+            "size": [
+              350,
+              110
+            ],
+            "flags": {},
+            "mode": 0,
+            "order": 11,
+            "inputs": [
+              {
+                "name": "value",
+                "type": "INT",
+                "widget": {
+                  "name": "value"
+                },
+                "link": 22
+              }
+            ],
+            "outputs": [
+              {
+                "name": "INT",
+                "type": "INT",
+                "links": [
+                  23,
+                  37
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "PrimitiveInt",
+              "cnr_id": "comfy-core",
+              "ver": "0.16.3"
+            },
+            "widgets_values": [
+              512,
+              "fixed"
+            ],
+            "widgets_values_named": {
+              "value": 512,
+              "fixed": "fixed"
+            }
+          },
+          {
+            "id": 24,
+            "type": "PrimitiveInt",
+            "title": "Alto del vídeo · valor visible",
+            "pos": [
+              120,
+              1950
+            ],
+            "size": [
+              350,
+              110
+            ],
+            "flags": {},
+            "mode": 0,
+            "order": 12,
+            "inputs": [
+              {
+                "name": "value",
+                "type": "INT",
+                "widget": {
+                  "name": "value"
+                },
+                "link": 24
+              }
+            ],
+            "outputs": [
+              {
+                "name": "INT",
+                "type": "INT",
+                "links": [
+                  25,
+                  38
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "PrimitiveInt",
+              "cnr_id": "comfy-core",
+              "ver": "0.16.3"
+            },
+            "widgets_values": [
+              768,
+              "fixed"
+            ],
+            "widgets_values_named": {
+              "value": 768,
+              "fixed": "fixed"
+            }
+          },
+          {
+            "id": 25,
+            "type": "WanVideoVACEStartToEndFrame",
+            "title": "VACE · Primer y último fotograma (FLF2V)",
+            "pos": [
+              1100,
+              200
+            ],
+            "size": [
+              350,
+              200
+            ],
+            "flags": {},
+            "order": 13,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "start_image",
+                "type": "IMAGE",
+                "shape": 7,
+                "link": 1
+              },
+              {
+                "name": "end_image",
+                "type": "IMAGE",
+                "shape": 7,
+                "link": 31
+              },
+              {
+                "name": "control_images",
+                "type": "IMAGE",
+                "shape": 7,
+                "link": null
+              },
+              {
+                "name": "inpaint_mask",
+                "type": "MASK",
+                "shape": 7,
+                "link": null
+              },
+              {
+                "name": "num_frames",
+                "type": "INT",
+                "widget": {
+                  "name": "num_frames"
+                },
+                "link": 20
+              }
+            ],
+            "outputs": [
+              {
+                "name": "images",
+                "type": "IMAGE",
+                "links": [
+                  10
+                ]
+              },
+              {
+                "name": "masks",
+                "type": "MASK",
+                "links": [
+                  11
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "WanVideoVACEStartToEndFrame"
+            },
+            "widgets_values": [
+              49,
+              0.5,
+              0,
+              -1
+            ]
+          },
+          {
+            "id": 26,
+            "type": "WanVaceToVideo",
+            "title": "WAN VACE · FLF2V real",
+            "pos": [
+              1520,
+              550
+            ],
+            "size": [
+              390,
+              280
+            ],
+            "flags": {},
+            "order": 14,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "positive",
+                "type": "CONDITIONING",
+                "link": 8
+              },
+              {
+                "name": "negative",
+                "type": "CONDITIONING",
+                "link": 9
+              },
+              {
+                "name": "vae",
+                "type": "VAE",
+                "link": 6
+              },
+              {
+                "name": "control_video",
+                "type": "IMAGE",
+                "shape": 7,
+                "link": 10
+              },
+              {
+                "name": "control_masks",
+                "type": "MASK",
+                "shape": 7,
+                "link": 11
+              },
+              {
+                "name": "reference_image",
+                "type": "IMAGE",
+                "shape": 7,
+                "link": null
+              },
+              {
+                "name": "length",
+                "type": "INT",
+                "widget": {
+                  "name": "length"
+                },
+                "link": 21
+              },
+              {
+                "name": "width",
+                "type": "INT",
+                "widget": {
+                  "name": "width"
+                },
+                "link": 23
+              },
+              {
+                "name": "height",
+                "type": "INT",
+                "widget": {
+                  "name": "height"
+                },
+                "link": 25
+              },
+              {
+                "name": "strength",
+                "type": "FLOAT",
+                "widget": {
+                  "name": "strength"
+                },
+                "link": 28
+              }
+            ],
+            "outputs": [
+              {
+                "name": "positive",
+                "type": "CONDITIONING",
+                "links": [
+                  13
+                ]
+              },
+              {
+                "name": "negative",
+                "type": "CONDITIONING",
+                "links": [
+                  14
+                ]
+              },
+              {
+                "name": "latent",
+                "type": "LATENT",
+                "links": [
+                  15
+                ]
+              },
+              {
+                "name": "trim_latent",
+                "type": "INT",
+                "links": []
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "WanVaceToVideo"
+            },
+            "widgets_values": [
+              512,
+              768,
+              49,
+              1,
+              1
+            ]
+          },
+          {
+            "id": 27,
+            "type": "ComfyMathExpression",
+            "pos": [
+              1030,
+              1290
+            ],
+            "size": [
+              320,
+              100
+            ],
+            "flags": {},
+            "order": 15,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "values.a",
+                "label": "Fotogramas normalizados",
+                "type": "FLOAT,INT,BOOLEAN",
+                "link": 34
+              },
+              {
+                "name": "values.b",
+                "type": "FLOAT,INT,BOOLEAN",
+                "shape": 7,
+                "link": null
+              }
+            ],
+            "outputs": [
+              {
+                "name": "FLOAT",
+                "type": "FLOAT",
+                "links": []
+              },
+              {
+                "name": "INT",
+                "type": "INT",
+                "links": [
+                  35
+                ]
+              },
+              {
+                "name": "BOOL",
+                "type": "BOOLEAN",
+                "links": []
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ComfyMathExpression",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              "a-1"
+            ],
+            "widgets_values_named": {
+              "expression": "a-1"
+            },
+            "title": "Reemplazo final · conservar N-1 fotogramas"
+          },
+          {
+            "id": 28,
+            "type": "ImageFromBatch",
+            "pos": [
+              2940,
+              850
+            ],
+            "size": [
+              310,
+              120
+            ],
+            "flags": {},
+            "mode": 0,
+            "order": 16,
+            "inputs": [
+              {
+                "name": "image",
+                "type": "IMAGE",
+                "link": 33
+              },
+              {
+                "name": "batch_index",
+                "type": "INT",
+                "widget": {
+                  "name": "batch_index"
+                },
+                "link": null
+              },
+              {
+                "name": "length",
+                "type": "INT",
+                "widget": {
+                  "name": "length"
+                },
+                "link": 35
+              }
+            ],
+            "outputs": [
+              {
+                "name": "IMAGE",
+                "type": "IMAGE",
+                "links": [
+                  39
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ImageFromBatch",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              0,
+              48
+            ],
+            "title": "SAFE END · Extraer fotogramas 0 a N-2"
+          },
+          {
+            "id": 29,
+            "type": "ImageScale",
+            "pos": [
+              2930,
+              1120
+            ],
+            "size": [
+              310,
+              165
+            ],
+            "flags": {},
+            "mode": 0,
+            "order": 17,
+            "inputs": [
+              {
+                "name": "image",
+                "type": "IMAGE",
+                "link": 36
+              },
+              {
+                "name": "upscale_method",
+                "type": "COMBO",
+                "widget": {
+                  "name": "upscale_method"
+                },
+                "link": null
+              },
+              {
+                "name": "width",
+                "type": "INT",
+                "widget": {
+                  "name": "width"
+                },
+                "link": 37
+              },
+              {
+                "name": "height",
+                "type": "INT",
+                "widget": {
+                  "name": "height"
+                },
+                "link": 38
+              },
+              {
+                "name": "crop",
+                "type": "COMBO",
+                "widget": {
+                  "name": "crop"
+                },
+                "link": null
+              }
+            ],
+            "outputs": [
+              {
+                "name": "IMAGE",
+                "type": "IMAGE",
+                "links": [
+                  40
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ImageScale",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              "lanczos",
+              512,
+              768,
+              "center"
+            ],
+            "title": "SAFE END · Adaptar imagen final a resolución del vídeo"
+          },
+          {
+            "id": 30,
+            "type": "ImageBatch",
+            "pos": [
+              3350,
+              880
+            ],
+            "size": [
+              305,
+              105
+            ],
+            "flags": {},
+            "mode": 0,
+            "order": 18,
+            "inputs": [
+              {
+                "name": "image1",
+                "type": "IMAGE",
+                "link": 39
+              },
+              {
+                "name": "image2",
+                "type": "IMAGE",
+                "link": 40
+              }
+            ],
+            "outputs": [
+              {
+                "name": "IMAGE",
+                "type": "IMAGE",
+                "links": [
+                  41
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ImageBatch",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [],
+            "title": "SAFE END · Fotogramas generados + final original"
+          },
+          {
+            "id": 31,
+            "type": "ComfySwitchNode",
+            "pos": [
+              3730,
+              540
+            ],
+            "size": [
+              270,
+              130
+            ],
+            "flags": {},
+            "order": 19,
+            "mode": 0,
+            "inputs": [
+              {
+                "localized_name": "en_falso",
+                "name": "on_false",
+                "shape": 7,
+                "type": "IMAGE",
+                "link": 32
+              },
+              {
+                "localized_name": "en_verdadero",
+                "name": "on_true",
+                "shape": 7,
+                "type": "IMAGE",
+                "link": 41
+              },
+              {
+                "localized_name": "interruptor",
+                "name": "switch",
+                "type": "BOOLEAN",
+                "widget": {
+                  "name": "switch"
+                },
+                "link": 42
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "salida",
+                "name": "output",
+                "type": "IMAGE",
+                "links": [
+                  17
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ComfySwitchNode",
+              "cnr_id": "comfy-core",
+              "ver": "0.22.0",
+              "enableTabs": false,
+              "tabWidth": 65,
+              "tabXOffset": 10,
+              "hasSecondTab": false,
+              "secondTabText": "Send Back",
+              "secondTabOffset": 80,
+              "secondTabWidth": 65
+            },
+            "widgets_values": [
+              false
+            ],
+            "widgets_values_named": {
+              "switch": false
+            },
+            "title": "Sustituir último fotograma · apagado por defecto"
+          }
+        ],
+        "groups": [],
+        "links": [
+          {
+            "id": 1,
+            "origin_id": -10,
+            "origin_slot": 0,
+            "target_id": 25,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 2,
+            "origin_id": -10,
+            "origin_slot": 2,
+            "target_id": 5,
+            "target_slot": 1,
+            "type": "STRING"
+          },
+          {
+            "id": 3,
+            "origin_id": 4,
+            "origin_slot": 1,
+            "target_id": 5,
+            "target_slot": 0,
+            "type": "CLIP"
+          },
+          {
+            "id": 4,
+            "origin_id": 4,
+            "origin_slot": 1,
+            "target_id": 6,
+            "target_slot": 0,
+            "type": "CLIP"
+          },
+          {
+            "id": 5,
+            "origin_id": 4,
+            "origin_slot": 0,
+            "target_id": 10,
+            "target_slot": 0,
+            "type": "MODEL"
+          },
+          {
+            "id": 6,
+            "origin_id": 4,
+            "origin_slot": 2,
+            "target_id": 26,
+            "target_slot": 2,
+            "type": "VAE"
+          },
+          {
+            "id": 7,
+            "origin_id": 4,
+            "origin_slot": 2,
+            "target_id": 12,
+            "target_slot": 1,
+            "type": "VAE"
+          },
+          {
+            "id": 8,
+            "origin_id": 5,
+            "origin_slot": 0,
+            "target_id": 26,
+            "target_slot": 0,
+            "type": "CONDITIONING"
+          },
+          {
+            "id": 9,
+            "origin_id": 6,
+            "origin_slot": 0,
+            "target_id": 26,
+            "target_slot": 1,
+            "type": "CONDITIONING"
+          },
+          {
+            "id": 10,
+            "origin_id": 25,
+            "origin_slot": 0,
+            "target_id": 26,
+            "target_slot": 3,
+            "type": "IMAGE"
+          },
+          {
+            "id": 11,
+            "origin_id": 25,
+            "origin_slot": 1,
+            "target_id": 26,
+            "target_slot": 4,
+            "type": "MASK"
+          },
+          {
+            "id": 12,
+            "origin_id": 10,
+            "origin_slot": 0,
+            "target_id": 11,
+            "target_slot": 0,
+            "type": "MODEL"
+          },
+          {
+            "id": 13,
+            "origin_id": 26,
+            "origin_slot": 0,
+            "target_id": 11,
+            "target_slot": 1,
+            "type": "CONDITIONING"
+          },
+          {
+            "id": 14,
+            "origin_id": 26,
+            "origin_slot": 1,
+            "target_id": 11,
+            "target_slot": 2,
+            "type": "CONDITIONING"
+          },
+          {
+            "id": 15,
+            "origin_id": 26,
+            "origin_slot": 2,
+            "target_id": 11,
+            "target_slot": 3,
+            "type": "LATENT"
+          },
+          {
+            "id": 16,
+            "origin_id": 11,
+            "origin_slot": 0,
+            "target_id": 12,
+            "target_slot": 0,
+            "type": "LATENT"
+          },
+          {
+            "id": 17,
+            "origin_id": 31,
+            "origin_slot": 0,
+            "target_id": -20,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 18,
+            "origin_id": -10,
+            "origin_slot": 3,
+            "target_id": 18,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 19,
+            "origin_id": 18,
+            "origin_slot": 0,
+            "target_id": 13,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 20,
+            "origin_id": 13,
+            "origin_slot": 1,
+            "target_id": 25,
+            "target_slot": 4,
+            "type": "INT"
+          },
+          {
+            "id": 21,
+            "origin_id": 13,
+            "origin_slot": 1,
+            "target_id": 26,
+            "target_slot": 6,
+            "type": "INT"
+          },
+          {
+            "id": 22,
+            "origin_id": -10,
+            "origin_slot": 4,
+            "target_id": 23,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 23,
+            "origin_id": 23,
+            "origin_slot": 0,
+            "target_id": 26,
+            "target_slot": 7,
+            "type": "INT"
+          },
+          {
+            "id": 24,
+            "origin_id": -10,
+            "origin_slot": 5,
+            "target_id": 24,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 25,
+            "origin_id": 24,
+            "origin_slot": 0,
+            "target_id": 26,
+            "target_slot": 8,
+            "type": "INT"
+          },
+          {
+            "id": 26,
+            "origin_id": -10,
+            "origin_slot": 6,
+            "target_id": 19,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 27,
+            "origin_id": 19,
+            "origin_slot": 0,
+            "target_id": 14,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 28,
+            "origin_id": 14,
+            "origin_slot": 0,
+            "target_id": 26,
+            "target_slot": 9,
+            "type": "FLOAT"
+          },
+          {
+            "id": 29,
+            "origin_id": -10,
+            "origin_slot": 7,
+            "target_id": 21,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 30,
+            "origin_id": 21,
+            "origin_slot": 0,
+            "target_id": 11,
+            "target_slot": 4,
+            "type": "INT"
+          },
+          {
+            "id": 31,
+            "origin_id": -10,
+            "origin_slot": 1,
+            "target_id": 25,
+            "target_slot": 1,
+            "type": "IMAGE"
+          },
+          {
+            "id": 32,
+            "origin_id": 12,
+            "origin_slot": 0,
+            "target_id": 31,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 33,
+            "origin_id": 12,
+            "origin_slot": 0,
+            "target_id": 28,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 34,
+            "origin_id": 13,
+            "origin_slot": 1,
+            "target_id": 27,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 35,
+            "origin_id": 27,
+            "origin_slot": 1,
+            "target_id": 28,
+            "target_slot": 2,
+            "type": "INT"
+          },
+          {
+            "id": 36,
+            "origin_id": -10,
+            "origin_slot": 1,
+            "target_id": 29,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 37,
+            "origin_id": 23,
+            "origin_slot": 0,
+            "target_id": 29,
+            "target_slot": 2,
+            "type": "INT"
+          },
+          {
+            "id": 38,
+            "origin_id": 24,
+            "origin_slot": 0,
+            "target_id": 29,
+            "target_slot": 3,
+            "type": "INT"
+          },
+          {
+            "id": 39,
+            "origin_id": 28,
+            "origin_slot": 0,
+            "target_id": 30,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 40,
+            "origin_id": 29,
+            "origin_slot": 0,
+            "target_id": 30,
+            "target_slot": 1,
+            "type": "IMAGE"
+          },
+          {
+            "id": 41,
+            "origin_id": 30,
+            "origin_slot": 0,
+            "target_id": 31,
+            "target_slot": 1,
+            "type": "IMAGE"
+          },
+          {
+            "id": 42,
+            "origin_id": -10,
+            "origin_slot": 8,
+            "target_id": 31,
+            "target_slot": 2,
+            "type": "BOOLEAN"
+          }
+        ],
+        "extra": {}
+      }
+    ]
+  }
+}
