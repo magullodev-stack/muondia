@@ -1,8 +1,8 @@
 {
   "id": "d4dd74cc-219c-454b-b338-c85618dc1763",
-  "revision": 4,
+  "revision": 5,
   "last_node_id": 14,
-  "last_link_id": 36,
+  "last_link_id": 40,
   "nodes": [
     {
       "id": 1,
@@ -83,8 +83,8 @@
         195
       ],
       "size": [
-        540,
-        315
+        560,
+        360
       ],
       "flags": {},
       "order": 2,
@@ -113,8 +113,8 @@
         },
         {
           "name": "fidelity",
-          "label": "Fidelidad a imagen · 0 a 1",
-          "type": "FLOAT",
+          "label": "Fidelidad a imagen · %",
+          "type": "INT",
           "link": null,
           "widget": {
             "name": "fidelity"
@@ -122,8 +122,8 @@
         },
         {
           "name": "motion",
-          "label": "Movimiento · 0 a 1",
-          "type": "FLOAT",
+          "label": "Movimiento · %",
+          "type": "INT",
           "link": null,
           "widget": {
             "name": "motion"
@@ -155,17 +155,15 @@
         "previewExposures": []
       },
       "widgets_values": [
-        "",
         5,
-        0.95,
-        0.35,
+        95,
+        35,
         192054346835137
       ],
       "widgets_values_named": {
-        "prompt": "",
         "duration_seconds": 5,
-        "fidelity": 0.95,
-        "motion": 0.35,
+        "fidelity": 95,
+        "motion": 35,
         "seed": 192054346835137
       }
     },
@@ -298,11 +296,11 @@
         "version": 1,
         "state": {
           "lastGroupId": 0,
-          "lastNodeId": 17,
-          "lastLinkId": 36,
+          "lastNodeId": 21,
+          "lastLinkId": 40,
           "lastRerouteId": 0
         },
-        "revision": 2,
+        "revision": 3,
         "config": {},
         "name": "WAN · I2V · primer fotograma anclado",
         "inputNode": {
@@ -368,8 +366,8 @@
           {
             "id": "anchor-fidelity-v2",
             "name": "fidelity",
-            "label": "Fidelidad a imagen · 0 a 1",
-            "type": "FLOAT",
+            "label": "Fidelidad a imagen · %",
+            "type": "INT",
             "linkIds": [
               29
             ],
@@ -381,8 +379,8 @@
           {
             "id": "motion-freedom-v2",
             "name": "motion",
-            "label": "Movimiento · 0 a 1",
-            "type": "FLOAT",
+            "label": "Movimiento · %",
+            "type": "INT",
             "linkIds": [
               30
             ],
@@ -809,7 +807,7 @@
                 "widget": {
                   "name": "seed"
                 },
-                "link": 22
+                "link": 40
               },
               {
                 "name": "steps",
@@ -911,7 +909,7 @@
                 "name": "values.a",
                 "label": "Segundos",
                 "type": "FLOAT,INT,BOOLEAN",
-                "link": 27
+                "link": 37
               },
               {
                 "name": "values.b",
@@ -970,13 +968,13 @@
                 "name": "values.a",
                 "label": "Fidelidad",
                 "type": "FLOAT,INT,BOOLEAN",
-                "link": 29
+                "link": 38
               },
               {
                 "name": "values.b",
                 "label": "Movimiento",
                 "type": "FLOAT,INT,BOOLEAN",
-                "link": 30
+                "link": 39
               }
             ],
             "outputs": [
@@ -1003,10 +1001,10 @@
               "cnr_id": "comfy-core"
             },
             "widgets_values": [
-              "1-0.08*a*(1-b)"
+              "1-0.08*(a/100)*(1-b/100)"
             ],
             "widgets_values_named": {
-              "expression": "1-0.08*a*(1-b)"
+              "expression": "1-0.08*(a/100)*(1-b/100)"
             },
             "title": "Fidelidad / movimiento → denoise conservador"
           },
@@ -1181,6 +1179,198 @@
             },
             "widgets_values": [],
             "title": "Primer fotograma bloqueado + resto del vídeo"
+          },
+          {
+            "id": 18,
+            "type": "PrimitiveInt",
+            "pos": [
+              450,
+              1420
+            ],
+            "size": [
+              350,
+              110
+            ],
+            "flags": {},
+            "mode": 0,
+            "order": 15,
+            "inputs": [
+              {
+                "name": "value",
+                "type": "INT",
+                "widget": {
+                  "name": "value"
+                },
+                "link": 27
+              }
+            ],
+            "outputs": [
+              {
+                "name": "INT",
+                "type": "INT",
+                "links": [
+                  37
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "PrimitiveInt",
+              "cnr_id": "comfy-core",
+              "ver": "0.16.3"
+            },
+            "widgets_values": [
+              5,
+              "fixed"
+            ],
+            "widgets_values_named": {
+              "value": 5,
+              "fixed": "fixed"
+            },
+            "title": "Duración (s) · valor visible"
+          },
+          {
+            "id": 19,
+            "type": "PrimitiveInt",
+            "pos": [
+              450,
+              1600
+            ],
+            "size": [
+              350,
+              110
+            ],
+            "flags": {},
+            "mode": 0,
+            "order": 17,
+            "inputs": [
+              {
+                "name": "value",
+                "type": "INT",
+                "widget": {
+                  "name": "value"
+                },
+                "link": 29
+              }
+            ],
+            "outputs": [
+              {
+                "name": "INT",
+                "type": "INT",
+                "links": [
+                  38
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "PrimitiveInt",
+              "cnr_id": "comfy-core",
+              "ver": "0.16.3"
+            },
+            "widgets_values": [
+              95,
+              "fixed"
+            ],
+            "widgets_values_named": {
+              "value": 95,
+              "fixed": "fixed"
+            },
+            "title": "Fidelidad (0–100 %) · valor visible"
+          },
+          {
+            "id": 20,
+            "type": "PrimitiveInt",
+            "pos": [
+              450,
+              1780
+            ],
+            "size": [
+              350,
+              110
+            ],
+            "flags": {},
+            "mode": 0,
+            "order": 19,
+            "inputs": [
+              {
+                "name": "value",
+                "type": "INT",
+                "widget": {
+                  "name": "value"
+                },
+                "link": 30
+              }
+            ],
+            "outputs": [
+              {
+                "name": "INT",
+                "type": "INT",
+                "links": [
+                  39
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "PrimitiveInt",
+              "cnr_id": "comfy-core",
+              "ver": "0.16.3"
+            },
+            "widgets_values": [
+              35,
+              "fixed"
+            ],
+            "widgets_values_named": {
+              "value": 35,
+              "fixed": "fixed"
+            },
+            "title": "Movimiento (0–100 %) · valor visible"
+          },
+          {
+            "id": 21,
+            "type": "PrimitiveInt",
+            "pos": [
+              450,
+              1960
+            ],
+            "size": [
+              350,
+              110
+            ],
+            "flags": {},
+            "mode": 0,
+            "order": 21,
+            "inputs": [
+              {
+                "name": "value",
+                "type": "INT",
+                "widget": {
+                  "name": "value"
+                },
+                "link": 22
+              }
+            ],
+            "outputs": [
+              {
+                "name": "INT",
+                "type": "INT",
+                "links": [
+                  40
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "PrimitiveInt",
+              "cnr_id": "comfy-core",
+              "ver": "0.16.3"
+            },
+            "widgets_values": [
+              192054346835137,
+              "fixed"
+            ],
+            "widgets_values_named": {
+              "value": 192054346835137,
+              "fixed": "fixed"
+            },
+            "title": "Semilla · valor visible"
           }
         ],
         "groups": [],
@@ -1325,15 +1515,15 @@
             "id": 22,
             "origin_id": -10,
             "origin_slot": 5,
-            "target_id": 11,
-            "target_slot": 4,
+            "target_id": 21,
+            "target_slot": 0,
             "type": "INT"
           },
           {
             "id": 27,
             "origin_id": -10,
             "origin_slot": 2,
-            "target_id": 13,
+            "target_id": 18,
             "target_slot": 0,
             "type": "INT"
           },
@@ -1349,17 +1539,17 @@
             "id": 29,
             "origin_id": -10,
             "origin_slot": 3,
-            "target_id": 14,
+            "target_id": 19,
             "target_slot": 0,
-            "type": "FLOAT"
+            "type": "INT"
           },
           {
             "id": 30,
             "origin_id": -10,
             "origin_slot": 4,
-            "target_id": 14,
-            "target_slot": 1,
-            "type": "FLOAT"
+            "target_id": 20,
+            "target_slot": 0,
+            "type": "INT"
           },
           {
             "id": 31,
@@ -1408,6 +1598,38 @@
             "target_id": -20,
             "target_slot": 0,
             "type": "IMAGE"
+          },
+          {
+            "id": 37,
+            "origin_id": 18,
+            "origin_slot": 0,
+            "target_id": 13,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 38,
+            "origin_id": 19,
+            "origin_slot": 0,
+            "target_id": 14,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 39,
+            "origin_id": 20,
+            "origin_slot": 0,
+            "target_id": 14,
+            "target_slot": 1,
+            "type": "INT"
+          },
+          {
+            "id": 40,
+            "origin_id": 21,
+            "origin_slot": 0,
+            "target_id": 11,
+            "target_slot": 4,
+            "type": "INT"
           }
         ],
         "extra": {}
