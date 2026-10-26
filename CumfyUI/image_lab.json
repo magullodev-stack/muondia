@@ -1,6 +1,6 @@
 {
   "id": "d9ac44b0-2f2d-4a95-8dd2-44cd82200a80",
-  "revision": 26,
+  "revision": 27,
   "last_node_id": 950,
   "last_link_id": 3510,
   "nodes": [
@@ -247,7 +247,7 @@
         {
           "name": "anatomy_lora_pct",
           "type": "INT",
-          "label": "LoRA anatomía (%) · 0 desactiva",
+          "label": "LoRA anatomía (%)",
           "link": null,
           "widget": {
             "name": "anatomy_lora_pct"
@@ -256,7 +256,7 @@
         {
           "name": "fpnd_lora_pct",
           "type": "INT",
-          "label": "LoRA FPND (%) · 0 desactiva",
+          "label": "LoRA FPND (%)",
           "link": null,
           "widget": {
             "name": "fpnd_lora_pct"
@@ -265,7 +265,7 @@
         {
           "name": "photo_lora_pct",
           "type": "INT",
-          "label": "LoRA foto real (%) · 0 desactiva",
+          "label": "LoRA foto real (%)",
           "link": null,
           "widget": {
             "name": "photo_lora_pct"
@@ -5348,7 +5348,7 @@
             "id": "image-lab-flux-anatomy-strength-v23",
             "name": "anatomy_lora_pct",
             "type": "INT",
-            "label": "LoRA anatomía (%) · 0 desactiva",
+            "label": "LoRA anatomía (%)",
             "linkIds": [
               4604
             ],
@@ -5361,7 +5361,7 @@
             "id": "image-lab-flux-fpnd_lora_pct-v24",
             "name": "fpnd_lora_pct",
             "type": "INT",
-            "label": "LoRA FPND (%) · 0 desactiva",
+            "label": "LoRA FPND (%)",
             "linkIds": [
               4611
             ],
@@ -5374,7 +5374,7 @@
             "id": "image-lab-flux-photo_lora_pct-v24",
             "name": "photo_lora_pct",
             "type": "INT",
-            "label": "LoRA foto real (%) · 0 desactiva",
+            "label": "LoRA foto real (%)",
             "linkIds": [
               4614
             ],
