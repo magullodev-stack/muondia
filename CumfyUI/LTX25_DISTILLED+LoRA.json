@@ -1,8 +1,8 @@
 {
   "id": "8758f3da-3006-49ff-9147-7a9a944326cc",
   "revision": 1,
-  "last_node_id": 426,
-  "last_link_id": 817,
+  "last_node_id": 428,
+  "last_link_id": 820,
   "nodes": [
     {
       "id": 395,
@@ -941,7 +941,7 @@
     {
       "id": 425,
       "type": "CreateVideo",
-      "title": "UNION DESACTIVADO · vídeo de reserva",
+      "title": "Union OFF · Reserva 128 s / 1 fps",
       "pos": [
         660,
         1795
@@ -957,7 +957,7 @@
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 815
+          "link": 820
         },
         {
           "name": "audio",
@@ -983,7 +983,7 @@
         }
       ],
       "widgets_values": [
-        16,
+        1,
         "auto",
         "sRGB",
         "none"
@@ -1015,6 +1015,94 @@
       ],
       "properties": {
         "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core"
+      }
+    },
+    {
+      "id": 427,
+      "type": "ResizeImageMaskNode",
+      "title": "Reserva Union · Imagen pequeña (64 px)",
+      "pos": [
+        660,
+        1630
+      ],
+      "size": [
+        320,
+        135
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "input",
+          "type": "IMAGE,MASK",
+          "link": 815
+        }
+      ],
+      "outputs": [
+        {
+          "name": "resized",
+          "type": "IMAGE,MASK",
+          "links": [
+            819
+          ]
+        }
+      ],
+      "widgets_values": [
+        "scale longer dimension",
+        64,
+        "lanczos"
+      ],
+      "properties": {
+        "Node name for S&R": "ResizeImageMaskNode",
+        "cnr_id": "comfy-core"
+      }
+    },
+    {
+      "id": 428,
+      "type": "RepeatImageBatch",
+      "title": "Reserva Union · 128 fotogramas",
+      "pos": [
+        1030,
+        1760
+      ],
+      "size": [
+        350,
+        140
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 819
+        },
+        {
+          "name": "amount",
+          "type": "INT",
+          "widget": {
+            "name": "amount"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            820
+          ]
+        }
+      ],
+      "widgets_values": [
+        128
+      ],
+      "properties": {
+        "Node name for S&R": "RepeatImageBatch",
         "cnr_id": "comfy-core"
       }
     }
@@ -1101,14 +1189,6 @@
       "STRING"
     ],
     [
-      815,
-      395,
-      0,
-      425,
-      0,
-      "IMAGE"
-    ],
-    [
       816,
       425,
       0,
@@ -1122,6 +1202,30 @@
       0,
       398,
       20,
+      "IMAGE"
+    ],
+    [
+      815,
+      395,
+      0,
+      427,
+      0,
+      "IMAGE"
+    ],
+    [
+      819,
+      427,
+      0,
+      428,
+      0,
+      "IMAGE"
+    ],
+    [
+      820,
+      428,
+      0,
+      425,
+      0,
       "IMAGE"
     ]
   ],
