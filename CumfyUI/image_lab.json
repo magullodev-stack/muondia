@@ -1,8 +1,8 @@
 {
   "id": "d9ac44b0-2f2d-4a95-8dd2-44cd82200a80",
-  "revision": 15,
+  "revision": 16,
   "last_node_id": 950,
-  "last_link_id": 3515,
+  "last_link_id": 3519,
   "nodes": [
     {
       "id": 200,
@@ -33,19 +33,13 @@
           "name": "width",
           "type": "INT",
           "label": "Ancho manual (px)",
-          "link": null,
-          "widget": {
-            "name": "width"
-          }
+          "link": 3516
         },
         {
           "name": "height",
           "type": "INT",
           "label": "Alto manual (px)",
-          "link": null,
-          "widget": {
-            "name": "height"
-          }
+          "link": 3517
         },
         {
           "name": "seed",
@@ -75,10 +69,7 @@
           "name": "strength_pct",
           "type": "INT",
           "label": "Fuerza img2img (desde imagen)",
-          "link": 3511,
-          "widget": {
-            "name": "strength_pct"
-          }
+          "link": 3511
         },
         {
           "name": "auto_size",
@@ -101,12 +92,14 @@
       },
       "widgets_values": [
         "",
-        1024,
-        1024,
         123456789,
-        false,
-        65
-      ]
+        false
+      ],
+      "widgets_values_named": {
+        "text": "",
+        "seed": 123456789,
+        "use_img2img": false
+      }
     },
     {
       "id": 201,
@@ -175,19 +168,13 @@
           "name": "width",
           "type": "INT",
           "label": "Ancho manual (px)",
-          "link": null,
-          "widget": {
-            "name": "width"
-          }
+          "link": 3518
         },
         {
           "name": "height",
           "type": "INT",
           "label": "Alto manual (px)",
-          "link": null,
-          "widget": {
-            "name": "height"
-          }
+          "link": 3519
         },
         {
           "name": "seed",
@@ -217,10 +204,7 @@
           "name": "strength_pct",
           "type": "INT",
           "label": "Fuerza img2img (desde imagen)",
-          "link": 3513,
-          "widget": {
-            "name": "strength_pct"
-          }
+          "link": 3513
         },
         {
           "name": "auto_size",
@@ -243,12 +227,14 @@
       },
       "widgets_values": [
         "",
-        1024,
-        1024,
         123456789,
-        false,
-        65
-      ]
+        false
+      ],
+      "widgets_values_named": {
+        "text": "",
+        "seed": 123456789,
+        "use_img2img": false
+      }
     },
     {
       "id": 301,
@@ -723,7 +709,7 @@
       "type": "PrimitiveInt",
       "pos": [
         80,
-        1030
+        1110
       ],
       "size": [
         540,
@@ -759,14 +745,14 @@
         65,
         "fixed"
       ],
-      "title": "Z-IMAGE · Transformación (%)"
+      "title": "Transformación (%) · Img2img"
     },
     {
       "id": 603,
       "type": "PrimitiveBoolean",
       "pos": [
         80,
-        910
+        895
       ],
       "size": [
         540,
@@ -808,7 +794,7 @@
       "type": "PrimitiveInt",
       "pos": [
         730,
-        1030
+        1110
       ],
       "size": [
         540,
@@ -844,14 +830,14 @@
         65,
         "fixed"
       ],
-      "title": "FLUX · Transformación (%)"
+      "title": "Transformación (%) · Img2img"
     },
     {
       "id": 703,
       "type": "PrimitiveBoolean",
       "pos": [
         730,
-        910
+        895
       ],
       "size": [
         540,
@@ -929,6 +915,178 @@
         true
       ],
       "title": "QWEN · Usar tamaño de referencia"
+    },
+    {
+      "id": 605,
+      "type": "PrimitiveInt",
+      "pos": [
+        80,
+        1005
+      ],
+      "size": [
+        255,
+        84
+      ],
+      "flags": {},
+      "order": 705,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "INT",
+          "widget": {
+            "name": "value"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "INT",
+          "type": "INT",
+          "links": [
+            3516
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimitiveInt",
+        "cnr_id": "comfy-core"
+      },
+      "widgets_values": [
+        1024,
+        "fixed"
+      ],
+      "title": "Ancho manual (px)"
+    },
+    {
+      "id": 606,
+      "type": "PrimitiveInt",
+      "pos": [
+        360,
+        1005
+      ],
+      "size": [
+        255,
+        84
+      ],
+      "flags": {},
+      "order": 706,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "INT",
+          "widget": {
+            "name": "value"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "INT",
+          "type": "INT",
+          "links": [
+            3517
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimitiveInt",
+        "cnr_id": "comfy-core"
+      },
+      "widgets_values": [
+        1024,
+        "fixed"
+      ],
+      "title": "Alto manual (px)"
+    },
+    {
+      "id": 705,
+      "type": "PrimitiveInt",
+      "pos": [
+        730,
+        1005
+      ],
+      "size": [
+        255,
+        84
+      ],
+      "flags": {},
+      "order": 805,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "INT",
+          "widget": {
+            "name": "value"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "INT",
+          "type": "INT",
+          "links": [
+            3518
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimitiveInt",
+        "cnr_id": "comfy-core"
+      },
+      "widgets_values": [
+        1024,
+        "fixed"
+      ],
+      "title": "Ancho manual (px)"
+    },
+    {
+      "id": 706,
+      "type": "PrimitiveInt",
+      "pos": [
+        1010,
+        1005
+      ],
+      "size": [
+        255,
+        84
+      ],
+      "flags": {},
+      "order": 806,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "INT",
+          "widget": {
+            "name": "value"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "INT",
+          "type": "INT",
+          "links": [
+            3519
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimitiveInt",
+        "cnr_id": "comfy-core"
+      },
+      "widgets_values": [
+        1024,
+        "fixed"
+      ],
+      "title": "Alto manual (px)"
     }
   ],
   "links": [
@@ -1059,6 +1217,38 @@
       400,
       9,
       "BOOLEAN"
+    ],
+    [
+      3516,
+      605,
+      0,
+      200,
+      1,
+      "INT"
+    ],
+    [
+      3517,
+      606,
+      0,
+      200,
+      2,
+      "INT"
+    ],
+    [
+      3518,
+      705,
+      0,
+      300,
+      1,
+      "INT"
+    ],
+    [
+      3519,
+      706,
+      0,
+      300,
+      2,
+      "INT"
     ]
   ],
   "groups": [
