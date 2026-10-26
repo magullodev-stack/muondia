@@ -23,7 +23,7 @@ MODELOS = {
 HOST = "127.0.0.1"
 PORT = 18889
 LOCK = threading.RLock()
-STATE = {"process": None, "modelo": None, "log": None}
+STATE = {"process": None, "configuracion": None, "log": None}
 OUTPUT = ROOT / "output" / "gguf_chat"
 LOG_PATH = OUTPUT / "llama-server.log"
 
@@ -41,7 +41,7 @@ def _registro():
 def _detener():
     proc = STATE["process"]
     STATE["process"] = None
-    STATE["modelo"] = None
+    STATE["configuracion"] = None
     if proc is not None and proc.poll() is None:
         proc.terminate()
         try:
@@ -71,15 +71,17 @@ def _salud():
         return False
 
 
-def _iniciar(modelo):
+def _iniciar(modelo, contexto_tokens, capas_gpu):
     gguf, contexto_nativo = MODELOS[modelo]
+    contexto = contexto_nativo if contexto_tokens == 0 else contexto_tokens
+    configuracion = (modelo, contexto, capas_gpu)
     if not gguf.is_file():
         raise RuntimeError(f"No existe el modelo GGUF: {gguf}")
     if not LLAMA_SERVER.is_file():
         raise RuntimeError(f"No existe llama-server.exe: {LLAMA_SERVER}")
 
     proc = STATE["process"]
-    if proc and proc.poll() is None and STATE["modelo"] == modelo and _salud():
+    if proc and proc.poll() is None and STATE["configuracion"] == configuracion and _salud():
         return
     _detener()  # Nunca se mantienen Magnum y Euryale simultáneamente.
     if _puerto_ocupado():
@@ -90,10 +92,9 @@ def _iniciar(modelo):
 
     OUTPUT.mkdir(parents=True, exist_ok=True)
     fh = LOG_PATH.open("w", encoding="utf-8")
-    # Parámetros iniciales documentados: contexto declarado por el GGUF,
-    # 8 capas en GPU (estimación conservadora, NO optimizada).
+    # Valores explícitos del usuario; 0 equivale al contexto nativo publicado.
     args = [str(LLAMA_SERVER), "-m", str(gguf), "--host", HOST,
-            "--port", str(PORT), "-c", str(contexto_nativo), "-ngl", "8",
+            "--port", str(PORT), "-c", str(contexto), "-ngl", str(capas_gpu),
             "--parallel", "1"]
     try:
         proc = subprocess.Popen(
@@ -103,7 +104,7 @@ def _iniciar(modelo):
     except Exception:
         fh.close()
         raise
-    STATE.update(process=proc, modelo=modelo, log=fh)
+    STATE.update(process=proc, configuracion=configuracion, log=fh)
     plazo = time.monotonic() + 600
     while time.monotonic() < plazo:
         if proc.poll() is not None:
@@ -118,11 +119,11 @@ def _iniciar(modelo):
     raise RuntimeError("No terminó de cargar en 10 minutos:\n" + details)
 
 
-def _responder(prompt):
+def _responder(prompt, temperatura, max_tokens_salida):
     payload = {
         "messages": [{"role": "user", "content": prompt}],
-        "temperature": 0.8, "top_p": 0.95,
-        "max_tokens": 2048, "stream": False,
+        "temperature": temperatura, "top_p": 0.95,
+        "max_tokens": max_tokens_salida, "stream": False,
     }
     req = urllib.request.Request(
         f"http://{HOST}:{PORT}/v1/chat/completions",
@@ -155,7 +156,11 @@ class GeneradorLLM:
     def INPUT_TYPES(cls):
         return {"required": {
             "modelo": (list(MODELOS.keys()),),
-            "prompt": ("STRING", {"multiline": True, "default": "Hola, ¿estás ahí?"}),
+            "prompt": ("STRING", {"multiline": True, "default": ""}),
+            "contexto_tokens": ("INT", {"default": 0, "min": 0, "max": 131072, "step": 512}),
+            "temperatura": ("FLOAT", {"default": 0.8, "min": 0.0, "max": 2.0, "step": 0.05}),
+            "max_tokens_salida": ("INT", {"default": 512, "min": 1, "max": 32768, "step": 128}),
+            "capas_gpu": ("INT", {"default": 8, "min": 0, "max": 999}),
         }}
 
     RETURN_TYPES = ("STRING",)
@@ -168,13 +173,13 @@ class GeneradorLLM:
     def IS_CHANGED(cls, **kwargs):
         return float("nan")
 
-    def generar(self, modelo, prompt):
+    def generar(self, modelo, prompt, contexto_tokens, temperatura, max_tokens_salida, capas_gpu):
         with LOCK:
             try:
                 if not prompt.strip():
                     raise ValueError("El prompt está vacío.")
-                _iniciar(modelo)
-                texto = _responder(prompt)
+                _iniciar(modelo, contexto_tokens, capas_gpu)
+                texto = _responder(prompt, temperatura, max_tokens_salida)
                 if texto.strip():
                     _guardar(texto)
                 else:
