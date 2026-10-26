@@ -1,6 +1,6 @@
 {
   "id": "d9ac44b0-2f2d-4a95-8dd2-44cd82200a80",
-  "revision": 23,
+  "revision": 24,
   "last_node_id": 950,
   "last_link_id": 3510,
   "nodes": [
@@ -169,7 +169,7 @@
       ],
       "size": [
         540,
-        605
+        695
       ],
       "flags": {},
       "order": 300,
@@ -252,6 +252,24 @@
           "widget": {
             "name": "anatomy_lora_pct"
           }
+        },
+        {
+          "name": "fpnd_lora_pct",
+          "type": "INT",
+          "label": "LoRA FPND (%) · 0 desactiva",
+          "link": null,
+          "widget": {
+            "name": "fpnd_lora_pct"
+          }
+        },
+        {
+          "name": "photo_lora_pct",
+          "type": "INT",
+          "label": "LoRA foto real (%) · 0 desactiva",
+          "link": null,
+          "widget": {
+            "name": "photo_lora_pct"
+          }
         }
       ],
       "outputs": [
@@ -274,7 +292,9 @@
         false,
         65,
         true,
-        65
+        65,
+        0,
+        0
       ],
       "widgets_values_named": {
         "text": "",
@@ -284,7 +304,9 @@
         "use_img2img": false,
         "strength_pct": 65,
         "auto_size": true,
-        "anatomy_lora_pct": 65
+        "anatomy_lora_pct": 65,
+        "fpnd_lora_pct": 0,
+        "photo_lora_pct": 0
       }
     },
     {
@@ -5188,8 +5210,8 @@
         "version": 1,
         "state": {
           "lastGroupId": 8,
-          "lastNodeId": 2306,
-          "lastLinkId": 4604,
+          "lastNodeId": 2312,
+          "lastLinkId": 4614,
           "lastRerouteId": 0
         },
         "revision": 4,
@@ -5333,6 +5355,32 @@
             "pos": [
               -300,
               1195
+            ]
+          },
+          {
+            "id": "image-lab-flux-fpnd_lora_pct-v24",
+            "name": "fpnd_lora_pct",
+            "type": "INT",
+            "label": "LoRA FPND (%) · 0 desactiva",
+            "linkIds": [
+              4611
+            ],
+            "pos": [
+              -300,
+              1240
+            ]
+          },
+          {
+            "id": "image-lab-flux-photo_lora_pct-v24",
+            "name": "photo_lora_pct",
+            "type": "INT",
+            "label": "LoRA foto real (%) · 0 desactiva",
+            "linkIds": [
+              4614
+            ],
+            "pos": [
+              -300,
+              1280
             ]
           }
         ],
@@ -6683,14 +6731,14 @@
                 "name": "MODEL",
                 "type": "MODEL",
                 "links": [
-                  61
+                  4605
                 ]
               },
               {
                 "name": "CLIP",
                 "type": "CLIP",
                 "links": [
-                  64
+                  4606
                 ]
               }
             ],
@@ -6803,6 +6851,360 @@
             "widgets_values": [
               "max(0.0, min(1.0, a / 100.0))"
             ]
+          },
+          {
+            "id": 2307,
+            "type": "LoraLoader",
+            "title": "FLUX · FPNDv1.618.safetensors",
+            "pos": [
+              -70,
+              470
+            ],
+            "size": [
+              310,
+              170
+            ],
+            "flags": {},
+            "order": 2307,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "model",
+                "type": "MODEL",
+                "link": 4605
+              },
+              {
+                "name": "clip",
+                "type": "CLIP",
+                "link": 4606
+              },
+              {
+                "name": "lora_name",
+                "type": "COMBO",
+                "widget": {
+                  "name": "lora_name"
+                },
+                "link": null
+              },
+              {
+                "name": "strength_model",
+                "type": "FLOAT",
+                "widget": {
+                  "name": "strength_model"
+                },
+                "link": 4609
+              },
+              {
+                "name": "strength_clip",
+                "type": "FLOAT",
+                "widget": {
+                  "name": "strength_clip"
+                },
+                "link": null
+              }
+            ],
+            "outputs": [
+              {
+                "name": "MODEL",
+                "type": "MODEL",
+                "links": [
+                  4607
+                ]
+              },
+              {
+                "name": "CLIP",
+                "type": "CLIP",
+                "links": [
+                  4608
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "LoraLoader",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              "flux\\FPNDv1.618.safetensors",
+              0,
+              0
+            ]
+          },
+          {
+            "id": 2308,
+            "type": "PrimitiveInt",
+            "title": "Control fpnd_lora_pct · %",
+            "pos": [
+              -70,
+              1780
+            ],
+            "size": [
+              260,
+              95
+            ],
+            "flags": {},
+            "order": 2308,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "value",
+                "type": "INT",
+                "widget": {
+                  "name": "value"
+                },
+                "link": 4611
+              }
+            ],
+            "outputs": [
+              {
+                "name": "INT",
+                "type": "INT",
+                "links": [
+                  4610
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "PrimitiveInt",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              0,
+              "fixed"
+            ]
+          },
+          {
+            "id": 2309,
+            "type": "ComfyMathExpression",
+            "title": "Intensidad fpnd_lora_pct · 0–1",
+            "pos": [
+              220,
+              1780
+            ],
+            "size": [
+              320,
+              100
+            ],
+            "flags": {},
+            "order": 2309,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "values.a",
+                "type": "FLOAT,INT",
+                "link": 4610
+              },
+              {
+                "name": "expression",
+                "type": "STRING",
+                "widget": {
+                  "name": "expression"
+                },
+                "link": null
+              }
+            ],
+            "outputs": [
+              {
+                "name": "FLOAT",
+                "type": "FLOAT",
+                "links": [
+                  4609
+                ]
+              },
+              {
+                "name": "INT",
+                "type": "INT",
+                "links": []
+              },
+              {
+                "name": "BOOL",
+                "type": "BOOLEAN",
+                "links": []
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ComfyMathExpression",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              "max(0.0, min(1.0, a / 100.0))"
+            ]
+          },
+          {
+            "id": 2310,
+            "type": "LoraLoader",
+            "title": "FLUX · Test_real_photo_Flux.safetensors",
+            "pos": [
+              300,
+              470
+            ],
+            "size": [
+              310,
+              170
+            ],
+            "flags": {},
+            "order": 2310,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "model",
+                "type": "MODEL",
+                "link": 4607
+              },
+              {
+                "name": "clip",
+                "type": "CLIP",
+                "link": 4608
+              },
+              {
+                "name": "lora_name",
+                "type": "COMBO",
+                "widget": {
+                  "name": "lora_name"
+                },
+                "link": null
+              },
+              {
+                "name": "strength_model",
+                "type": "FLOAT",
+                "widget": {
+                  "name": "strength_model"
+                },
+                "link": 4612
+              },
+              {
+                "name": "strength_clip",
+                "type": "FLOAT",
+                "widget": {
+                  "name": "strength_clip"
+                },
+                "link": null
+              }
+            ],
+            "outputs": [
+              {
+                "name": "MODEL",
+                "type": "MODEL",
+                "links": [
+                  61
+                ]
+              },
+              {
+                "name": "CLIP",
+                "type": "CLIP",
+                "links": [
+                  64
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "LoraLoader",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              "flux\\Test_real_photo_Flux.safetensors",
+              0,
+              0
+            ]
+          },
+          {
+            "id": 2311,
+            "type": "PrimitiveInt",
+            "title": "Control photo_lora_pct · %",
+            "pos": [
+              300,
+              1780
+            ],
+            "size": [
+              260,
+              95
+            ],
+            "flags": {},
+            "order": 2311,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "value",
+                "type": "INT",
+                "widget": {
+                  "name": "value"
+                },
+                "link": 4614
+              }
+            ],
+            "outputs": [
+              {
+                "name": "INT",
+                "type": "INT",
+                "links": [
+                  4613
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "PrimitiveInt",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              0,
+              "fixed"
+            ]
+          },
+          {
+            "id": 2312,
+            "type": "ComfyMathExpression",
+            "title": "Intensidad photo_lora_pct · 0–1",
+            "pos": [
+              590,
+              1780
+            ],
+            "size": [
+              320,
+              100
+            ],
+            "flags": {},
+            "order": 2312,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "values.a",
+                "type": "FLOAT,INT",
+                "link": 4613
+              },
+              {
+                "name": "expression",
+                "type": "STRING",
+                "widget": {
+                  "name": "expression"
+                },
+                "link": null
+              }
+            ],
+            "outputs": [
+              {
+                "name": "FLOAT",
+                "type": "FLOAT",
+                "links": [
+                  4612
+                ]
+              },
+              {
+                "name": "INT",
+                "type": "INT",
+                "links": []
+              },
+              {
+                "name": "BOOL",
+                "type": "BOOLEAN",
+                "links": []
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ComfyMathExpression",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              "max(0.0, min(1.0, a / 100.0))"
+            ]
           }
         ],
         "groups": [
@@ -6865,7 +7267,7 @@
           },
           {
             "id": 61,
-            "origin_id": 2304,
+            "origin_id": 2310,
             "origin_slot": 0,
             "target_id": 31,
             "target_slot": 0,
@@ -6889,7 +7291,7 @@
           },
           {
             "id": 64,
-            "origin_id": 2304,
+            "origin_id": 2310,
             "origin_slot": 1,
             "target_id": 45,
             "target_slot": 0,
@@ -7230,6 +7632,86 @@
             "target_id": 2305,
             "target_slot": 0,
             "type": "INT"
+          },
+          {
+            "id": 4609,
+            "origin_id": 2309,
+            "origin_slot": 0,
+            "target_id": 2307,
+            "target_slot": 3,
+            "type": "FLOAT"
+          },
+          {
+            "id": 4610,
+            "origin_id": 2308,
+            "origin_slot": 0,
+            "target_id": 2309,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 4611,
+            "origin_id": -10,
+            "origin_slot": 9,
+            "target_id": 2308,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 4612,
+            "origin_id": 2312,
+            "origin_slot": 0,
+            "target_id": 2310,
+            "target_slot": 3,
+            "type": "FLOAT"
+          },
+          {
+            "id": 4613,
+            "origin_id": 2311,
+            "origin_slot": 0,
+            "target_id": 2312,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 4614,
+            "origin_id": -10,
+            "origin_slot": 10,
+            "target_id": 2311,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 4605,
+            "origin_id": 2304,
+            "origin_slot": 0,
+            "target_id": 2307,
+            "target_slot": 0,
+            "type": "MODEL"
+          },
+          {
+            "id": 4606,
+            "origin_id": 2304,
+            "origin_slot": 1,
+            "target_id": 2307,
+            "target_slot": 1,
+            "type": "CLIP"
+          },
+          {
+            "id": 4607,
+            "origin_id": 2307,
+            "origin_slot": 0,
+            "target_id": 2310,
+            "target_slot": 0,
+            "type": "MODEL"
+          },
+          {
+            "id": 4608,
+            "origin_id": 2307,
+            "origin_slot": 1,
+            "target_id": 2310,
+            "target_slot": 1,
+            "type": "CLIP"
           }
         ],
         "extra": {
