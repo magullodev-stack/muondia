@@ -1,22 +1,22 @@
 {
   "id": "d4dd74cc-219c-454b-b338-c85618dc1763",
-  "revision": 1,
-  "last_node_id": 13,
-  "last_link_id": 18,
+  "revision": 2,
+  "last_node_id": 14,
+  "last_link_id": 26,
   "nodes": [
     {
       "id": 1,
       "type": "LoadImage",
       "pos": [
-        60,
-        100
+        80,
+        195
       ],
       "size": [
-        420,
-        350
+        510,
+        515
       ],
       "flags": {},
-      "order": 1,
+      "order": 0,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -24,8 +24,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            7,
-            8
+            24
           ]
         },
         {
@@ -41,21 +40,21 @@
         "",
         "image"
       ],
-      "title": "01 · IMAGEN DE REFERENCIA · seleccionar en ComfyUI"
+      "title": "01 · IMAGEN INICIAL"
     },
     {
       "id": 2,
       "type": "PrimitiveStringMultiline",
       "pos": [
-        60,
-        510
+        650,
+        195
       ],
       "size": [
-        480,
-        230
+        530,
+        280
       ],
       "flags": {},
-      "order": 2,
+      "order": 1,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -63,7 +62,7 @@
           "name": "STRING",
           "type": "STRING",
           "links": [
-            1
+            25
           ]
         }
       ],
@@ -73,473 +72,133 @@
       "widgets_values": [
         "Cinematic natural movement, coherent anatomy and facial identity, gentle camera dolly, realistic lighting, consistent composition."
       ],
-      "title": "02 · PROMPT · describe la escena"
+      "title": "02 · PROMPT · describe el vídeo"
     },
     {
-      "id": 3,
-      "type": "MarkdownNote",
+      "id": 14,
+      "type": "49d31a21-8c17-464a-aeca-2b9178b63940",
+      "title": "03 · WAN 2.2 · v12.2 NSFW · CONFIGURACIÓN",
       "pos": [
-        60,
-        810
-      ],
-      "size": [
-        515,
-        410
-      ],
-      "flags": {},
-      "order": 3,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [],
-      "properties": {
-        "Node name for S&R": "MarkdownNote"
-      },
-      "widgets_values": [
-        "**NSFW VIDEO GENERATOR · WAN2.2 v12.2 · I2V**\n\n1. Selecciona una imagen de entrada en el nodo 01.\n2. Escribe el prompt en el nodo 02.\n3. Comprueba el modelo Wan v12.2 en `models/checkpoints/` y CLIP Vision ViT-H en `models/clip_vision/`.\n4. Ajusta resolución, 81 fotogramas y semilla según la escena. La salida MP4 está activada.\n\nEsta pestaña utiliza SOLO WAN, sin dependencias de LTX2. El offloading VRAM/CPU/RAM se configura al iniciar ComfyUI; no desde este JSON."
-      ],
-      "title": "NSFW VIDEO GENERATOR · GUÍA DE USO"
-    },
-    {
-      "id": 4,
-      "type": "CheckpointLoaderSimple",
-      "pos": [
-        665,
+        1240,
         195
       ],
       "size": [
-        400,
-        110
+        530,
+        350
       ],
       "flags": {},
-      "order": 4,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "MODEL",
-          "type": "MODEL",
-          "links": [
-            11
-          ]
-        },
-        {
-          "name": "CLIP",
-          "type": "CLIP",
-          "links": [
-            2,
-            3
-          ]
-        },
-        {
-          "name": "VAE",
-          "type": "VAE",
-          "links": [
-            4,
-            17
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "CheckpointLoaderSimple"
-      },
-      "widgets_values": [
-        "wan2.2-rapid-mega-aio-nsfw-v12.2.safetensors"
-      ],
-      "title": "WAN · Checkpoint original v12.2 NSFW"
-    },
-    {
-      "id": 5,
-      "type": "CLIPTextEncode",
-      "pos": [
-        665,
-        365
-      ],
-      "size": [
-        390,
-        155
-      ],
-      "flags": {},
-      "order": 5,
+      "order": 2,
       "mode": 0,
       "inputs": [
         {
-          "name": "clip",
-          "type": "CLIP",
-          "link": 2
+          "name": "image",
+          "label": "Imagen inicial",
+          "type": "IMAGE",
+          "link": 24
         },
         {
-          "name": "text",
+          "name": "prompt",
+          "label": "PROMPT",
           "type": "STRING",
-          "link": 1,
+          "link": 25
+        },
+        {
+          "name": "width",
+          "label": "Ancho · px",
+          "type": "INT",
+          "link": null,
           "widget": {
-            "name": "text"
+            "name": "width"
+          }
+        },
+        {
+          "name": "height",
+          "label": "Alto · px",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "height"
+          }
+        },
+        {
+          "name": "frames",
+          "label": "Fotogramas",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "frames"
+          }
+        },
+        {
+          "name": "seed",
+          "label": "Semilla",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "seed"
+          }
+        },
+        {
+          "name": "steps",
+          "label": "Pasos de muestreo",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "steps"
           }
         }
       ],
       "outputs": [
         {
-          "name": "CONDITIONING",
-          "type": "CONDITIONING",
-          "links": [
-            5
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "CLIPTextEncode"
-      },
-      "widgets_values": [
-        ""
-      ],
-      "title": "WAN · Prompt"
-    },
-    {
-      "id": 6,
-      "type": "CLIPTextEncode",
-      "pos": [
-        665,
-        565
-      ],
-      "size": [
-        390,
-        110
-      ],
-      "flags": {},
-      "order": 6,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "clip",
-          "type": "CLIP",
-          "link": 3
-        }
-      ],
-      "outputs": [
-        {
-          "name": "CONDITIONING",
-          "type": "CONDITIONING",
-          "links": [
-            6
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "CLIPTextEncode"
-      },
-      "widgets_values": [
-        ""
-      ],
-      "title": "WAN · Negativo (CFG 1)"
-    },
-    {
-      "id": 7,
-      "type": "CLIPVisionLoader",
-      "pos": [
-        665,
-        730
-      ],
-      "size": [
-        390,
-        100
-      ],
-      "flags": {},
-      "order": 7,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "CLIP_VISION",
-          "type": "CLIP_VISION",
-          "links": [
-            9
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "CLIPVisionLoader"
-      },
-      "widgets_values": [
-        "clip-vision_vit-h.safetensors"
-      ],
-      "title": "WAN · CLIP Vision ViT-H"
-    },
-    {
-      "id": 8,
-      "type": "CLIPVisionEncode",
-      "pos": [
-        1140,
-        700
-      ],
-      "size": [
-        350,
-        135
-      ],
-      "flags": {},
-      "order": 8,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "clip_vision",
-          "type": "CLIP_VISION",
-          "link": 9
-        },
-        {
-          "name": "image",
+          "name": "images",
+          "label": "Fotogramas",
           "type": "IMAGE",
-          "link": 8
-        }
-      ],
-      "outputs": [
-        {
-          "name": "CLIP_VISION_OUTPUT",
-          "type": "CLIP_VISION_OUTPUT",
           "links": [
-            10
+            26
           ]
         }
       ],
       "properties": {
-        "Node name for S&R": "CLIPVisionEncode"
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "previewExposures": []
       },
       "widgets_values": [
-        "center"
-      ],
-      "title": "WAN · Codificar imagen"
-    },
-    {
-      "id": 9,
-      "type": "WanImageToVideo",
-      "pos": [
-        1130,
-        180
-      ],
-      "size": [
-        390,
-        250
-      ],
-      "flags": {},
-      "order": 9,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "positive",
-          "type": "CONDITIONING",
-          "link": 5
-        },
-        {
-          "name": "negative",
-          "type": "CONDITIONING",
-          "link": 6
-        },
-        {
-          "name": "vae",
-          "type": "VAE",
-          "link": 4
-        },
-        {
-          "name": "clip_vision_output",
-          "type": "CLIP_VISION_OUTPUT",
-          "link": 10,
-          "shape": 7
-        },
-        {
-          "name": "start_image",
-          "type": "IMAGE",
-          "link": 7,
-          "shape": 7
-        }
-      ],
-      "outputs": [
-        {
-          "name": "positive",
-          "type": "CONDITIONING",
-          "links": [
-            13
-          ]
-        },
-        {
-          "name": "negative",
-          "type": "CONDITIONING",
-          "links": [
-            14
-          ]
-        },
-        {
-          "name": "latent",
-          "type": "LATENT",
-          "links": [
-            15
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "WanImageToVideo"
-      },
-      "widgets_values": [
+        "",
         768,
         432,
         81,
-        1
-      ],
-      "title": "WAN · Imagen a vídeo · 768×432, 81 frames"
-    },
-    {
-      "id": 10,
-      "type": "ModelSamplingSD3",
-      "pos": [
-        1580,
-        170
-      ],
-      "size": [
-        300,
-        90
-      ],
-      "flags": {},
-      "order": 10,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "model",
-          "type": "MODEL",
-          "link": 11
-        }
-      ],
-      "outputs": [
-        {
-          "name": "MODEL",
-          "type": "MODEL",
-          "links": [
-            12
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "ModelSamplingSD3"
-      },
-      "widgets_values": [
-        8
-      ],
-      "title": "WAN · Shift 8"
-    },
-    {
-      "id": 11,
-      "type": "KSampler",
-      "pos": [
-        1580,
-        350
-      ],
-      "size": [
-        350,
-        255
-      ],
-      "flags": {},
-      "order": 11,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "model",
-          "type": "MODEL",
-          "link": 12
-        },
-        {
-          "name": "positive",
-          "type": "CONDITIONING",
-          "link": 13
-        },
-        {
-          "name": "negative",
-          "type": "CONDITIONING",
-          "link": 14
-        },
-        {
-          "name": "latent_image",
-          "type": "LATENT",
-          "link": 15
-        }
-      ],
-      "outputs": [
-        {
-          "name": "LATENT",
-          "type": "LATENT",
-          "links": [
-            16
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "KSampler"
-      },
-      "widgets_values": [
         192054346835137,
-        "fixed",
-        4,
-        1,
-        "sa_solver",
-        "beta",
-        1
+        4
       ],
-      "title": "WAN · 4 pasos · CFG 1 · sa_solver / beta"
-    },
-    {
-      "id": 12,
-      "type": "VAEDecode",
-      "pos": [
-        1980,
-        300
-      ],
-      "size": [
-        260,
-        100
-      ],
-      "flags": {},
-      "order": 12,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "samples",
-          "type": "LATENT",
-          "link": 16
-        },
-        {
-          "name": "vae",
-          "type": "VAE",
-          "link": 17
-        }
-      ],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            18
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "VAEDecode"
-      },
-      "widgets_values": [],
-      "title": "WAN · Decode"
+      "widgets_values_named": {
+        "prompt": "",
+        "width": 768,
+        "height": 432,
+        "frames": 81,
+        "seed": 192054346835137,
+        "steps": 4
+      }
     },
     {
       "id": 13,
       "type": "VHS_VideoCombine",
       "pos": [
-        2290,
-        220
+        1830,
+        195
       ],
       "size": [
-        420,
-        355
+        530,
+        560
       ],
       "flags": {},
-      "order": 13,
+      "order": 3,
       "mode": 0,
       "inputs": [
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 18
+          "link": 26
         },
         {
           "name": "audio",
@@ -587,149 +246,29 @@
           "params": {}
         }
       },
-      "title": "GUARDAR WAN · Activo"
+      "title": "04 · GUARDAR VÍDEO MP4 · Vista previa"
     }
   ],
   "links": [
     [
+      24,
       1,
+      0,
+      14,
+      0,
+      "IMAGE"
+    ],
+    [
+      25,
       2,
       0,
-      5,
+      14,
       1,
       "STRING"
     ],
     [
-      2,
-      4,
-      1,
-      5,
-      0,
-      "CLIP"
-    ],
-    [
-      3,
-      4,
-      1,
-      6,
-      0,
-      "CLIP"
-    ],
-    [
-      4,
-      4,
-      2,
-      9,
-      2,
-      "VAE"
-    ],
-    [
-      5,
-      5,
-      0,
-      9,
-      0,
-      "CONDITIONING"
-    ],
-    [
-      6,
-      6,
-      0,
-      9,
-      1,
-      "CONDITIONING"
-    ],
-    [
-      7,
-      1,
-      0,
-      9,
-      4,
-      "IMAGE"
-    ],
-    [
-      8,
-      1,
-      0,
-      8,
-      1,
-      "IMAGE"
-    ],
-    [
-      9,
-      7,
-      0,
-      8,
-      0,
-      "CLIP_VISION"
-    ],
-    [
-      10,
-      8,
-      0,
-      9,
-      3,
-      "CLIP_VISION_OUTPUT"
-    ],
-    [
-      11,
-      4,
-      0,
-      10,
-      0,
-      "MODEL"
-    ],
-    [
-      12,
-      10,
-      0,
-      11,
-      0,
-      "MODEL"
-    ],
-    [
-      13,
-      9,
-      0,
-      11,
-      1,
-      "CONDITIONING"
-    ],
-    [
+      26,
       14,
-      9,
-      1,
-      11,
-      2,
-      "CONDITIONING"
-    ],
-    [
-      15,
-      9,
-      2,
-      11,
-      3,
-      "LATENT"
-    ],
-    [
-      16,
-      11,
-      0,
-      12,
-      0,
-      "LATENT"
-    ],
-    [
-      17,
-      4,
-      2,
-      12,
-      1,
-      "VAE"
-    ],
-    [
-      18,
-      12,
       0,
       13,
       0,
@@ -739,41 +278,825 @@
   "groups": [
     {
       "id": 1,
-      "title": "01 · ENTRADA ÚNICA · IMAGEN Y PROMPT",
+      "title": "NSFW VIDEO GENERATOR · WAN 2.2 · v12.2 NSFW · Interfaz limpia",
       "bounding": [
-        35,
-        30,
-        540,
-        1220
+        45,
+        80,
+        2360,
+        720
       ],
       "color": "#366d81",
-      "font_size": 24,
-      "flags": {}
-    },
-    {
-      "id": 2,
-      "title": "02 · WAN 2.2 MEGA v12.2 NSFW",
-      "bounding": [
-        630,
-        80,
-        2150,
-        875
-      ],
-      "color": "#1e7685",
-      "font_size": 24,
+      "font_size": 25,
       "flags": {}
     }
   ],
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.7,
+      "scale": 0.68,
       "offset": [
-        0,
-        0
+        25,
+        15
       ]
     },
     "ue_links": []
   },
-  "version": 0.4
+  "version": 0.4,
+  "definitions": {
+    "subgraphs": [
+      {
+        "id": "49d31a21-8c17-464a-aeca-2b9178b63940",
+        "version": 1,
+        "state": {
+          "lastGroupId": 0,
+          "lastNodeId": 12,
+          "lastLinkId": 23,
+          "lastRerouteId": 0
+        },
+        "revision": 1,
+        "config": {},
+        "name": "WAN 2.2 · v12.2 NSFW · Configuración",
+        "inputNode": {
+          "id": -10,
+          "bounding": [
+            -430,
+            80,
+            190,
+            400
+          ]
+        },
+        "outputNode": {
+          "id": -20,
+          "bounding": [
+            2045,
+            100,
+            190,
+            150
+          ]
+        },
+        "inputs": [
+          {
+            "id": "ui-image",
+            "name": "image",
+            "label": "Imagen inicial",
+            "type": "IMAGE",
+            "linkIds": [
+              7,
+              8
+            ],
+            "pos": [
+              -350,
+              120
+            ]
+          },
+          {
+            "id": "ui-prompt",
+            "name": "prompt",
+            "label": "PROMPT",
+            "type": "STRING",
+            "linkIds": [
+              1
+            ],
+            "pos": [
+              -350,
+              158
+            ]
+          },
+          {
+            "id": "widget-width",
+            "name": "width",
+            "label": "Ancho · px",
+            "type": "INT",
+            "linkIds": [
+              19
+            ],
+            "pos": [
+              -350,
+              196
+            ]
+          },
+          {
+            "id": "widget-height",
+            "name": "height",
+            "label": "Alto · px",
+            "type": "INT",
+            "linkIds": [
+              20
+            ],
+            "pos": [
+              -350,
+              234
+            ]
+          },
+          {
+            "id": "widget-frames",
+            "name": "frames",
+            "label": "Fotogramas",
+            "type": "INT",
+            "linkIds": [
+              21
+            ],
+            "pos": [
+              -350,
+              272
+            ]
+          },
+          {
+            "id": "widget-seed",
+            "name": "seed",
+            "label": "Semilla",
+            "type": "INT",
+            "linkIds": [
+              22
+            ],
+            "pos": [
+              -350,
+              310
+            ]
+          },
+          {
+            "id": "widget-steps",
+            "name": "steps",
+            "label": "Pasos de muestreo",
+            "type": "INT",
+            "linkIds": [
+              23
+            ],
+            "pos": [
+              -350,
+              348
+            ]
+          }
+        ],
+        "outputs": [
+          {
+            "id": "out-images",
+            "name": "images",
+            "label": "Fotogramas",
+            "type": "IMAGE",
+            "linkIds": [
+              18
+            ],
+            "pos": [
+              2065,
+              150
+            ]
+          }
+        ],
+        "widgets": [],
+        "nodes": [
+          {
+            "id": 4,
+            "type": "CheckpointLoaderSimple",
+            "pos": [
+              240,
+              285
+            ],
+            "size": [
+              400,
+              110
+            ],
+            "flags": {},
+            "order": 4,
+            "mode": 0,
+            "inputs": [],
+            "outputs": [
+              {
+                "name": "MODEL",
+                "type": "MODEL",
+                "links": [
+                  11
+                ]
+              },
+              {
+                "name": "CLIP",
+                "type": "CLIP",
+                "links": [
+                  2,
+                  3
+                ]
+              },
+              {
+                "name": "VAE",
+                "type": "VAE",
+                "links": [
+                  4,
+                  17
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "CheckpointLoaderSimple"
+            },
+            "widgets_values": [
+              "wan2.2-rapid-mega-aio-nsfw-v12.2.safetensors"
+            ],
+            "title": "WAN · Checkpoint original v12.2 NSFW"
+          },
+          {
+            "id": 5,
+            "type": "CLIPTextEncode",
+            "pos": [
+              240,
+              455
+            ],
+            "size": [
+              390,
+              155
+            ],
+            "flags": {},
+            "order": 5,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "clip",
+                "type": "CLIP",
+                "link": 2
+              },
+              {
+                "name": "text",
+                "type": "STRING",
+                "link": 1,
+                "widget": {
+                  "name": "text"
+                }
+              }
+            ],
+            "outputs": [
+              {
+                "name": "CONDITIONING",
+                "type": "CONDITIONING",
+                "links": [
+                  5
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "CLIPTextEncode"
+            },
+            "widgets_values": [
+              ""
+            ],
+            "title": "WAN · Prompt"
+          },
+          {
+            "id": 6,
+            "type": "CLIPTextEncode",
+            "pos": [
+              240,
+              655
+            ],
+            "size": [
+              390,
+              110
+            ],
+            "flags": {},
+            "order": 6,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "clip",
+                "type": "CLIP",
+                "link": 3
+              }
+            ],
+            "outputs": [
+              {
+                "name": "CONDITIONING",
+                "type": "CONDITIONING",
+                "links": [
+                  6
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "CLIPTextEncode"
+            },
+            "widgets_values": [
+              ""
+            ],
+            "title": "WAN · Negativo (CFG 1)"
+          },
+          {
+            "id": 7,
+            "type": "CLIPVisionLoader",
+            "pos": [
+              240,
+              820
+            ],
+            "size": [
+              390,
+              100
+            ],
+            "flags": {},
+            "order": 7,
+            "mode": 0,
+            "inputs": [],
+            "outputs": [
+              {
+                "name": "CLIP_VISION",
+                "type": "CLIP_VISION",
+                "links": [
+                  9
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "CLIPVisionLoader"
+            },
+            "widgets_values": [
+              "clip-vision_vit-h.safetensors"
+            ],
+            "title": "WAN · CLIP Vision ViT-H"
+          },
+          {
+            "id": 8,
+            "type": "CLIPVisionEncode",
+            "pos": [
+              715,
+              790
+            ],
+            "size": [
+              350,
+              135
+            ],
+            "flags": {},
+            "order": 8,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "clip_vision",
+                "type": "CLIP_VISION",
+                "link": 9
+              },
+              {
+                "name": "image",
+                "type": "IMAGE",
+                "link": 8
+              }
+            ],
+            "outputs": [
+              {
+                "name": "CLIP_VISION_OUTPUT",
+                "type": "CLIP_VISION_OUTPUT",
+                "links": [
+                  10
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "CLIPVisionEncode"
+            },
+            "widgets_values": [
+              "center"
+            ],
+            "title": "WAN · Codificar imagen"
+          },
+          {
+            "id": 9,
+            "type": "WanImageToVideo",
+            "pos": [
+              705,
+              270
+            ],
+            "size": [
+              390,
+              250
+            ],
+            "flags": {},
+            "order": 9,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "positive",
+                "type": "CONDITIONING",
+                "link": 5
+              },
+              {
+                "name": "negative",
+                "type": "CONDITIONING",
+                "link": 6
+              },
+              {
+                "name": "vae",
+                "type": "VAE",
+                "link": 4
+              },
+              {
+                "name": "clip_vision_output",
+                "type": "CLIP_VISION_OUTPUT",
+                "link": 10,
+                "shape": 7
+              },
+              {
+                "name": "start_image",
+                "type": "IMAGE",
+                "link": 7,
+                "shape": 7
+              },
+              {
+                "name": "width",
+                "type": "INT",
+                "widget": {
+                  "name": "width"
+                },
+                "link": 19
+              },
+              {
+                "name": "height",
+                "type": "INT",
+                "widget": {
+                  "name": "height"
+                },
+                "link": 20
+              },
+              {
+                "name": "length",
+                "type": "INT",
+                "widget": {
+                  "name": "length"
+                },
+                "link": 21
+              }
+            ],
+            "outputs": [
+              {
+                "name": "positive",
+                "type": "CONDITIONING",
+                "links": [
+                  13
+                ]
+              },
+              {
+                "name": "negative",
+                "type": "CONDITIONING",
+                "links": [
+                  14
+                ]
+              },
+              {
+                "name": "latent",
+                "type": "LATENT",
+                "links": [
+                  15
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "WanImageToVideo"
+            },
+            "widgets_values": [
+              768,
+              432,
+              81,
+              1
+            ],
+            "title": "WAN · Imagen a vídeo · 768×432, 81 frames"
+          },
+          {
+            "id": 10,
+            "type": "ModelSamplingSD3",
+            "pos": [
+              1155,
+              260
+            ],
+            "size": [
+              300,
+              90
+            ],
+            "flags": {},
+            "order": 10,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "model",
+                "type": "MODEL",
+                "link": 11
+              }
+            ],
+            "outputs": [
+              {
+                "name": "MODEL",
+                "type": "MODEL",
+                "links": [
+                  12
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ModelSamplingSD3"
+            },
+            "widgets_values": [
+              8
+            ],
+            "title": "WAN · Shift 8"
+          },
+          {
+            "id": 11,
+            "type": "KSampler",
+            "pos": [
+              1155,
+              440
+            ],
+            "size": [
+              350,
+              255
+            ],
+            "flags": {},
+            "order": 11,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "model",
+                "type": "MODEL",
+                "link": 12
+              },
+              {
+                "name": "positive",
+                "type": "CONDITIONING",
+                "link": 13
+              },
+              {
+                "name": "negative",
+                "type": "CONDITIONING",
+                "link": 14
+              },
+              {
+                "name": "latent_image",
+                "type": "LATENT",
+                "link": 15
+              },
+              {
+                "name": "seed",
+                "type": "INT",
+                "widget": {
+                  "name": "seed"
+                },
+                "link": 22
+              },
+              {
+                "name": "steps",
+                "type": "INT",
+                "widget": {
+                  "name": "steps"
+                },
+                "link": 23
+              }
+            ],
+            "outputs": [
+              {
+                "name": "LATENT",
+                "type": "LATENT",
+                "links": [
+                  16
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "KSampler"
+            },
+            "widgets_values": [
+              192054346835137,
+              "fixed",
+              4,
+              1,
+              "sa_solver",
+              "beta",
+              1
+            ],
+            "title": "WAN · 4 pasos · CFG 1 · sa_solver / beta"
+          },
+          {
+            "id": 12,
+            "type": "VAEDecode",
+            "pos": [
+              1555,
+              390
+            ],
+            "size": [
+              260,
+              100
+            ],
+            "flags": {},
+            "order": 12,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "samples",
+                "type": "LATENT",
+                "link": 16
+              },
+              {
+                "name": "vae",
+                "type": "VAE",
+                "link": 17
+              }
+            ],
+            "outputs": [
+              {
+                "name": "IMAGE",
+                "type": "IMAGE",
+                "links": [
+                  18
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "VAEDecode"
+            },
+            "widgets_values": [],
+            "title": "WAN · Decode"
+          }
+        ],
+        "groups": [],
+        "links": [
+          {
+            "id": 1,
+            "origin_id": -10,
+            "origin_slot": 1,
+            "target_id": 5,
+            "target_slot": 1,
+            "type": "STRING"
+          },
+          {
+            "id": 2,
+            "origin_id": 4,
+            "origin_slot": 1,
+            "target_id": 5,
+            "target_slot": 0,
+            "type": "CLIP"
+          },
+          {
+            "id": 3,
+            "origin_id": 4,
+            "origin_slot": 1,
+            "target_id": 6,
+            "target_slot": 0,
+            "type": "CLIP"
+          },
+          {
+            "id": 4,
+            "origin_id": 4,
+            "origin_slot": 2,
+            "target_id": 9,
+            "target_slot": 2,
+            "type": "VAE"
+          },
+          {
+            "id": 5,
+            "origin_id": 5,
+            "origin_slot": 0,
+            "target_id": 9,
+            "target_slot": 0,
+            "type": "CONDITIONING"
+          },
+          {
+            "id": 6,
+            "origin_id": 6,
+            "origin_slot": 0,
+            "target_id": 9,
+            "target_slot": 1,
+            "type": "CONDITIONING"
+          },
+          {
+            "id": 7,
+            "origin_id": -10,
+            "origin_slot": 0,
+            "target_id": 9,
+            "target_slot": 4,
+            "type": "IMAGE"
+          },
+          {
+            "id": 8,
+            "origin_id": -10,
+            "origin_slot": 0,
+            "target_id": 8,
+            "target_slot": 1,
+            "type": "IMAGE"
+          },
+          {
+            "id": 9,
+            "origin_id": 7,
+            "origin_slot": 0,
+            "target_id": 8,
+            "target_slot": 0,
+            "type": "CLIP_VISION"
+          },
+          {
+            "id": 10,
+            "origin_id": 8,
+            "origin_slot": 0,
+            "target_id": 9,
+            "target_slot": 3,
+            "type": "CLIP_VISION_OUTPUT"
+          },
+          {
+            "id": 11,
+            "origin_id": 4,
+            "origin_slot": 0,
+            "target_id": 10,
+            "target_slot": 0,
+            "type": "MODEL"
+          },
+          {
+            "id": 12,
+            "origin_id": 10,
+            "origin_slot": 0,
+            "target_id": 11,
+            "target_slot": 0,
+            "type": "MODEL"
+          },
+          {
+            "id": 13,
+            "origin_id": 9,
+            "origin_slot": 0,
+            "target_id": 11,
+            "target_slot": 1,
+            "type": "CONDITIONING"
+          },
+          {
+            "id": 14,
+            "origin_id": 9,
+            "origin_slot": 1,
+            "target_id": 11,
+            "target_slot": 2,
+            "type": "CONDITIONING"
+          },
+          {
+            "id": 15,
+            "origin_id": 9,
+            "origin_slot": 2,
+            "target_id": 11,
+            "target_slot": 3,
+            "type": "LATENT"
+          },
+          {
+            "id": 16,
+            "origin_id": 11,
+            "origin_slot": 0,
+            "target_id": 12,
+            "target_slot": 0,
+            "type": "LATENT"
+          },
+          {
+            "id": 17,
+            "origin_id": 4,
+            "origin_slot": 2,
+            "target_id": 12,
+            "target_slot": 1,
+            "type": "VAE"
+          },
+          {
+            "id": 18,
+            "origin_id": 12,
+            "origin_slot": 0,
+            "target_id": -20,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 19,
+            "origin_id": -10,
+            "origin_slot": 2,
+            "target_id": 9,
+            "target_slot": 5,
+            "type": "INT"
+          },
+          {
+            "id": 20,
+            "origin_id": -10,
+            "origin_slot": 3,
+            "target_id": 9,
+            "target_slot": 6,
+            "type": "INT"
+          },
+          {
+            "id": 21,
+            "origin_id": -10,
+            "origin_slot": 4,
+            "target_id": 9,
+            "target_slot": 7,
+            "type": "INT"
+          },
+          {
+            "id": 22,
+            "origin_id": -10,
+            "origin_slot": 5,
+            "target_id": 11,
+            "target_slot": 4,
+            "type": "INT"
+          },
+          {
+            "id": 23,
+            "origin_id": -10,
+            "origin_slot": 6,
+            "target_id": 11,
+            "target_slot": 5,
+            "type": "INT"
+          }
+        ],
+        "extra": {}
+      }
+    ]
+  }
 }
