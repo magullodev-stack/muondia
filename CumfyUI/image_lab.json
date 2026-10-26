@@ -1,6 +1,6 @@
 {
   "id": "d9ac44b0-2f2d-4a95-8dd2-44cd82200a80",
-  "revision": 21,
+  "revision": 22,
   "last_node_id": 950,
   "last_link_id": 3510,
   "nodes": [
@@ -614,8 +614,8 @@
       "inputs": [
         {
           "name": "fuente",
-          "type": "INT",
-          "label": "Fuente · 1 Z-Image / 2 FLUX / 3 Qwen / 4 Foto",
+          "type": "COMBO",
+          "label": "Modelo / Origen de la imagen",
           "link": null,
           "widget": {
             "name": "fuente"
@@ -706,13 +706,13 @@
           ]
         }
       ],
-      "title": "SALIDA Y ACABADO · Fuente / 2×–4× / Fondo / PNG",
+      "title": "SALIDA Y ACABADO · Modelo / Ampliar / Quitar fondo / PNG",
       "properties": {
         "cnr_id": "comfy-core",
         "previewExposures": []
       },
       "widgets_values": [
-        3,
+        "Qwen",
         2,
         "4xNomos2_hq_dat2.pth",
         false,
@@ -720,7 +720,7 @@
         "image_lab/final/resultado"
       ],
       "widgets_values_named": {
-        "fuente": 3,
+        "fuente": "Qwen",
         "value": 2,
         "model_name": "4xNomos2_hq_dat2.pth",
         "value_1": false,
@@ -941,8 +941,8 @@
         "inputs": [
           {
             "name": "fuente",
-            "type": "INT",
-            "label": "Fuente · 1 Z-Image / 2 FLUX / 3 Qwen / 4 Foto",
+            "type": "COMBO",
+            "label": "Modelo / Origen de la imagen",
             "id": "image-lab-v14-finish-0",
             "linkIds": [
               219
@@ -2764,8 +2764,8 @@
           },
           {
             "id": 963,
-            "type": "PrimitiveInt",
-            "title": "Fuente de salida · Control interno",
+            "type": "ImageLabSourceSelector",
+            "title": "Elegir imagen final · Control interno",
             "pos": [
               165,
               155
@@ -2779,17 +2779,17 @@
             "mode": 0,
             "inputs": [
               {
-                "name": "value",
-                "type": "INT",
+                "name": "fuente",
+                "type": "COMBO",
                 "widget": {
-                  "name": "value"
+                  "name": "fuente"
                 },
                 "link": 219
               }
             ],
             "outputs": [
               {
-                "name": "INT",
+                "name": "fuente_numero",
                 "type": "INT",
                 "links": [
                   201,
@@ -2799,12 +2799,10 @@
               }
             ],
             "properties": {
-              "Node name for S&R": "PrimitiveInt",
-              "cnr_id": "comfy-core"
+              "Node name for S&R": "ImageLabSourceSelector"
             },
             "widgets_values": [
-              3,
-              "fixed"
+              "Qwen"
             ]
           }
         ],
@@ -3272,7 +3270,7 @@
             "origin_slot": 0,
             "target_id": 963,
             "target_slot": 0,
-            "type": "INT"
+            "type": "COMBO"
           }
         ],
         "extra": {},
