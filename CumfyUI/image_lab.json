@@ -1,6 +1,6 @@
 {
   "id": "d9ac44b0-2f2d-4a95-8dd2-44cd82200a80",
-  "revision": 28,
+  "revision": 29,
   "last_node_id": 950,
   "last_link_id": 3510,
   "nodes": [
@@ -169,7 +169,7 @@
       ],
       "size": [
         540,
-        695
+        735
       ],
       "flags": {},
       "order": 300,
@@ -218,6 +218,15 @@
           "link": null,
           "widget": {
             "name": "seed"
+          }
+        },
+        {
+          "name": "guidance",
+          "type": "FLOAT",
+          "label": "Seguimiento del prompt (guidance)",
+          "link": null,
+          "widget": {
+            "name": "guidance"
           }
         },
         {
@@ -290,6 +299,7 @@
         1024,
         true,
         123456789,
+        3.5,
         false,
         65,
         65,
@@ -302,6 +312,7 @@
         "height": 1024,
         "auto_size": true,
         "seed": 123456789,
+        "guidance": 3.5,
         "use_img2img": false,
         "strength_pct": 65,
         "anatomy_lora_pct": 65,
@@ -315,7 +326,7 @@
       "title": "Imagen inicial · FLUX",
       "pos": [
         730,
-        850
+        890
       ],
       "size": [
         540,
@@ -805,7 +816,7 @@
       301,
       0,
       300,
-      5,
+      6,
       "IMAGE"
     ],
     [
@@ -899,7 +910,7 @@
         690,
         45,
         615,
-        1145
+        1175
       ],
       "color": "#476c7b",
       "font_size": 24
@@ -5211,10 +5222,10 @@
         "state": {
           "lastGroupId": 8,
           "lastNodeId": 2330,
-          "lastLinkId": 4700,
+          "lastLinkId": 4701,
           "lastRerouteId": 0
         },
-        "revision": 6,
+        "revision": 7,
         "config": {},
         "name": "FLUX.1 Dev · Generación",
         "inputNode": {
@@ -5246,7 +5257,7 @@
             "label": "Prompt",
             "pos": [
               -990,
-              290
+              291
             ]
           },
           {
@@ -5258,7 +5269,7 @@
             ],
             "pos": [
               -990,
-              322
+              320
             ],
             "label": "Ancho manual (px)"
           },
@@ -5271,7 +5282,7 @@
             ],
             "pos": [
               -990,
-              354
+              349
             ],
             "label": "Alto manual (px)"
           },
@@ -5285,7 +5296,7 @@
             ],
             "pos": [
               -300,
-              386
+              378
             ]
           },
           {
@@ -5297,9 +5308,22 @@
             ],
             "pos": [
               -990,
-              418
+              407
             ],
             "label": "Semilla"
+          },
+          {
+            "id": "image-lab-flux-guidance-v29",
+            "name": "guidance",
+            "type": "FLOAT",
+            "label": "Seguimiento del prompt (guidance)",
+            "linkIds": [
+              4701
+            ],
+            "pos": [
+              -990,
+              436
+            ]
           },
           {
             "id": "image-lab-v12-f-init_image",
@@ -5312,7 +5336,7 @@
             ],
             "pos": [
               -300,
-              450
+              465
             ]
           },
           {
@@ -5328,7 +5352,7 @@
             ],
             "pos": [
               -300,
-              482
+              494
             ]
           },
           {
@@ -5341,7 +5365,7 @@
             ],
             "pos": [
               -300,
-              514
+              523
             ]
           },
           {
@@ -5354,7 +5378,7 @@
             ],
             "pos": [
               -300,
-              546
+              552
             ]
           },
           {
@@ -5367,7 +5391,7 @@
             ],
             "pos": [
               -300,
-              578
+              581
             ]
           },
           {
@@ -7233,7 +7257,7 @@
                 "widget": {
                   "name": "guidance"
                 },
-                "link": null
+                "link": 4701
               }
             ],
             "outputs": [
@@ -7379,7 +7403,7 @@
           {
             "id": 3500,
             "origin_id": -10,
-            "origin_slot": 5,
+            "origin_slot": 6,
             "target_id": 1401,
             "target_slot": 0,
             "type": "IMAGE"
@@ -7419,7 +7443,7 @@
           {
             "id": 3507,
             "origin_id": -10,
-            "origin_slot": 6,
+            "origin_slot": 7,
             "target_id": 1403,
             "target_slot": 2,
             "type": "BOOLEAN"
@@ -7459,7 +7483,7 @@
           {
             "id": 3512,
             "origin_id": -10,
-            "origin_slot": 6,
+            "origin_slot": 7,
             "target_id": 1406,
             "target_slot": 2,
             "type": "BOOLEAN"
@@ -7475,7 +7499,7 @@
           {
             "id": 3700,
             "origin_id": -10,
-            "origin_slot": 5,
+            "origin_slot": 6,
             "target_id": 1700,
             "target_slot": 0,
             "type": "IMAGE"
@@ -7523,7 +7547,7 @@
           {
             "id": 3706,
             "origin_id": -10,
-            "origin_slot": 6,
+            "origin_slot": 7,
             "target_id": 1703,
             "target_slot": 2,
             "type": "BOOLEAN"
@@ -7587,7 +7611,7 @@
           {
             "id": 3714,
             "origin_id": -10,
-            "origin_slot": 6,
+            "origin_slot": 7,
             "target_id": 1704,
             "target_slot": 2,
             "type": "BOOLEAN"
@@ -7627,7 +7651,7 @@
           {
             "id": 4402,
             "origin_id": -10,
-            "origin_slot": 7,
+            "origin_slot": 8,
             "target_id": 2202,
             "target_slot": 0,
             "type": "INT"
@@ -7675,7 +7699,7 @@
           {
             "id": 4604,
             "origin_id": -10,
-            "origin_slot": 8,
+            "origin_slot": 9,
             "target_id": 2305,
             "target_slot": 0,
             "type": "INT"
@@ -7699,7 +7723,7 @@
           {
             "id": 4611,
             "origin_id": -10,
-            "origin_slot": 9,
+            "origin_slot": 10,
             "target_id": 2308,
             "target_slot": 0,
             "type": "INT"
@@ -7723,7 +7747,7 @@
           {
             "id": 4614,
             "origin_id": -10,
-            "origin_slot": 10,
+            "origin_slot": 11,
             "target_id": 2311,
             "target_slot": 0,
             "type": "INT"
@@ -7767,6 +7791,14 @@
             "target_id": 31,
             "target_slot": 1,
             "type": "CONDITIONING"
+          },
+          {
+            "id": 4701,
+            "origin_id": -10,
+            "origin_slot": 5,
+            "target_id": 2330,
+            "target_slot": 1,
+            "type": "FLOAT"
           }
         ],
         "extra": {
