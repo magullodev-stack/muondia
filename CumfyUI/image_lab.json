@@ -1,6 +1,6 @@
 {
   "id": "d9ac44b0-2f2d-4a95-8dd2-44cd82200a80",
-  "revision": 34,
+  "revision": 35,
   "last_node_id": 950,
   "last_link_id": 3516,
   "nodes": [
@@ -5616,11 +5616,11 @@
         "version": 1,
         "state": {
           "lastGroupId": 8,
-          "lastNodeId": 2330,
-          "lastLinkId": 4701,
+          "lastNodeId": 2340,
+          "lastLinkId": 4704,
           "lastRerouteId": 0
         },
-        "revision": 10,
+        "revision": 11,
         "config": {},
         "name": "FLUX.1 Dev · Generación",
         "inputNode": {
@@ -6858,7 +6858,8 @@
                 "type": "*",
                 "links": [
                   3707,
-                  3708
+                  3708,
+                  4703
                 ]
               }
             ],
@@ -6908,7 +6909,8 @@
                 "type": "*",
                 "links": [
                   3715,
-                  3716
+                  3716,
+                  4704
                 ]
               }
             ],
@@ -7504,7 +7506,7 @@
                 "name": "MODEL",
                 "type": "MODEL",
                 "links": [
-                  61
+                  4702
                 ]
               },
               {
@@ -7671,6 +7673,80 @@
             "widgets_values": [
               3.5
             ]
+          },
+          {
+            "id": 2340,
+            "type": "ModelSamplingFlux",
+            "title": "FLUX.1-dev · Muestreo correcto (desplazamiento por resolución)",
+            "pos": [
+              930,
+              720
+            ],
+            "size": [
+              345,
+              190
+            ],
+            "flags": {},
+            "order": 2340,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "model",
+                "type": "MODEL",
+                "link": 4702
+              },
+              {
+                "name": "max_shift",
+                "type": "FLOAT",
+                "widget": {
+                  "name": "max_shift"
+                },
+                "link": null
+              },
+              {
+                "name": "base_shift",
+                "type": "FLOAT",
+                "widget": {
+                  "name": "base_shift"
+                },
+                "link": null
+              },
+              {
+                "name": "width",
+                "type": "INT",
+                "widget": {
+                  "name": "width"
+                },
+                "link": 4703
+              },
+              {
+                "name": "height",
+                "type": "INT",
+                "widget": {
+                  "name": "height"
+                },
+                "link": 4704
+              }
+            ],
+            "outputs": [
+              {
+                "name": "MODEL",
+                "type": "MODEL",
+                "links": [
+                  61
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ModelSamplingFlux",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              1.15,
+              0.5,
+              768,
+              1024
+            ]
           }
         ],
         "groups": [
@@ -7733,7 +7809,7 @@
           },
           {
             "id": 61,
-            "origin_id": 2310,
+            "origin_id": 2340,
             "origin_slot": 0,
             "target_id": 31,
             "target_slot": 0,
@@ -8194,6 +8270,30 @@
             "target_id": 2330,
             "target_slot": 1,
             "type": "FLOAT"
+          },
+          {
+            "id": 4702,
+            "origin_id": 2310,
+            "origin_slot": 0,
+            "target_id": 2340,
+            "target_slot": 0,
+            "type": "MODEL"
+          },
+          {
+            "id": 4703,
+            "origin_id": 1703,
+            "origin_slot": 0,
+            "target_id": 2340,
+            "target_slot": 3,
+            "type": "INT"
+          },
+          {
+            "id": 4704,
+            "origin_id": 1704,
+            "origin_slot": 0,
+            "target_id": 2340,
+            "target_slot": 4,
+            "type": "INT"
           }
         ],
         "extra": {
