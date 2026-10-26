@@ -97,7 +97,7 @@
       },
       "title": "GUÍA · Un solo modelo, un solo workflow",
       "widgets_values": [
-        "GENERADOR LLM  |  Magnum v2 32B  /  Euryale 70B v2.1\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\nUSO HABITUAL: elige modelo, escribe instrucciones y prompt y pulsa Queue Prompt. Puedes ajustar temperatura, top_p y el límite de salida sin tocar la configuración avanzada.\n\nCONTEXTO: contexto_tokens = 0 usa automáticamente 32.768 para Magnum y 8.192 para Euryale; NO es un límite decidido por el usuario. Puedes indicar otro valor manual si asumes las limitaciones del modelo.\n\nGPU: capas_gpu = 8 es un valor de arranque prudente para RTX 3060 de 12 GB, NO una medición ni el óptimo. Si tienes memoria libre, aumenta gradualmente comprobando los registros; si falla por memoria, reduce el valor.\n\nflash_attention = falso; cache_kv = f16; semilla = -1 (aleatoria). Se muestran en CONFIGURACIÓN AVANZADA para no saturar el panel principal.\n\nOPERACIÓN: Generar texto (normal) / Liberar RAM/VRAM (conserva GGUF). Liberar solo detiene el llama-server gestionado por el nodo, NO descarga archivos ni genera TXT.\n\nCambiar de modelo libera antes el anterior. No se ejecutan Magnum y Euryale a la vez. Conversación sin historial automático entre ejecuciones.\n\nRUTAS LOCALES: ComfyUI/tools/llama.cpp/llama-server.exe y ComfyUI/models/llm/.\nNODOS PERSONALIZADOS: ComfyUI/custom_nodes/ComfyUI_GGUF_LocalChat/{__init__.py,nodes.py}.\nPara aplicar una actualización del código de nodos, reemplaza nodes.py y reinicia ComfyUI."
+        "GENERADOR LLM  |  Magnum v2 32B  /  Euryale 70B v2.1\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\nUSO HABITUAL: elige modelo, escribe instrucciones y prompt y pulsa Queue Prompt. Puedes ajustar temperatura, top_p y el límite de salida sin tocar la configuración avanzada.\n\nCONTEXTO: contexto_tokens = 0 usa automáticamente 32.768 para Magnum y 8.192 para Euryale; NO es un límite decidido por el usuario. Puedes indicar otro valor manual si asumes las limitaciones del modelo.\n\nGPU: capas_gpu = 8 es un valor de arranque prudente para RTX 3060 de 12 GB, NO una medición ni el óptimo. Si tienes memoria libre, aumenta gradualmente comprobando los registros; si falla por memoria, reduce el valor.\n\nflash_attention = falso; cache_kv = f16; semilla = -1 (aleatoria). Se muestran en CONFIGURACIÓN AVANZADA para no saturar el panel principal.\n\n\nGESTIÓN DE MEMORIA AUTOMÁTICA: al cambiar de modelo, se libera el anterior antes de cargar el nuevo; al cerrar ComfyUI normalmente, se termina el proceso auxiliar. No se ejecutan Magnum y Euryale a la vez. Conversación sin historial automático entre ejecuciones.\n\nRUTAS LOCALES: ComfyUI/tools/llama.cpp/llama-server.exe y ComfyUI/models/llm/.\nNODOS PERSONALIZADOS: ComfyUI/custom_nodes/ComfyUI_GGUF_LocalChat/{__init__.py,nodes.py}.\nPara aplicar una actualización del código de nodos, reemplaza nodes.py y reinicia ComfyUI."
       ]
     },
     {
@@ -134,8 +134,7 @@
         8,
         false,
         "f16",
-        -1,
-        "Generar texto"
+        -1
       ]
     }
   ],
