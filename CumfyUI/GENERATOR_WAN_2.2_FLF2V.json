@@ -147,12 +147,12 @@
           "link": 25
         },
         {
-          "name": "num_frames",
-          "label": "Fotogramas (4n+1, mínimo 25)",
+          "name": "duration_seconds",
+          "label": "Duración · segundos (16 FPS)",
           "type": "INT",
           "link": null,
           "widget": {
-            "name": "num_frames"
+            "name": "duration_seconds"
           }
         },
         {
@@ -218,7 +218,7 @@
       },
       "widgets_values": [
         "",
-        49,
+        5,
         512,
         768,
         100,
@@ -227,7 +227,7 @@
       ],
       "widgets_values_named": {
         "prompt": "",
-        "num_frames": 49,
+        "duration_seconds": 5,
         "width": 512,
         "height": 768,
         "fidelity": 100,
@@ -439,9 +439,9 @@
             ]
           },
           {
-            "id": "widget-num-frames",
-            "name": "num_frames",
-            "label": "Fotogramas (4n+1, mínimo 25)",
+            "id": "widget-duration-seconds",
+            "name": "duration_seconds",
+            "label": "Duración · segundos (16 FPS)",
             "type": "INT",
             "linkIds": [
               18
@@ -830,7 +830,7 @@
             "inputs": [
               {
                 "name": "values.a",
-                "label": "Fotogramas solicitados",
+                "label": "Segundos",
                 "type": "FLOAT,INT,BOOLEAN",
                 "link": 19
               },
@@ -867,12 +867,12 @@
               "cnr_id": "comfy-core"
             },
             "widgets_values": [
-              "max(25,a)-((max(25,a)-1)%4)"
+              "max(2,a)*16+1"
             ],
             "widgets_values_named": {
-              "expression": "max(25,a)-((max(25,a)-1)%4)"
+              "expression": "max(2,a)*16+1"
             },
-            "title": "Fotogramas · normalizar a 4n+1 (mínimo 25)"
+            "title": "Duración a fotogramas · 16 FPS · 4n+1"
           },
           {
             "id": 14,
@@ -966,14 +966,14 @@
               "ver": "0.16.3"
             },
             "widgets_values": [
-              49,
+              5,
               "fixed"
             ],
             "widgets_values_named": {
-              "value": 49,
+              "value": 5,
               "fixed": "fixed"
             },
-            "title": "Fotogramas solicitados · mínimo 25"
+            "title": "Duración (s) · control visible"
           },
           {
             "id": 19,
