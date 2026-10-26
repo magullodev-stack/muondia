@@ -1,6 +1,6 @@
 {
   "id": "d9ac44b0-2f2d-4a95-8dd2-44cd82200a80",
-  "revision": 27,
+  "revision": 28,
   "last_node_id": 950,
   "last_link_id": 3510,
   "nodes": [
@@ -5210,11 +5210,11 @@
         "version": 1,
         "state": {
           "lastGroupId": 8,
-          "lastNodeId": 2312,
-          "lastLinkId": 4614,
+          "lastNodeId": 2330,
+          "lastLinkId": 4700,
           "lastRerouteId": 0
         },
-        "revision": 5,
+        "revision": 6,
         "config": {},
         "name": "FLUX.1 Dev · Generación",
         "inputNode": {
@@ -5762,7 +5762,7 @@
                 "localized_name": "positive",
                 "name": "positive",
                 "type": "CONDITIONING",
-                "link": 65
+                "link": 4700
               },
               {
                 "localized_name": "negative",
@@ -7205,6 +7205,53 @@
             "widgets_values": [
               "max(0.0, min(1.0, a / 100.0))"
             ]
+          },
+          {
+            "id": 2330,
+            "type": "FluxGuidance",
+            "title": "FLUX.1-dev · Guidance 3.5",
+            "pos": [
+              -80,
+              115
+            ],
+            "size": [
+              295,
+              92
+            ],
+            "flags": {},
+            "order": 2330,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "conditioning",
+                "type": "CONDITIONING",
+                "link": 65
+              },
+              {
+                "name": "guidance",
+                "type": "FLOAT",
+                "widget": {
+                  "name": "guidance"
+                },
+                "link": null
+              }
+            ],
+            "outputs": [
+              {
+                "name": "CONDITIONING",
+                "type": "CONDITIONING",
+                "links": [
+                  4700
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "FluxGuidance",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              3.5
+            ]
           }
         ],
         "groups": [
@@ -7301,8 +7348,8 @@
             "id": 65,
             "origin_id": 45,
             "origin_slot": 0,
-            "target_id": 31,
-            "target_slot": 1,
+            "target_id": 2330,
+            "target_slot": 0,
             "type": "CONDITIONING"
           },
           {
@@ -7712,6 +7759,14 @@
             "target_id": 2310,
             "target_slot": 1,
             "type": "CLIP"
+          },
+          {
+            "id": 4700,
+            "origin_id": 2330,
+            "origin_slot": 0,
+            "target_id": 31,
+            "target_slot": 1,
+            "type": "CONDITIONING"
           }
         ],
         "extra": {
