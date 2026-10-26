@@ -1,6 +1,6 @@
 {
   "id": "d9ac44b0-2f2d-4a95-8dd2-44cd82200a80",
-  "revision": 29,
+  "revision": 30,
   "last_node_id": 950,
   "last_link_id": 3510,
   "nodes": [
@@ -14,7 +14,7 @@
       ],
       "size": [
         540,
-        565
+        605
       ],
       "flags": {},
       "order": 200,
@@ -88,6 +88,15 @@
           "widget": {
             "name": "strength_pct"
           }
+        },
+        {
+          "name": "turbo_lora_pct",
+          "type": "INT",
+          "label": "LoRA Turbo (%)",
+          "link": null,
+          "widget": {
+            "name": "turbo_lora_pct"
+          }
         }
       ],
       "outputs": [
@@ -103,22 +112,24 @@
         "cnr_id": "comfy-core"
       },
       "widgets_values": [
-        "",
+        "A single ultra-realistic studio reference photograph of an adult woman, 30 years old, standing upright in a relaxed neutral anatomical pose, directly facing the camera.\n\nPerfectly frontal view, straight head position, natural symmetrical posture, shoulders level, both arms resting naturally at her sides, unobstructed torso. Framing from the top of the head to the upper hips.\n\nNatural adult female anatomy, realistic body proportions, naturally shaped breasts with anatomically accurate areolas and nipples, believable skin elasticity, subtle natural asymmetry, authentic skin pores, fine skin texture and realistic anatomical transitions.\n\nNatural facial features, relaxed expression, both eyes focused straight ahead, realistic eye alignment, subtle facial asymmetry, no makeup, natural eyebrows.\n\nProfessional full-frame DSLR studio photography, 85mm portrait lens, soft diffused frontal lighting, realistic shadows, neutral color grading, sharp optical detail, unretouched documentary photography.\n\nPure white seamless studio background. Exactly one woman, one photograph, one camera angle, no collage, no fashion pose, no accessories, no clothing covering the torso.",
         1024,
         1024,
         true,
-        123456789,
+        1,
         false,
-        65
+        0,
+        0
       ],
       "widgets_values_named": {
-        "text": "",
+        "text": "A single ultra-realistic studio reference photograph of an adult woman, 30 years old, standing upright in a relaxed neutral anatomical pose, directly facing the camera.\n\nPerfectly frontal view, straight head position, natural symmetrical posture, shoulders level, both arms resting naturally at her sides, unobstructed torso. Framing from the top of the head to the upper hips.\n\nNatural adult female anatomy, realistic body proportions, naturally shaped breasts with anatomically accurate areolas and nipples, believable skin elasticity, subtle natural asymmetry, authentic skin pores, fine skin texture and realistic anatomical transitions.\n\nNatural facial features, relaxed expression, both eyes focused straight ahead, realistic eye alignment, subtle facial asymmetry, no makeup, natural eyebrows.\n\nProfessional full-frame DSLR studio photography, 85mm portrait lens, soft diffused frontal lighting, realistic shadows, neutral color grading, sharp optical detail, unretouched documentary photography.\n\nPure white seamless studio background. Exactly one woman, one photograph, one camera angle, no collage, no fashion pose, no accessories, no clothing covering the torso.",
         "width": 1024,
         "height": 1024,
         "auto_size": true,
-        "seed": 123456789,
+        "seed": 1,
         "use_img2img": false,
-        "strength_pct": 65
+        "strength_pct": 0,
+        "turbo_lora_pct": 0
       }
     },
     {
@@ -127,7 +138,7 @@
       "title": "Imagen inicial · Z-Image",
       "pos": [
         80,
-        720
+        760
       ],
       "size": [
         540,
@@ -294,28 +305,28 @@
         "cnr_id": "comfy-core"
       },
       "widgets_values": [
-        "",
+        "A single ultra-realistic studio reference photograph of an adult woman, 30 years old, standing upright in a relaxed neutral anatomical pose, directly facing the camera.\n\nPerfectly frontal view, straight head position, natural symmetrical posture, shoulders level, both arms resting naturally at her sides, unobstructed torso. Framing from the top of the head to the upper hips.\n\nNatural adult female anatomy, realistic body proportions, naturally shaped breasts with anatomically accurate areolas and nipples, believable skin elasticity, subtle natural asymmetry, authentic skin pores, fine skin texture and realistic anatomical transitions.\n\nNatural facial features, relaxed expression, both eyes focused straight ahead, realistic eye alignment, subtle facial asymmetry, no makeup, natural eyebrows.\n\nProfessional full-frame DSLR studio photography, 85mm portrait lens, soft diffused frontal lighting, realistic shadows, neutral color grading, sharp optical detail, unretouched documentary photography.\n\nPure white seamless studio background. Exactly one woman, one photograph, one camera angle, no collage, no fashion pose, no accessories, no clothing covering the torso.",
+        768,
         1024,
-        1024,
-        true,
-        123456789,
+        false,
+        1,
         3.5,
         false,
-        65,
-        65,
+        0,
+        0,
         0,
         0
       ],
       "widgets_values_named": {
-        "text": "",
-        "width": 1024,
+        "text": "A single ultra-realistic studio reference photograph of an adult woman, 30 years old, standing upright in a relaxed neutral anatomical pose, directly facing the camera.\n\nPerfectly frontal view, straight head position, natural symmetrical posture, shoulders level, both arms resting naturally at her sides, unobstructed torso. Framing from the top of the head to the upper hips.\n\nNatural adult female anatomy, realistic body proportions, naturally shaped breasts with anatomically accurate areolas and nipples, believable skin elasticity, subtle natural asymmetry, authentic skin pores, fine skin texture and realistic anatomical transitions.\n\nNatural facial features, relaxed expression, both eyes focused straight ahead, realistic eye alignment, subtle facial asymmetry, no makeup, natural eyebrows.\n\nProfessional full-frame DSLR studio photography, 85mm portrait lens, soft diffused frontal lighting, realistic shadows, neutral color grading, sharp optical detail, unretouched documentary photography.\n\nPure white seamless studio background. Exactly one woman, one photograph, one camera angle, no collage, no fashion pose, no accessories, no clothing covering the torso.",
+        "width": 768,
         "height": 1024,
-        "auto_size": true,
-        "seed": 123456789,
+        "auto_size": false,
+        "seed": 1,
         "guidance": 3.5,
         "use_img2img": false,
-        "strength_pct": 65,
-        "anatomy_lora_pct": 65,
+        "strength_pct": 0,
+        "anatomy_lora_pct": 0,
         "fpnd_lora_pct": 0,
         "photo_lora_pct": 0
       }
@@ -756,7 +767,7 @@
         "previewExposures": []
       },
       "widgets_values": [
-        "Qwen",
+        "FLUX",
         2,
         "4xNomos2_hq_dat2.pth",
         false,
@@ -764,7 +775,7 @@
         "image_lab/final/resultado"
       ],
       "widgets_values_named": {
-        "fuente": "Qwen",
+        "fuente": "FLUX",
         "value": 2,
         "model_name": "4xNomos2_hq_dat2.pth",
         "value_1": false,
@@ -3325,11 +3336,11 @@
         "version": 1,
         "state": {
           "lastGroupId": 4,
-          "lastNodeId": 2103,
-          "lastLinkId": 4303,
+          "lastNodeId": 2122,
+          "lastLinkId": 4315,
           "lastRerouteId": 0
         },
-        "revision": 4,
+        "revision": 5,
         "config": {},
         "name": "Z-Image-Turbo · Generación",
         "inputNode": {
@@ -3458,6 +3469,19 @@
               -300,
               514
             ]
+          },
+          {
+            "id": "image-lab-z-image-lora-pct-v30",
+            "name": "turbo_lora_pct",
+            "type": "INT",
+            "label": "LoRA Turbo (%)",
+            "linkIds": [
+              4315
+            ],
+            "pos": [
+              -300,
+              1130
+            ]
           }
         ],
         "outputs": [
@@ -3527,7 +3551,7 @@
                 "name": "CLIP",
                 "type": "CLIP",
                 "links": [
-                  28
+                  4311
                 ]
               }
             ],
@@ -3752,7 +3776,7 @@
                 "name": "MODEL",
                 "type": "MODEL",
                 "links": [
-                  26
+                  4310
                 ]
               }
             ],
@@ -3835,7 +3859,7 @@
               "secondTabWidth": 65
             },
             "widgets_values": [
-              "Photorealistic candid documentary DSLR portrait of a fictional adult brunette woman, about 28, brown eyes, true natural facial proportions, authentic skin pores and subtle facial texture, unretouched skin, dark simple cotton shirt, 50mm prime lens, indirect natural window daylight, consistent realistic anatomy, single person, natural neutral colour, no beauty retouching"
+              "A single ultra-realistic studio reference photograph of an adult woman, 30 years old, standing upright in a relaxed neutral anatomical pose, directly facing the camera.\n\nPerfectly frontal view, straight head position, natural symmetrical posture, shoulders level, both arms resting naturally at her sides, unobstructed torso. Framing from the top of the head to the upper hips.\n\nNatural adult female anatomy, realistic body proportions, naturally shaped breasts with anatomically accurate areolas and nipples, believable skin elasticity, subtle natural asymmetry, authentic skin pores, fine skin texture and realistic anatomical transitions.\n\nNatural facial features, relaxed expression, both eyes focused straight ahead, realistic eye alignment, subtle facial asymmetry, no makeup, natural eyebrows.\n\nProfessional full-frame DSLR studio photography, 85mm portrait lens, soft diffused frontal lighting, realistic shadows, neutral color grading, sharp optical detail, unretouched documentary photography.\n\nPure white seamless studio background. Exactly one woman, one photograph, one camera angle, no collage, no fashion pose, no accessories, no clothing covering the torso."
             ]
           },
           {
@@ -4813,6 +4837,183 @@
             "widgets_values": [
               true
             ]
+          },
+          {
+            "id": 2120,
+            "type": "LoraLoader",
+            "title": "Z-Image · Parche Turbo opcional",
+            "pos": [
+              540,
+              450
+            ],
+            "size": [
+              310,
+              165
+            ],
+            "flags": {},
+            "order": 2120,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "model",
+                "type": "MODEL",
+                "link": 4310
+              },
+              {
+                "name": "clip",
+                "type": "CLIP",
+                "link": 4311
+              },
+              {
+                "name": "lora_name",
+                "type": "COMBO",
+                "widget": {
+                  "name": "lora_name"
+                },
+                "link": null
+              },
+              {
+                "name": "strength_model",
+                "type": "FLOAT",
+                "widget": {
+                  "name": "strength_model"
+                },
+                "link": 4314
+              },
+              {
+                "name": "strength_clip",
+                "type": "FLOAT",
+                "widget": {
+                  "name": "strength_clip"
+                },
+                "link": null
+              }
+            ],
+            "outputs": [
+              {
+                "name": "MODEL",
+                "type": "MODEL",
+                "links": [
+                  26
+                ]
+              },
+              {
+                "name": "CLIP",
+                "type": "CLIP",
+                "links": [
+                  28
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "LoraLoader",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              "z_image_turbo_distill_patch_lora_bf16.safetensors",
+              0,
+              0
+            ]
+          },
+          {
+            "id": 2121,
+            "type": "PrimitiveInt",
+            "title": "LoRA Turbo · Porcentaje",
+            "pos": [
+              60,
+              2040
+            ],
+            "size": [
+              260,
+              95
+            ],
+            "flags": {},
+            "order": 2121,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "value",
+                "type": "INT",
+                "widget": {
+                  "name": "value"
+                },
+                "link": 4315
+              }
+            ],
+            "outputs": [
+              {
+                "name": "INT",
+                "type": "INT",
+                "links": [
+                  4313
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "PrimitiveInt",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              0,
+              "fixed"
+            ]
+          },
+          {
+            "id": 2122,
+            "type": "ComfyMathExpression",
+            "title": "LoRA Turbo · Intensidad",
+            "pos": [
+              360,
+              2040
+            ],
+            "size": [
+              315,
+              100
+            ],
+            "flags": {},
+            "order": 2122,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "values.a",
+                "type": "FLOAT,INT",
+                "link": 4313
+              },
+              {
+                "name": "expression",
+                "type": "STRING",
+                "widget": {
+                  "name": "expression"
+                },
+                "link": null
+              }
+            ],
+            "outputs": [
+              {
+                "name": "FLOAT",
+                "type": "FLOAT",
+                "links": [
+                  4314
+                ]
+              },
+              {
+                "name": "INT",
+                "type": "INT",
+                "links": []
+              },
+              {
+                "name": "BOOL",
+                "type": "BOOLEAN",
+                "links": []
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ComfyMathExpression",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              "max(0.0, min(1.0, a / 100.0))"
+            ]
           }
         ],
         "groups": [
@@ -4867,7 +5068,7 @@
           },
           {
             "id": 26,
-            "origin_id": 28,
+            "origin_id": 2120,
             "origin_slot": 0,
             "target_id": 11,
             "target_slot": 0,
@@ -4915,8 +5116,8 @@
           },
           {
             "id": 28,
-            "origin_id": 30,
-            "origin_slot": 0,
+            "origin_id": 2120,
+            "origin_slot": 1,
             "target_id": 27,
             "target_slot": 0,
             "type": "CLIP"
@@ -5208,6 +5409,46 @@
             "target_id": 2103,
             "target_slot": 0,
             "type": "BOOLEAN"
+          },
+          {
+            "id": 4310,
+            "origin_id": 28,
+            "origin_slot": 0,
+            "target_id": 2120,
+            "target_slot": 0,
+            "type": "MODEL"
+          },
+          {
+            "id": 4311,
+            "origin_id": 30,
+            "origin_slot": 0,
+            "target_id": 2120,
+            "target_slot": 1,
+            "type": "CLIP"
+          },
+          {
+            "id": 4313,
+            "origin_id": 2121,
+            "origin_slot": 0,
+            "target_id": 2122,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 4314,
+            "origin_id": 2122,
+            "origin_slot": 0,
+            "target_id": 2120,
+            "target_slot": 3,
+            "type": "FLOAT"
+          },
+          {
+            "id": 4315,
+            "origin_id": -10,
+            "origin_slot": 8,
+            "target_id": 2121,
+            "target_slot": 0,
+            "type": "INT"
           }
         ],
         "extra": {
@@ -5758,7 +5999,7 @@
               "Node name for S&R": "CLIPTextEncode"
             },
             "widgets_values": [
-              "Photorealistic candid documentary DSLR portrait of a fictional adult brunette woman, about 28, brown eyes, true natural facial proportions, authentic skin pores and subtle facial texture, unretouched skin, dark simple cotton shirt, 50mm prime lens, indirect natural window daylight, consistent realistic anatomy, single person, natural neutral colour, no beauty retouching"
+              "A single ultra-realistic studio reference photograph of an adult woman, 30 years old, standing upright in a relaxed neutral anatomical pose, directly facing the camera.\n\nPerfectly frontal view, straight head position, natural symmetrical posture, shoulders level, both arms resting naturally at her sides, unobstructed torso. Framing from the top of the head to the upper hips.\n\nNatural adult female anatomy, realistic body proportions, naturally shaped breasts with anatomically accurate areolas and nipples, believable skin elasticity, subtle natural asymmetry, authentic skin pores, fine skin texture and realistic anatomical transitions.\n\nNatural facial features, relaxed expression, both eyes focused straight ahead, realistic eye alignment, subtle facial asymmetry, no makeup, natural eyebrows.\n\nProfessional full-frame DSLR studio photography, 85mm portrait lens, soft diffused frontal lighting, realistic shadows, neutral color grading, sharp optical detail, unretouched documentary photography.\n\nPure white seamless studio background. Exactly one woman, one photograph, one camera angle, no collage, no fashion pose, no accessories, no clothing covering the torso."
             ]
           },
           {
