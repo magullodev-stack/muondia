@@ -374,6 +374,75 @@ class GeneradorLLM:
 
 
 
+
+class ImageLabLazyBranchSelector:
+    """Selector de una de cuatro ramas de imagen; solo evalúa la entrada elegida."""
+
+    FUENTES = ["Z-IMAGE", "QWEN", "FLUX", "FOTO EXTERNA"]
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "fuente": (cls.FUENTES, {"default": "Z-IMAGE"}),
+                "qwen_image": ("IMAGE", {"lazy": True}),
+                "z_image": ("IMAGE", {"lazy": True}),
+                "flux_image": ("IMAGE", {"lazy": True}),
+                "external_image": ("IMAGE", {"lazy": True}),
+                "external_mask": ("MASK", {"lazy": True}),
+            }
+        }
+
+    RETURN_TYPES = ("IMAGE", "MASK")
+    RETURN_NAMES = ("imagen seleccionada", "máscara externa")
+    FUNCTION = "seleccionar"
+    CATEGORY = "Image Lab"
+    OUTPUT_NODE = False
+
+    @staticmethod
+    def _ruta(fuente):
+        valor = str(fuente).strip().upper().replace("_", " ").replace("-", " ")
+        if "QWEN" in valor:
+            return "qwen_image"
+        if "FLUX" in valor:
+            return "flux_image"
+        if "EXTERNA" in valor or "EXTERNAL" in valor:
+            return "external_image"
+        if "Z IMAGE" in valor or valor == "ZIMAGE":
+            return "z_image"
+        raise ValueError(f"Fuente de imagen no reconocida: {fuente}")
+
+    def check_lazy_status(self, fuente, qwen_image=None, z_image=None,
+                          flux_image=None, external_image=None, external_mask=None):
+        ruta = self._ruta(fuente)
+        disponibles = {
+            "qwen_image": qwen_image,
+            "z_image": z_image,
+            "flux_image": flux_image,
+            "external_image": external_image,
+        }
+        pendientes = [ruta] if disponibles[ruta] is None else []
+        if ruta == "external_image" and external_mask is None:
+            pendientes.append("external_mask")
+        return pendientes
+
+    def seleccionar(self, fuente, qwen_image=None, z_image=None,
+                    flux_image=None, external_image=None, external_mask=None):
+        ruta = self._ruta(fuente)
+        imagen = {
+            "qwen_image": qwen_image,
+            "z_image": z_image,
+            "flux_image": flux_image,
+            "external_image": external_image,
+        }[ruta]
+        if imagen is None:
+            raise RuntimeError(f"La rama seleccionada ({fuente}) no ha producido una imagen.")
+        mascara = external_mask if ruta == "external_image" else None
+        if mascara is None:
+            mascara = imagen[..., 0] * 0
+        return (imagen, mascara)
+
+
 def _salir():
     # No hacer fallar la salida de Python si Windows ya ha cerrado el proceso.
     try:
@@ -406,8 +475,10 @@ atexit.register(_salir)
 NODE_CLASS_MAPPINGS = {
     "GGUF_GeneradorLLM": GeneradorLLM,
     "GGUF_GeneradorQwenVL": GeneradorQwenVL,
+    "ImageLabLazyBranchSelector": ImageLabLazyBranchSelector,
 }
 NODE_DISPLAY_NAME_MAPPINGS = {
     "GGUF_GeneradorLLM": "GENERADOR LLM TEXTO · Magnum / Euryale / Mistral / Lexi",
     "GGUF_GeneradorQwenVL": "GENERADOR QWEN VL ABLITERATED · Prompt + imagen",
+    "ImageLabLazyBranchSelector": "SELECTOR DE IMAGEN · Elegir una rama",
 }
