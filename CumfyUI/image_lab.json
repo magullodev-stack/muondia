@@ -1,8 +1,8 @@
 {
   "id": "d9ac44b0-2f2d-4a95-8dd2-44cd82200a80",
   "revision": 38,
-  "last_node_id": 950,
-  "last_link_id": 3516,
+  "last_node_id": 951,
+  "last_link_id": 3525,
   "nodes": [
     {
       "id": 200,
@@ -1012,7 +1012,7 @@
           "name": "fuente",
           "type": "COMBO",
           "label": "Modelo / Origen de la imagen",
-          "link": null,
+          "link": 3520,
           "widget": {
             "name": "fuente"
           }
@@ -1021,31 +1021,31 @@
           "name": "qwen_image",
           "type": "IMAGE",
           "label": "Qwen",
-          "link": 3505
+          "link": 3521
         },
         {
           "name": "z_image",
           "type": "IMAGE",
           "label": "Z-Image",
-          "link": 3506
+          "link": 3522
         },
         {
           "name": "flux_image",
           "type": "IMAGE",
           "label": "FLUX",
-          "link": 3507
+          "link": 3523
         },
         {
           "name": "external_image",
           "type": "IMAGE",
           "label": "Fotografía externa",
-          "link": 3508
+          "link": 3524
         },
         {
           "name": "external_mask",
           "type": "MASK",
           "label": "Transparencia externa",
-          "link": 3509
+          "link": 3525
         },
         {
           "name": "value",
@@ -1108,7 +1108,7 @@
         "previewExposures": []
       },
       "widgets_values": [
-        "FLUX",
+        "Z-IMAGE",
         2,
         "4xNomos2_hq_dat2.pth",
         false,
@@ -1152,6 +1152,89 @@
         "cnr_id": "comfy-core"
       },
       "widgets_values": []
+    },
+    {
+      "id": 951,
+      "type": "ImageLabLazyBranchSelector",
+      "pos": [
+        2080,
+        720
+      ],
+      "size": [
+        390,
+        310
+      ],
+      "flags": {},
+      "order": 600,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "fuente",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "fuente"
+          }
+        },
+        {
+          "name": "qwen_image",
+          "type": "IMAGE",
+          "link": 3505
+        },
+        {
+          "name": "z_image",
+          "type": "IMAGE",
+          "link": 3506
+        },
+        {
+          "name": "flux_image",
+          "type": "IMAGE",
+          "link": 3507
+        },
+        {
+          "name": "external_image",
+          "type": "IMAGE",
+          "link": 3508
+        },
+        {
+          "name": "external_mask",
+          "type": "MASK",
+          "link": 3509
+        }
+      ],
+      "outputs": [
+        {
+          "name": "imagen seleccionada",
+          "type": "IMAGE",
+          "links": [
+            3521,
+            3522,
+            3523,
+            3524
+          ]
+        },
+        {
+          "name": "fuente",
+          "type": "COMBO",
+          "links": [
+            3520
+          ]
+        },
+        {
+          "name": "máscara externa",
+          "type": "MASK",
+          "links": [
+            3525
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ImageLabLazyBranchSelector"
+      },
+      "title": "SELECCIÓN DE MODELO · Ejecutar solo esta rama",
+      "widgets_values": [
+        "Z-IMAGE"
+      ]
     }
   ],
   "links": [
@@ -1199,7 +1282,7 @@
       3505,
       400,
       0,
-      2,
+      951,
       1,
       "IMAGE"
     ],
@@ -1207,7 +1290,7 @@
       3506,
       200,
       0,
-      2,
+      951,
       2,
       "IMAGE"
     ],
@@ -1215,7 +1298,7 @@
       3507,
       300,
       0,
-      2,
+      951,
       3,
       "IMAGE"
     ],
@@ -1223,7 +1306,7 @@
       3508,
       501,
       0,
-      2,
+      951,
       4,
       "IMAGE"
     ],
@@ -1231,7 +1314,7 @@
       3509,
       501,
       1,
-      2,
+      951,
       5,
       "MASK"
     ],
@@ -1290,6 +1373,54 @@
       300,
       6,
       "INT"
+    ],
+    [
+      3520,
+      951,
+      1,
+      2,
+      0,
+      "COMBO"
+    ],
+    [
+      3521,
+      951,
+      0,
+      2,
+      1,
+      "IMAGE"
+    ],
+    [
+      3522,
+      951,
+      0,
+      2,
+      2,
+      "IMAGE"
+    ],
+    [
+      3523,
+      951,
+      0,
+      2,
+      3,
+      "IMAGE"
+    ],
+    [
+      3524,
+      951,
+      0,
+      2,
+      4,
+      "IMAGE"
+    ],
+    [
+      3525,
+      951,
+      2,
+      2,
+      5,
+      "MASK"
     ]
   ],
   "groups": [
@@ -1338,7 +1469,7 @@
       "font_size": 24
     },
     {
-      "title": "05 · ELEGIR SALIDA Y ACABADO",
+      "title": "06 · SALIDA Y ACABADO",
       "bounding": [
         2555,
         45,
@@ -1346,6 +1477,17 @@
         1270
       ],
       "color": "#645d84",
+      "font_size": 24
+    },
+    {
+      "title": "05 · SELECCIÓN DE MODELO",
+      "bounding": [
+        2040,
+        650,
+        505,
+        440
+      ],
+      "color": "#536b78",
       "font_size": 24
     }
   ],
