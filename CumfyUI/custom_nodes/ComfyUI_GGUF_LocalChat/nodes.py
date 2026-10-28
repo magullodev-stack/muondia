@@ -403,12 +403,152 @@ class GeneradorQwenVL(GeneradorLLM):
         return super().generar(modelo, prompt, contexto_tokens, temperatura, max_tokens_salida, capas_gpu, image=image)
 
 
+
+class ImageLabFinalizerSingleInput:
+    """Finalizador de Image Lab con una única entrada IMAGE."""
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        import folder_paths
+        modelos = folder_paths.get_filename_list("upscale_models")
+        if not modelos:
+            modelos = ["4xNomos2_hq_dat2.pth"]
+        return {"required": {
+            "image": ("IMAGE",),
+            "value": ("INT", {"default": 2, "min": 2, "max": 4, "step": 1}),
+            "model_name": (modelos,),
+            "value_1": ("BOOLEAN", {"default": False}),
+            "value_2": ("BOOLEAN", {"default": False}),
+            "filename_prefix": ("STRING", {"default": "image_lab/final/resultado"}),
+        }}
+
+    RETURN_TYPES = ("IMAGE",)
+    RETURN_NAMES = ("image",)
+    FUNCTION = "process"
+    CATEGORY = "Image Lab"
+    OUTPUT_NODE = True
+
+    @staticmethod
+    def _first_output(value):
+        # Admite tanto los nodos legacy (tuplas) como NodeOutput de ComfyUI reciente.
+        for _ in range(4):
+            if hasattr(value, "result"):
+                value = value.result
+                continue
+            if isinstance(value, dict) and "result" in value:
+                value = value["result"]
+                continue
+            if isinstance(value, (tuple, list)):
+                if not value:
+                    raise RuntimeError("Un nodo interno de ComfyUI devolvió una salida vacía.")
+                value = value[0]
+                continue
+            break
+        return value
+
+    @classmethod
+    def _upscale(cls, image, model_name, scale):
+        import torch.nn.functional as F
+        import nodes as comfy_nodes
+
+        mappings = getattr(comfy_nodes, "NODE_CLASS_MAPPINGS", {})
+        loader_cls = mappings.get("UpscaleModelLoader")
+        upscale_cls = mappings.get("ImageUpscaleWithModel")
+        if loader_cls is None or upscale_cls is None:
+            raise RuntimeError("No están disponibles los nodos integrados UpscaleModelLoader e ImageUpscaleWithModel.")
+        model = cls._first_output(loader_cls().load_model(model_name))
+        enlarged = cls._first_output(upscale_cls().upscale(model, image))
+        target_h = int(image.shape[1]) * int(scale)
+        target_w = int(image.shape[2]) * int(scale)
+        if int(enlarged.shape[1]) != target_h or int(enlarged.shape[2]) != target_w:
+            enlarged = F.interpolate(
+                enlarged.movedim(-1, 1),
+                size=(target_h, target_w),
+                mode="bicubic",
+                align_corners=False,
+            ).movedim(1, -1).clamp(0.0, 1.0)
+        return enlarged
+
+    @staticmethod
+    def _remove_background(image):
+        import numpy as np
+        import torch
+        try:
+            from rembg import remove
+        except ImportError as exc:
+            raise RuntimeError(
+                "La opción 'Quitar fondo' requiere el paquete Python rembg en el entorno de ComfyUI."
+            ) from exc
+
+        frames = []
+        for frame in image.detach().cpu().clamp(0, 1).numpy():
+            array = (frame * 255.0).round().astype("uint8")
+            pil_image = Image.fromarray(array).convert("RGBA")
+            result = remove(pil_image)
+            if not isinstance(result, Image.Image):
+                result = Image.open(io.BytesIO(result))
+            result = result.convert("RGBA")
+            frames.append(torch.from_numpy(np.asarray(result).copy()).float() / 255.0)
+        return torch.stack(frames).to(image.device)
+
+    @staticmethod
+    def _save_png(image, filename_prefix):
+        import numpy as np
+        import folder_paths
+
+        output_root = Path(folder_paths.get_output_directory()).resolve()
+        prefix = str(filename_prefix or "image_lab/final/resultado").replace("\\", "/")
+        parts = [part for part in prefix.split("/") if part not in ("", ".", "..")]
+        if not parts:
+            parts = ["resultado"]
+        filename_base = parts[-1]
+        subfolder_parts = parts[:-1]
+        output_folder = output_root.joinpath(*subfolder_parts).resolve()
+        if output_root not in output_folder.parents and output_folder != output_root:
+            raise RuntimeError("La ruta de guardado sale de la carpeta output.")
+        output_folder.mkdir(parents=True, exist_ok=True)
+        relative_subfolder = "/".join(subfolder_parts)
+
+        images_ui = []
+        frames = image.detach().cpu().clamp(0, 1).numpy()
+        for frame in frames:
+            array = (frame * 255.0).round().astype("uint8")
+            if array.shape[-1] == 1:
+                array = array[..., 0]
+            pil_image = Image.fromarray(array)
+            index = 1
+            while True:
+                filename = f"{filename_base}_{index:05d}.png"
+                target = output_folder / filename
+                if not target.exists():
+                    break
+                index += 1
+            pil_image.save(target, format="PNG")
+            images_ui.append({
+                "filename": filename,
+                "subfolder": relative_subfolder,
+                "type": "output",
+            })
+        return images_ui
+
+    def process(self, image, value, model_name, value_1, value_2, filename_prefix):
+        processed = image
+        if value_1:
+            processed = self._upscale(processed, model_name, value)
+        if value_2:
+            processed = self._remove_background(processed)
+        images = self._save_png(processed, filename_prefix)
+        return {"ui": {"images": images}, "result": (processed,)}
+
+
 atexit.register(_salir)
 NODE_CLASS_MAPPINGS = {
     "GGUF_GeneradorLLM": GeneradorLLM,
     "GGUF_GeneradorQwenVL": GeneradorQwenVL,
+    "ImageLabFinalizerSingleInput": ImageLabFinalizerSingleInput,
 }
 NODE_DISPLAY_NAME_MAPPINGS = {
     "GGUF_GeneradorLLM": "GENERADOR LLM TEXTO · Magnum / Euryale / Mistral / Lexi",
     "GGUF_GeneradorQwenVL": "GENERADOR QWEN VL ABLITERATED · Prompt + imagen",
+    "ImageLabFinalizerSingleInput": "SALIDA Y ACABADO · Una sola entrada de imagen",
 }
