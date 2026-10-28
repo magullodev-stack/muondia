@@ -1,4 +1,5 @@
 {
   "dart.flutterHotReloadOnSave": "all",
-  "dart.previewHotReloadOnSaveWatcher": true
+  "dart.previewHotReloadOnSaveWatcher": true,
+  "task.allowAutomaticTasks": "on"
 }
