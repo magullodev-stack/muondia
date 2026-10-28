@@ -332,14 +332,12 @@ class GeneradorLLM:
     @classmethod
     def INPUT_TYPES(cls):
         return {"required": {
-            "modelo": (list(MODELOS.keys()),),
+            "modelo": ([nombre for nombre in MODELOS if nombre not in MM_PROJ],),
             "prompt": ("STRING", {"multiline": True, "default": ""}),
             "contexto_tokens": ("INT", {"default": 0, "min": 0, "max": 131072, "step": 512}),
             "temperatura": ("FLOAT", {"default": 0.8, "min": 0.0, "max": 2.0, "step": 0.05}),
             "max_tokens_salida": ("INT", {"default": 512, "min": 1, "max": 32768, "step": 128}),
             "capas_gpu": ("INT", {"default": 8, "min": 0, "max": 999}),
-        }, "optional": {
-            "image": ("IMAGE",),
         }}
 
     RETURN_TYPES = ("STRING",)
@@ -378,6 +376,27 @@ def _salir():
         pass
 
 
+class GeneradorQwenVL(GeneradorLLM):
+    @classmethod
+    def INPUT_TYPES(cls):
+        schema = super().INPUT_TYPES()
+        schema["required"]["modelo"] = (["Qwen2.5-VL 7B (Q4_K_M)"],)
+        schema["optional"] = {"image": ("IMAGE",)}
+        return schema
+
+    def generar(self, modelo, prompt, contexto_tokens, temperatura, max_tokens_salida, capas_gpu, image=None):
+        if image is None:
+            # Sin imagen se permite usar Qwen como modelo de texto, pero la entrada queda disponible.
+            return super().generar(modelo, prompt, contexto_tokens, temperatura, max_tokens_salida, capas_gpu)
+        return super().generar(modelo, prompt, contexto_tokens, temperatura, max_tokens_salida, capas_gpu, image=image)
+
+
 atexit.register(_salir)
-NODE_CLASS_MAPPINGS = {"GGUF_GeneradorLLM": GeneradorLLM}
-NODE_DISPLAY_NAME_MAPPINGS = {"GGUF_GeneradorLLM": "GENERADOR LLM · Magnum / Euryale / Mistral / Lexi / Qwen VL"}
+NODE_CLASS_MAPPINGS = {
+    "GGUF_GeneradorLLM": GeneradorLLM,
+    "GGUF_GeneradorQwenVL": GeneradorQwenVL,
+}
+NODE_DISPLAY_NAME_MAPPINGS = {
+    "GGUF_GeneradorLLM": "GENERADOR LLM TEXTO · Magnum / Euryale / Mistral / Lexi",
+    "GGUF_GeneradorQwenVL": "GENERADOR QWEN VL · Prompt + imagen",
+}
