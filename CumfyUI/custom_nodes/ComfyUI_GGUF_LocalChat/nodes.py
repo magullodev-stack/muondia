@@ -2,9 +2,11 @@
 Solo arranca un llama-server; no instala ni descarga modelos.
 """
 import atexit
+import base64
 import ctypes
 from datetime import datetime
 import json
+import io
 import os
 from pathlib import Path
 import socket
@@ -14,6 +16,7 @@ import time
 import urllib.error
 import urllib.request
 import uuid
+from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[2]
 LLAMA_SERVER = ROOT / "tools" / "llama.cpp" / ("llama-server.exe" if os.name == "nt" else "llama-server")
@@ -281,9 +284,21 @@ def _iniciar(modelo, contexto_tokens, capas_gpu):
     raise RuntimeError("No terminó de cargar en 10 minutos:\n" + details)
 
 
-def _responder(prompt, temperatura, max_tokens_salida):
+def _responder(prompt, temperatura, max_tokens_salida, image=None):
+    contenido = prompt
+    if image is not None:
+        # ComfyUI entrega IMAGE como tensor [batch, alto, ancho, canales], valores 0..1.
+        frame = image[0].detach().cpu().numpy()
+        frame = (frame * 255).clip(0, 255).astype("uint8")
+        buffer = io.BytesIO()
+        Image.fromarray(frame).convert("RGB").save(buffer, format="JPEG", quality=92)
+        imagen_b64 = base64.b64encode(buffer.getvalue()).decode("ascii")
+        contenido = [
+            {"type": "text", "text": prompt},
+            {"type": "image_url", "image_url": {"url": "data:image/jpeg;base64," + imagen_b64}},
+        ]
     payload = {
-        "messages": [{"role": "user", "content": prompt}],
+        "messages": [{"role": "user", "content": contenido}],
         "temperature": temperatura, "top_p": 0.95,
         "max_tokens": max_tokens_salida, "stream": False,
     }
@@ -323,6 +338,8 @@ class GeneradorLLM:
             "temperatura": ("FLOAT", {"default": 0.8, "min": 0.0, "max": 2.0, "step": 0.05}),
             "max_tokens_salida": ("INT", {"default": 512, "min": 1, "max": 32768, "step": 128}),
             "capas_gpu": ("INT", {"default": 8, "min": 0, "max": 999}),
+        }, "optional": {
+            "image": ("IMAGE",),
         }}
 
     RETURN_TYPES = ("STRING",)
@@ -335,13 +352,15 @@ class GeneradorLLM:
     def IS_CHANGED(cls, **kwargs):
         return float("nan")
 
-    def generar(self, modelo, prompt, contexto_tokens, temperatura, max_tokens_salida, capas_gpu):
+    def generar(self, modelo, prompt, contexto_tokens, temperatura, max_tokens_salida, capas_gpu, image=None):
         with LOCK:
             try:
                 if not prompt.strip():
                     raise ValueError("El prompt está vacío.")
+                if image is not None and modelo not in MM_PROJ:
+                    raise ValueError("La entrada de imagen solo está disponible con Qwen2.5-VL 7B.")
                 _iniciar(modelo, contexto_tokens, capas_gpu)
-                texto = _responder(prompt, temperatura, max_tokens_salida)
+                texto = _responder(prompt, temperatura, max_tokens_salida, image=image)
                 if texto.strip():
                     _guardar(texto)
                 else:
