@@ -403,12 +403,245 @@ class GeneradorQwenVL(GeneradorLLM):
         return super().generar(modelo, prompt, contexto_tokens, temperatura, max_tokens_salida, capas_gpu, image=image)
 
 
+
+
+class ImageLabInitialImageOptional:
+    """Cargador de imagen para Image Lab con opción válida '(sin imagen)'."""
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        import folder_paths
+        files = sorted(folder_paths.get_filename_list("input"))
+        choices = ["(sin imagen)"] + [item for item in files if item != "(sin imagen)"]
+        return {"required": {
+            "image": (choices, {"image_upload": True}),
+            "Usar imagen inicial": ("BOOLEAN", {"default": False}),
+            "Mantener resolución original": ("BOOLEAN", {"default": True}),
+            "Transformación (%)": ("INT", {"default": 0, "min": 0, "max": 100, "step": 1}),
+        }}
+
+    @classmethod
+    def VALIDATE_INPUTS(cls, image, **kwargs):
+        if image in (None, "", "(sin imagen)"):
+            return True
+        import folder_paths
+        if image not in folder_paths.get_filename_list("input"):
+            return f"No se encuentra la imagen de entrada '{image}'."
+        return True
+
+    RETURN_TYPES = ("IMAGE", "MASK", "BOOLEAN", "BOOLEAN", "INT")
+    RETURN_NAMES = ("IMAGE", "MASK", "usar_imagen_inicial", "mantener_resolucion", "transformacion_pct")
+    FUNCTION = "load"
+    CATEGORY = "Image Lab"
+
+    def load(self, image, **kwargs):
+        import numpy as np
+        import torch
+        import folder_paths
+        from PIL import ImageOps
+
+        use_initial = bool(kwargs.get("Usar imagen inicial", False))
+        keep_resolution = bool(kwargs.get("Mantener resolución original", True))
+        transform_pct = int(kwargs.get("Transformación (%)", 0) or 0)
+        if image in (None, "", "(sin imagen)"):
+            if use_initial:
+                raise RuntimeError("Esta rama necesita una imagen inicial. Selecciona una imagen o desactiva 'Usar imagen inicial'.")
+            return (
+                torch.zeros((1, 64, 64, 3), dtype=torch.float32),
+                torch.zeros((1, 64, 64), dtype=torch.float32),
+                use_initial, keep_resolution, transform_pct
+            )
+
+        path = folder_paths.get_annotated_filepath(image)
+        if not folder_paths.exists_annotated_filepath(image):
+            raise FileNotFoundError(f"No existe la imagen de entrada: {image}")
+        with Image.open(path) as opened:
+            pil = ImageOps.exif_transpose(opened).copy()
+        if "A" in pil.getbands():
+            rgba = np.asarray(pil.convert("RGBA"), dtype=np.float32) / 255.0
+            rgb = rgba[..., :3]
+            mask = torch.from_numpy((1.0 - rgba[..., 3]).copy()).float().unsqueeze(0)
+        else:
+            rgb = np.asarray(pil.convert("RGB"), dtype=np.float32) / 255.0
+            mask = torch.zeros((1, rgb.shape[0], rgb.shape[1]), dtype=torch.float32)
+        tensor = torch.from_numpy(np.asarray(rgb).copy()).float().unsqueeze(0)
+        return (tensor, mask, use_initial, keep_resolution, transform_pct)
+
+
+class ImageLabFinalizerSingleInput:
+    """Finalizador Image Lab con un único conector IMAGE."""
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        import folder_paths
+        models = folder_paths.get_filename_list("upscale_models")
+        if not models:
+            models = ["4xNomos2_hq_dat2.pth"]
+        return {"required": {
+            "image": ("IMAGE",),
+            "value": ("INT", {"default": 2, "min": 2, "max": 4, "step": 1}),
+            "model_name": (models,),
+            "value_1": ("BOOLEAN", {"default": False}),
+            "value_2": ("BOOLEAN", {"default": False}),
+            "filename_prefix": ("STRING", {"default": "image_lab/final/resultado"}),
+        }}
+
+    RETURN_TYPES = ("IMAGE",)
+    RETURN_NAMES = ("IMAGE",)
+    FUNCTION = "process"
+    CATEGORY = "Image Lab"
+    OUTPUT_NODE = True
+
+    @staticmethod
+    def _first(value):
+        for _ in range(5):
+            if hasattr(value, "result"):
+                value = value.result
+            elif isinstance(value, dict) and "result" in value:
+                value = value["result"]
+            elif isinstance(value, (tuple, list)):
+                if not value:
+                    raise RuntimeError("Un nodo interno devolvió una salida vacía.")
+                value = value[0]
+            else:
+                break
+        return value
+
+    @classmethod
+    def _upscale(cls, image, model_name, scale):
+        import torch.nn.functional as F
+        import nodes as comfy_nodes
+        mappings = getattr(comfy_nodes, "NODE_CLASS_MAPPINGS", {})
+        loader_cls = mappings.get("UpscaleModelLoader")
+        upscale_cls = mappings.get("ImageUpscaleWithModel")
+        if loader_cls is None or upscale_cls is None:
+            raise RuntimeError("No están disponibles los nodos internos de ampliación de ComfyUI.")
+        model = cls._first(loader_cls().load_model(model_name))
+        result = cls._first(upscale_cls().upscale(model, image))
+        target = (int(image.shape[1]) * int(scale), int(image.shape[2]) * int(scale))
+        if (int(result.shape[1]), int(result.shape[2])) != target:
+            result = F.interpolate(result.movedim(-1, 1), size=target, mode="bicubic", align_corners=False).movedim(1, -1).clamp(0, 1)
+        return result
+
+    @staticmethod
+    def _remove_background(image):
+        import numpy as np
+        import torch
+        try:
+            from rembg import remove
+        except ImportError as exc:
+            raise RuntimeError("Para quitar el fondo, instala rembg en el entorno Python de ComfyUI.") from exc
+        result_frames = []
+        for frame in image.detach().cpu().clamp(0, 1).numpy():
+            pil = Image.fromarray((frame * 255).round().astype("uint8")).convert("RGBA")
+            removed = remove(pil)
+            if not isinstance(removed, Image.Image):
+                removed = Image.open(io.BytesIO(removed))
+            result_frames.append(torch.from_numpy(np.asarray(removed.convert("RGBA")).copy()).float() / 255.0)
+        return torch.stack(result_frames).to(image.device)
+
+    @staticmethod
+    def _save(image, prefix):
+        import folder_paths
+        output_root = Path(folder_paths.get_output_directory()).resolve()
+        prefix = str(prefix or "image_lab/final/resultado").replace("\\", "/")
+        parts = [p for p in prefix.split("/") if p not in ("", ".", "..")]
+        if not parts:
+            parts = ["resultado"]
+        base = parts[-1]
+        subdir = parts[:-1]
+        folder = output_root.joinpath(*subdir).resolve()
+        if folder != output_root and output_root not in folder.parents:
+            raise RuntimeError("La ruta de guardado debe estar dentro de output.")
+        folder.mkdir(parents=True, exist_ok=True)
+        images = []
+        for frame in image.detach().cpu().clamp(0, 1).numpy():
+            data = (frame * 255).round().astype("uint8")
+            if data.shape[-1] == 1:
+                data = data[..., 0]
+            number = 1
+            while (folder / f"{base}_{number:05d}.png").exists():
+                number += 1
+            filename = f"{base}_{number:05d}.png"
+            Image.fromarray(data).save(folder / filename, format="PNG")
+            images.append({"filename": filename, "subfolder": "/".join(subdir), "type": "output"})
+        return images
+
+    def process(self, image, value, model_name, value_1, value_2, filename_prefix):
+        result = image
+        if value_1:
+            result = self._upscale(result, model_name, value)
+        if value_2:
+            result = self._remove_background(result)
+        ui_images = self._save(result, filename_prefix)
+        return {"ui": {"images": ui_images}, "result": (result,)}
+
+
+class ImageLabBranchHub:
+    """Nodo maestro con cuatro entradas IMAGE y cuatro salidas IMAGE independientes."""
+
+    INPUTS = ("qwen_image", "z_image", "flux_image", "external_image")
+    OUTPUTS = ("QWEN", "Z-IMAGE", "FLUX", "FOTO EXTERNA")
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {"optional": {
+            "qwen_image": ("IMAGE", {"lazy": True}),
+            "z_image": ("IMAGE", {"lazy": True}),
+            "flux_image": ("IMAGE", {"lazy": True}),
+            "external_image": ("IMAGE", {"lazy": True}),
+        }, "hidden": {"prompt": "PROMPT", "unique_id": "UNIQUE_ID"}}
+
+    RETURN_TYPES = ("IMAGE", "IMAGE", "IMAGE", "IMAGE")
+    RETURN_NAMES = OUTPUTS
+    FUNCTION = "pasar"
+    CATEGORY = "Image Lab"
+
+    @classmethod
+    def _connected_outputs(cls, prompt, unique_id):
+        connected = set()
+        if not isinstance(prompt, dict):
+            return connected
+        current = str(unique_id)
+        for node in prompt.values():
+            if not isinstance(node, dict):
+                continue
+            inputs = node.get("inputs", {})
+            if not isinstance(inputs, dict):
+                continue
+            for value in inputs.values():
+                if isinstance(value, (list, tuple)) and len(value) == 2 and str(value[0]) == current:
+                    try:
+                        index = int(value[1])
+                    except (TypeError, ValueError):
+                        continue
+                    if 0 <= index < 4:
+                        connected.add(index)
+        return connected
+
+    def check_lazy_status(self, prompt=None, unique_id=None,
+                          qwen_image=None, z_image=None, flux_image=None, external_image=None):
+        values = (qwen_image, z_image, flux_image, external_image)
+        return [self.INPUTS[i] for i in self._connected_outputs(prompt, unique_id) if values[i] is None]
+
+    def pasar(self, qwen_image=None, z_image=None, flux_image=None, external_image=None,
+              prompt=None, unique_id=None):
+        return (qwen_image, z_image, flux_image, external_image)
+
+
+
 atexit.register(_salir)
 NODE_CLASS_MAPPINGS = {
     "GGUF_GeneradorLLM": GeneradorLLM,
     "GGUF_GeneradorQwenVL": GeneradorQwenVL,
+    "ImageLabInitialImageOptional": ImageLabInitialImageOptional,
+    "ImageLabFinalizerSingleInput": ImageLabFinalizerSingleInput,
+    "ImageLabBranchHub": ImageLabBranchHub,
 }
 NODE_DISPLAY_NAME_MAPPINGS = {
     "GGUF_GeneradorLLM": "GENERADOR LLM TEXTO · Magnum / Euryale / Mistral / Lexi",
     "GGUF_GeneradorQwenVL": "GENERADOR QWEN VL ABLITERATED · Prompt + imagen",
+    "ImageLabInitialImageOptional": "Imagen inicial · Opcional",
+    "ImageLabFinalizerSingleInput": "SALIDA Y ACABADO · Imagen única",
+    "ImageLabBranchHub": "NODO MAESTRO · Qwen / Z-Image / FLUX / Foto externa",
 }
