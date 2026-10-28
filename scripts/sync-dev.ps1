@@ -37,10 +37,10 @@ function Protect-Files {
 }
 
 function Sync([bool]$AllowCommit) {
-    if ((Git @('branch', '--show-current')) -ne 'dev' -or
+    if ((Git @('branch', '--show-current')) -ne 'main' -or
         (Git @('remote', 'get-url', 'origin')) -notmatch
         '^(https://github\.com/|git@github\.com:)magullodev-stack/muondia(\.git)?$') {
-        throw 'El repositorio debe ser magullodev-stack/muondia en la rama dev.'
+        throw 'El repositorio debe ser magullodev-stack/muondia en la rama main.'
     }
 
     foreach ($pending in @('MERGE_HEAD', 'CHERRY_PICK_HEAD', 'rebase-apply', 'rebase-merge')) {
@@ -56,7 +56,7 @@ function Sync([bool]$AllowCommit) {
         if (-not $locked) { return }
 
         Protect-Files
-        Git @('fetch', '--quiet', '--no-tags', 'origin', 'dev') | Out-Null
+        Git @('fetch', '--quiet', '--no-tags', 'origin', 'main') | Out-Null
         $dirty = Git @('status', '--porcelain', '--untracked-files=all')
         if ($dirty -and -not $AllowCommit) { return }
 
@@ -76,11 +76,11 @@ function Sync([bool]$AllowCommit) {
             }
         }
 
-        $behind = [int](Git @('rev-list', '--count', 'HEAD..origin/dev'))
-        $ahead = [int](Git @('rev-list', '--count', 'origin/dev..HEAD'))
+        $behind = [int](Git @('rev-list', '--count', 'HEAD..origin/main'))
+        $ahead = [int](Git @('rev-list', '--count', 'origin/main..HEAD'))
         if ($behind -gt 0 -and $ahead -gt 0) {
             try {
-                Git @('rebase', 'origin/dev') | Out-Null
+                Git @('rebase', 'origin/main') | Out-Null
             } catch {
                 $reason = $_.Exception.Message
                 if ((Test-Path (Join-Path $repo '.git\rebase-merge')) -or
@@ -90,12 +90,12 @@ function Sync([bool]$AllowCommit) {
                 throw "Conflicto Git: commits conservados. $reason"
             }
         } elseif ($behind -gt 0) {
-            Git @('merge', '--ff-only', 'origin/dev') | Out-Null
+            Git @('merge', '--ff-only', 'origin/main') | Out-Null
             Write-Host 'Muondia: cambios de GitHub recibidos.'
         }
 
-        if ([int](Git @('rev-list', '--count', 'origin/dev..HEAD')) -gt 0) {
-            Git @('push', 'origin', 'dev') | Out-Null
+        if ([int](Git @('rev-list', '--count', 'origin/main..HEAD')) -gt 0) {
+            Git @('push', 'origin', 'main') | Out-Null
             Write-Host 'Muondia: cambios publicados en GitHub.'
         }
     } finally {
