@@ -114,7 +114,7 @@
     },
     {
       "id": 201,
-      "type": "ImageLabInitialImage",
+      "type": "ImageLabInitialImageOptional",
       "title": "Imagen inicial · Z-Image",
       "pos": [
         80,
@@ -197,7 +197,7 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "ImageLabInitialImage"
+        "Node name for S&R": "ImageLabInitialImageOptional"
       },
       "widgets_values": [
         "(sin imagen)",
@@ -388,7 +388,7 @@
     },
     {
       "id": 301,
-      "type": "ImageLabInitialImage",
+      "type": "ImageLabInitialImageOptional",
       "title": "Imagen inicial · FLUX",
       "pos": [
         730,
@@ -471,7 +471,7 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "ImageLabInitialImage"
+        "Node name for S&R": "ImageLabInitialImageOptional"
       },
       "widgets_values": [
         "(sin imagen)",
@@ -617,7 +617,7 @@
     },
     {
       "id": 401,
-      "type": "ImageLabInitialImage",
+      "type": "ImageLabInitialImageOptional",
       "title": "Imagen principal · Qwen",
       "pos": [
         1370,
@@ -694,7 +694,7 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "ImageLabInitialImage"
+        "Node name for S&R": "ImageLabInitialImageOptional"
       },
       "widgets_values": [
         "(sin imagen)",
@@ -711,7 +711,7 @@
     },
     {
       "id": 402,
-      "type": "ImageLabInitialImage",
+      "type": "ImageLabInitialImageOptional",
       "title": "Referencia 2 · Qwen",
       "pos": [
         1370,
@@ -788,11 +788,11 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "ImageLabInitialImage"
+        "Node name for S&R": "ImageLabInitialImageOptional"
       },
       "widgets_values": [
         "(sin imagen)",
-        true,
+        false,
         false,
         0
       ],
@@ -805,7 +805,7 @@
     },
     {
       "id": 403,
-      "type": "ImageLabInitialImage",
+      "type": "ImageLabInitialImageOptional",
       "title": "Referencia 3 · Qwen",
       "pos": [
         1710,
@@ -882,11 +882,11 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "ImageLabInitialImage"
+        "Node name for S&R": "ImageLabInitialImageOptional"
       },
       "widgets_values": [
         "(sin imagen)",
-        true,
+        false,
         false,
         0
       ],
@@ -899,7 +899,7 @@
     },
     {
       "id": 501,
-      "type": "ImageLabInitialImage",
+      "type": "ImageLabInitialImageOptional",
       "title": "Imagen externa · Refinado directo",
       "pos": [
         2065,
@@ -976,7 +976,7 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "ImageLabInitialImage"
+        "Node name for S&R": "ImageLabInitialImageOptional"
       },
       "widgets_values": [
         "(sin imagen)",
