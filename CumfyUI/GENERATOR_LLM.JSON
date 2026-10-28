@@ -30,14 +30,14 @@
       "properties": {
         "Node name for S&R": "GGUF_GeneradorLLM"
       },
-      "title": "GENERADOR LLM TEXTO · Magnum / Euryale / Mistral / Lexi",
+      "title": "GENERADOR LLM TEXTO · Lexi / Mistral / Magnum / Euryale",
       "widgets_values": [
-        "Magnum v2 32B (Q4_K_M)",
+        "Lexi Llama 3 8B Uncensored (Q4_K_M)",
         "",
-        0,
-        0.8,
-        512,
-        8
+        4096,
+        0.7,
+        1024,
+        99
       ]
     },
     {
@@ -109,13 +109,13 @@
       "properties": {
         "Node name for S&R": "GGUF_GeneradorQwenVL"
       },
-      "title": "GENERADOR QWEN VL · Prompt + imagen",
+      "title": "GENERADOR QWEN VL ABLITERATED · Prompt + imagen",
       "widgets_values": [
         "Qwen2.5-VL 7B Uncensored (Q4_K_M)",
-        "",
-        0,
-        0.8,
-        512,
+        "Analyze the supplied reference image and turn its visible details into practical prompts for visual generation. Be specific and faithful to the reference. Describe the subject's visible appearance, pose, hand placement, clothing or lingerie, accessories, expression, gaze, composition, camera angle, background, lighting, colors, textures, and visual style. Treat the subject as an adult only when this is clearly supported by the image; do not guess age or identity. Do not sanitize or generalize distinctive visual details. Do not invent unseen features, objects, actions, or context.\n\nReturn exactly three sections in English:\n\nIMAGE PROMPT: One detailed, natural paragraph directly instructing an image generator to recreate the visible scene, prioritizing its distinctive features, pose, outfit, accessories, framing, lighting, and aesthetic.\n\nVIDEO PROMPT: One paragraph for image-to-video animation, preserving the reference appearance, pose, clothing, and setting. Describe only subtle, plausible movement and smooth camera motion; maintain identity, anatomy, outfit, and background consistency.\n\nNEGATIVE PROMPT: A concise comma-separated list of likely visual defects to avoid, tailored to this image.\n\nOutput plain text only. No Markdown, numbered lists, disclaimers, commentary, or statements such as 'the image shows'. Make each section directly copyable into a generation model.",
+        4096,
+        0.3,
+        2048,
         99
       ]
     },
