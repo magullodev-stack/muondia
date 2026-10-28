@@ -349,8 +349,6 @@ class GeneradorLLM:
     RETURN_NAMES = ("respuesta",)
     FUNCTION = "generar"
     CATEGORY = "LLM / GGUF local"
-    OUTPUT_NODE = True
-
     @classmethod
     def IS_CHANGED(cls, **kwargs):
         return float("nan")
@@ -373,6 +371,41 @@ class GeneradorLLM:
             return {"ui": {"text": [texto]}, "result": (texto,)}
 
 
+
+
+class SelectorRamaLLM:
+    """Ejecuta solo la rama seleccionada mediante entradas lazy de ComfyUI."""
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "modo": (["TEXTO · Lexi", "IMAGEN · Qwen VL"], {"default": "TEXTO · Lexi"}),
+            },
+            "optional": {
+                "texto": ("STRING", {"lazy": True}),
+                "imagen": ("STRING", {"lazy": True}),
+            },
+        }
+
+    RETURN_TYPES = ("STRING",)
+    RETURN_NAMES = ("respuesta",)
+    FUNCTION = "seleccionar"
+    CATEGORY = "LLM / GGUF local"
+    OUTPUT_NODE = True
+
+    def check_lazy_status(self, modo, texto=None, imagen=None):
+        if modo == "TEXTO · Lexi":
+            return ["texto"] if texto is None else []
+        if modo == "IMAGEN · Qwen VL":
+            return ["imagen"] if imagen is None else []
+        raise ValueError(f"Modo de ejecución desconocido: {modo!r}")
+
+    def seleccionar(self, modo, texto=None, imagen=None):
+        resultado = texto if modo == "TEXTO · Lexi" else imagen
+        if resultado is None:
+            raise RuntimeError("La rama seleccionada no devolvió una respuesta.")
+        return {"ui": {"text": [resultado]}, "result": (resultado,)}
 
 
 def _salir():
@@ -407,8 +440,10 @@ atexit.register(_salir)
 NODE_CLASS_MAPPINGS = {
     "GGUF_GeneradorLLM": GeneradorLLM,
     "GGUF_GeneradorQwenVL": GeneradorQwenVL,
+    "GGUF_SelectorRamaLLM": SelectorRamaLLM,
 }
 NODE_DISPLAY_NAME_MAPPINGS = {
     "GGUF_GeneradorLLM": "GENERADOR LLM TEXTO · Magnum / Euryale / Mistral / Lexi",
     "GGUF_GeneradorQwenVL": "GENERADOR QWEN VL ABLITERATED · Prompt + imagen",
+    "GGUF_SelectorRamaLLM": "INTERRUPTOR DE FLUJO · Texto / Qwen VL",
 }
