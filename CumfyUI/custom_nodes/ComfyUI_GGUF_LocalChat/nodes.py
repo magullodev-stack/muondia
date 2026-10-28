@@ -392,8 +392,8 @@ class ImageLabLazyBranchSelector:
             }
         }
 
-    RETURN_TYPES = ("IMAGE", "COMBO", "MASK")
-    RETURN_NAMES = ("imagen seleccionada", "fuente", "máscara externa")
+    RETURN_TYPES = ("IMAGE", "MASK")
+    RETURN_NAMES = ("imagen seleccionada", "máscara externa")
     FUNCTION = "seleccionar"
     CATEGORY = "Image Lab"
     OUTPUT_NODE = False
@@ -440,7 +440,7 @@ class ImageLabLazyBranchSelector:
         mascara = external_mask if ruta == "external_image" else imagen[..., 0] * 0
         if mascara is None:
             mascara = imagen[..., 0] * 0
-        return (imagen, fuente, mascara)
+        return (imagen, mascara)
 
 
 def _salir():
