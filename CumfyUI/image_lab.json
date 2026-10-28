@@ -1,8 +1,8 @@
 {
   "id": "d9ac44b0-2f2d-4a95-8dd2-44cd82200a80",
   "revision": 38,
-  "last_node_id": 950,
-  "last_link_id": 3516,
+  "last_node_id": 951,
+  "last_link_id": 3520,
   "nodes": [
     {
       "id": 200,
@@ -347,7 +347,9 @@
         {
           "name": "IMAGE",
           "type": "IMAGE",
-          "links": []
+          "links": [
+            3507
+          ]
         }
       ],
       "properties": {
@@ -586,7 +588,9 @@
         {
           "name": "IMAGE",
           "type": "IMAGE",
-          "links": []
+          "links": [
+            3505
+          ]
         }
       ],
       "properties": {
@@ -694,7 +698,7 @@
       },
       "widgets_values": [
         "(sin imagen)",
-        false,
+        true,
         false,
         0
       ],
@@ -788,7 +792,7 @@
       },
       "widgets_values": [
         "(sin imagen)",
-        false,
+        true,
         false,
         0
       ],
@@ -882,7 +886,7 @@
       },
       "widgets_values": [
         "(sin imagen)",
-        false,
+        true,
         false,
         0
       ],
@@ -946,7 +950,9 @@
         {
           "name": "IMAGE",
           "type": "IMAGE",
-          "links": []
+          "links": [
+            3508
+          ]
         },
         {
           "name": "MASK",
@@ -974,7 +980,7 @@
       },
       "widgets_values": [
         "(sin imagen)",
-        false,
+        true,
         false,
         0
       ],
@@ -1003,7 +1009,7 @@
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 3506
+          "link": 3520
         },
         {
           "name": "value",
@@ -1056,7 +1062,7 @@
           "slot_index": 0
         }
       ],
-      "title": "SALIDA Y ACABADO · Imagen única / Ampliar / Quitar fondo / PNG",
+      "title": "SALIDA Y ACABADO · Una sola entrada de imagen",
       "properties": {
         "Node name for S&R": "ImageLabFinalizerSingleInput"
       },
@@ -1103,6 +1109,72 @@
         "Node name for S&R": "PreviewImage",
         "cnr_id": "comfy-core"
       },
+      "widgets_values": []
+    },
+    {
+      "id": 951,
+      "type": "ImageLabBranchHub",
+      "pos": [
+        2090,
+        700
+      ],
+      "size": [
+        420,
+        360
+      ],
+      "flags": {},
+      "order": 601,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "qwen_image",
+          "type": "IMAGE",
+          "link": 3505
+        },
+        {
+          "name": "z_image",
+          "type": "IMAGE",
+          "link": 3506
+        },
+        {
+          "name": "flux_image",
+          "type": "IMAGE",
+          "link": 3507
+        },
+        {
+          "name": "external_image",
+          "type": "IMAGE",
+          "link": 3508
+        }
+      ],
+      "outputs": [
+        {
+          "name": "QWEN",
+          "type": "IMAGE",
+          "links": []
+        },
+        {
+          "name": "Z-IMAGE",
+          "type": "IMAGE",
+          "links": [
+            3520
+          ]
+        },
+        {
+          "name": "FLUX",
+          "type": "IMAGE",
+          "links": []
+        },
+        {
+          "name": "FOTO EXTERNA",
+          "type": "IMAGE",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ImageLabBranchHub"
+      },
+      "title": "NODO MAESTRO · 4 ramas / 4 salidas",
       "widgets_values": []
     }
   ],
@@ -1151,8 +1223,8 @@
       3506,
       200,
       0,
-      2,
-      0,
+      951,
+      1,
       "IMAGE"
     ],
     [
@@ -1210,6 +1282,38 @@
       300,
       6,
       "INT"
+    ],
+    [
+      3505,
+      400,
+      0,
+      951,
+      0,
+      "IMAGE"
+    ],
+    [
+      3507,
+      300,
+      0,
+      951,
+      2,
+      "IMAGE"
+    ],
+    [
+      3508,
+      501,
+      0,
+      951,
+      3,
+      "IMAGE"
+    ],
+    [
+      3520,
+      951,
+      1,
+      2,
+      0,
+      "IMAGE"
     ]
   ],
   "groups": [
@@ -1258,7 +1362,7 @@
       "font_size": 24
     },
     {
-      "title": "05 · ELEGIR SALIDA Y ACABADO",
+      "title": "06 · SALIDA Y ACABADO",
       "bounding": [
         2555,
         45,
@@ -1266,6 +1370,17 @@
         1270
       ],
       "color": "#645d84",
+      "font_size": 24
+    },
+    {
+      "title": "05 · NODO MAESTRO · 4 ramas / 4 salidas",
+      "bounding": [
+        2050,
+        650,
+        510,
+        450
+      ],
+      "color": "#536b78",
       "font_size": 24
     }
   ],
