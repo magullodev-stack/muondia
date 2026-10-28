@@ -10,7 +10,7 @@
         "-ExecutionPolicy",
         "Bypass",
         "-File",
-        "${workspaceFolder}\\scripts\\sync-dev.ps1",
+        "${workspaceFolder}\\scripts\\sync_main.ps1",
         "-Watch"
       ],
       "options": {
