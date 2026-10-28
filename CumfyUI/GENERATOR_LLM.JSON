@@ -30,7 +30,7 @@
       "properties": {
         "Node name for S&R": "GGUF_GeneradorLLM"
       },
-      "title": "GENERADOR LLM · Magnum / Euryale",
+      "title": "GENERADOR LLM · Magnum / Euryale / Mistral / Lexi / Qwen VL",
       "widgets_values": [
         "Magnum v2 32B (Q4_K_M)",
         "",
