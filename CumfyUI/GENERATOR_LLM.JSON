@@ -1,6 +1,6 @@
 {
-  "last_node_id": 4,
-  "last_link_id": 2,
+  "last_node_id": 5,
+  "last_link_id": 3,
   "nodes": [
     {
       "id": 1,
@@ -79,7 +79,7 @@
       "id": 3,
       "type": "GGUF_GeneradorQwenVL",
       "pos": [
-        80,
+        450,
         900
       ],
       "size": [
@@ -87,13 +87,13 @@
         670
       ],
       "flags": {},
-      "order": 2,
+      "order": 3,
       "mode": 0,
       "inputs": [
         {
           "name": "image",
           "type": "IMAGE",
-          "link": null
+          "link": 3
         }
       ],
       "outputs": [
@@ -123,7 +123,7 @@
       "id": 4,
       "type": "PreviewAny",
       "pos": [
-        860,
+        1200,
         900
       ],
       "size": [
@@ -131,7 +131,7 @@
         670
       ],
       "flags": {},
-      "order": 3,
+      "order": 4,
       "mode": 0,
       "inputs": [
         {
@@ -153,6 +153,62 @@
       },
       "title": "RESPUESTA DE QWEN VL · Leer aquí",
       "widgets_values": []
+    },
+    {
+      "id": 5,
+      "type": "LoadImage",
+      "pos": [
+        80,
+        900
+      ],
+      "size": [
+        315,
+        314
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "COMBO",
+          "widget": {
+            "name": "image"
+          },
+          "link": null
+        },
+        {
+          "name": "upload",
+          "type": "IMAGEUPLOAD",
+          "widget": {
+            "name": "upload"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            3
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "title": "SUBE AQUÍ TU IMAGEN",
+      "properties": {
+        "Node name for S&R": "LoadImage",
+        "cnr_id": "comfy-core"
+      },
+      "widgets_values": [
+        "example.png",
+        "image"
+      ]
     }
   ],
   "links": [
@@ -171,6 +227,14 @@
       4,
       0,
       "STRING"
+    ],
+    [
+      3,
+      5,
+      0,
+      3,
+      0,
+      "IMAGE"
     ]
   ],
   "groups": [],
