@@ -542,6 +542,76 @@ class ImageLabFinalizerSingleInput:
 
 
 
+
+class ImageLabInitialImageOptional:
+    """Cargador Image Lab que acepta no seleccionar imagen en ramas inactivas."""
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        import folder_paths
+        available = sorted(folder_paths.get_filename_list("input"))
+        choices = ["(sin imagen)"] + [name for name in available if name != "(sin imagen)"]
+        return {"required": {
+            "image": (choices, {"image_upload": True}),
+            "Usar imagen inicial": ("BOOLEAN", {"default": False}),
+            "Mantener resolución original": ("BOOLEAN", {"default": True}),
+            "Transformación (%)": ("INT", {"default": 0, "min": 0, "max": 100, "step": 1}),
+        }}
+
+    RETURN_TYPES = ("IMAGE", "MASK", "BOOLEAN", "BOOLEAN", "INT")
+    RETURN_NAMES = ("IMAGE", "MASK", "usar_imagen_inicial", "mantener_resolucion", "transformacion_pct")
+    FUNCTION = "load"
+    CATEGORY = "Image Lab"
+
+    @classmethod
+    def VALIDATE_INPUTS(cls, image, **kwargs):
+        # The sentinel is intentional: an unused branch must remain valid with no image.
+        if image in (None, "", "(sin imagen)"):
+            return True
+        import folder_paths
+        if image not in folder_paths.get_filename_list("input"):
+            return f"La imagen '{image}' no está en la carpeta input de ComfyUI."
+        return True
+
+    def load(self, image, **kwargs):
+        import numpy as np
+        import torch
+        import folder_paths
+        from PIL import ImageOps
+
+        use_initial = bool(kwargs.get("Usar imagen inicial", False))
+        keep_resolution = bool(kwargs.get("Mantener resolución original", True))
+        transform_pct = int(kwargs.get("Transformación (%)", 0) or 0)
+
+        if image in (None, "", "(sin imagen)"):
+            if use_initial:
+                raise RuntimeError("Esta rama requiere una imagen inicial. Selecciona una imagen o desactiva 'Usar imagen inicial'.")
+            # Placeholder valid only when a branch explicitly disables image-to-image.
+            blank = torch.zeros((1, 64, 64, 3), dtype=torch.float32)
+            mask = torch.zeros((1, 64, 64), dtype=torch.float32)
+            return (blank, mask, use_initial, keep_resolution, transform_pct)
+
+        path = folder_paths.get_annotated_filepath(image)
+        if not folder_paths.exists_annotated_filepath(image):
+            raise FileNotFoundError(f"No existe la imagen de entrada: {image}")
+        with Image.open(path) as opened:
+            pil = ImageOps.exif_transpose(opened).copy()
+
+        if "A" in pil.getbands():
+            rgba = pil.convert("RGBA")
+            arr = np.asarray(rgba, dtype=np.float32) / 255.0
+            rgb = arr[..., :3]
+            # ComfyUI mask convention: transparent pixels are 1.
+            alpha_mask = 1.0 - arr[..., 3]
+            mask = torch.from_numpy(alpha_mask.copy()).float().unsqueeze(0)
+        else:
+            rgb = np.asarray(pil.convert("RGB"), dtype=np.float32) / 255.0
+            mask = torch.zeros((1, rgb.shape[0], rgb.shape[1]), dtype=torch.float32)
+
+        image_tensor = torch.from_numpy(np.asarray(rgb).copy()).float().unsqueeze(0)
+        return (image_tensor, mask, use_initial, keep_resolution, transform_pct)
+
+
 class ImageLabBranchHub:
     """Nodo maestro de Image Lab: cuatro entradas y cuatro salidas pass-through."""
 
@@ -624,10 +694,12 @@ NODE_CLASS_MAPPINGS = {
     "GGUF_GeneradorQwenVL": GeneradorQwenVL,
     "ImageLabFinalizerSingleInput": ImageLabFinalizerSingleInput,
     "ImageLabBranchHub": ImageLabBranchHub,
+    "ImageLabInitialImageOptional": ImageLabInitialImageOptional,
 }
 NODE_DISPLAY_NAME_MAPPINGS = {
     "GGUF_GeneradorLLM": "GENERADOR LLM TEXTO · Magnum / Euryale / Mistral / Lexi",
     "GGUF_GeneradorQwenVL": "GENERADOR QWEN VL ABLITERATED · Prompt + imagen",
     "ImageLabFinalizerSingleInput": "SALIDA Y ACABADO · Una sola entrada de imagen",
     "ImageLabBranchHub": "NODO MAESTRO · Qwen / Z-Image / FLUX / Foto externa",
+    "ImageLabInitialImageOptional": "Imagen inicial · Opcional",
 }
