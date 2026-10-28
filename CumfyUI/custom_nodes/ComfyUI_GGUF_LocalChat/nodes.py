@@ -381,6 +381,9 @@ class GeneradorQwenVL(GeneradorLLM):
     def INPUT_TYPES(cls):
         schema = super().INPUT_TYPES()
         schema["required"]["modelo"] = (["Qwen2.5-VL 7B (Q4_K_M)"],)
+        # Qwen2.5-VL 7B Q4_K_M cabe holgadamente en una GPU de 12 GB;
+        # 99 capas solicita descargar todas las capas disponibles.
+        schema["required"]["capas_gpu"] = ("INT", {"default": 99, "min": 0, "max": 999})
         schema["optional"] = {"image": ("IMAGE",)}
         return schema
 
