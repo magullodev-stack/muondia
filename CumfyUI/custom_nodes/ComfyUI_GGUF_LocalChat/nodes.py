@@ -20,6 +20,13 @@ LLAMA_SERVER = ROOT / "tools" / "llama.cpp" / ("llama-server.exe" if os.name == 
 MODELOS = {
     "Magnum v2 32B (Q4_K_M)": (ROOT / "models/llm/magnum-v2-32b/magnum-32b-v2-Q4_K_M.gguf", 32768),
     "Euryale 70B v2.1 (Q4_K_M)": (ROOT / "models/llm/euryale-70b/L3-70B-Euryale-v2.1-Q4_K_M.gguf", 8192),
+    "Mistral 7B Instruct v0.3 (Q4_K_M)": (ROOT / "models/llm/mistral-7b-instruct-v0.3/Mistral-7B-Instruct-v0.3.Q4_K_M.gguf", 8192),
+    "Lexi Llama 3 8B Uncensored (Q4_K_M)": (ROOT / "models/llm/lexi-llama-3-8b-uncensored/Lexi-Llama-3-8B-Uncensored-Q4_K_M.gguf", 8192),
+    "Qwen2.5-VL 7B (Q4_K_M)": (ROOT / "models/llm/qwen2.5-vl-7b/Qwen2.5-VL-7B-Instruct-Q4_K_M.gguf", 8192),
+}
+
+MM_PROJ = {
+    "Qwen2.5-VL 7B (Q4_K_M)": ROOT / "models/llm/qwen2.5-vl-7b/mmproj-Qwen2.5-VL-7B-Instruct-Q8_0.gguf",
 }
 HOST = "127.0.0.1"
 PORT = 18889
@@ -162,6 +169,8 @@ def _configuracion_instancia(info):
                        if norm(str(file)) == ruta), None)
         if nombre is None:
             return None
+        if nombre in MM_PROJ and norm(opcion("--mmproj")) != norm(str(MM_PROJ[nombre])):
+            return None
         contexto = int(opcion("-c"))
         capas = int(opcion("-ngl"))
         return (nombre, contexto, capas)
@@ -243,6 +252,12 @@ def _iniciar(modelo, contexto_tokens, capas_gpu):
     args = [str(LLAMA_SERVER), "-m", str(gguf), "--host", HOST,
             "--port", str(PORT), "-c", str(contexto), "-ngl", str(capas_gpu),
             "--parallel", "1"]
+    if modelo in MM_PROJ:
+        mmproj = MM_PROJ[modelo]
+        if not mmproj.is_file():
+            fh.close()
+            raise RuntimeError(f"No existe el archivo mmproj de Qwen: {mmproj}")
+        args.extend(["--mmproj", str(mmproj)])
     try:
         proc = subprocess.Popen(
             args, cwd=str(LLAMA_SERVER.parent), stdout=fh, stderr=subprocess.STDOUT,
@@ -346,4 +361,4 @@ def _salir():
 
 atexit.register(_salir)
 NODE_CLASS_MAPPINGS = {"GGUF_GeneradorLLM": GeneradorLLM}
-NODE_DISPLAY_NAME_MAPPINGS = {"GGUF_GeneradorLLM": "GENERADOR LLM · Magnum / Euryale"}
+NODE_DISPLAY_NAME_MAPPINGS = {"GGUF_GeneradorLLM": "GENERADOR LLM · Magnum / Euryale / Mistral / Lexi / Qwen VL"}
