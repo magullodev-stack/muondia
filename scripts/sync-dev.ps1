@@ -10,4 +10,3 @@ if ($Watch) {
 } else {
     & $script
 }
-exit $LASTEXITCODE
