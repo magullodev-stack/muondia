@@ -22,7 +22,7 @@
       "isBackground": true,
       "problemMatcher": [],
       "presentation": {
-        "reveal": "never",
+        "reveal": "always",
         "panel": "dedicated",
         "focus": false
       }
