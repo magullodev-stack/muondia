@@ -21,10 +21,11 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parents[2]
 LLAMA_SERVER = ROOT / "tools" / "llama.cpp" / ("llama-server.exe" if os.name == "nt" else "llama-server")
 MODELOS = {
+    # Los modelos ligeros aparecen primero porque son los recomendados para 12 GB de VRAM.
+    "Lexi Llama 3 8B Uncensored (Q4_K_M)": (ROOT / "models/llm/lexi-llama-3-8b-uncensored/Lexi-Llama-3-8B-Uncensored-Q4_K_M.gguf", 8192),
+    "Mistral 7B Instruct v0.3 (Q4_K_M)": (ROOT / "models/llm/mistral-7b-instruct-v0.3/Mistral-7B-Instruct-v0.3.Q4_K_M.gguf", 8192),
     "Magnum v2 32B (Q4_K_M)": (ROOT / "models/llm/magnum-v2-32b/magnum-32b-v2-Q4_K_M.gguf", 32768),
     "Euryale 70B v2.1 (Q4_K_M)": (ROOT / "models/llm/euryale-70b/L3-70B-Euryale-v2.1-Q4_K_M.gguf", 8192),
-    "Mistral 7B Instruct v0.3 (Q4_K_M)": (ROOT / "models/llm/mistral-7b-instruct-v0.3/Mistral-7B-Instruct-v0.3.Q4_K_M.gguf", 8192),
-    "Lexi Llama 3 8B Uncensored (Q4_K_M)": (ROOT / "models/llm/lexi-llama-3-8b-uncensored/Lexi-Llama-3-8B-Uncensored-Q4_K_M.gguf", 8192),
     "Qwen2.5-VL 7B (Q4_K_M)": (ROOT / "models/llm/qwen2.5-vl-7b/Qwen2.5-VL-7B-Instruct-Q4_K_M.gguf", 8192),
     "Qwen2.5-VL 7B Uncensored (Q4_K_M)": (ROOT / "models/llm/qwen2.5-vl-7b-abliterated/Qwen2.5-VL-7B-Instruct-abliterated.Q4_K_M.gguf", 8192),
 }
@@ -336,10 +337,12 @@ class GeneradorLLM:
         return {"required": {
             "modelo": ([nombre for nombre in MODELOS if nombre not in MM_PROJ],),
             "prompt": ("STRING", {"multiline": True, "default": ""}),
-            "contexto_tokens": ("INT", {"default": 0, "min": 0, "max": 131072, "step": 512}),
-            "temperatura": ("FLOAT", {"default": 0.8, "min": 0.0, "max": 2.0, "step": 0.05}),
-            "max_tokens_salida": ("INT", {"default": 512, "min": 1, "max": 32768, "step": 128}),
-            "capas_gpu": ("INT", {"default": 8, "min": 0, "max": 999}),
+            "contexto_tokens": ("INT", {"default": 4096, "min": 0, "max": 131072, "step": 512}),
+            "temperatura": ("FLOAT", {"default": 0.7, "min": 0.0, "max": 2.0, "step": 0.05}),
+            "max_tokens_salida": ("INT", {"default": 1024, "min": 1, "max": 32768, "step": 128}),
+            # Con Lexi 8B como modelo predeterminado, solicitamos todas las capas en GPU.
+            # Magnum 32B y Euryale 70B requieren reducir este valor en equipos de 12 GB.
+            "capas_gpu": ("INT", {"default": 99, "min": 0, "max": 999}),
         }}
 
     RETURN_TYPES = ("STRING",)
@@ -383,8 +386,10 @@ class GeneradorQwenVL(GeneradorLLM):
     def INPUT_TYPES(cls):
         schema = super().INPUT_TYPES()
         schema["required"]["modelo"] = (["Qwen2.5-VL 7B Uncensored (Q4_K_M)"],)
-        # Solicita descargar todas las capas disponibles a la GPU; el límite real
-        # depende de la VRAM disponible y del contexto configurado.
+        schema["required"]["contexto_tokens"] = ("INT", {"default": 4096, "min": 0, "max": 131072, "step": 512})
+        schema["required"]["temperatura"] = ("FLOAT", {"default": 0.3, "min": 0.0, "max": 2.0, "step": 0.05})
+        schema["required"]["max_tokens_salida"] = ("INT", {"default": 2048, "min": 1, "max": 32768, "step": 128})
+        # Qwen VL 7B Q4_K_M + mmproj Q8_0: solicita todas las capas en la GPU.
         schema["required"]["capas_gpu"] = ("INT", {"default": 99, "min": 0, "max": 999})
         schema["optional"] = {"image": ("IMAGE",)}
         return schema
@@ -403,5 +408,5 @@ NODE_CLASS_MAPPINGS = {
 }
 NODE_DISPLAY_NAME_MAPPINGS = {
     "GGUF_GeneradorLLM": "GENERADOR LLM TEXTO · Magnum / Euryale / Mistral / Lexi",
-    "GGUF_GeneradorQwenVL": "GENERADOR QWEN VL · Prompt + imagen",
+    "GGUF_GeneradorQwenVL": "GENERADOR QWEN VL ABLITERATED · Prompt + imagen",
 }
