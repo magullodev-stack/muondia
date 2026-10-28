@@ -987,62 +987,27 @@
     },
     {
       "id": 2,
-      "type": "7fa8c5a4-1bc2-4c7c-82cb-879c5dd09b30",
+      "type": "ImageLabFinalizerSingleInput",
       "pos": [
         2580,
         175
       ],
       "size": [
-        810,
-        690
+        660,
+        430
       ],
       "flags": {},
       "order": 1,
       "mode": 0,
       "inputs": [
         {
-          "name": "fuente",
-          "type": "COMBO",
-          "label": "Modelo / Origen de la imagen",
-          "link": null,
-          "widget": {
-            "name": "fuente"
-          }
-        },
-        {
-          "name": "qwen_image",
+          "name": "image",
           "type": "IMAGE",
-          "label": "Qwen",
-          "link": null
-        },
-        {
-          "name": "z_image",
-          "type": "IMAGE",
-          "label": "Z-Image",
           "link": 3506
-        },
-        {
-          "name": "flux_image",
-          "type": "IMAGE",
-          "label": "FLUX",
-          "link": null
-        },
-        {
-          "name": "external_image",
-          "type": "IMAGE",
-          "label": "Fotografía externa",
-          "link": null
-        },
-        {
-          "name": "external_mask",
-          "type": "MASK",
-          "label": "Transparencia externa",
-          "link": null
         },
         {
           "name": "value",
           "type": "INT",
-          "label": "Escala final (2×, 3× o 4×)",
           "link": null,
           "widget": {
             "name": "value"
@@ -1051,7 +1016,6 @@
         {
           "name": "model_name",
           "type": "COMBO",
-          "label": "Modelo de ampliación",
           "link": null,
           "widget": {
             "name": "model_name"
@@ -1060,7 +1024,6 @@
         {
           "name": "value_1",
           "type": "BOOLEAN",
-          "label": "Ampliar imagen",
           "link": null,
           "widget": {
             "name": "value_1"
@@ -1069,7 +1032,6 @@
         {
           "name": "value_2",
           "type": "BOOLEAN",
-          "label": "Quitar fondo",
           "link": null,
           "widget": {
             "name": "value_2"
@@ -1078,7 +1040,6 @@
         {
           "name": "filename_prefix",
           "type": "STRING",
-          "label": "Guardar como",
           "link": null,
           "widget": {
             "name": "filename_prefix"
@@ -1091,16 +1052,15 @@
           "type": "IMAGE",
           "links": [
             3510
-          ]
+          ],
+          "slot_index": 0
         }
       ],
-      "title": "SALIDA Y ACABADO · Modelo / Ampliar / Quitar fondo / PNG",
+      "title": "SALIDA Y ACABADO · Imagen única / Ampliar / Quitar fondo / PNG",
       "properties": {
-        "cnr_id": "comfy-core",
-        "previewExposures": []
+        "Node name for S&R": "ImageLabFinalizerSingleInput"
       },
       "widgets_values": [
-        "Z-Image",
         2,
         "4xNomos2_hq_dat2.pth",
         false,
@@ -1192,7 +1152,7 @@
       200,
       0,
       2,
-      2,
+      0,
       "IMAGE"
     ],
     [
