@@ -2,5 +2,16 @@
   "dart.flutterHotReloadOnSave": "all",
   "dart.previewHotReloadOnSaveWatcher": true,
   "task.allowAutomaticTasks": "on",
-  "terminal.integrated.defaultProfile.windows": "Windows PowerShell"
+  "terminal.integrated.useWslProfiles": false,
+  "terminal.integrated.profiles.windows": {
+    "Muondia PowerShell": {
+      "path": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+      "args": ["-NoLogo"]
+    }
+  },
+  "terminal.integrated.defaultProfile.windows": "Muondia PowerShell",
+  "terminal.integrated.automationProfile.windows": {
+    "path": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+    "args": ["-NoLogo", "-NoProfile"]
+  }
 }
