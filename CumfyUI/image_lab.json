@@ -698,13 +698,13 @@
       },
       "widgets_values": [
         "(sin imagen)",
-        true,
+        false,
         false,
         0
       ],
       "widgets_values_named": {
         "image": "(sin imagen)",
-        "Usar imagen inicial": true,
+        "Usar imagen inicial": false,
         "Mantener resolución original": false,
         "Transformación (%)": 0
       }
@@ -792,13 +792,13 @@
       },
       "widgets_values": [
         "(sin imagen)",
-        true,
+        false,
         false,
         0
       ],
       "widgets_values_named": {
         "image": "(sin imagen)",
-        "Usar imagen inicial": true,
+        "Usar imagen inicial": false,
         "Mantener resolución original": false,
         "Transformación (%)": 0
       }
@@ -886,13 +886,13 @@
       },
       "widgets_values": [
         "(sin imagen)",
-        true,
+        false,
         false,
         0
       ],
       "widgets_values_named": {
         "image": "(sin imagen)",
-        "Usar imagen inicial": true,
+        "Usar imagen inicial": false,
         "Mantener resolución original": false,
         "Transformación (%)": 0
       }
@@ -982,13 +982,13 @@
       },
       "widgets_values": [
         "(sin imagen)",
-        true,
+        false,
         false,
         0
       ],
       "widgets_values_named": {
         "image": "(sin imagen)",
-        "Usar imagen inicial": true,
+        "Usar imagen inicial": false,
         "Mantener resolución original": false,
         "Transformación (%)": 0
       }
