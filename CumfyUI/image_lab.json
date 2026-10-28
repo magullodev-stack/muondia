@@ -1,8 +1,8 @@
 {
   "id": "d9ac44b0-2f2d-4a95-8dd2-44cd82200a80",
   "revision": 38,
-  "last_node_id": 951,
-  "last_link_id": 3517,
+  "last_node_id": 950,
+  "last_link_id": 3516,
   "nodes": [
     {
       "id": 200,
@@ -114,7 +114,7 @@
     },
     {
       "id": 201,
-      "type": "ImageLabInitialImageOptional",
+      "type": "ImageLabInitialImage",
       "title": "Imagen inicial · Z-Image",
       "pos": [
         80,
@@ -197,7 +197,7 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "ImageLabInitialImageOptional"
+        "Node name for S&R": "ImageLabInitialImage"
       },
       "widgets_values": [
         "(sin imagen)",
@@ -388,7 +388,7 @@
     },
     {
       "id": 301,
-      "type": "ImageLabInitialImageOptional",
+      "type": "ImageLabInitialImage",
       "title": "Imagen inicial · FLUX",
       "pos": [
         730,
@@ -471,7 +471,7 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "ImageLabInitialImageOptional"
+        "Node name for S&R": "ImageLabInitialImage"
       },
       "widgets_values": [
         "(sin imagen)",
@@ -617,7 +617,7 @@
     },
     {
       "id": 401,
-      "type": "ImageLabInitialImageOptional",
+      "type": "ImageLabInitialImage",
       "title": "Imagen principal · Qwen",
       "pos": [
         1370,
@@ -694,7 +694,7 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "ImageLabInitialImageOptional"
+        "Node name for S&R": "ImageLabInitialImage"
       },
       "widgets_values": [
         "(sin imagen)",
@@ -711,7 +711,7 @@
     },
     {
       "id": 402,
-      "type": "ImageLabInitialImageOptional",
+      "type": "ImageLabInitialImage",
       "title": "Referencia 2 · Qwen",
       "pos": [
         1370,
@@ -788,7 +788,7 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "ImageLabInitialImageOptional"
+        "Node name for S&R": "ImageLabInitialImage"
       },
       "widgets_values": [
         "(sin imagen)",
@@ -805,7 +805,7 @@
     },
     {
       "id": 403,
-      "type": "ImageLabInitialImageOptional",
+      "type": "ImageLabInitialImage",
       "title": "Referencia 3 · Qwen",
       "pos": [
         1710,
@@ -882,7 +882,7 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "ImageLabInitialImageOptional"
+        "Node name for S&R": "ImageLabInitialImage"
       },
       "widgets_values": [
         "(sin imagen)",
@@ -899,7 +899,7 @@
     },
     {
       "id": 501,
-      "type": "ImageLabInitialImageOptional",
+      "type": "ImageLabInitialImage",
       "title": "Imagen externa · Refinado directo",
       "pos": [
         2065,
@@ -957,7 +957,9 @@
         {
           "name": "MASK",
           "type": "MASK",
-          "links": []
+          "links": [
+            3509
+          ]
         },
         {
           "name": "usar_imagen_inicial",
@@ -976,7 +978,7 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "ImageLabInitialImageOptional"
+        "Node name for S&R": "ImageLabInitialImage"
       },
       "widgets_values": [
         "(sin imagen)",
@@ -993,27 +995,62 @@
     },
     {
       "id": 2,
-      "type": "ImageLabFinalizerSingleInput",
+      "type": "7fa8c5a4-1bc2-4c7c-82cb-879c5dd09b30",
       "pos": [
         2580,
         175
       ],
       "size": [
-        660,
-        430
+        810,
+        690
       ],
       "flags": {},
       "order": 1,
       "mode": 0,
       "inputs": [
         {
-          "name": "image",
+          "name": "fuente",
+          "type": "COMBO",
+          "label": "Modelo / Origen de la imagen",
+          "link": null,
+          "widget": {
+            "name": "fuente"
+          }
+        },
+        {
+          "name": "qwen_image",
           "type": "IMAGE",
-          "link": 3517
+          "label": "Qwen",
+          "link": 3505
+        },
+        {
+          "name": "z_image",
+          "type": "IMAGE",
+          "label": "Z-Image",
+          "link": 3506
+        },
+        {
+          "name": "flux_image",
+          "type": "IMAGE",
+          "label": "FLUX",
+          "link": 3507
+        },
+        {
+          "name": "external_image",
+          "type": "IMAGE",
+          "label": "Fotografía externa",
+          "link": 3508
+        },
+        {
+          "name": "external_mask",
+          "type": "MASK",
+          "label": "Transparencia externa",
+          "link": 3509
         },
         {
           "name": "value",
           "type": "INT",
+          "label": "Escala final (2×, 3× o 4×)",
           "link": null,
           "widget": {
             "name": "value"
@@ -1022,6 +1059,7 @@
         {
           "name": "model_name",
           "type": "COMBO",
+          "label": "Modelo de ampliación",
           "link": null,
           "widget": {
             "name": "model_name"
@@ -1030,6 +1068,7 @@
         {
           "name": "value_1",
           "type": "BOOLEAN",
+          "label": "Ampliar imagen",
           "link": null,
           "widget": {
             "name": "value_1"
@@ -1038,6 +1077,7 @@
         {
           "name": "value_2",
           "type": "BOOLEAN",
+          "label": "Quitar fondo",
           "link": null,
           "widget": {
             "name": "value_2"
@@ -1046,6 +1086,7 @@
         {
           "name": "filename_prefix",
           "type": "STRING",
+          "label": "Guardar como",
           "link": null,
           "widget": {
             "name": "filename_prefix"
@@ -1058,15 +1099,16 @@
           "type": "IMAGE",
           "links": [
             3510
-          ],
-          "slot_index": 0
+          ]
         }
       ],
-      "title": "SALIDA Y ACABADO · Imagen única / Ampliar / Quitar fondo / PNG",
+      "title": "SALIDA Y ACABADO · Modelo / Ampliar / Quitar fondo / PNG",
       "properties": {
-        "Node name for S&R": "ImageLabFinalizerSingleInput"
+        "cnr_id": "comfy-core",
+        "previewExposures": []
       },
       "widgets_values": [
+        "FLUX",
         2,
         "4xNomos2_hq_dat2.pth",
         false,
@@ -1109,72 +1151,6 @@
         "Node name for S&R": "PreviewImage",
         "cnr_id": "comfy-core"
       },
-      "widgets_values": []
-    },
-    {
-      "id": 951,
-      "type": "ImageLabBranchHub",
-      "pos": [
-        2100,
-        690
-      ],
-      "size": [
-        430,
-        360
-      ],
-      "flags": {},
-      "order": 600,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "qwen_image",
-          "type": "IMAGE",
-          "link": 3505
-        },
-        {
-          "name": "z_image",
-          "type": "IMAGE",
-          "link": 3506
-        },
-        {
-          "name": "flux_image",
-          "type": "IMAGE",
-          "link": 3507
-        },
-        {
-          "name": "external_image",
-          "type": "IMAGE",
-          "link": 3508
-        }
-      ],
-      "outputs": [
-        {
-          "name": "QWEN",
-          "type": "IMAGE",
-          "links": []
-        },
-        {
-          "name": "Z-IMAGE",
-          "type": "IMAGE",
-          "links": [
-            3517
-          ]
-        },
-        {
-          "name": "FLUX",
-          "type": "IMAGE",
-          "links": []
-        },
-        {
-          "name": "FOTO EXTERNA",
-          "type": "IMAGE",
-          "links": []
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "ImageLabBranchHub"
-      },
-      "title": "NODO MAESTRO · 4 entradas / 4 salidas",
       "widgets_values": []
     }
   ],
@@ -1223,33 +1199,41 @@
       3505,
       400,
       0,
-      951,
-      0,
+      2,
+      1,
       "IMAGE"
     ],
     [
       3506,
       200,
       0,
-      951,
-      1,
+      2,
+      2,
       "IMAGE"
     ],
     [
       3507,
       300,
       0,
-      951,
       2,
+      3,
       "IMAGE"
     ],
     [
       3508,
       501,
       0,
-      951,
-      3,
+      2,
+      4,
       "IMAGE"
+    ],
+    [
+      3509,
+      501,
+      1,
+      2,
+      5,
+      "MASK"
     ],
     [
       3510,
@@ -1306,14 +1290,6 @@
       300,
       6,
       "INT"
-    ],
-    [
-      3517,
-      951,
-      1,
-      2,
-      0,
-      "IMAGE"
     ]
   ],
   "groups": [
@@ -1362,7 +1338,7 @@
       "font_size": 24
     },
     {
-      "title": "06 · SALIDA Y ACABADO",
+      "title": "05 · ELEGIR SALIDA Y ACABADO",
       "bounding": [
         2555,
         45,
@@ -1370,17 +1346,6 @@
         1270
       ],
       "color": "#645d84",
-      "font_size": 24
-    },
-    {
-      "title": "05 · NODO MAESTRO · 4 ramas / 4 salidas",
-      "bounding": [
-        2050,
-        650,
-        510,
-        450
-      ],
-      "color": "#536b78",
       "font_size": 24
     }
   ],
