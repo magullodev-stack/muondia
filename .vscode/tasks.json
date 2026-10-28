@@ -3,7 +3,7 @@
   "tasks": [
     {
       "label": "Muondia: sincronizar Git",
-      "type": "shell",
+      "type": "process",
       "command": "powershell.exe",
       "args": [
         "-NoProfile",
