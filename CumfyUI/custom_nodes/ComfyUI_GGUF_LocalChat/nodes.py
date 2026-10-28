@@ -26,10 +26,12 @@ MODELOS = {
     "Mistral 7B Instruct v0.3 (Q4_K_M)": (ROOT / "models/llm/mistral-7b-instruct-v0.3/Mistral-7B-Instruct-v0.3.Q4_K_M.gguf", 8192),
     "Lexi Llama 3 8B Uncensored (Q4_K_M)": (ROOT / "models/llm/lexi-llama-3-8b-uncensored/Lexi-Llama-3-8B-Uncensored-Q4_K_M.gguf", 8192),
     "Qwen2.5-VL 7B (Q4_K_M)": (ROOT / "models/llm/qwen2.5-vl-7b/Qwen2.5-VL-7B-Instruct-Q4_K_M.gguf", 8192),
+    "Qwen2.5-VL 7B Uncensored (Q4_K_M)": (ROOT / "models/llm/qwen2.5-vl-7b-abliterated/Qwen2.5-VL-7B-Instruct-abliterated.Q4_K_M.gguf", 8192),
 }
 
 MM_PROJ = {
     "Qwen2.5-VL 7B (Q4_K_M)": ROOT / "models/llm/qwen2.5-vl-7b/mmproj-Qwen2.5-VL-7B-Instruct-Q8_0.gguf",
+    "Qwen2.5-VL 7B Uncensored (Q4_K_M)": ROOT / "models/llm/qwen2.5-vl-7b-abliterated/Qwen2.5-VL-7B-Instruct-abliterated.mmproj-Q8_0.gguf",
 }
 HOST = "127.0.0.1"
 PORT = 18889
@@ -380,9 +382,9 @@ class GeneradorQwenVL(GeneradorLLM):
     @classmethod
     def INPUT_TYPES(cls):
         schema = super().INPUT_TYPES()
-        schema["required"]["modelo"] = (["Qwen2.5-VL 7B (Q4_K_M)"],)
-        # Qwen2.5-VL 7B Q4_K_M cabe holgadamente en una GPU de 12 GB;
-        # 99 capas solicita descargar todas las capas disponibles.
+        schema["required"]["modelo"] = (["Qwen2.5-VL 7B Uncensored (Q4_K_M)"],)
+        # Solicita descargar todas las capas disponibles a la GPU; el límite real
+        # depende de la VRAM disponible y del contexto configurado.
         schema["required"]["capas_gpu"] = ("INT", {"default": 99, "min": 0, "max": 999})
         schema["optional"] = {"image": ("IMAGE",)}
         return schema
