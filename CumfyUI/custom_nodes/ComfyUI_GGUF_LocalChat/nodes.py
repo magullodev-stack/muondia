@@ -541,14 +541,93 @@ class ImageLabFinalizerSingleInput:
         return {"ui": {"images": images}, "result": (processed,)}
 
 
+
+class ImageLabBranchHub:
+    """Nodo maestro de Image Lab: cuatro entradas y cuatro salidas pass-through."""
+
+    INPUT_NAMES = ("qwen_image", "z_image", "flux_image", "external_image")
+    OUTPUT_NAMES = ("QWEN", "Z-IMAGE", "FLUX", "FOTO EXTERNA")
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "optional": {
+                "qwen_image": ("IMAGE", {"lazy": True}),
+                "z_image": ("IMAGE", {"lazy": True}),
+                "flux_image": ("IMAGE", {"lazy": True}),
+                "external_image": ("IMAGE", {"lazy": True}),
+            },
+            "hidden": {
+                "prompt": "PROMPT",
+                "unique_id": "UNIQUE_ID",
+            },
+        }
+
+    RETURN_TYPES = ("IMAGE", "IMAGE", "IMAGE", "IMAGE")
+    RETURN_NAMES = OUTPUT_NAMES
+    FUNCTION = "pasar"
+    CATEGORY = "Image Lab"
+    OUTPUT_NODE = False
+
+    @classmethod
+    def _connected_outputs(cls, prompt, unique_id):
+        """Encuentra qué outputs del nodo están conectados a otros nodos del workflow."""
+        connected = set()
+        if not isinstance(prompt, dict):
+            return connected
+        current_id = str(unique_id)
+        for node in prompt.values():
+            if not isinstance(node, dict):
+                continue
+            inputs = node.get("inputs", {})
+            if not isinstance(inputs, dict):
+                continue
+            for value in inputs.values():
+                if not isinstance(value, (tuple, list)) or len(value) != 2:
+                    continue
+                if str(value[0]) != current_id:
+                    continue
+                try:
+                    output_index = int(value[1])
+                except (TypeError, ValueError):
+                    continue
+                if 0 <= output_index < 4:
+                    connected.add(output_index)
+        return connected
+
+    def check_lazy_status(self, prompt=None, unique_id=None,
+                          qwen_image=None, z_image=None, flux_image=None,
+                          external_image=None):
+        values = {
+            "qwen_image": qwen_image,
+            "z_image": z_image,
+            "flux_image": flux_image,
+            "external_image": external_image,
+        }
+        needed = []
+        for output_index in self._connected_outputs(prompt, unique_id):
+            input_name = self.INPUT_NAMES[output_index]
+            if values[input_name] is None:
+                needed.append(input_name)
+        return needed
+
+    def pasar(self, qwen_image=None, z_image=None, flux_image=None,
+              external_image=None, prompt=None, unique_id=None):
+        # Cada salida corresponde únicamente a su entrada. Las ramas no conectadas
+        # downstream permanecen lazy y no se evalúan.
+        return (qwen_image, z_image, flux_image, external_image)
+
+
 atexit.register(_salir)
 NODE_CLASS_MAPPINGS = {
     "GGUF_GeneradorLLM": GeneradorLLM,
     "GGUF_GeneradorQwenVL": GeneradorQwenVL,
     "ImageLabFinalizerSingleInput": ImageLabFinalizerSingleInput,
+    "ImageLabBranchHub": ImageLabBranchHub,
 }
 NODE_DISPLAY_NAME_MAPPINGS = {
     "GGUF_GeneradorLLM": "GENERADOR LLM TEXTO · Magnum / Euryale / Mistral / Lexi",
     "GGUF_GeneradorQwenVL": "GENERADOR QWEN VL ABLITERATED · Prompt + imagen",
     "ImageLabFinalizerSingleInput": "SALIDA Y ACABADO · Una sola entrada de imagen",
+    "ImageLabBranchHub": "NODO MAESTRO · Qwen / Z-Image / FLUX / Foto externa",
 }
