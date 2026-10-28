@@ -1,5 +1,6 @@
 {
   "dart.flutterHotReloadOnSave": "all",
   "dart.previewHotReloadOnSaveWatcher": true,
-  "task.allowAutomaticTasks": "on"
+  "task.allowAutomaticTasks": "on",
+  "terminal.integrated.defaultProfile.windows": "Windows PowerShell"
 }
