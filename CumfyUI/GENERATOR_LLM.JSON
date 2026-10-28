@@ -1,6 +1,6 @@
 {
-  "last_node_id": 5,
-  "last_link_id": 3,
+  "last_node_id": 6,
+  "last_link_id": 5,
   "nodes": [
     {
       "id": 1,
@@ -22,7 +22,7 @@
           "name": "respuesta",
           "type": "STRING",
           "links": [
-            1
+            4
           ],
           "slot_index": 0
         }
@@ -101,7 +101,8 @@
           "name": "respuesta",
           "type": "STRING",
           "links": [
-            2
+            2,
+            5
           ],
           "slot_index": 0
         }
@@ -132,7 +133,7 @@
       ],
       "flags": {},
       "order": 4,
-      "mode": 0,
+      "mode": 2,
       "inputs": [
         {
           "name": "source",
@@ -209,12 +210,56 @@
         "example.png",
         "image"
       ]
+    },
+    {
+      "id": 6,
+      "type": "GGUF_SelectorRamaLLM",
+      "pos": [
+        1820,
+        500
+      ],
+      "size": [
+        360,
+        190
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "texto",
+          "type": "STRING",
+          "link": 4
+        },
+        {
+          "name": "imagen",
+          "type": "STRING",
+          "link": 5
+        }
+      ],
+      "outputs": [
+        {
+          "name": "respuesta",
+          "type": "STRING",
+          "links": [
+            1
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "GGUF_SelectorRamaLLM"
+      },
+      "title": "INTERRUPTOR DE FLUJO · Texto / Qwen VL",
+      "widgets_values": [
+        "TEXTO · Lexi"
+      ]
     }
   ],
   "links": [
     [
       1,
-      1,
+      6,
       0,
       2,
       0,
@@ -235,6 +280,22 @@
       3,
       0,
       "IMAGE"
+    ],
+    [
+      4,
+      1,
+      0,
+      6,
+      0,
+      "STRING"
+    ],
+    [
+      5,
+      3,
+      0,
+      6,
+      1,
+      "STRING"
     ]
   ],
   "groups": [],
