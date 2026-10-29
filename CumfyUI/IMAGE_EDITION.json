@@ -422,14 +422,14 @@
           "link": null
         },
         {
-          "label": "Kontext",
+          "label": "Kontext (con máscara)",
           "name": "kontext_image",
           "shape": 7,
           "type": "IMAGE",
           "link": 4511
         },
         {
-          "label": "Kontext completo",
+          "label": "Kontext (sin máscara)",
           "name": "kontext_full_image",
           "shape": 7,
           "type": "IMAGE",
@@ -681,7 +681,7 @@
       "title": "Cómo se usa",
       "properties": {},
       "widgets_values": [
-        "1) Carga la foto en «Imagen principal» y pinta la máscara con clic derecho > Open in MaskEditor (la zona pintada es lo único que Qwen puede cambiar).\n2) Las referencias 2 y 3 se usan solo si activas «Usar referencia 2/3» en el nodo Qwen. Si las activas sin cargar su imagen, sale un error.\n3) Sin máscara pintada la imagen sale SIN cambios.\nRequiere el custom node ComfyUI-Inpaint-CropAndStitch.\n4) Kontext (rama inferior): usa su propia imagen principal («Imagen principal · Kontext»), con su propia máscara, independiente de Qwen. Para usar una referencia (cara, ropa, objeto, estilo...): pinta la máscara sobre la zona a cambiar, carga la referencia en «Imagen de referencia · Kontext», activa «Usar imagen de referencia» en el nodo KONTEXT y escribe en su prompt qué quieres tomar de ella. Para usarlo elige «Kontext» en «Modelo / Origen de la imagen» del nodo SALIDA Y ACABADO. Requiere el modelo flux1-dev-kontext_fp8_scaled.safetensors.\n5) Kontext · imagen completa (rama más baja): sin máscara. Carga la foto a modificar en «Imagen base», lo que quieres incorporar en «Imagen de referencia», escribe la instrucción en el prompt (rellena los huecos entre corchetes) y ejecuta. Para verla, elige «Kontext completo» en «Modelo / Origen de la imagen» del nodo SALIDA Y ACABADO."
+        "1) Carga la foto en «Imagen principal» y pinta la máscara con clic derecho > Open in MaskEditor (la zona pintada es lo único que Qwen puede cambiar).\n2) Las referencias 2 y 3 se usan solo si activas «Usar referencia 2/3» en el nodo Qwen. Si las activas sin cargar su imagen, sale un error.\n3) Sin máscara pintada la imagen sale SIN cambios.\nRequiere el custom node ComfyUI-Inpaint-CropAndStitch.\n4) Kontext con máscara (rama inferior): usa su propia imagen principal («Imagen principal · Kontext»), con su propia máscara, independiente de Qwen. Para usar una referencia (cara, ropa, objeto, estilo...): pinta la máscara sobre la zona a cambiar, carga la referencia en «Imagen de referencia · Kontext», activa «Usar imagen de referencia» en el nodo KONTEXT y escribe en su prompt qué quieres tomar de ella. Para usarlo elige «Kontext (con máscara)» en «Modelo / Origen de la imagen» del nodo SALIDA Y ACABADO. Requiere el modelo flux1-dev-kontext_fp8_scaled.safetensors.\n5) Kontext sin máscara (rama más baja). Carga la foto a modificar en «Imagen base», lo que quieres incorporar en «Imagen de referencia», escribe la instrucción en el prompt (rellena los huecos entre corchetes) y ejecuta. Para verla, elige «Kontext (sin máscara)» en «Modelo / Origen de la imagen» del nodo SALIDA Y ACABADO."
       ],
       "widgets_values_named": {
         "text": "1) Carga la foto en «Imagen principal» y pinta la máscara con clic derecho > Open in MaskEditor (la zona pintada es lo único que Qwen puede cambiar).\n2) Las referencias 2 y 3 se usan solo si activas «Usar referencia 2/3» en el nodo Qwen. Si las activas sin cargar su imagen, sale un error.\n3) Sin máscara pintada la imagen sale SIN cambios.\nRequiere el custom node ComfyUI-Inpaint-CropAndStitch."
@@ -760,7 +760,7 @@
           ]
         }
       ],
-      "title": "KONTEXT · Editar solo dentro de la máscara",
+      "title": "KONTEXT · Con máscara (edita solo la zona pintada)",
       "properties": {
         "cnr_id": "comfy-core"
       },
@@ -810,7 +810,7 @@
           ]
         }
       ],
-      "title": "✂️ Pegar el resultado en la foto original · Kontext",
+      "title": "✂️ Pegar el resultado en la foto original",
       "properties": {
         "Node name for S&R": "InpaintStitchImproved"
       }
@@ -859,7 +859,7 @@
           "links": []
         }
       ],
-      "title": "Imagen de referencia · Kontext",
+      "title": "Imagen de referencia",
       "properties": {
         "Node name for S&R": "ImageLabInitialImage"
       },
@@ -924,7 +924,7 @@
           "links": []
         }
       ],
-      "title": "Imagen principal · Kontext (pinta la máscara aquí)",
+      "title": "Imagen principal (pinta la máscara aquí)",
       "properties": {
         "Node name for S&R": "ImageLabInitialImage"
       },
@@ -999,7 +999,7 @@
           ]
         }
       ],
-      "title": "✂️ Recortar alrededor de la máscara · Kontext",
+      "title": "✂️ Recortar alrededor de la máscara",
       "properties": {
         "Node name for S&R": "InpaintCropImproved"
       },
@@ -1100,7 +1100,7 @@
           "links": []
         }
       ],
-      "title": "Imagen base · Kontext completo",
+      "title": "Imagen base",
       "properties": {
         "Node name for S&R": "ImageLabInitialImage"
       },
@@ -1163,7 +1163,7 @@
           "links": []
         }
       ],
-      "title": "Imagen de referencia · Kontext completo",
+      "title": "Imagen de referencia",
       "properties": {
         "Node name for S&R": "ImageLabInitialImage"
       },
@@ -1237,7 +1237,7 @@
           ]
         }
       ],
-      "title": "KONTEXT · Imagen completa (sin máscara)",
+      "title": "KONTEXT · Sin máscara (transforma la imagen entera)",
       "properties": {
         "cnr_id": "comfy-core"
       },
@@ -1460,7 +1460,7 @@
     },
     {
       "id": 6,
-      "title": "01c · KONTEXT · IMAGEN COMPLETA (sin máscara)",
+      "title": "01c · KONTEXT · EDICIÓN SIN MÁSCARA",
       "bounding": [
         40,
         1450,
@@ -1659,7 +1659,7 @@
             "linkIds": [
               235
             ],
-            "label": "Kontext",
+            "label": "Kontext (con máscara)",
             "pos": [
               -290,
               660
@@ -1672,7 +1672,7 @@
             "linkIds": [
               239
             ],
-            "label": "Kontext completo",
+            "label": "Kontext (sin máscara)",
             "pos": [
               -290,
               700
@@ -3931,7 +3931,7 @@
                 ]
               }
             ],
-            "title": "INTERNO · Elegir Kontext",
+            "title": "INTERNO · Elegir Kontext (con máscara)",
             "properties": {
               "Node name for S&R": "ComfySwitchNode",
               "cnr_id": "comfy-core"
@@ -4058,7 +4058,7 @@
                 ]
               }
             ],
-            "title": "INTERNO · Elegir Kontext completo",
+            "title": "INTERNO · Elegir Kontext (sin máscara)",
             "properties": {
               "Node name for S&R": "ComfySwitchNode",
               "cnr_id": "comfy-core"
@@ -6394,7 +6394,7 @@
               "Node name for S&R": "FluxKontextImageScale",
               "cnr_id": "comfy-core"
             },
-            "title": "Ajustar tamaño a resolución Kontext"
+            "title": "Ajustar tamaño a la resolución del modelo"
           },
           {
             "id": 3005,
@@ -6487,7 +6487,7 @@
             "widgets_values_named": {
               "text": ""
             },
-            "title": "Prompt de edición (Kontext)"
+            "title": "Prompt de edición"
           },
           {
             "id": 3007,
@@ -6571,7 +6571,7 @@
             "widgets_values_named": {
               "guidance": 2.5
             },
-            "title": "Kontext · Guidance 2.5"
+            "title": "Guidance 2.5"
           },
           {
             "id": 3009,
@@ -7207,7 +7207,7 @@
         },
         "revision": 1,
         "config": {},
-        "name": "FLUX.1 Kontext dev · imagen completa · imagen base + referencia",
+        "name": "FLUX.1 Kontext dev · edición sin máscara · imagen base + referencia",
         "description": "Transforma la imagen entera con FLUX.1 Kontext dev usando una imagen base y una imagen de referencia, sin máscara.",
         "inputNode": {
           "id": -10,
@@ -7615,7 +7615,7 @@
             "widgets_values_named": {
               "text": ""
             },
-            "title": "Instrucción (Kontext)"
+            "title": "Instrucción"
           },
           {
             "id": 3009,
@@ -7741,7 +7741,7 @@
             "widgets_values_named": {
               "guidance": 2.5
             },
-            "title": "Kontext · Guidance 2.5"
+            "title": "Guidance 2.5"
           },
           {
             "id": 3012,
