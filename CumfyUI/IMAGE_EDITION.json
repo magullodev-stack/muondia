@@ -1,8 +1,8 @@
 {
   "id": "252a8432-4e74-492c-a324-d72066968b28",
-  "revision": 39,
+  "revision": 40,
   "last_node_id": 2401,
-  "last_link_id": 4511,
+  "last_link_id": 4512,
   "nodes": [
     {
       "id": 400,
@@ -677,7 +677,7 @@
       "title": "Cómo se usa",
       "properties": {},
       "widgets_values": [
-        "1) Carga la foto en «Imagen principal» y pinta la máscara con clic derecho > Open in MaskEditor (la zona pintada es lo único que Qwen puede cambiar).\n2) Las referencias 2 y 3 se usan solo si activas «Usar referencia 2/3» en el nodo Qwen. Si las activas sin cargar su imagen, sale un error.\n3) Sin máscara pintada la imagen sale SIN cambios.\nRequiere el custom node ComfyUI-Inpaint-CropAndStitch.\n4) Kontext (rama inferior): misma foto y máscara que Qwen, sin referencias extra. Para usarlo elige «Kontext» en «Modelo / Origen de la imagen» del nodo SALIDA Y ACABADO. Requiere el modelo flux1-dev-kontext_fp8_scaled.safetensors."
+        "1) Carga la foto en «Imagen principal» y pinta la máscara con clic derecho > Open in MaskEditor (la zona pintada es lo único que Qwen puede cambiar).\n2) Las referencias 2 y 3 se usan solo si activas «Usar referencia 2/3» en el nodo Qwen. Si las activas sin cargar su imagen, sale un error.\n3) Sin máscara pintada la imagen sale SIN cambios.\nRequiere el custom node ComfyUI-Inpaint-CropAndStitch.\n4) Kontext (rama inferior): misma foto y máscara que Qwen. Para poner una cara: pinta la máscara sobre la cara, carga la cara en «Cara de referencia · Kontext» y activa «Usar cara de referencia» en el nodo KONTEXT. Para usarlo elige «Kontext» en «Modelo / Origen de la imagen» del nodo SALIDA Y ACABADO. Requiere el modelo flux1-dev-kontext_fp8_scaled.safetensors."
       ],
       "widgets_values_named": {
         "text": "1) Carga la foto en «Imagen principal» y pinta la máscara con clic derecho > Open in MaskEditor (la zona pintada es lo único que Qwen puede cambiar).\n2) Las referencias 2 y 3 se usan solo si activas «Usar referencia 2/3» en el nodo Qwen. Si las activas sin cargar su imagen, sale un error.\n3) Sin máscara pintada la imagen sale SIN cambios.\nRequiere el custom node ComfyUI-Inpaint-CropAndStitch."
@@ -729,6 +729,22 @@
             "name": "seed"
           },
           "link": null
+        },
+        {
+          "label": "Cara de referencia",
+          "name": "image2",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 4512
+        },
+        {
+          "label": "Usar cara de referencia",
+          "name": "ref_enabled",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "ref_enabled"
+          },
+          "link": null
         }
       ],
       "outputs": [
@@ -745,12 +761,14 @@
         "cnr_id": "comfy-core"
       },
       "widgets_values": [
-        "",
-        123456789
+        "Replace the face with the face from the reference image. Keep the hairstyle, skin tone, expression, pose, lighting and everything else unchanged.",
+        123456789,
+        false
       ],
       "widgets_values_named": {
-        "prompt": "",
-        "seed": 123456789
+        "prompt": "Replace the face with the face from the reference image. Keep the hairstyle, skin tone, expression, pose, lighting and everything else unchanged.",
+        "seed": 123456789,
+        "ref_enabled": false
       }
     },
     {
@@ -791,6 +809,69 @@
       "title": "✂️ Pegar el resultado en la foto original",
       "properties": {
         "Node name for S&R": "InpaintStitchImproved"
+      }
+    },
+    {
+      "id": 422,
+      "type": "ImageLabInitialImage",
+      "pos": [
+        85,
+        900
+      ],
+      "size": [
+        306,
+        245
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            4512
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": []
+        },
+        {
+          "name": "usar_imagen_inicial",
+          "type": "BOOLEAN",
+          "links": []
+        },
+        {
+          "name": "mantener_resolucion",
+          "type": "BOOLEAN",
+          "links": []
+        },
+        {
+          "name": "transformacion_pct",
+          "type": "INT",
+          "links": []
+        }
+      ],
+      "title": "Cara de referencia · Kontext",
+      "properties": {
+        "Node name for S&R": "ImageLabInitialImage"
+      },
+      "widgets_values": [
+        "(sin imagen)",
+        true,
+        false,
+        0,
+        "image"
+      ],
+      "widgets_values_named": {
+        "image": "(sin imagen)",
+        "Usar imagen inicial": true,
+        "Mantener resolución original": false,
+        "Transformación (%)": 0,
+        "upload": "image"
       }
     }
   ],
@@ -913,6 +994,14 @@
       0,
       2,
       11,
+      "IMAGE"
+    ],
+    [
+      4512,
+      422,
+      0,
+      420,
+      4,
       "IMAGE"
     ]
   ],
@@ -5434,11 +5523,11 @@
         "version": 1,
         "state": {
           "lastGroupId": 2,
-          "lastNodeId": 3013,
-          "lastLinkId": 5019,
+          "lastNodeId": 3017,
+          "lastLinkId": 5027,
           "lastRerouteId": 0
         },
-        "revision": 1,
+        "revision": 2,
         "config": {},
         "name": "FLUX.1 Kontext dev · edición con máscara · 1 referencia",
         "description": "Edita una imagen con FLUX.1 Kontext dev solo dentro de la máscara. image1 y la máscara deben venir ya recortadas (Inpaint Crop).",
@@ -5510,6 +5599,32 @@
             "pos": [
               -290,
               416
+            ]
+          },
+          {
+            "id": "984b8101-68bb-40bc-9e4b-035e54f162b1",
+            "name": "image2",
+            "type": "IMAGE",
+            "linkIds": [
+              5020
+            ],
+            "label": "Cara de referencia",
+            "pos": [
+              -290,
+              448
+            ]
+          },
+          {
+            "id": "image-lab-kontext-ref-enabled-v1",
+            "name": "ref_enabled",
+            "type": "BOOLEAN",
+            "linkIds": [
+              5027
+            ],
+            "label": "Usar cara de referencia",
+            "pos": [
+              -290,
+              480
             ]
           }
         ],
@@ -5628,7 +5743,8 @@
                 "type": "VAE",
                 "links": [
                   5006,
-                  5018
+                  5018,
+                  5022
                 ]
               }
             ],
@@ -5804,7 +5920,8 @@
                 "name": "CONDITIONING",
                 "type": "CONDITIONING",
                 "links": [
-                  5010
+                  5023,
+                  5025
                 ]
               }
             ],
@@ -6047,6 +6164,182 @@
               "Node name for S&R": "VAEDecode",
               "cnr_id": "comfy-core"
             }
+          },
+          {
+            "id": 3014,
+            "type": "FluxKontextImageScale",
+            "pos": [
+              -170,
+              520
+            ],
+            "size": [
+              210,
+              26
+            ],
+            "flags": {},
+            "order": 14,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "image",
+                "type": "IMAGE",
+                "link": 5020
+              }
+            ],
+            "outputs": [
+              {
+                "name": "IMAGE",
+                "type": "IMAGE",
+                "links": [
+                  5021
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "FluxKontextImageScale",
+              "cnr_id": "comfy-core"
+            },
+            "title": "Cara de referencia · ajustar tamaño"
+          },
+          {
+            "id": 3015,
+            "type": "VAEEncode",
+            "pos": [
+              90,
+              520
+            ],
+            "size": [
+              210,
+              46
+            ],
+            "flags": {},
+            "order": 15,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "pixels",
+                "type": "IMAGE",
+                "link": 5021
+              },
+              {
+                "name": "vae",
+                "type": "VAE",
+                "link": 5022
+              }
+            ],
+            "outputs": [
+              {
+                "name": "LATENT",
+                "type": "LATENT",
+                "links": [
+                  5024
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "VAEEncode",
+              "cnr_id": "comfy-core"
+            },
+            "title": "Cara de referencia · codificar"
+          },
+          {
+            "id": 3016,
+            "type": "ReferenceLatent",
+            "pos": [
+              760,
+              440
+            ],
+            "size": [
+              220,
+              46
+            ],
+            "flags": {},
+            "order": 16,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "conditioning",
+                "type": "CONDITIONING",
+                "link": 5023
+              },
+              {
+                "name": "latent",
+                "type": "LATENT",
+                "link": 5024,
+                "shape": 7
+              }
+            ],
+            "outputs": [
+              {
+                "name": "CONDITIONING",
+                "type": "CONDITIONING",
+                "links": [
+                  5026
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ReferenceLatent",
+              "cnr_id": "comfy-core"
+            },
+            "title": "Cara de referencia · añadir al condicionamiento"
+          },
+          {
+            "id": 3017,
+            "type": "ComfySwitchNode",
+            "pos": [
+              760,
+              540
+            ],
+            "size": [
+              247,
+              145
+            ],
+            "flags": {},
+            "order": 17,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "on_false",
+                "type": "CONDITIONING",
+                "link": 5025,
+                "shape": 7
+              },
+              {
+                "name": "on_true",
+                "type": "*",
+                "link": 5026,
+                "shape": 7
+              },
+              {
+                "name": "switch",
+                "type": "BOOLEAN",
+                "link": 5027,
+                "widget": {
+                  "name": "switch"
+                }
+              }
+            ],
+            "outputs": [
+              {
+                "name": "output",
+                "type": "CONDITIONING",
+                "links": [
+                  5010
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ComfySwitchNode",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              false
+            ],
+            "widgets_values_named": {
+              "switch": false
+            },
+            "title": "Cara de referencia · ¿usar?"
           }
         ],
         "groups": [
@@ -6150,7 +6443,7 @@
           },
           {
             "id": 5010,
-            "origin_id": 3007,
+            "origin_id": 3017,
             "origin_slot": 0,
             "target_id": 3008,
             "target_slot": 0,
@@ -6227,6 +6520,70 @@
             "target_id": -20,
             "target_slot": 0,
             "type": "IMAGE"
+          },
+          {
+            "id": 5020,
+            "origin_id": -10,
+            "origin_slot": 4,
+            "target_id": 3014,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 5021,
+            "origin_id": 3014,
+            "origin_slot": 0,
+            "target_id": 3015,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 5022,
+            "origin_id": 3003,
+            "origin_slot": 0,
+            "target_id": 3015,
+            "target_slot": 1,
+            "type": "VAE"
+          },
+          {
+            "id": 5023,
+            "origin_id": 3007,
+            "origin_slot": 0,
+            "target_id": 3016,
+            "target_slot": 0,
+            "type": "CONDITIONING"
+          },
+          {
+            "id": 5024,
+            "origin_id": 3015,
+            "origin_slot": 0,
+            "target_id": 3016,
+            "target_slot": 1,
+            "type": "LATENT"
+          },
+          {
+            "id": 5025,
+            "origin_id": 3007,
+            "origin_slot": 0,
+            "target_id": 3017,
+            "target_slot": 0,
+            "type": "CONDITIONING"
+          },
+          {
+            "id": 5026,
+            "origin_id": 3016,
+            "origin_slot": 0,
+            "target_id": 3017,
+            "target_slot": 1,
+            "type": "CONDITIONING"
+          },
+          {
+            "id": 5027,
+            "origin_id": -10,
+            "origin_slot": 5,
+            "target_id": 3017,
+            "target_slot": 2,
+            "type": "BOOLEAN"
           }
         ],
         "extra": {
