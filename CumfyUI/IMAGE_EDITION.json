@@ -1,8 +1,8 @@
 {
   "id": "252a8432-4e74-492c-a324-d72066968b28",
-  "revision": 40,
+  "revision": 41,
   "last_node_id": 2401,
-  "last_link_id": 4512,
+  "last_link_id": 4514,
   "nodes": [
     {
       "id": 400,
@@ -540,28 +540,25 @@
           "name": "stitcher",
           "type": "STITCHER",
           "links": [
-            3521,
-            4509
+            3521
           ]
         },
         {
           "name": "cropped_image",
           "type": "IMAGE",
           "links": [
-            3519,
-            4507
+            3519
           ]
         },
         {
           "name": "cropped_mask",
           "type": "MASK",
           "links": [
-            3520,
-            4508
+            3520
           ]
         }
       ],
-      "title": "✂️ Recortar alrededor de la máscara",
+      "title": "✂️ Recortar alrededor de la máscara · Qwen",
       "properties": {
         "Node name for S&R": "InpaintCropImproved"
       },
@@ -653,7 +650,7 @@
           ]
         }
       ],
-      "title": "✂️ Pegar el resultado en la foto original",
+      "title": "✂️ Pegar el resultado en la foto original · Qwen",
       "properties": {
         "Node name for S&R": "InpaintStitchImproved"
       }
@@ -677,7 +674,7 @@
       "title": "Cómo se usa",
       "properties": {},
       "widgets_values": [
-        "1) Carga la foto en «Imagen principal» y pinta la máscara con clic derecho > Open in MaskEditor (la zona pintada es lo único que Qwen puede cambiar).\n2) Las referencias 2 y 3 se usan solo si activas «Usar referencia 2/3» en el nodo Qwen. Si las activas sin cargar su imagen, sale un error.\n3) Sin máscara pintada la imagen sale SIN cambios.\nRequiere el custom node ComfyUI-Inpaint-CropAndStitch.\n4) Kontext (rama inferior): misma foto y máscara que Qwen. Para usar una referencia (cara, ropa, objeto, estilo...): pinta la máscara sobre la zona a cambiar, carga la referencia en «Imagen de referencia · Kontext», activa «Usar imagen de referencia» en el nodo KONTEXT y escribe en su prompt qué quieres tomar de ella. Para usarlo elige «Kontext» en «Modelo / Origen de la imagen» del nodo SALIDA Y ACABADO. Requiere el modelo flux1-dev-kontext_fp8_scaled.safetensors."
+        "1) Carga la foto en «Imagen principal» y pinta la máscara con clic derecho > Open in MaskEditor (la zona pintada es lo único que Qwen puede cambiar).\n2) Las referencias 2 y 3 se usan solo si activas «Usar referencia 2/3» en el nodo Qwen. Si las activas sin cargar su imagen, sale un error.\n3) Sin máscara pintada la imagen sale SIN cambios.\nRequiere el custom node ComfyUI-Inpaint-CropAndStitch.\n4) Kontext (rama inferior): usa su propia imagen principal («Imagen principal · Kontext»), con su propia máscara, independiente de Qwen. Para usar una referencia (cara, ropa, objeto, estilo...): pinta la máscara sobre la zona a cambiar, carga la referencia en «Imagen de referencia · Kontext», activa «Usar imagen de referencia» en el nodo KONTEXT y escribe en su prompt qué quieres tomar de ella. Para usarlo elige «Kontext» en «Modelo / Origen de la imagen» del nodo SALIDA Y ACABADO. Requiere el modelo flux1-dev-kontext_fp8_scaled.safetensors."
       ],
       "widgets_values_named": {
         "text": "1) Carga la foto en «Imagen principal» y pinta la máscara con clic derecho > Open in MaskEditor (la zona pintada es lo único que Qwen puede cambiar).\n2) Las referencias 2 y 3 se usan solo si activas «Usar referencia 2/3» en el nodo Qwen. Si las activas sin cargar su imagen, sale un error.\n3) Sin máscara pintada la imagen sale SIN cambios.\nRequiere el custom node ComfyUI-Inpaint-CropAndStitch."
@@ -806,7 +803,7 @@
           ]
         }
       ],
-      "title": "✂️ Pegar el resultado en la foto original",
+      "title": "✂️ Pegar el resultado en la foto original · Kontext",
       "properties": {
         "Node name for S&R": "InpaintStitchImproved"
       }
@@ -816,7 +813,7 @@
       "type": "ImageLabInitialImage",
       "pos": [
         85,
-        900
+        1160
       ],
       "size": [
         306,
@@ -872,6 +869,184 @@
         "Mantener resolución original": false,
         "Transformación (%)": 0,
         "upload": "image"
+      }
+    },
+    {
+      "id": 423,
+      "type": "ImageLabInitialImage",
+      "pos": [
+        80,
+        880
+      ],
+      "size": [
+        652.1367837353516,
+        245.6005128842163
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            4513
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": [
+            4514
+          ]
+        },
+        {
+          "name": "usar_imagen_inicial",
+          "type": "BOOLEAN",
+          "links": []
+        },
+        {
+          "name": "mantener_resolucion",
+          "type": "BOOLEAN",
+          "links": []
+        },
+        {
+          "name": "transformacion_pct",
+          "type": "INT",
+          "links": []
+        }
+      ],
+      "title": "Imagen principal · Kontext (pinta la máscara aquí)",
+      "properties": {
+        "Node name for S&R": "ImageLabInitialImage"
+      },
+      "widgets_values": [
+        "(sin imagen)",
+        true,
+        false,
+        0,
+        "image"
+      ],
+      "widgets_values_named": {
+        "image": "(sin imagen)",
+        "Usar imagen inicial": true,
+        "Mantener resolución original": false,
+        "Transformación (%)": 0,
+        "upload": "image"
+      }
+    },
+    {
+      "id": 424,
+      "type": "InpaintCropImproved",
+      "pos": [
+        780,
+        880
+      ],
+      "size": [
+        367.8221923828123,
+        650
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 4513
+        },
+        {
+          "name": "mask",
+          "shape": 7,
+          "type": "MASK",
+          "link": 4514
+        },
+        {
+          "name": "optional_context_mask",
+          "shape": 7,
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "stitcher",
+          "type": "STITCHER",
+          "links": [
+            4509
+          ]
+        },
+        {
+          "name": "cropped_image",
+          "type": "IMAGE",
+          "links": [
+            4507
+          ]
+        },
+        {
+          "name": "cropped_mask",
+          "type": "MASK",
+          "links": [
+            4508
+          ]
+        }
+      ],
+      "title": "✂️ Recortar alrededor de la máscara · Kontext",
+      "properties": {
+        "Node name for S&R": "InpaintCropImproved"
+      },
+      "widgets_values": [
+        "bilinear",
+        "bicubic",
+        false,
+        "ensure minimum resolution",
+        1024,
+        1024,
+        16384,
+        16384,
+        true,
+        8,
+        false,
+        32,
+        0.1,
+        false,
+        1,
+        1,
+        1,
+        1,
+        1.5,
+        true,
+        1024,
+        1024,
+        "32",
+        "cpu (compatible)"
+      ],
+      "widgets_values_named": {
+        "downscale_algorithm": "bilinear",
+        "upscale_algorithm": "bicubic",
+        "preresize": false,
+        "preresize_mode": "ensure minimum resolution",
+        "preresize_min_width": 1024,
+        "preresize_min_height": 1024,
+        "preresize_max_width": 16384,
+        "preresize_max_height": 16384,
+        "mask_fill_holes": true,
+        "mask_expand_pixels": 8,
+        "mask_invert": false,
+        "mask_blend_pixels": 32,
+        "mask_hipass_filter": 0.1,
+        "extend_for_outpainting": false,
+        "extend_up_factor": 1,
+        "extend_down_factor": 1,
+        "extend_left_factor": 1,
+        "extend_right_factor": 1,
+        "context_from_mask_extend_factor": 1.5,
+        "output_resize_to_target_size": true,
+        "output_target_width": 1024,
+        "output_target_height": 1024,
+        "output_padding": "32",
+        "device_mode": "cpu (compatible)"
       }
     }
   ],
@@ -958,7 +1133,7 @@
     ],
     [
       4507,
-      410,
+      424,
       1,
       420,
       0,
@@ -966,7 +1141,7 @@
     ],
     [
       4508,
-      410,
+      424,
       2,
       420,
       1,
@@ -974,7 +1149,7 @@
     ],
     [
       4509,
-      410,
+      424,
       0,
       421,
       0,
@@ -1003,6 +1178,22 @@
       420,
       4,
       "IMAGE"
+    ],
+    [
+      4513,
+      423,
+      0,
+      424,
+      0,
+      "IMAGE"
+    ],
+    [
+      4514,
+      423,
+      1,
+      424,
+      1,
+      "MASK"
     ]
   ],
   "groups": [
