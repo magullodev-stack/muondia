@@ -8,11 +8,12 @@ and restart ComfyUI. No extra dependencies.
 import nodes
 import torch
 
-OPTIONS = ("Z-Image", "FLUX", "Qwen", "Fotografía externa")
-INDEX = {name: idx + 1 for idx, name in enumerate(OPTIONS)}
+OPTIONS = ("Z-Image Turbo", "Z-Image Base", "FLUX", "Qwen", "Fotografía externa")
+# Números fijos: el subgrafo «Salida y acabado» compara con ellos (1, 2, 4 y 5).
+INDEX = {"Z-Image Turbo": 1, "FLUX": 2, "Qwen": 3, "Fotografía externa": 4, "Z-Image Base": 5}
 
 # Opciones de cada workflow. Comparten INDEX, así que el número de fuente es el mismo.
-OPTIONS_GENERACION = ("Z-Image", "FLUX", "Fotografía externa")
+OPTIONS_GENERACION = ("Z-Image Turbo", "Z-Image Base", "FLUX", "Fotografía externa")
 OPTIONS_EDICION = ("Qwen",)
 
 
@@ -35,7 +36,7 @@ class ImageLabSourceSelector:
 
 
 class ImageLabSourceSelectorGeneracion(ImageLabSourceSelector):
-    """Fuente para image_lab_generacion.json: Z-Image, FLUX o fotografía externa."""
+    """Fuente para image_lab_generacion.json: Z-Image Turbo, Z-Image Base, FLUX o fotografía externa."""
 
     @classmethod
     def INPUT_TYPES(cls):
@@ -93,7 +94,8 @@ class ImageLabFilenamePrefix:
     """Añade el origen de la imagen al nombre de archivo: «resultado» -> «resultado_flux»."""
 
     SLUGS = {
-        "Z-Image": "z-image",
+        "Z-Image Turbo": "z-image-turbo",
+        "Z-Image Base": "z-image-base",
         "FLUX": "flux",
         "Qwen": "qwen",
         "Fotografía externa": "foto-externa",
