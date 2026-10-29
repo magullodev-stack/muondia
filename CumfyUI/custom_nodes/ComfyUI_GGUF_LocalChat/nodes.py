@@ -28,11 +28,13 @@ MODELOS = {
     "Euryale 70B v2.1 (Q4_K_M)": (ROOT / "models/llm/euryale-70b/L3-70B-Euryale-v2.1-Q4_K_M.gguf", 8192),
     "Qwen2.5-VL 7B (Q4_K_M)": (ROOT / "models/llm/qwen2.5-vl-7b/Qwen2.5-VL-7B-Instruct-Q4_K_M.gguf", 8192),
     "Qwen2.5-VL 7B Uncensored (Q4_K_M)": (ROOT / "models/llm/qwen2.5-vl-7b-abliterated/Qwen2.5-VL-7B-Instruct-abliterated.Q4_K_M.gguf", 8192),
+    "Qwen2.5-VL 7B Caption It (Q4_K_M)": (ROOT / "models/llm/qwen2.5-vl-7b-caption-it/Qwen2.5-VL-7B-Abliterated-Caption-it.Q4_K_M.gguf", 8192),
 }
 
 MM_PROJ = {
     "Qwen2.5-VL 7B (Q4_K_M)": ROOT / "models/llm/qwen2.5-vl-7b/mmproj-Qwen2.5-VL-7B-Instruct-Q8_0.gguf",
     "Qwen2.5-VL 7B Uncensored (Q4_K_M)": ROOT / "models/llm/qwen2.5-vl-7b-abliterated/Qwen2.5-VL-7B-Instruct-abliterated.mmproj-Q8_0.gguf",
+    "Qwen2.5-VL 7B Caption It (Q4_K_M)": ROOT / "models/llm/qwen2.5-vl-7b-caption-it/Qwen2.5-VL-7B-Abliterated-Caption-it.mmproj-Q8_0.gguf",
 }
 HOST = "127.0.0.1"
 PORT = 18889
@@ -473,7 +475,7 @@ class GeneradorQwenVL(GeneradorLLM):
     @classmethod
     def INPUT_TYPES(cls):
         schema = super().INPUT_TYPES()
-        schema["required"]["modelo"] = (["Qwen2.5-VL 7B Uncensored (Q4_K_M)"],)
+        schema["required"]["modelo"] = (["Qwen2.5-VL 7B Uncensored (Q4_K_M)", "Qwen2.5-VL 7B Caption It (Q4_K_M)"],)
         schema["required"]["contexto_tokens"] = ("INT", {"default": 4096, "min": 0, "max": 131072, "step": 512})
         schema["required"]["temperatura"] = ("FLOAT", {"default": 0.3, "min": 0.0, "max": 2.0, "step": 0.05})
         schema["required"]["max_tokens_salida"] = ("INT", {"default": 2048, "min": 1, "max": 32768, "step": 128})
