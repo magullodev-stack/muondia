@@ -123,7 +123,7 @@
       },
       "widgets_values": [
         "Qwen2.5-VL 7B Uncensored (Q4_K_M)",
-        "Analyze the input image and write two outputs for an image generator: a main prompt and a negative prompt. Be faithful to what is visible and keep the image's distinctive aesthetic, including any sensual or erotic style when present. Describe the subject's appearance, pose, hands, clothing or lingerie, accessories, expression, framing, background, lighting, colors, textures, and photographic or artistic style. Do not invent details. Do not name or identify real people.\n\nIf the subject appears to be under 18, output only: NOT SUPPORTED\n\nPROMPT: One specific description of the scene in natural language, as a single paragraph, so an image generator can recreate it.\n\nNEGATIVE PROMPT: A short comma-separated list of visual defects and unwanted elements relevant to this image (for example anatomy errors, blur, artifacts, watermark, text).",
+        "Analyze the input image and write two outputs for an image generator: a main prompt and a negative prompt. Be faithful to what is visible and keep the image's distinctive aesthetic, including any sensual or erotic style when present. Describe the subject's appearance, pose, hands, clothing or lingerie, accessories, expression, framing, background, lighting, colors, textures, and photographic or artistic style. Do not invent details. Do not name or identify real people.\n\nPROMPT: One specific description of the scene in natural language, as a single paragraph, so an image generator can recreate it.\n\nNEGATIVE PROMPT: A short comma-separated list of visual defects and unwanted elements relevant to this image (for example anatomy errors, blur, artifacts, watermark, text).",
         4096,
         0.3,
         2048,
@@ -131,7 +131,7 @@
       ],
       "widgets_values_named": {
         "modelo": "Qwen2.5-VL 7B Uncensored (Q4_K_M)",
-        "prompt": "Analyze the input image and write two outputs for an image generator: a main prompt and a negative prompt. Be faithful to what is visible and keep the image's distinctive aesthetic, including any sensual or erotic style when present. Describe the subject's appearance, pose, hands, clothing or lingerie, accessories, expression, framing, background, lighting, colors, textures, and photographic or artistic style. Do not invent details. Do not name or identify real people.\n\nIf the subject appears to be under 18, output only: NOT SUPPORTED\n\nPROMPT: One specific description of the scene in natural language, as a single paragraph, so an image generator can recreate it.\n\nNEGATIVE PROMPT: A short comma-separated list of visual defects and unwanted elements relevant to this image (for example anatomy errors, blur, artifacts, watermark, text).",
+        "prompt": "Analyze the input image and write two outputs for an image generator: a main prompt and a negative prompt. Be faithful to what is visible and keep the image's distinctive aesthetic, including any sensual or erotic style when present. Describe the subject's appearance, pose, hands, clothing or lingerie, accessories, expression, framing, background, lighting, colors, textures, and photographic or artistic style. Do not invent details. Do not name or identify real people.\n\nPROMPT: One specific description of the scene in natural language, as a single paragraph, so an image generator can recreate it.\n\nNEGATIVE PROMPT: A short comma-separated list of visual defects and unwanted elements relevant to this image (for example anatomy errors, blur, artifacts, watermark, text).",
         "contexto_tokens": 4096,
         "temperatura": 0.3,
         "max_tokens_salida": 2048,
@@ -295,6 +295,14 @@
       "IMAGE"
     ],
     [
+      6,
+      6,
+      1,
+      4,
+      0,
+      "STRING"
+    ],
+    [
       4,
       1,
       0,
@@ -308,14 +316,6 @@
       0,
       6,
       1,
-      "STRING"
-    ],
-    [
-      6,
-      6,
-      1,
-      4,
-      0,
       "STRING"
     ]
   ],
@@ -360,10 +360,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.6010518407212624,
+      "scale": 0.6010518407212632,
       "offset": [
-        398.0253443604434,
-        35.409131113879624
+        662.2416028759212,
+        -451.94491884405306
       ]
     },
     "frontendVersion": "1.55.18",
