@@ -119,24 +119,24 @@
         ]
       },
       "widgets_values": [
-        "Entry prompt",
+        "",
         false,
         true,
         1024,
         1024,
         0,
         1,
-        0
+        50
       ],
       "widgets_values_named": {
-        "text": "Entry prompt",
+        "text": "",
         "use_img2img": false,
         "auto_size": true,
         "width": 1024,
         "height": 1024,
         "strength_pct": 0,
         "seed": 1,
-        "nsfw_lora_pct": 0
+        "nsfw_lora_pct": 50
       }
     },
     {
@@ -377,7 +377,7 @@
         ]
       },
       "widgets_values": [
-        "Entry prompt",
+        "",
         false,
         false,
         768,
@@ -387,13 +387,13 @@
         3.5,
         24,
         "simple",
+        50,
         0,
         0,
-        0,
-        0
+        65
       ],
       "widgets_values_named": {
-        "text": "Entry prompt",
+        "text": "",
         "use_img2img": false,
         "auto_size": false,
         "width": 768,
@@ -403,10 +403,10 @@
         "guidance": 3.5,
         "steps": 24,
         "scheduler": "simple",
-        "anatomy_lora_pct": 0,
+        "anatomy_lora_pct": 50,
         "fpnd_lora_pct": 0,
         "photo_lora_pct": 0,
-        "nsfw_lora_pct": 0
+        "nsfw_lora_pct": 65
       }
     },
     {
@@ -700,7 +700,7 @@
         "previewExposures": []
       },
       "widgets_values": [
-        "Fotografía externa",
+        "FLUX",
         false,
         "4xNomos2_hq_dat2.pth",
         4,
@@ -712,7 +712,7 @@
         "image_lab/final/ben2"
       ],
       "widgets_values_named": {
-        "fuente": "Fotografía externa",
+        "fuente": "FLUX",
         "value_1": false,
         "model_name": "4xNomos2_hq_dat2.pth",
         "value": 4,
@@ -886,7 +886,7 @@
         30,
         4,
         "realgen_v2.safetensors",
-        0
+        65
       ],
       "widgets_values_named": {
         "text": "Entry prompt",
@@ -900,15 +900,15 @@
         "steps": 30,
         "cfg": 4,
         "lora_name": "realgen_v2.safetensors",
-        "lora_pct": 0
+        "lora_pct": 65
       }
     },
     {
       "id": 2346,
       "type": "ImageLabInitialImage",
       "pos": [
-        13.284950000000373,
-        1459.104214117751
+        13.967963455365444,
+        1449.5420465865568
       ],
       "size": [
         540,
@@ -1001,10 +1001,10 @@
         "Node name for S&R": "PrimitiveStringMultiline"
       },
       "widgets_values": [
-        "Entry prompt"
+        ""
       ],
       "widgets_values_named": {
-        "value": "Entry prompt"
+        "value": ""
       }
     },
     {
@@ -1036,10 +1036,10 @@
         "Node name for S&R": "PrimitiveStringMultiline"
       },
       "widgets_values": [
-        "Entry prompt"
+        ""
       ],
       "widgets_values_named": {
-        "value": "Entry prompt"
+        "value": ""
       }
     }
   ],
@@ -1253,7 +1253,7 @@
         -4.335123852538852,
         58.116544256912704,
         573.9499999999999,
-        1777.5699999999997
+        1766.6417847141586
       ],
       "color": "#426a74",
       "flags": {}
@@ -4200,54 +4200,6 @@
             "type": "IMAGE"
           },
           {
-            "id": 17,
-            "origin_id": 109,
-            "origin_slot": 0,
-            "target_id": 110,
-            "target_slot": 0,
-            "type": "INT"
-          },
-          {
-            "id": 37,
-            "origin_id": 109,
-            "origin_slot": 0,
-            "target_id": 122,
-            "target_slot": 0,
-            "type": "INT"
-          },
-          {
-            "id": 201,
-            "origin_id": 963,
-            "origin_slot": 0,
-            "target_id": 960,
-            "target_slot": 0,
-            "type": "INT"
-          },
-          {
-            "id": 202,
-            "origin_id": 963,
-            "origin_slot": 0,
-            "target_id": 961,
-            "target_slot": 0,
-            "type": "INT"
-          },
-          {
-            "id": 203,
-            "origin_id": 963,
-            "origin_slot": 0,
-            "target_id": 962,
-            "target_slot": 0,
-            "type": "INT"
-          },
-          {
-            "id": 4730,
-            "origin_id": 963,
-            "origin_slot": 0,
-            "target_id": 964,
-            "target_slot": 0,
-            "type": "INT"
-          },
-          {
             "id": 18,
             "origin_id": 110,
             "origin_slot": 0,
@@ -4341,6 +4293,54 @@
             "origin_slot": 13,
             "target_id": 971,
             "target_slot": 3,
+            "type": "INT"
+          },
+          {
+            "id": 17,
+            "origin_id": 109,
+            "origin_slot": 0,
+            "target_id": 110,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 37,
+            "origin_id": 109,
+            "origin_slot": 0,
+            "target_id": 122,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 201,
+            "origin_id": 963,
+            "origin_slot": 0,
+            "target_id": 960,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 202,
+            "origin_id": 963,
+            "origin_slot": 0,
+            "target_id": 961,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 203,
+            "origin_id": 963,
+            "origin_slot": 0,
+            "target_id": 962,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 4730,
+            "origin_id": 963,
+            "origin_slot": 0,
+            "target_id": 964,
+            "target_slot": 0,
             "type": "INT"
           }
         ],
@@ -6432,22 +6432,6 @@
             "type": "INT"
           },
           {
-            "id": 2510,
-            "origin_id": 2102,
-            "origin_slot": 0,
-            "target_id": 1305,
-            "target_slot": 0,
-            "type": "INT"
-          },
-          {
-            "id": 4316,
-            "origin_id": 2105,
-            "origin_slot": 0,
-            "target_id": 2106,
-            "target_slot": 0,
-            "type": "INT"
-          },
-          {
             "id": 2513,
             "origin_id": 1306,
             "origin_slot": 0,
@@ -6478,6 +6462,22 @@
             "target_id": 2104,
             "target_slot": 1,
             "type": "FLOAT"
+          },
+          {
+            "id": 2510,
+            "origin_id": 2102,
+            "origin_slot": 0,
+            "target_id": 1305,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 4316,
+            "origin_id": 2105,
+            "origin_slot": 0,
+            "target_id": 2106,
+            "target_slot": 0,
+            "type": "INT"
           }
         ],
         "extra": {
@@ -9391,46 +9391,6 @@
             "type": "INT"
           },
           {
-            "id": 4326,
-            "origin_id": 2202,
-            "origin_slot": 0,
-            "target_id": 1405,
-            "target_slot": 0,
-            "type": "INT"
-          },
-          {
-            "id": 4603,
-            "origin_id": 2305,
-            "origin_slot": 0,
-            "target_id": 2306,
-            "target_slot": 0,
-            "type": "INT"
-          },
-          {
-            "id": 4610,
-            "origin_id": 2308,
-            "origin_slot": 0,
-            "target_id": 2309,
-            "target_slot": 0,
-            "type": "INT"
-          },
-          {
-            "id": 4613,
-            "origin_id": 2311,
-            "origin_slot": 0,
-            "target_id": 2312,
-            "target_slot": 0,
-            "type": "INT"
-          },
-          {
-            "id": 4713,
-            "origin_id": 2342,
-            "origin_slot": 0,
-            "target_id": 2343,
-            "target_slot": 0,
-            "type": "INT"
-          },
-          {
             "id": 4706,
             "origin_id": -10,
             "origin_slot": 10,
@@ -9509,6 +9469,46 @@
             "target_id": 2341,
             "target_slot": 2,
             "type": "FLOAT"
+          },
+          {
+            "id": 4326,
+            "origin_id": 2202,
+            "origin_slot": 0,
+            "target_id": 1405,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 4603,
+            "origin_id": 2305,
+            "origin_slot": 0,
+            "target_id": 2306,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 4610,
+            "origin_id": 2308,
+            "origin_slot": 0,
+            "target_id": 2309,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 4613,
+            "origin_id": 2311,
+            "origin_slot": 0,
+            "target_id": 2312,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 4713,
+            "origin_id": 2342,
+            "origin_slot": 0,
+            "target_id": 2343,
+            "target_slot": 0,
+            "type": "INT"
           }
         ],
         "extra": {
@@ -11736,22 +11736,6 @@
             "type": "COMBO"
           },
           {
-            "id": 4773,
-            "origin_id": 2368,
-            "origin_slot": 0,
-            "target_id": 2359,
-            "target_slot": 0,
-            "type": "INT"
-          },
-          {
-            "id": 4780,
-            "origin_id": 2371,
-            "origin_slot": 0,
-            "target_id": 2372,
-            "target_slot": 0,
-            "type": "INT"
-          },
-          {
             "id": 4774,
             "origin_id": 2360,
             "origin_slot": 0,
@@ -11774,6 +11758,22 @@
             "target_id": 2355,
             "target_slot": 2,
             "type": "INT"
+          },
+          {
+            "id": 4773,
+            "origin_id": 2368,
+            "origin_slot": 0,
+            "target_id": 2359,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 4780,
+            "origin_id": 2371,
+            "origin_slot": 0,
+            "target_id": 2372,
+            "target_slot": 0,
+            "type": "INT"
           }
         ],
         "extra": {
@@ -11785,10 +11785,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.5644739300537773,
+      "scale": 0.6830134553650705,
       "offset": [
-        1142.1152411067656,
-        466.4431484061023
+        679.9668814717425,
+        138.78254755243626
       ]
     },
     "frontendVersion": "1.55.18",

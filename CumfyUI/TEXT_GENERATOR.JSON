@@ -123,7 +123,7 @@
       },
       "widgets_values": [
         "Qwen2.5-VL 7B Uncensored (Q4_K_M)",
-        "Analyze the provided image and draft two descriptions for an image generator: a main prompt and a negative prompt. Remain faithful to the visible elements and preserve the image's distinctive aesthetic—including its sensual and erotic undertones in their full intensity. Describe the subject’s appearance, posture, hands, clothing or lingerie, accessories, expression, framing, background, lighting, colors, textures, and the photographic or artistic style.\n\nPROMPT: A detailed description of the scene, enabling an image generator to recreate it.\n\nNEGATIVE PROMPT: A concise, comma-separated list of visual flaws and unwanted elements.",
+        "Analyze the provided image and draft two descriptions for an image generator: a main prompt and a negative prompt. Remain faithful to the visible elements and preserve the image's distinctive aesthetic—including its sensual and erotic undertones in their full intensity. Describe the subject's appearance, posture, hands, clothing or lingerie, accessories, expression, framing, background, lighting, colors, textures, and the photographic or artistic style. Do not invent details.\n\nPROMPT: A detailed description of the scene, in natural English, as a single paragraph, enabling an image generator to recreate it.\n\nNEGATIVE PROMPT: A comma-separated list of at most 15 short terms (1 to 3 words each) naming common image defects to avoid, such as: blurry, low quality, bad anatomy, deformed hands, extra fingers, distorted face, watermark, text. Never describe the subject or the scene. Never use negations, comparisons or phrases like \"not too\", \"neither\", \"without\" or \"avoid\". Do not repeat anything from the PROMPT section.\n\nOutput only the two labels and their text. No explanations, markdown, or filler.",
         4096,
         0.3,
         2048,
@@ -131,7 +131,7 @@
       ],
       "widgets_values_named": {
         "modelo": "Qwen2.5-VL 7B Uncensored (Q4_K_M)",
-        "prompt": "Analyze the provided image and draft two descriptions for an image generator: a main prompt and a negative prompt. Remain faithful to the visible elements and preserve the image's distinctive aesthetic—including its sensual and erotic undertones in their full intensity. Describe the subject’s appearance, posture, hands, clothing or lingerie, accessories, expression, framing, background, lighting, colors, textures, and the photographic or artistic style.\n\nPROMPT: A detailed description of the scene, enabling an image generator to recreate it.\n\nNEGATIVE PROMPT: A concise, comma-separated list of visual flaws and unwanted elements.",
+        "prompt": "Analyze the provided image and draft two descriptions for an image generator: a main prompt and a negative prompt. Remain faithful to the visible elements and preserve the image's distinctive aesthetic—including its sensual and erotic undertones in their full intensity. Describe the subject's appearance, posture, hands, clothing or lingerie, accessories, expression, framing, background, lighting, colors, textures, and the photographic or artistic style. Do not invent details.\n\nPROMPT: A detailed description of the scene, in natural English, as a single paragraph, enabling an image generator to recreate it.\n\nNEGATIVE PROMPT: A comma-separated list of at most 15 short terms (1 to 3 words each) naming common image defects to avoid, such as: blurry, low quality, bad anatomy, deformed hands, extra fingers, distorted face, watermark, text. Never describe the subject or the scene. Never use negations, comparisons or phrases like \"not too\", \"neither\", \"without\" or \"avoid\". Do not repeat anything from the PROMPT section.\n\nOutput only the two labels and their text. No explanations, markdown, or filler.",
         "contexto_tokens": 4096,
         "temperatura": 0.3,
         "max_tokens_salida": 2048,
@@ -179,7 +179,7 @@
       "type": "GGUF_ImagenOpcional",
       "pos": [
         511.75,
-        912.25
+        911.216973675184
       ],
       "size": [
         337,
@@ -360,10 +360,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.8000000000000022,
+      "scale": 0.6010518407212637,
       "offset": [
-        -339.7540808412326,
-        -557.5548940246956
+        133.31441751286465,
+        -252.05086101475092
       ]
     },
     "frontendVersion": "1.55.18",
