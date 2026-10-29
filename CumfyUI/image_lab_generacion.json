@@ -1,14 +1,14 @@
 {
   "id": "4e98042f-0026-496d-9afd-001080421555",
   "revision": 38,
-  "last_node_id": 2346,
-  "last_link_id": 4721,
+  "last_node_id": 2372,
+  "last_link_id": 4782,
   "nodes": [
     {
       "id": 200,
       "type": "f2fdebf6-dfaf-43b6-9eb2-7f70613cfdc1",
       "pos": [
-        70.1702395415502,
+        -578.2210594265741,
         115.61404958677686
       ],
       "size": [
@@ -16,7 +16,7 @@
         680
       ],
       "flags": {},
-      "order": 3,
+      "order": 4,
       "mode": 0,
       "inputs": [
         {
@@ -143,7 +143,7 @@
       "id": 201,
       "type": "ImageLabInitialImage",
       "pos": [
-        71.35083565109582,
+        -577.0404633170284,
         833.7171291743152
       ],
       "size": [
@@ -212,15 +212,15 @@
       "id": 300,
       "type": "1fd98b34-59ef-4d8d-afbf-58bdd7a1cd35",
       "pos": [
-        649.1529215113702,
-        119.30990383869013
+        600.8376215113708,
+        127.36247841312255
       ],
       "size": [
         540,
         825
       ],
       "flags": {},
-      "order": 4,
+      "order": 5,
       "mode": 0,
       "inputs": [
         {
@@ -413,8 +413,8 @@
       "id": 301,
       "type": "ImageLabInitialImage",
       "pos": [
-        649.2276261646276,
-        983.1981127977
+        600.9123261646282,
+        991.2506873721321
       ],
       "size": [
         540,
@@ -482,8 +482,8 @@
       "id": 501,
       "type": "ImageLabInitialImage",
       "pos": [
-        1223.6579276421714,
-        597.8049622017122
+        1193.0583359399006,
+        625.1835830528476
       ],
       "size": [
         460,
@@ -547,15 +547,15 @@
       "id": 2,
       "type": "7fa8c5a4-1bc2-4c7c-82cb-879c5dd09b30",
       "pos": [
-        1220.499108218572,
-        123.19925839931969
+        1186.6783982185725,
+        136.0833138248873
       ],
       "size": [
         809.20685305905,
         381.24168053168813
       ],
       "flags": {},
-      "order": 5,
+      "order": 7,
       "mode": 0,
       "inputs": [
         {
@@ -577,6 +577,7 @@
         {
           "label": "Z-Image Base",
           "name": "z_image_base",
+          "shape": 7,
           "type": "IMAGE",
           "link": 4721
         },
@@ -727,15 +728,15 @@
       "id": 2345,
       "type": "b4a7f0c2-6e1d-4c3a-8f52-9d7e1a3b6c40",
       "pos": [
-        1226.8,
-        1130.0
+        10.864950000000508,
+        120.53233568616426
       ],
       "size": [
         540,
         960
       ],
       "flags": {},
-      "order": 20,
+      "order": 6,
       "mode": 0,
       "inputs": [
         {
@@ -868,7 +869,7 @@
         "previewExposures": [
           {
             "name": "$$canvas-image-preview",
-            "sourceNodeId": "3",
+            "sourceNodeId": "2354",
             "sourcePreviewName": "$$canvas-image-preview"
           }
         ]
@@ -883,7 +884,7 @@
         0,
         1,
         30,
-        4.0,
+        4,
         "realgen_v2.safetensors",
         0
       ],
@@ -897,7 +898,7 @@
         "strength_pct": 0,
         "seed": 1,
         "steps": 30,
-        "cfg": 4.0,
+        "cfg": 4,
         "lora_name": "realgen_v2.safetensors",
         "lora_pct": 0
       }
@@ -906,15 +907,15 @@
       "id": 2346,
       "type": "ImageLabInitialImage",
       "pos": [
-        1226.8,
-        2110.0
+        10.864950000000508,
+        1100.5323356861632
       ],
       "size": [
         540,
         355
       ],
       "flags": {},
-      "order": 19,
+      "order": 3,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -1115,10 +1116,10 @@
       "id": 9,
       "title": "01 · Z-IMAGE",
       "bounding": [
-        54.96362797130238,
+        -593.4276709968219,
         45.57272727272726,
-        566.9008264462811,
-        1151.3831695952972
+        572.3553719008265,
+        1156.8377150498427
       ],
       "color": "#426a74",
       "flags": {}
@@ -1127,8 +1128,8 @@
       "id": 10,
       "title": "02 · FLUX",
       "bounding": [
-        632.7892851477343,
-        47.03717656596284,
+        584.4739851477349,
+        55.0897511403952,
         566.7433780818792,
         1301.4660287832285
       ],
@@ -1139,8 +1140,8 @@
       "id": 11,
       "title": "03 · FOTO EXTERNA",
       "bounding": [
-        1211.635183294108,
-        524.2235915704644,
+        1181.0355915918371,
+        551.6022124215997,
         485.29068288368285,
         533.3256893238997
       ],
@@ -1151,8 +1152,8 @@
       "id": 12,
       "title": "04 · ELEGIR SALIDA Y ACABADO",
       "bounding": [
-        1212.0991082185724,
-        46.599258399319744,
+        1178.2783982185729,
+        59.483313824887354,
         826.6954031808034,
         466.8774567918661
       ],
@@ -1163,8 +1164,8 @@
       "id": 13,
       "title": "05 · Z-IMAGE BASE",
       "bounding": [
-        1211.6,
-        1060.0,
+        -4.335049999999789,
+        50.53233568616438,
         566.9,
         1435
       ],
@@ -1178,9 +1179,9 @@
         "id": "7fa8c5a4-1bc2-4c7c-82cb-879c5dd09b30",
         "version": 1,
         "state": {
-          "lastGroupId": 12,
-          "lastNodeId": 2344,
-          "lastLinkId": 4733,
+          "lastGroupId": 16,
+          "lastNodeId": 2372,
+          "lastLinkId": 4782,
           "lastRerouteId": 0
         },
         "revision": 2,
@@ -2824,7 +2825,7 @@
             "flags": {
               "collapsed": false
             },
-            "order": 26,
+            "order": 27,
             "mode": 0,
             "inputs": [
               {
@@ -2878,7 +2879,7 @@
             "flags": {
               "collapsed": false
             },
-            "order": 27,
+            "order": 28,
             "mode": 0,
             "inputs": [
               {
@@ -2938,7 +2939,7 @@
               128
             ],
             "flags": {},
-            "order": 28,
+            "order": 29,
             "mode": 0,
             "inputs": [
               {
@@ -3002,7 +3003,7 @@
               128
             ],
             "flags": {},
-            "order": 29,
+            "order": 30,
             "mode": 0,
             "inputs": [
               {
@@ -3066,7 +3067,7 @@
               128
             ],
             "flags": {},
-            "order": 30,
+            "order": 31,
             "mode": 0,
             "inputs": [
               {
@@ -3131,7 +3132,7 @@
               90
             ],
             "flags": {},
-            "order": 31,
+            "order": 32,
             "mode": 0,
             "inputs": [
               {
@@ -3180,7 +3181,7 @@
               330
             ],
             "flags": {},
-            "order": 32,
+            "order": 34,
             "mode": 0,
             "inputs": [
               {
@@ -3284,7 +3285,7 @@
               360
             ],
             "flags": {},
-            "order": 33,
+            "order": 35,
             "mode": 0,
             "inputs": [
               {
@@ -3390,7 +3391,7 @@
               118
             ],
             "flags": {},
-            "order": 34,
+            "order": 36,
             "mode": 0,
             "inputs": [
               {
@@ -3451,7 +3452,7 @@
               90
             ],
             "flags": {},
-            "order": 35,
+            "order": 37,
             "mode": 0,
             "inputs": [
               {
@@ -3497,7 +3498,7 @@
               110
             ],
             "flags": {},
-            "order": 36,
+            "order": 38,
             "mode": 0,
             "inputs": [
               {
@@ -3550,13 +3551,13 @@
               470
             ],
             "size": [
-              225,
+              246.8169921875,
               118
             ],
             "flags": {
               "collapsed": false
             },
-            "order": 23,
+            "order": 26,
             "mode": 0,
             "inputs": [
               {
@@ -3617,7 +3618,7 @@
               128
             ],
             "flags": {},
-            "order": 29,
+            "order": 33,
             "mode": 0,
             "inputs": [
               {
@@ -3666,7 +3667,7 @@
               "max(0, 1 - max(a - 5, 5 - a))"
             ],
             "widgets_values_named": {
-              "expression": "max(0, 1 - max(a - 2, 2 - a))"
+              "expression": "max(0, 1 - max(a - 5, 5 - a))"
             }
           }
         ],
@@ -4041,54 +4042,6 @@
             "type": "IMAGE"
           },
           {
-            "id": 222,
-            "origin_id": -10,
-            "origin_slot": 11,
-            "target_id": 970,
-            "target_slot": 1,
-            "type": "FLOAT"
-          },
-          {
-            "id": 223,
-            "origin_id": -10,
-            "origin_slot": 12,
-            "target_id": 970,
-            "target_slot": 2,
-            "type": "INT"
-          },
-          {
-            "id": 224,
-            "origin_id": -10,
-            "origin_slot": 13,
-            "target_id": 970,
-            "target_slot": 3,
-            "type": "INT"
-          },
-          {
-            "id": 225,
-            "origin_id": -10,
-            "origin_slot": 11,
-            "target_id": 971,
-            "target_slot": 1,
-            "type": "FLOAT"
-          },
-          {
-            "id": 226,
-            "origin_id": -10,
-            "origin_slot": 12,
-            "target_id": 971,
-            "target_slot": 2,
-            "type": "INT"
-          },
-          {
-            "id": 227,
-            "origin_id": -10,
-            "origin_slot": 13,
-            "target_id": 971,
-            "target_slot": 3,
-            "type": "INT"
-          },
-          {
             "id": 228,
             "origin_id": 970,
             "origin_slot": 1,
@@ -4137,44 +4090,28 @@
             "type": "STRING"
           },
           {
-            "id": 17,
-            "origin_id": 109,
-            "origin_slot": 0,
-            "target_id": 110,
-            "target_slot": 0,
-            "type": "INT"
+            "id": 4731,
+            "origin_id": 964,
+            "origin_slot": 2,
+            "target_id": 914,
+            "target_slot": 2,
+            "type": "BOOLEAN"
           },
           {
-            "id": 37,
-            "origin_id": 109,
-            "origin_slot": 0,
-            "target_id": 122,
-            "target_slot": 0,
-            "type": "INT"
+            "id": 4732,
+            "origin_id": -10,
+            "origin_slot": 2,
+            "target_id": 914,
+            "target_slot": 1,
+            "type": "IMAGE"
           },
           {
-            "id": 201,
-            "origin_id": 963,
+            "id": 4733,
+            "origin_id": 914,
             "origin_slot": 0,
-            "target_id": 960,
+            "target_id": 912,
             "target_slot": 0,
-            "type": "INT"
-          },
-          {
-            "id": 202,
-            "origin_id": 963,
-            "origin_slot": 0,
-            "target_id": 961,
-            "target_slot": 0,
-            "type": "INT"
-          },
-          {
-            "id": 203,
-            "origin_id": 963,
-            "origin_slot": 0,
-            "target_id": 962,
-            "target_slot": 0,
-            "type": "INT"
+            "type": "IMAGE"
           },
           {
             "id": 18,
@@ -4225,36 +4162,100 @@
             "type": "INT"
           },
           {
+            "id": 222,
+            "origin_id": -10,
+            "origin_slot": 11,
+            "target_id": 970,
+            "target_slot": 1,
+            "type": "FLOAT"
+          },
+          {
+            "id": 223,
+            "origin_id": -10,
+            "origin_slot": 12,
+            "target_id": 970,
+            "target_slot": 2,
+            "type": "INT"
+          },
+          {
+            "id": 224,
+            "origin_id": -10,
+            "origin_slot": 13,
+            "target_id": 970,
+            "target_slot": 3,
+            "type": "INT"
+          },
+          {
+            "id": 225,
+            "origin_id": -10,
+            "origin_slot": 11,
+            "target_id": 971,
+            "target_slot": 1,
+            "type": "FLOAT"
+          },
+          {
+            "id": 226,
+            "origin_id": -10,
+            "origin_slot": 12,
+            "target_id": 971,
+            "target_slot": 2,
+            "type": "INT"
+          },
+          {
+            "id": 227,
+            "origin_id": -10,
+            "origin_slot": 13,
+            "target_id": 971,
+            "target_slot": 3,
+            "type": "INT"
+          },
+          {
+            "id": 17,
+            "origin_id": 109,
+            "origin_slot": 0,
+            "target_id": 110,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 37,
+            "origin_id": 109,
+            "origin_slot": 0,
+            "target_id": 122,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 201,
+            "origin_id": 963,
+            "origin_slot": 0,
+            "target_id": 960,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 202,
+            "origin_id": 963,
+            "origin_slot": 0,
+            "target_id": 961,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 203,
+            "origin_id": 963,
+            "origin_slot": 0,
+            "target_id": 962,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
             "id": 4730,
             "origin_id": 963,
             "origin_slot": 0,
             "target_id": 964,
             "target_slot": 0,
             "type": "INT"
-          },
-          {
-            "id": 4731,
-            "origin_id": 964,
-            "origin_slot": 2,
-            "target_id": 914,
-            "target_slot": 2,
-            "type": "BOOLEAN"
-          },
-          {
-            "id": 4732,
-            "origin_id": -10,
-            "origin_slot": 2,
-            "target_id": 914,
-            "target_slot": 1,
-            "type": "IMAGE"
-          },
-          {
-            "id": 4733,
-            "origin_id": 914,
-            "origin_slot": 0,
-            "target_id": 912,
-            "target_slot": 0,
-            "type": "IMAGE"
           }
         ],
         "extra": {}
@@ -4263,9 +4264,9 @@
         "id": "f2fdebf6-dfaf-43b6-9eb2-7f70613cfdc1",
         "version": 1,
         "state": {
-          "lastGroupId": 12,
-          "lastNodeId": 2344,
-          "lastLinkId": 4716,
+          "lastGroupId": 16,
+          "lastNodeId": 2372,
+          "lastLinkId": 4782,
           "lastRerouteId": 0
         },
         "revision": 10,
@@ -6345,22 +6346,6 @@
             "type": "INT"
           },
           {
-            "id": 2510,
-            "origin_id": 2102,
-            "origin_slot": 0,
-            "target_id": 1305,
-            "target_slot": 0,
-            "type": "INT"
-          },
-          {
-            "id": 4316,
-            "origin_id": 2105,
-            "origin_slot": 0,
-            "target_id": 2106,
-            "target_slot": 0,
-            "type": "INT"
-          },
-          {
             "id": 2513,
             "origin_id": 1306,
             "origin_slot": 0,
@@ -6391,6 +6376,22 @@
             "target_id": 2104,
             "target_slot": 1,
             "type": "FLOAT"
+          },
+          {
+            "id": 2510,
+            "origin_id": 2102,
+            "origin_slot": 0,
+            "target_id": 1305,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 4316,
+            "origin_id": 2105,
+            "origin_slot": 0,
+            "target_id": 2106,
+            "target_slot": 0,
+            "type": "INT"
           }
         ],
         "extra": {
@@ -6401,9 +6402,9 @@
         "id": "1fd98b34-59ef-4d8d-afbf-58bdd7a1cd35",
         "version": 1,
         "state": {
-          "lastGroupId": 12,
-          "lastNodeId": 2344,
-          "lastLinkId": 4716,
+          "lastGroupId": 16,
+          "lastNodeId": 2372,
+          "lastLinkId": 4782,
           "lastRerouteId": 0
         },
         "revision": 13,
@@ -9304,46 +9305,6 @@
             "type": "INT"
           },
           {
-            "id": 4326,
-            "origin_id": 2202,
-            "origin_slot": 0,
-            "target_id": 1405,
-            "target_slot": 0,
-            "type": "INT"
-          },
-          {
-            "id": 4603,
-            "origin_id": 2305,
-            "origin_slot": 0,
-            "target_id": 2306,
-            "target_slot": 0,
-            "type": "INT"
-          },
-          {
-            "id": 4610,
-            "origin_id": 2308,
-            "origin_slot": 0,
-            "target_id": 2309,
-            "target_slot": 0,
-            "type": "INT"
-          },
-          {
-            "id": 4613,
-            "origin_id": 2311,
-            "origin_slot": 0,
-            "target_id": 2312,
-            "target_slot": 0,
-            "type": "INT"
-          },
-          {
-            "id": 4713,
-            "origin_id": 2342,
-            "origin_slot": 0,
-            "target_id": 2343,
-            "target_slot": 0,
-            "type": "INT"
-          },
-          {
             "id": 4706,
             "origin_id": -10,
             "origin_slot": 10,
@@ -9422,6 +9383,46 @@
             "target_id": 2341,
             "target_slot": 2,
             "type": "FLOAT"
+          },
+          {
+            "id": 4326,
+            "origin_id": 2202,
+            "origin_slot": 0,
+            "target_id": 1405,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 4603,
+            "origin_id": 2305,
+            "origin_slot": 0,
+            "target_id": 2306,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 4610,
+            "origin_id": 2308,
+            "origin_slot": 0,
+            "target_id": 2309,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 4613,
+            "origin_id": 2311,
+            "origin_slot": 0,
+            "target_id": 2312,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 4713,
+            "origin_id": 2342,
+            "origin_slot": 0,
+            "target_id": 2343,
+            "target_slot": 0,
+            "type": "INT"
           }
         ],
         "extra": {
@@ -9432,9 +9433,9 @@
         "id": "b4a7f0c2-6e1d-4c3a-8f52-9d7e1a3b6c40",
         "version": 1,
         "state": {
-          "lastGroupId": 12,
-          "lastNodeId": 2344,
-          "lastLinkId": 4725,
+          "lastGroupId": 16,
+          "lastNodeId": 2372,
+          "lastLinkId": 4782,
           "lastRerouteId": 0
         },
         "revision": 10,
@@ -9465,7 +9466,7 @@
             "name": "text",
             "type": "STRING",
             "linkIds": [
-              3525
+              4741
             ],
             "label": "Prompt",
             "pos": [
@@ -9478,7 +9479,7 @@
             "name": "negative_text",
             "type": "STRING",
             "linkIds": [
-              4721
+              4778
             ],
             "label": "Prompt negativo",
             "pos": [
@@ -9491,8 +9492,8 @@
             "name": "init_image",
             "type": "IMAGE",
             "linkIds": [
-              2500,
-              2700
+              4743,
+              4753
             ],
             "label": "Imagen inicial",
             "pos": [
@@ -9505,10 +9506,10 @@
             "name": "use_img2img",
             "type": "BOOLEAN",
             "linkIds": [
-              2507,
-              2512,
-              2706,
-              2714
+              4748,
+              4752,
+              4759,
+              4766
             ],
             "label": "Usar imagen inicial",
             "pos": [
@@ -9521,7 +9522,7 @@
             "name": "auto_size",
             "type": "BOOLEAN",
             "linkIds": [
-              4303
+              4771
             ],
             "label": "Mantener resolución de imagen inicial",
             "pos": [
@@ -9534,7 +9535,7 @@
             "name": "width",
             "type": "INT",
             "linkIds": [
-              4300
+              4768
             ],
             "label": "Ancho manual (512–2048 px)",
             "pos": [
@@ -9547,7 +9548,7 @@
             "name": "height",
             "type": "INT",
             "linkIds": [
-              4301
+              4769
             ],
             "label": "Alto manual (512–2048 px)",
             "pos": [
@@ -9560,7 +9561,7 @@
             "name": "strength_pct",
             "type": "INT",
             "linkIds": [
-              4302
+              4770
             ],
             "label": "Transformación (0–100 %)",
             "pos": [
@@ -9573,7 +9574,7 @@
             "name": "seed",
             "type": "INT",
             "linkIds": [
-              71
+              4742
             ],
             "label": "Semilla",
             "pos": [
@@ -9625,7 +9626,7 @@
             "name": "lora_pct",
             "type": "INT",
             "linkIds": [
-              4319
+              4782
             ],
             "label": "LoRA · fuerza (0–100 %; rec. 50–80)",
             "pos": [
@@ -9640,7 +9641,7 @@
             "name": "IMAGE",
             "type": "IMAGE",
             "linkIds": [
-              3524
+              4740
             ],
             "localized_name": "IMAGE",
             "pos": [
@@ -9652,7 +9653,7 @@
         "widgets": [],
         "nodes": [
           {
-            "id": 30,
+            "id": 2347,
             "type": "CLIPLoader",
             "pos": [
               30,
@@ -9672,8 +9673,8 @@
                 "name": "CLIP",
                 "type": "CLIP",
                 "links": [
-                  3523,
-                  4720
+                  4739,
+                  4777
                 ]
               }
             ],
@@ -9708,7 +9709,7 @@
             }
           },
           {
-            "id": 29,
+            "id": 2348,
             "type": "VAELoader",
             "pos": [
               30,
@@ -9728,8 +9729,8 @@
                 "name": "VAE",
                 "type": "VAE",
                 "links": [
-                  2504,
-                  3519
+                  4735,
+                  4745
                 ]
               }
             ],
@@ -9760,7 +9761,7 @@
             }
           },
           {
-            "id": 8,
+            "id": 2349,
             "type": "VAEDecode",
             "pos": [
               1320,
@@ -9778,13 +9779,13 @@
                 "localized_name": "muestras",
                 "name": "samples",
                 "type": "LATENT",
-                "link": 3518
+                "link": 4734
               },
               {
                 "localized_name": "vae",
                 "name": "vae",
                 "type": "VAE",
-                "link": 3519
+                "link": 4735
               }
             ],
             "outputs": [
@@ -9794,7 +9795,7 @@
                 "type": "IMAGE",
                 "slot_index": 0,
                 "links": [
-                  3524
+                  4740
                 ]
               }
             ],
@@ -9812,7 +9813,7 @@
             }
           },
           {
-            "id": 28,
+            "id": 2350,
             "type": "UNETLoader",
             "pos": [
               30,
@@ -9832,7 +9833,7 @@
                 "name": "MODEL",
                 "type": "MODEL",
                 "links": [
-                  4315
+                  4779
                 ]
               }
             ],
@@ -9860,12 +9861,12 @@
               "default"
             ],
             "widgets_values_named": {
-              "unet_name": "z_image_turbo_int8_convrot.safetensors",
+              "unet_name": "z_image_int8_convrot.safetensors",
               "weight_dtype": "default"
             }
           },
           {
-            "id": 27,
+            "id": 2351,
             "type": "CLIPTextEncode",
             "pos": [
               400,
@@ -9876,14 +9877,14 @@
               650
             ],
             "flags": {},
-            "order": 8,
+            "order": 6,
             "mode": 0,
             "inputs": [
               {
                 "localized_name": "clip",
                 "name": "clip",
                 "type": "CLIP",
-                "link": 3523
+                "link": 4739
               },
               {
                 "localized_name": "texto",
@@ -9892,7 +9893,7 @@
                 "widget": {
                   "name": "text"
                 },
-                "link": 3525
+                "link": 4741
               }
             ],
             "outputs": [
@@ -9901,7 +9902,7 @@
                 "name": "CONDITIONING",
                 "type": "CONDITIONING",
                 "links": [
-                  3521
+                  4737
                 ]
               }
             ],
@@ -9925,7 +9926,7 @@
             }
           },
           {
-            "id": 13,
+            "id": 2352,
             "type": "EmptySD3LatentImage",
             "pos": [
               40,
@@ -9946,7 +9947,7 @@
                 "widget": {
                   "name": "width"
                 },
-                "link": 2707
+                "link": 4760
               },
               {
                 "localized_name": "altura",
@@ -9955,7 +9956,7 @@
                 "widget": {
                   "name": "height"
                 },
-                "link": 2715
+                "link": 4767
               }
             ],
             "outputs": [
@@ -9965,7 +9966,7 @@
                 "type": "LATENT",
                 "slot_index": 0,
                 "links": [
-                  2505
+                  4746
                 ]
               }
             ],
@@ -9993,7 +9994,7 @@
             }
           },
           {
-            "id": 11,
+            "id": 2353,
             "type": "ModelSamplingAuraFlow",
             "pos": [
               950,
@@ -10004,14 +10005,14 @@
               110
             ],
             "flags": {},
-            "order": 6,
+            "order": 8,
             "mode": 0,
             "inputs": [
               {
                 "localized_name": "model",
                 "name": "model",
                 "type": "MODEL",
-                "link": 4318
+                "link": 4772
               }
             ],
             "outputs": [
@@ -10021,7 +10022,7 @@
                 "type": "MODEL",
                 "slot_index": 0,
                 "links": [
-                  3520
+                  4736
                 ]
               }
             ],
@@ -10042,12 +10043,12 @@
               "flow"
             ],
             "widgets_values_named": {
-              "shift": 3,
+              "shift": 6,
               "sampling": "flow"
             }
           },
           {
-            "id": 3,
+            "id": 2354,
             "type": "KSampler",
             "pos": [
               950,
@@ -10058,32 +10059,32 @@
               350
             ],
             "flags": {},
-            "order": 4,
+            "order": 9,
             "mode": 0,
             "inputs": [
               {
                 "localized_name": "modelo",
                 "name": "model",
                 "type": "MODEL",
-                "link": 3520
+                "link": 4736
               },
               {
                 "localized_name": "positivo",
                 "name": "positive",
                 "type": "CONDITIONING",
-                "link": 3521
+                "link": 4737
               },
               {
                 "localized_name": "negativo",
                 "name": "negative",
                 "type": "CONDITIONING",
-                "link": 3522
+                "link": 4738
               },
               {
                 "localized_name": "imagen_latente",
                 "name": "latent_image",
                 "type": "LATENT",
-                "link": 2508
+                "link": 4749
               },
               {
                 "localized_name": "semilla",
@@ -10092,7 +10093,7 @@
                 "widget": {
                   "name": "seed"
                 },
-                "link": 71
+                "link": 4742
               },
               {
                 "localized_name": "pasos",
@@ -10119,7 +10120,7 @@
                 "widget": {
                   "name": "denoise"
                 },
-                "link": 2513
+                "link": 4774
               }
             ],
             "outputs": [
@@ -10129,7 +10130,7 @@
                 "type": "LATENT",
                 "slot_index": 0,
                 "links": [
-                  3518
+                  4734
                 ]
               }
             ],
@@ -10149,7 +10150,7 @@
               42,
               "fixed",
               30,
-              4.0,
+              4,
               "res_multistep",
               "simple",
               1
@@ -10157,15 +10158,15 @@
             "widgets_values_named": {
               "seed": 42,
               "control_after_generate": "fixed",
-              "steps": 8,
-              "cfg": 1,
+              "steps": 30,
+              "cfg": 4,
               "sampler_name": "res_multistep",
               "scheduler": "simple",
               "denoise": 1
             }
           },
           {
-            "id": 1301,
+            "id": 2355,
             "type": "ImageScale",
             "pos": [
               80,
@@ -10183,7 +10184,7 @@
                 "localized_name": "imagen",
                 "name": "image",
                 "type": "IMAGE",
-                "link": 2500
+                "link": 4743
               },
               {
                 "localized_name": "ancho",
@@ -10192,7 +10193,7 @@
                 "widget": {
                   "name": "width"
                 },
-                "link": 2708
+                "link": 4775
               },
               {
                 "localized_name": "altura",
@@ -10201,7 +10202,7 @@
                 "widget": {
                   "name": "height"
                 },
-                "link": 2716
+                "link": 4776
               }
             ],
             "outputs": [
@@ -10210,7 +10211,7 @@
                 "name": "IMAGE",
                 "type": "IMAGE",
                 "links": [
-                  2503
+                  4744
                 ]
               }
             ],
@@ -10233,7 +10234,7 @@
             }
           },
           {
-            "id": 1302,
+            "id": 2356,
             "type": "VAEEncode",
             "pos": [
               80,
@@ -10251,13 +10252,13 @@
                 "localized_name": "píxeles",
                 "name": "pixels",
                 "type": "IMAGE",
-                "link": 2503
+                "link": 4744
               },
               {
                 "localized_name": "vae",
                 "name": "vae",
                 "type": "VAE",
-                "link": 2504
+                "link": 4745
               }
             ],
             "outputs": [
@@ -10266,7 +10267,7 @@
                 "name": "LATENT",
                 "type": "LATENT",
                 "links": [
-                  2506
+                  4747
                 ]
               }
             ],
@@ -10277,7 +10278,7 @@
             }
           },
           {
-            "id": 1303,
+            "id": 2357,
             "type": "ComfySwitchNode",
             "pos": [
               80,
@@ -10296,14 +10297,14 @@
                 "name": "on_false",
                 "shape": 7,
                 "type": "LATENT",
-                "link": 2505
+                "link": 4746
               },
               {
                 "localized_name": "en_verdadero",
                 "name": "on_true",
                 "shape": 7,
                 "type": "LATENT",
-                "link": 2506
+                "link": 4747
               },
               {
                 "localized_name": "interruptor",
@@ -10312,7 +10313,7 @@
                 "widget": {
                   "name": "switch"
                 },
-                "link": 2507
+                "link": 4748
               }
             ],
             "outputs": [
@@ -10321,7 +10322,7 @@
                 "name": "output",
                 "type": "LATENT",
                 "links": [
-                  2508
+                  4749
                 ]
               }
             ],
@@ -10338,7 +10339,7 @@
             }
           },
           {
-            "id": 1304,
+            "id": 2358,
             "type": "PrimitiveInt",
             "pos": [
               80,
@@ -10358,7 +10359,7 @@
                 "name": "INT",
                 "type": "INT",
                 "links": [
-                  2509
+                  4750
                 ]
               }
             ],
@@ -10377,7 +10378,7 @@
             }
           },
           {
-            "id": 1305,
+            "id": 2359,
             "type": "ComfyMathExpression",
             "pos": [
               80,
@@ -10395,7 +10396,7 @@
                 "localized_name": "a",
                 "name": "values.a",
                 "type": "FLOAT,INT,BOOLEAN",
-                "link": 2510
+                "link": 4773
               },
               {
                 "localized_name": "b",
@@ -10411,7 +10412,7 @@
                 "name": "FLOAT",
                 "type": "FLOAT",
                 "links": [
-                  2511
+                  4751
                 ]
               },
               {
@@ -10440,7 +10441,7 @@
             }
           },
           {
-            "id": 1306,
+            "id": 2360,
             "type": "ComfySwitchNode",
             "pos": [
               80,
@@ -10459,14 +10460,14 @@
                 "name": "on_false",
                 "shape": 7,
                 "type": "FLOAT",
-                "link": 2509
+                "link": 4750
               },
               {
                 "localized_name": "en_verdadero",
                 "name": "on_true",
                 "shape": 7,
                 "type": "INT",
-                "link": 2511
+                "link": 4751
               },
               {
                 "localized_name": "interruptor",
@@ -10475,7 +10476,7 @@
                 "widget": {
                   "name": "switch"
                 },
-                "link": 2512
+                "link": 4752
               }
             ],
             "outputs": [
@@ -10484,7 +10485,7 @@
                 "name": "output",
                 "type": "*",
                 "links": [
-                  2513
+                  4774
                 ]
               }
             ],
@@ -10501,7 +10502,7 @@
             }
           },
           {
-            "id": 1600,
+            "id": 2361,
             "type": "GetImageSize",
             "pos": [
               -40,
@@ -10519,7 +10520,7 @@
                 "localized_name": "imagen",
                 "name": "image",
                 "type": "IMAGE",
-                "link": 2700
+                "link": 4753
               }
             ],
             "outputs": [
@@ -10528,7 +10529,7 @@
                 "name": "width",
                 "type": "INT",
                 "links": [
-                  2702
+                  4755
                 ]
               },
               {
@@ -10536,7 +10537,7 @@
                 "name": "height",
                 "type": "INT",
                 "links": [
-                  2710
+                  4762
                 ]
               },
               {
@@ -10553,7 +10554,7 @@
             }
           },
           {
-            "id": 1601,
+            "id": 2362,
             "type": "ComfySwitchNode",
             "pos": [
               290,
@@ -10572,14 +10573,14 @@
                 "name": "on_false",
                 "shape": 7,
                 "type": "INT",
-                "link": 2701
+                "link": 4754
               },
               {
                 "localized_name": "en_verdadero",
                 "name": "on_true",
                 "shape": 7,
                 "type": "INT",
-                "link": 2702
+                "link": 4755
               },
               {
                 "localized_name": "interruptor",
@@ -10588,7 +10589,7 @@
                 "widget": {
                   "name": "switch"
                 },
-                "link": 2703
+                "link": 4756
               }
             ],
             "outputs": [
@@ -10597,7 +10598,7 @@
                 "name": "output",
                 "type": "INT",
                 "links": [
-                  2705
+                  4758
                 ]
               }
             ],
@@ -10614,7 +10615,7 @@
             }
           },
           {
-            "id": 1602,
+            "id": 2363,
             "type": "ComfySwitchNode",
             "pos": [
               290,
@@ -10633,14 +10634,14 @@
                 "name": "on_false",
                 "shape": 7,
                 "type": "INT",
-                "link": 2709
+                "link": 4761
               },
               {
                 "localized_name": "en_verdadero",
                 "name": "on_true",
                 "shape": 7,
                 "type": "INT",
-                "link": 2710
+                "link": 4762
               },
               {
                 "localized_name": "interruptor",
@@ -10649,7 +10650,7 @@
                 "widget": {
                   "name": "switch"
                 },
-                "link": 2711
+                "link": 4763
               }
             ],
             "outputs": [
@@ -10658,7 +10659,7 @@
                 "name": "output",
                 "type": "INT",
                 "links": [
-                  2713
+                  4765
                 ]
               }
             ],
@@ -10675,7 +10676,7 @@
             }
           },
           {
-            "id": 1603,
+            "id": 2364,
             "type": "ComfySwitchNode",
             "pos": [
               290,
@@ -10694,14 +10695,14 @@
                 "name": "on_false",
                 "shape": 7,
                 "type": "INT",
-                "link": 2704
+                "link": 4757
               },
               {
                 "localized_name": "en_verdadero",
                 "name": "on_true",
                 "shape": 7,
                 "type": "INT",
-                "link": 2705
+                "link": 4758
               },
               {
                 "localized_name": "interruptor",
@@ -10710,7 +10711,7 @@
                 "widget": {
                   "name": "switch"
                 },
-                "link": 2706
+                "link": 4759
               }
             ],
             "outputs": [
@@ -10719,8 +10720,8 @@
                 "name": "output",
                 "type": "INT",
                 "links": [
-                  2707,
-                  2708
+                  4760,
+                  4775
                 ]
               }
             ],
@@ -10737,7 +10738,7 @@
             }
           },
           {
-            "id": 1604,
+            "id": 2365,
             "type": "ComfySwitchNode",
             "pos": [
               290,
@@ -10756,14 +10757,14 @@
                 "name": "on_false",
                 "shape": 7,
                 "type": "INT",
-                "link": 2712
+                "link": 4764
               },
               {
                 "localized_name": "en_verdadero",
                 "name": "on_true",
                 "shape": 7,
                 "type": "INT",
-                "link": 2713
+                "link": 4765
               },
               {
                 "localized_name": "interruptor",
@@ -10772,7 +10773,7 @@
                 "widget": {
                   "name": "switch"
                 },
-                "link": 2714
+                "link": 4766
               }
             ],
             "outputs": [
@@ -10781,8 +10782,8 @@
                 "name": "output",
                 "type": "INT",
                 "links": [
-                  2715,
-                  2716
+                  4767,
+                  4776
                 ]
               }
             ],
@@ -10799,7 +10800,7 @@
             }
           },
           {
-            "id": 2100,
+            "id": 2366,
             "type": "PrimitiveInt",
             "pos": [
               -70,
@@ -10820,7 +10821,7 @@
                 "widget": {
                   "name": "value"
                 },
-                "link": 4300
+                "link": 4768
               }
             ],
             "outputs": [
@@ -10829,8 +10830,8 @@
                 "name": "INT",
                 "type": "INT",
                 "links": [
-                  2701,
-                  2704
+                  4754,
+                  4757
                 ]
               }
             ],
@@ -10849,7 +10850,7 @@
             }
           },
           {
-            "id": 2101,
+            "id": 2367,
             "type": "PrimitiveInt",
             "pos": [
               -70,
@@ -10870,7 +10871,7 @@
                 "widget": {
                   "name": "value"
                 },
-                "link": 4301
+                "link": 4769
               }
             ],
             "outputs": [
@@ -10879,8 +10880,8 @@
                 "name": "INT",
                 "type": "INT",
                 "links": [
-                  2709,
-                  2712
+                  4761,
+                  4764
                 ]
               }
             ],
@@ -10899,7 +10900,7 @@
             }
           },
           {
-            "id": 2102,
+            "id": 2368,
             "type": "PrimitiveInt",
             "pos": [
               -70,
@@ -10920,7 +10921,7 @@
                 "widget": {
                   "name": "value"
                 },
-                "link": 4302
+                "link": 4770
               }
             ],
             "outputs": [
@@ -10929,7 +10930,7 @@
                 "name": "INT",
                 "type": "INT",
                 "links": [
-                  2510
+                  4773
                 ]
               }
             ],
@@ -10948,7 +10949,7 @@
             }
           },
           {
-            "id": 2103,
+            "id": 2369,
             "type": "PrimitiveBoolean",
             "pos": [
               -70,
@@ -10969,7 +10970,7 @@
                 "widget": {
                   "name": "value"
                 },
-                "link": 4303
+                "link": 4771
               }
             ],
             "outputs": [
@@ -10978,8 +10979,8 @@
                 "name": "BOOLEAN",
                 "type": "BOOLEAN",
                 "links": [
-                  2703,
-                  2711
+                  4756,
+                  4763
                 ]
               }
             ],
@@ -11007,14 +11008,14 @@
               180
             ],
             "flags": {},
-            "order": 8,
+            "order": 4,
             "mode": 0,
             "inputs": [
               {
                 "localized_name": "clip",
                 "name": "clip",
                 "type": "CLIP",
-                "link": 4720
+                "link": 4777
               },
               {
                 "localized_name": "texto",
@@ -11023,7 +11024,7 @@
                 "widget": {
                   "name": "text"
                 },
-                "link": 4721
+                "link": 4778
               }
             ],
             "outputs": [
@@ -11032,10 +11033,11 @@
                 "name": "CONDITIONING",
                 "type": "CONDITIONING",
                 "links": [
-                  3522
+                  4738
                 ]
               }
             ],
+            "title": "Prompt negativo",
             "properties": {
               "Node name for S&R": "CLIPTextEncode",
               "cnr_id": "comfy-core",
@@ -11052,12 +11054,11 @@
               "low quality, blurry, deformed, bad anatomy, watermark, text"
             ],
             "widgets_values_named": {
-              "text": "A single ultra-realistic studio reference photograph of an adult woman, 30 years old, standing upright in a relaxed neutral anatomical pose, directly facing the camera.\n\nPerfectly frontal view, straight head position, natural symmetrical posture, shoulders level, both arms resting naturally at her sides, unobstructed torso. Framing from the top of the head to the upper hips.\n\nNatural adult female anatomy, realistic body proportions, naturally shaped breasts with anatomically accurate areolas and nipples, believable skin elasticity, subtle natural asymmetry, authentic skin pores, fine skin texture and realistic anatomical transitions.\n\nNatural facial features, relaxed expression, both eyes focused straight ahead, realistic eye alignment, subtle facial asymmetry, no makeup, natural eyebrows.\n\nProfessional full-frame DSLR studio photography, 85mm portrait lens, soft diffused frontal lighting, realistic shadows, neutral color grading, sharp optical detail, unretouched documentary photography.\n\nPure white seamless studio background. Exactly one woman, one photograph, one camera angle, no collage, no fashion pose, no accessories, no clothing covering the torso."
-            },
-            "title": "Prompt negativo"
+              "text": "low quality, blurry, deformed, bad anatomy, watermark, text"
+            }
           },
           {
-            "id": 2104,
+            "id": 2370,
             "type": "LoraLoaderModelOnly",
             "pos": [
               950,
@@ -11075,7 +11076,7 @@
                 "localized_name": "modelo",
                 "name": "model",
                 "type": "MODEL",
-                "link": 4315
+                "link": 4779
               },
               {
                 "localized_name": "nombre_lora",
@@ -11093,7 +11094,7 @@
                 "widget": {
                   "name": "strength_model"
                 },
-                "link": 4317
+                "link": 4781
               }
             ],
             "outputs": [
@@ -11102,7 +11103,7 @@
                 "name": "MODEL",
                 "type": "MODEL",
                 "links": [
-                  4318
+                  4772
                 ]
               }
             ],
@@ -11116,12 +11117,12 @@
               0
             ],
             "widgets_values_named": {
-              "lora_name": "ZITnsfwLoRA.safetensors",
+              "lora_name": "realgen_v2.safetensors",
               "strength_model": 0
             }
           },
           {
-            "id": 2105,
+            "id": 2371,
             "type": "PrimitiveInt",
             "pos": [
               950,
@@ -11142,7 +11143,7 @@
                 "widget": {
                   "name": "value"
                 },
-                "link": 4319
+                "link": 4782
               }
             ],
             "outputs": [
@@ -11151,7 +11152,7 @@
                 "name": "INT",
                 "type": "INT",
                 "links": [
-                  4316
+                  4780
                 ]
               }
             ],
@@ -11170,7 +11171,7 @@
             }
           },
           {
-            "id": 2106,
+            "id": 2372,
             "type": "ComfyMathExpression",
             "pos": [
               950,
@@ -11188,7 +11189,7 @@
                 "localized_name": "a",
                 "name": "values.a",
                 "type": "FLOAT,INT,BOOLEAN",
-                "link": 4316
+                "link": 4780
               },
               {
                 "localized_name": "b",
@@ -11204,7 +11205,7 @@
                 "name": "FLOAT",
                 "type": "FLOAT",
                 "links": [
-                  4317
+                  4781
                 ]
               },
               {
@@ -11235,7 +11236,7 @@
         ],
         "groups": [
           {
-            "id": 2,
+            "id": 14,
             "title": "Step2 - Image size",
             "bounding": [
               10,
@@ -11247,7 +11248,7 @@
             "flags": {}
           },
           {
-            "id": 3,
+            "id": 15,
             "title": "Step3 - Prompt",
             "bounding": [
               360,
@@ -11259,7 +11260,7 @@
             "flags": {}
           },
           {
-            "id": 4,
+            "id": 16,
             "title": "Step1 - Load models",
             "bounding": [
               0,
@@ -11273,359 +11274,327 @@
         ],
         "links": [
           {
-            "id": 3518,
-            "origin_id": 3,
+            "id": 4734,
+            "origin_id": 2354,
             "origin_slot": 0,
-            "target_id": 8,
+            "target_id": 2349,
             "target_slot": 0,
             "type": "LATENT"
           },
           {
-            "id": 3519,
-            "origin_id": 29,
+            "id": 4735,
+            "origin_id": 2348,
             "origin_slot": 0,
-            "target_id": 8,
+            "target_id": 2349,
             "target_slot": 1,
             "type": "VAE"
           },
           {
-            "id": 3520,
-            "origin_id": 11,
+            "id": 4736,
+            "origin_id": 2353,
             "origin_slot": 0,
-            "target_id": 3,
+            "target_id": 2354,
             "target_slot": 0,
             "type": "MODEL"
           },
           {
-            "id": 3521,
-            "origin_id": 27,
+            "id": 4737,
+            "origin_id": 2351,
             "origin_slot": 0,
-            "target_id": 3,
+            "target_id": 2354,
             "target_slot": 1,
             "type": "CONDITIONING"
           },
           {
-            "id": 3522,
+            "id": 4738,
             "origin_id": 34,
             "origin_slot": 0,
-            "target_id": 3,
+            "target_id": 2354,
             "target_slot": 2,
             "type": "CONDITIONING"
           },
           {
-            "id": 3523,
-            "origin_id": 30,
+            "id": 4739,
+            "origin_id": 2347,
             "origin_slot": 0,
-            "target_id": 27,
+            "target_id": 2351,
             "target_slot": 0,
             "type": "CLIP"
           },
           {
-            "id": 3524,
-            "origin_id": 8,
+            "id": 4740,
+            "origin_id": 2349,
             "origin_slot": 0,
             "target_id": -20,
             "target_slot": 0,
             "type": "IMAGE"
           },
           {
-            "id": 3525,
+            "id": 4741,
             "origin_id": -10,
             "origin_slot": 0,
-            "target_id": 27,
+            "target_id": 2351,
             "target_slot": 1,
             "type": "STRING"
           },
           {
-            "id": 71,
+            "id": 4742,
             "origin_id": -10,
             "origin_slot": 8,
-            "target_id": 3,
+            "target_id": 2354,
             "target_slot": 4,
             "type": "INT"
           },
           {
-            "id": 2500,
+            "id": 4743,
             "origin_id": -10,
             "origin_slot": 2,
-            "target_id": 1301,
+            "target_id": 2355,
             "target_slot": 0,
             "type": "IMAGE"
           },
           {
-            "id": 2503,
-            "origin_id": 1301,
+            "id": 4744,
+            "origin_id": 2355,
             "origin_slot": 0,
-            "target_id": 1302,
+            "target_id": 2356,
             "target_slot": 0,
             "type": "IMAGE"
           },
           {
-            "id": 2504,
-            "origin_id": 29,
+            "id": 4745,
+            "origin_id": 2348,
             "origin_slot": 0,
-            "target_id": 1302,
+            "target_id": 2356,
             "target_slot": 1,
             "type": "VAE"
           },
           {
-            "id": 2505,
-            "origin_id": 13,
+            "id": 4746,
+            "origin_id": 2352,
             "origin_slot": 0,
-            "target_id": 1303,
+            "target_id": 2357,
             "target_slot": 0,
             "type": "LATENT"
           },
           {
-            "id": 2506,
-            "origin_id": 1302,
+            "id": 4747,
+            "origin_id": 2356,
             "origin_slot": 0,
-            "target_id": 1303,
+            "target_id": 2357,
             "target_slot": 1,
             "type": "LATENT"
           },
           {
-            "id": 2507,
+            "id": 4748,
             "origin_id": -10,
             "origin_slot": 3,
-            "target_id": 1303,
+            "target_id": 2357,
             "target_slot": 2,
             "type": "BOOLEAN"
           },
           {
-            "id": 2508,
-            "origin_id": 1303,
+            "id": 4749,
+            "origin_id": 2357,
             "origin_slot": 0,
-            "target_id": 3,
+            "target_id": 2354,
             "target_slot": 3,
             "type": "LATENT"
           },
           {
-            "id": 2509,
-            "origin_id": 1304,
+            "id": 4750,
+            "origin_id": 2358,
             "origin_slot": 0,
-            "target_id": 1306,
+            "target_id": 2360,
             "target_slot": 0,
             "type": "INT"
           },
           {
-            "id": 2511,
-            "origin_id": 1305,
+            "id": 4751,
+            "origin_id": 2359,
             "origin_slot": 0,
-            "target_id": 1306,
+            "target_id": 2360,
             "target_slot": 1,
             "type": "FLOAT"
           },
           {
-            "id": 2512,
+            "id": 4752,
             "origin_id": -10,
             "origin_slot": 3,
-            "target_id": 1306,
+            "target_id": 2360,
             "target_slot": 2,
             "type": "BOOLEAN"
           },
           {
-            "id": 2700,
+            "id": 4753,
             "origin_id": -10,
             "origin_slot": 2,
-            "target_id": 1600,
+            "target_id": 2361,
             "target_slot": 0,
             "type": "IMAGE"
           },
           {
-            "id": 2701,
-            "origin_id": 2100,
+            "id": 4754,
+            "origin_id": 2366,
             "origin_slot": 0,
-            "target_id": 1601,
+            "target_id": 2362,
             "target_slot": 0,
             "type": "INT"
           },
           {
-            "id": 2702,
-            "origin_id": 1600,
+            "id": 4755,
+            "origin_id": 2361,
             "origin_slot": 0,
-            "target_id": 1601,
+            "target_id": 2362,
             "target_slot": 1,
             "type": "INT"
           },
           {
-            "id": 2703,
-            "origin_id": 2103,
+            "id": 4756,
+            "origin_id": 2369,
             "origin_slot": 0,
-            "target_id": 1601,
+            "target_id": 2362,
             "target_slot": 2,
             "type": "BOOLEAN"
           },
           {
-            "id": 2704,
-            "origin_id": 2100,
+            "id": 4757,
+            "origin_id": 2366,
             "origin_slot": 0,
-            "target_id": 1603,
+            "target_id": 2364,
             "target_slot": 0,
             "type": "INT"
           },
           {
-            "id": 2705,
-            "origin_id": 1601,
+            "id": 4758,
+            "origin_id": 2362,
             "origin_slot": 0,
-            "target_id": 1603,
+            "target_id": 2364,
             "target_slot": 1,
             "type": "INT"
           },
           {
-            "id": 2706,
+            "id": 4759,
             "origin_id": -10,
             "origin_slot": 3,
-            "target_id": 1603,
+            "target_id": 2364,
             "target_slot": 2,
             "type": "BOOLEAN"
           },
           {
-            "id": 2707,
-            "origin_id": 1603,
+            "id": 4760,
+            "origin_id": 2364,
             "origin_slot": 0,
-            "target_id": 13,
+            "target_id": 2352,
             "target_slot": 0,
             "type": "INT"
           },
           {
-            "id": 2709,
-            "origin_id": 2101,
+            "id": 4761,
+            "origin_id": 2367,
             "origin_slot": 0,
-            "target_id": 1602,
+            "target_id": 2363,
             "target_slot": 0,
             "type": "INT"
           },
           {
-            "id": 2710,
-            "origin_id": 1600,
+            "id": 4762,
+            "origin_id": 2361,
             "origin_slot": 1,
-            "target_id": 1602,
+            "target_id": 2363,
             "target_slot": 1,
             "type": "INT"
           },
           {
-            "id": 2711,
-            "origin_id": 2103,
+            "id": 4763,
+            "origin_id": 2369,
             "origin_slot": 0,
-            "target_id": 1602,
+            "target_id": 2363,
             "target_slot": 2,
             "type": "BOOLEAN"
           },
           {
-            "id": 2712,
-            "origin_id": 2101,
+            "id": 4764,
+            "origin_id": 2367,
             "origin_slot": 0,
-            "target_id": 1604,
+            "target_id": 2365,
             "target_slot": 0,
             "type": "INT"
           },
           {
-            "id": 2713,
-            "origin_id": 1602,
+            "id": 4765,
+            "origin_id": 2363,
             "origin_slot": 0,
-            "target_id": 1604,
+            "target_id": 2365,
             "target_slot": 1,
             "type": "INT"
           },
           {
-            "id": 2714,
+            "id": 4766,
             "origin_id": -10,
             "origin_slot": 3,
-            "target_id": 1604,
+            "target_id": 2365,
             "target_slot": 2,
             "type": "BOOLEAN"
           },
           {
-            "id": 2715,
-            "origin_id": 1604,
+            "id": 4767,
+            "origin_id": 2365,
             "origin_slot": 0,
-            "target_id": 13,
+            "target_id": 2352,
             "target_slot": 1,
             "type": "INT"
           },
           {
-            "id": 4300,
+            "id": 4768,
             "origin_id": -10,
             "origin_slot": 5,
-            "target_id": 2100,
+            "target_id": 2366,
             "target_slot": 0,
             "type": "INT"
           },
           {
-            "id": 4301,
+            "id": 4769,
             "origin_id": -10,
             "origin_slot": 6,
-            "target_id": 2101,
+            "target_id": 2367,
             "target_slot": 0,
             "type": "INT"
           },
           {
-            "id": 4302,
+            "id": 4770,
             "origin_id": -10,
             "origin_slot": 7,
-            "target_id": 2102,
+            "target_id": 2368,
             "target_slot": 0,
             "type": "INT"
           },
           {
-            "id": 4303,
+            "id": 4771,
             "origin_id": -10,
             "origin_slot": 4,
-            "target_id": 2103,
+            "target_id": 2369,
             "target_slot": 0,
             "type": "BOOLEAN"
           },
           {
-            "id": 4318,
-            "origin_id": 2104,
+            "id": 4772,
+            "origin_id": 2370,
             "origin_slot": 0,
-            "target_id": 11,
+            "target_id": 2353,
             "target_slot": 0,
             "type": "MODEL"
           },
           {
-            "id": 2510,
-            "origin_id": 2102,
-            "origin_slot": 0,
-            "target_id": 1305,
-            "target_slot": 0,
-            "type": "INT"
-          },
-          {
-            "id": 2513,
-            "origin_id": 1306,
-            "origin_slot": 0,
-            "target_id": 3,
-            "target_slot": 7,
-            "type": "FLOAT"
-          },
-          {
-            "id": 2708,
-            "origin_id": 1603,
-            "origin_slot": 0,
-            "target_id": 1301,
-            "target_slot": 1,
-            "type": "INT"
-          },
-          {
-            "id": 2716,
-            "origin_id": 1604,
-            "origin_slot": 0,
-            "target_id": 1301,
-            "target_slot": 2,
-            "type": "INT"
-          },
-          {
-            "id": 4720,
-            "origin_id": 30,
+            "id": 4777,
+            "origin_id": 2347,
             "origin_slot": 0,
             "target_id": 34,
             "target_slot": 0,
             "type": "CLIP"
           },
           {
-            "id": 4721,
+            "id": 4778,
             "origin_id": -10,
             "origin_slot": 1,
             "target_id": 34,
@@ -11636,7 +11605,7 @@
             "id": 4723,
             "origin_id": -10,
             "origin_slot": 9,
-            "target_id": 3,
+            "target_id": 2354,
             "target_slot": 5,
             "type": "INT"
           },
@@ -11644,39 +11613,31 @@
             "id": 4724,
             "origin_id": -10,
             "origin_slot": 10,
-            "target_id": 3,
+            "target_id": 2354,
             "target_slot": 6,
             "type": "FLOAT"
           },
           {
-            "id": 4315,
-            "origin_id": 28,
+            "id": 4779,
+            "origin_id": 2350,
             "origin_slot": 0,
-            "target_id": 2104,
+            "target_id": 2370,
             "target_slot": 0,
             "type": "MODEL"
           },
           {
-            "id": 4316,
-            "origin_id": 2105,
+            "id": 4781,
+            "origin_id": 2372,
             "origin_slot": 0,
-            "target_id": 2106,
-            "target_slot": 0,
-            "type": "INT"
-          },
-          {
-            "id": 4317,
-            "origin_id": 2106,
-            "origin_slot": 0,
-            "target_id": 2104,
+            "target_id": 2370,
             "target_slot": 2,
             "type": "FLOAT"
           },
           {
-            "id": 4319,
+            "id": 4782,
             "origin_id": -10,
             "origin_slot": 12,
-            "target_id": 2105,
+            "target_id": 2371,
             "target_slot": 0,
             "type": "INT"
           },
@@ -11684,9 +11645,49 @@
             "id": 4725,
             "origin_id": -10,
             "origin_slot": 11,
-            "target_id": 2104,
+            "target_id": 2370,
             "target_slot": 1,
             "type": "COMBO"
+          },
+          {
+            "id": 4774,
+            "origin_id": 2360,
+            "origin_slot": 0,
+            "target_id": 2354,
+            "target_slot": 7,
+            "type": "FLOAT"
+          },
+          {
+            "id": 4775,
+            "origin_id": 2364,
+            "origin_slot": 0,
+            "target_id": 2355,
+            "target_slot": 1,
+            "type": "INT"
+          },
+          {
+            "id": 4776,
+            "origin_id": 2365,
+            "origin_slot": 0,
+            "target_id": 2355,
+            "target_slot": 2,
+            "type": "INT"
+          },
+          {
+            "id": 4773,
+            "origin_id": 2368,
+            "origin_slot": 0,
+            "target_id": 2359,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 4780,
+            "origin_id": 2371,
+            "origin_slot": 0,
+            "target_id": 2372,
+            "target_slot": 0,
+            "type": "INT"
           }
         ],
         "extra": {
@@ -11698,10 +11699,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.620921323059155,
+      "scale": 0.6830134553650705,
       "offset": [
-        742.8506839205883,
-        257.1306187625311
+        1047.4598452454004,
+        -159.1773801408765
       ]
     },
     "frontendVersion": "1.55.18",
