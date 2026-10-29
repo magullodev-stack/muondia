@@ -311,7 +311,7 @@
           "link": null
         },
         {
-          "label": "Scheduler (simple / beta)",
+          "label": "Scheduler",
           "name": "scheduler",
           "type": "COMBO",
           "widget": {
@@ -6121,7 +6121,7 @@
             "linkIds": [
               4706
             ],
-            "label": "Scheduler (simple / beta)",
+            "label": "Scheduler",
             "pos": [
               -990,
               540
