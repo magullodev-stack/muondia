@@ -677,7 +677,7 @@
       "title": "Cómo se usa",
       "properties": {},
       "widgets_values": [
-        "1) Carga la foto en «Imagen principal» y pinta la máscara con clic derecho > Open in MaskEditor (la zona pintada es lo único que Qwen puede cambiar).\n2) Las referencias 2 y 3 se usan solo si activas «Usar referencia 2/3» en el nodo Qwen. Si las activas sin cargar su imagen, sale un error.\n3) Sin máscara pintada la imagen sale SIN cambios.\nRequiere el custom node ComfyUI-Inpaint-CropAndStitch.\n4) Kontext (rama inferior): misma foto y máscara que Qwen. Para poner una cara: pinta la máscara sobre la cara, carga la cara en «Cara de referencia · Kontext» y activa «Usar cara de referencia» en el nodo KONTEXT. Para usarlo elige «Kontext» en «Modelo / Origen de la imagen» del nodo SALIDA Y ACABADO. Requiere el modelo flux1-dev-kontext_fp8_scaled.safetensors."
+        "1) Carga la foto en «Imagen principal» y pinta la máscara con clic derecho > Open in MaskEditor (la zona pintada es lo único que Qwen puede cambiar).\n2) Las referencias 2 y 3 se usan solo si activas «Usar referencia 2/3» en el nodo Qwen. Si las activas sin cargar su imagen, sale un error.\n3) Sin máscara pintada la imagen sale SIN cambios.\nRequiere el custom node ComfyUI-Inpaint-CropAndStitch.\n4) Kontext (rama inferior): misma foto y máscara que Qwen. Para usar una referencia (cara, ropa, objeto, estilo...): pinta la máscara sobre la zona a cambiar, carga la referencia en «Imagen de referencia · Kontext», activa «Usar imagen de referencia» en el nodo KONTEXT y escribe en su prompt qué quieres tomar de ella. Para usarlo elige «Kontext» en «Modelo / Origen de la imagen» del nodo SALIDA Y ACABADO. Requiere el modelo flux1-dev-kontext_fp8_scaled.safetensors."
       ],
       "widgets_values_named": {
         "text": "1) Carga la foto en «Imagen principal» y pinta la máscara con clic derecho > Open in MaskEditor (la zona pintada es lo único que Qwen puede cambiar).\n2) Las referencias 2 y 3 se usan solo si activas «Usar referencia 2/3» en el nodo Qwen. Si las activas sin cargar su imagen, sale un error.\n3) Sin máscara pintada la imagen sale SIN cambios.\nRequiere el custom node ComfyUI-Inpaint-CropAndStitch."
@@ -731,14 +731,14 @@
           "link": null
         },
         {
-          "label": "Cara de referencia",
+          "label": "Imagen de referencia",
           "name": "image2",
           "shape": 7,
           "type": "IMAGE",
           "link": 4512
         },
         {
-          "label": "Usar cara de referencia",
+          "label": "Usar imagen de referencia",
           "name": "ref_enabled",
           "type": "BOOLEAN",
           "widget": {
@@ -761,12 +761,12 @@
         "cnr_id": "comfy-core"
       },
       "widgets_values": [
-        "Replace the face with the face from the reference image. Keep the hairstyle, skin tone, expression, pose, lighting and everything else unchanged.",
+        "Edit the masked area using the reference image. Keep everything else unchanged.",
         123456789,
         false
       ],
       "widgets_values_named": {
-        "prompt": "Replace the face with the face from the reference image. Keep the hairstyle, skin tone, expression, pose, lighting and everything else unchanged.",
+        "prompt": "Edit the masked area using the reference image. Keep everything else unchanged.",
         "seed": 123456789,
         "ref_enabled": false
       }
@@ -855,7 +855,7 @@
           "links": []
         }
       ],
-      "title": "Cara de referencia · Kontext",
+      "title": "Imagen de referencia · Kontext",
       "properties": {
         "Node name for S&R": "ImageLabInitialImage"
       },
@@ -5608,7 +5608,7 @@
             "linkIds": [
               5020
             ],
-            "label": "Cara de referencia",
+            "label": "Imagen de referencia",
             "pos": [
               -290,
               448
@@ -5621,7 +5621,7 @@
             "linkIds": [
               5027
             ],
-            "label": "Usar cara de referencia",
+            "label": "Usar imagen de referencia",
             "pos": [
               -290,
               480
@@ -6199,7 +6199,7 @@
               "Node name for S&R": "FluxKontextImageScale",
               "cnr_id": "comfy-core"
             },
-            "title": "Cara de referencia · ajustar tamaño"
+            "title": "Referencia · ajustar tamaño"
           },
           {
             "id": 3015,
@@ -6240,7 +6240,7 @@
               "Node name for S&R": "VAEEncode",
               "cnr_id": "comfy-core"
             },
-            "title": "Cara de referencia · codificar"
+            "title": "Referencia · codificar"
           },
           {
             "id": 3016,
@@ -6282,7 +6282,7 @@
               "Node name for S&R": "ReferenceLatent",
               "cnr_id": "comfy-core"
             },
-            "title": "Cara de referencia · añadir al condicionamiento"
+            "title": "Referencia · añadir al condicionamiento"
           },
           {
             "id": 3017,
@@ -6339,7 +6339,7 @@
             "widgets_values_named": {
               "switch": false
             },
-            "title": "Cara de referencia · ¿usar?"
+            "title": "Referencia · ¿usar?"
           }
         ],
         "groups": [
