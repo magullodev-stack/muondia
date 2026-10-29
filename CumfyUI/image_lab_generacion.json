@@ -1,8 +1,8 @@
 {
   "id": "4e98042f-0026-496d-9afd-001080421555",
   "revision": 38,
-  "last_node_id": 2372,
-  "last_link_id": 4782,
+  "last_node_id": 2374,
+  "last_link_id": 4783,
   "nodes": [
     {
       "id": 200,
@@ -16,7 +16,7 @@
         680
       ],
       "flags": {},
-      "order": 4,
+      "order": 6,
       "mode": 0,
       "inputs": [
         {
@@ -220,7 +220,7 @@
         825
       ],
       "flags": {},
-      "order": 5,
+      "order": 7,
       "mode": 0,
       "inputs": [
         {
@@ -555,7 +555,7 @@
         381.24168053168813
       ],
       "flags": {},
-      "order": 7,
+      "order": 9,
       "mode": 0,
       "inputs": [
         {
@@ -728,15 +728,15 @@
       "id": 2345,
       "type": "b4a7f0c2-6e1d-4c3a-8f52-9d7e1a3b6c40",
       "pos": [
-        10.864950000000508,
-        670.5323356861644
+        14.501369122869825,
+        1016.3201032856769
       ],
       "size": [
-        540,
-        430
+        543.6299999999999,
+        382
       ],
       "flags": {},
-      "order": 6,
+      "order": 8,
       "mode": 0,
       "inputs": [
         {
@@ -907,8 +907,8 @@
       "id": 2346,
       "type": "ImageLabInitialImage",
       "pos": [
-        10.864950000000508,
-        1150.5323356861643
+        13.285023852539437,
+        1448.2142141177508
       ],
       "size": [
         540,
@@ -975,32 +975,20 @@
     {
       "id": 2347,
       "type": "PrimitiveStringMultiline",
-      "title": "PROMPT PRINCIPAL · Z-Image Base",
       "pos": [
         10.864950000000508,
-        120.53233568616437
+        117.22654425691269
       ],
       "size": [
-        540,
-        260
+        542.6528925619837,
+        504.9669673698993
       ],
       "flags": {},
-      "order": 15,
+      "order": 4,
       "mode": 0,
-      "inputs": [
-        {
-          "localized_name": "valor",
-          "name": "value",
-          "type": "STRING",
-          "widget": {
-            "name": "value"
-          },
-          "link": null
-        }
-      ],
+      "inputs": [],
       "outputs": [
         {
-          "localized_name": "STRING",
           "name": "STRING",
           "type": "STRING",
           "links": [
@@ -1008,42 +996,34 @@
           ]
         }
       ],
+      "title": "PROMPT PRINCIPAL · Z-Image Base",
       "properties": {
         "Node name for S&R": "PrimitiveStringMultiline"
       },
       "widgets_values": [
         "Entry prompt"
-      ]
+      ],
+      "widgets_values_named": {
+        "value": "Entry prompt"
+      }
     },
     {
       "id": 2348,
       "type": "PrimitiveStringMultiline",
-      "title": "PROMPT NEGATIVO · Z-Image Base",
       "pos": [
-        10.864950000000508,
-        440.5323356861644
+        10.955803604403918,
+        665.4993325647963
       ],
       "size": [
-        540,
-        170
+        544.5454545454547,
+        302.727217240767
       ],
       "flags": {},
-      "order": 16,
+      "order": 5,
       "mode": 0,
-      "inputs": [
-        {
-          "localized_name": "valor",
-          "name": "value",
-          "type": "STRING",
-          "widget": {
-            "name": "value"
-          },
-          "link": null
-        }
-      ],
+      "inputs": [],
       "outputs": [
         {
-          "localized_name": "STRING",
           "name": "STRING",
           "type": "STRING",
           "links": [
@@ -1051,12 +1031,16 @@
           ]
         }
       ],
+      "title": "PROMPT NEGATIVO · Z-Image Base",
       "properties": {
         "Node name for S&R": "PrimitiveStringMultiline"
       },
       "widgets_values": [
-        "low quality, blurry, deformed, bad anatomy, watermark, text"
-      ]
+        "Entry prompt"
+      ],
+      "widgets_values_named": {
+        "value": "Entry prompt"
+      }
     }
   ],
   "links": [
@@ -1267,9 +1251,9 @@
       "title": "05 · Z-IMAGE BASE",
       "bounding": [
         -4.335049999999789,
-        50.53233568616438,
-        567.9,
-        1515
+        47.226544256912696,
+        573.9499999999999,
+        1777.5699999999997
       ],
       "color": "#426a74",
       "flags": {}
@@ -1282,8 +1266,8 @@
         "version": 1,
         "state": {
           "lastGroupId": 16,
-          "lastNodeId": 2372,
-          "lastLinkId": 4782,
+          "lastNodeId": 2374,
+          "lastLinkId": 4783,
           "lastRerouteId": 0
         },
         "revision": 2,
@@ -4216,6 +4200,54 @@
             "type": "IMAGE"
           },
           {
+            "id": 17,
+            "origin_id": 109,
+            "origin_slot": 0,
+            "target_id": 110,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 37,
+            "origin_id": 109,
+            "origin_slot": 0,
+            "target_id": 122,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 201,
+            "origin_id": 963,
+            "origin_slot": 0,
+            "target_id": 960,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 202,
+            "origin_id": 963,
+            "origin_slot": 0,
+            "target_id": 961,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 203,
+            "origin_id": 963,
+            "origin_slot": 0,
+            "target_id": 962,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 4730,
+            "origin_id": 963,
+            "origin_slot": 0,
+            "target_id": 964,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
             "id": 18,
             "origin_id": 110,
             "origin_slot": 0,
@@ -4310,54 +4342,6 @@
             "target_id": 971,
             "target_slot": 3,
             "type": "INT"
-          },
-          {
-            "id": 17,
-            "origin_id": 109,
-            "origin_slot": 0,
-            "target_id": 110,
-            "target_slot": 0,
-            "type": "INT"
-          },
-          {
-            "id": 37,
-            "origin_id": 109,
-            "origin_slot": 0,
-            "target_id": 122,
-            "target_slot": 0,
-            "type": "INT"
-          },
-          {
-            "id": 201,
-            "origin_id": 963,
-            "origin_slot": 0,
-            "target_id": 960,
-            "target_slot": 0,
-            "type": "INT"
-          },
-          {
-            "id": 202,
-            "origin_id": 963,
-            "origin_slot": 0,
-            "target_id": 961,
-            "target_slot": 0,
-            "type": "INT"
-          },
-          {
-            "id": 203,
-            "origin_id": 963,
-            "origin_slot": 0,
-            "target_id": 962,
-            "target_slot": 0,
-            "type": "INT"
-          },
-          {
-            "id": 4730,
-            "origin_id": 963,
-            "origin_slot": 0,
-            "target_id": 964,
-            "target_slot": 0,
-            "type": "INT"
           }
         ],
         "extra": {}
@@ -4367,8 +4351,8 @@
         "version": 1,
         "state": {
           "lastGroupId": 16,
-          "lastNodeId": 2372,
-          "lastLinkId": 4782,
+          "lastNodeId": 2374,
+          "lastLinkId": 4783,
           "lastRerouteId": 0
         },
         "revision": 10,
@@ -6448,6 +6432,22 @@
             "type": "INT"
           },
           {
+            "id": 2510,
+            "origin_id": 2102,
+            "origin_slot": 0,
+            "target_id": 1305,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 4316,
+            "origin_id": 2105,
+            "origin_slot": 0,
+            "target_id": 2106,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
             "id": 2513,
             "origin_id": 1306,
             "origin_slot": 0,
@@ -6478,22 +6478,6 @@
             "target_id": 2104,
             "target_slot": 1,
             "type": "FLOAT"
-          },
-          {
-            "id": 2510,
-            "origin_id": 2102,
-            "origin_slot": 0,
-            "target_id": 1305,
-            "target_slot": 0,
-            "type": "INT"
-          },
-          {
-            "id": 4316,
-            "origin_id": 2105,
-            "origin_slot": 0,
-            "target_id": 2106,
-            "target_slot": 0,
-            "type": "INT"
           }
         ],
         "extra": {
@@ -6505,8 +6489,8 @@
         "version": 1,
         "state": {
           "lastGroupId": 16,
-          "lastNodeId": 2372,
-          "lastLinkId": 4782,
+          "lastNodeId": 2374,
+          "lastLinkId": 4783,
           "lastRerouteId": 0
         },
         "revision": 13,
@@ -9407,6 +9391,46 @@
             "type": "INT"
           },
           {
+            "id": 4326,
+            "origin_id": 2202,
+            "origin_slot": 0,
+            "target_id": 1405,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 4603,
+            "origin_id": 2305,
+            "origin_slot": 0,
+            "target_id": 2306,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 4610,
+            "origin_id": 2308,
+            "origin_slot": 0,
+            "target_id": 2309,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 4613,
+            "origin_id": 2311,
+            "origin_slot": 0,
+            "target_id": 2312,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 4713,
+            "origin_id": 2342,
+            "origin_slot": 0,
+            "target_id": 2343,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
             "id": 4706,
             "origin_id": -10,
             "origin_slot": 10,
@@ -9485,46 +9509,6 @@
             "target_id": 2341,
             "target_slot": 2,
             "type": "FLOAT"
-          },
-          {
-            "id": 4326,
-            "origin_id": 2202,
-            "origin_slot": 0,
-            "target_id": 1405,
-            "target_slot": 0,
-            "type": "INT"
-          },
-          {
-            "id": 4603,
-            "origin_id": 2305,
-            "origin_slot": 0,
-            "target_id": 2306,
-            "target_slot": 0,
-            "type": "INT"
-          },
-          {
-            "id": 4610,
-            "origin_id": 2308,
-            "origin_slot": 0,
-            "target_id": 2309,
-            "target_slot": 0,
-            "type": "INT"
-          },
-          {
-            "id": 4613,
-            "origin_id": 2311,
-            "origin_slot": 0,
-            "target_id": 2312,
-            "target_slot": 0,
-            "type": "INT"
-          },
-          {
-            "id": 4713,
-            "origin_id": 2342,
-            "origin_slot": 0,
-            "target_id": 2343,
-            "target_slot": 0,
-            "type": "INT"
           }
         ],
         "extra": {
@@ -9536,8 +9520,8 @@
         "version": 1,
         "state": {
           "lastGroupId": 16,
-          "lastNodeId": 2372,
-          "lastLinkId": 4782,
+          "lastNodeId": 2374,
+          "lastLinkId": 4783,
           "lastRerouteId": 0
         },
         "revision": 10,
@@ -9689,7 +9673,7 @@
             "name": "steps",
             "type": "INT",
             "linkIds": [
-              4723
+              4783
             ],
             "label": "Pasos (28–50)",
             "pos": [
@@ -9755,7 +9739,7 @@
         "widgets": [],
         "nodes": [
           {
-            "id": 2347,
+            "id": 2373,
             "type": "CLIPLoader",
             "pos": [
               30,
@@ -9811,7 +9795,7 @@
             }
           },
           {
-            "id": 2348,
+            "id": 2374,
             "type": "VAELoader",
             "pos": [
               30,
@@ -10204,7 +10188,7 @@
                 "widget": {
                   "name": "steps"
                 },
-                "link": 4723
+                "link": 4783
               },
               {
                 "localized_name": "cfg",
@@ -11385,7 +11369,7 @@
           },
           {
             "id": 4735,
-            "origin_id": 2348,
+            "origin_id": 2374,
             "origin_slot": 0,
             "target_id": 2349,
             "target_slot": 1,
@@ -11417,7 +11401,7 @@
           },
           {
             "id": 4739,
-            "origin_id": 2347,
+            "origin_id": 2373,
             "origin_slot": 0,
             "target_id": 2351,
             "target_slot": 0,
@@ -11465,7 +11449,7 @@
           },
           {
             "id": 4745,
-            "origin_id": 2348,
+            "origin_id": 2374,
             "origin_slot": 0,
             "target_id": 2356,
             "target_slot": 1,
@@ -11689,7 +11673,7 @@
           },
           {
             "id": 4777,
-            "origin_id": 2347,
+            "origin_id": 2373,
             "origin_slot": 0,
             "target_id": 34,
             "target_slot": 0,
@@ -11704,7 +11688,7 @@
             "type": "STRING"
           },
           {
-            "id": 4723,
+            "id": 4783,
             "origin_id": -10,
             "origin_slot": 9,
             "target_id": 2354,
@@ -11752,6 +11736,22 @@
             "type": "COMBO"
           },
           {
+            "id": 4773,
+            "origin_id": 2368,
+            "origin_slot": 0,
+            "target_id": 2359,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 4780,
+            "origin_id": 2371,
+            "origin_slot": 0,
+            "target_id": 2372,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
             "id": 4774,
             "origin_id": 2360,
             "origin_slot": 0,
@@ -11774,22 +11774,6 @@
             "target_id": 2355,
             "target_slot": 2,
             "type": "INT"
-          },
-          {
-            "id": 4773,
-            "origin_id": 2368,
-            "origin_slot": 0,
-            "target_id": 2359,
-            "target_slot": 0,
-            "type": "INT"
-          },
-          {
-            "id": 4780,
-            "origin_id": 2371,
-            "origin_slot": 0,
-            "target_id": 2372,
-            "target_slot": 0,
-            "type": "INT"
           }
         ],
         "extra": {
@@ -11801,10 +11785,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.9090909090909091,
+      "scale": 1,
       "offset": [
-        726.7992654510863,
-        64.88245316454048
+        521.6913501067653,
+        97.17325094296731
       ]
     },
     "frontendVersion": "1.55.18",
