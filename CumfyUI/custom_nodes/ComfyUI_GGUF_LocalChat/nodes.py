@@ -304,6 +304,8 @@ def _responder(prompt, temperatura, max_tokens_salida, image=None):
         "messages": [{"role": "user", "content": contenido}],
         "temperature": temperatura, "top_p": 0.95,
         "max_tokens": max_tokens_salida, "stream": False,
+        # Sin caché de prompt: evita que una foto nueva arrastre contexto de la anterior.
+        "cache_prompt": False,
     }
     req = urllib.request.Request(
         f"http://{HOST}:{PORT}/v1/chat/completions",
