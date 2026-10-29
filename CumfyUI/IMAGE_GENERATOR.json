@@ -1,8 +1,8 @@
 {
   "id": "4e98042f-0026-496d-9afd-001080421555",
-  "revision": 39,
-  "last_node_id": 2385,
-  "last_link_id": 4811,
+  "revision": 40,
+  "last_node_id": 2391,
+  "last_link_id": 4821,
   "nodes": [
     {
       "id": 200,
@@ -406,6 +406,30 @@
             "name": "control_strength"
           },
           "link": null
+        },
+        {
+          "label": "Foto de identidad (PuLID)",
+          "name": "identity_image",
+          "type": "IMAGE",
+          "link": 4821
+        },
+        {
+          "label": "Usar PuLID",
+          "name": "pulid_enabled",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "pulid_enabled"
+          },
+          "link": null
+        },
+        {
+          "label": "Fuerza PuLID",
+          "name": "pulid_weight",
+          "type": "FLOAT",
+          "widget": {
+            "name": "pulid_weight"
+          },
+          "link": null
         }
       ],
       "outputs": [
@@ -444,7 +468,9 @@
         0,
         65,
         false,
-        0.7
+        0.7,
+        false,
+        1.0
       ],
       "widgets_values_named": {
         "text": "",
@@ -462,7 +488,9 @@
         "photo_lora_pct": 0,
         "nsfw_lora_pct": 65,
         "control_enabled": false,
-        "control_strength": 0.7
+        "control_strength": 0.7,
+        "pulid_enabled": false,
+        "pulid_weight": 1.0
       }
     },
     {
@@ -1212,6 +1240,69 @@
         "Transformación (%)": 0,
         "upload": "image"
       }
+    },
+    {
+      "id": 2391,
+      "type": "ImageLabInitialImage",
+      "pos": [
+        1160,
+        1420
+      ],
+      "size": [
+        540,
+        355
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            4821
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": []
+        },
+        {
+          "name": "usar_imagen_inicial",
+          "type": "BOOLEAN",
+          "links": []
+        },
+        {
+          "name": "mantener_resolucion",
+          "type": "BOOLEAN",
+          "links": []
+        },
+        {
+          "name": "transformacion_pct",
+          "type": "INT",
+          "links": []
+        }
+      ],
+      "title": "Foto de identidad · FLUX (PuLID)",
+      "properties": {
+        "Node name for S&R": "ImageLabInitialImage"
+      },
+      "widgets_values": [
+        "(sin imagen)",
+        false,
+        false,
+        0,
+        "image"
+      ],
+      "widgets_values_named": {
+        "image": "(sin imagen)",
+        "Usar imagen inicial": false,
+        "Mantener resolución original": false,
+        "Transformación (%)": 0,
+        "upload": "image"
+      }
     }
   ],
   "links": [
@@ -1382,6 +1473,14 @@
       300,
       15,
       "IMAGE"
+    ],
+    [
+      4821,
+      2391,
+      0,
+      300,
+      18,
+      "IMAGE"
     ]
   ],
   "groups": [
@@ -1462,6 +1561,18 @@
       "title": "02b · FLUX · PLANTILLA DE POSE (ControlNet)",
       "bounding": [
         584,
+        1360,
+        567,
+        440
+      ],
+      "color": "#426a74",
+      "flags": {}
+    },
+    {
+      "id": 31,
+      "title": "02c · FLUX · IDENTIDAD (PuLID)",
+      "bounding": [
+        1150,
         1360,
         567,
         440
@@ -7061,11 +7172,11 @@
         "version": 1,
         "state": {
           "lastGroupId": 16,
-          "lastNodeId": 2383,
-          "lastLinkId": 4809,
+          "lastNodeId": 2390,
+          "lastLinkId": 4820,
           "lastRerouteId": 0
         },
-        "revision": 14,
+        "revision": 15,
         "config": {},
         "name": "FLUX.1 Dev · Generación",
         "description": "Generates images from prompts using FLUX.1 [dev]: a 12B rectified-flow MMDiT with dual CLIP plus T5-XXL text encoders and guidance-distilled sampling for sharp prompt following versus classic DDPM diffusion.",
@@ -7325,6 +7436,45 @@
             "pos": [
               -300,
               824
+            ]
+          },
+          {
+            "id": "1e8c9c0b-f9f7-46d1-9458-bd964d82c9fd",
+            "name": "identity_image",
+            "type": "IMAGE",
+            "linkIds": [
+              4816
+            ],
+            "label": "Foto de identidad (PuLID)",
+            "pos": [
+              -300,
+              856
+            ]
+          },
+          {
+            "id": "1279851d-eca5-437f-bbcf-94d5ec16f072",
+            "name": "pulid_enabled",
+            "type": "BOOLEAN",
+            "linkIds": [
+              4820
+            ],
+            "label": "Usar PuLID",
+            "pos": [
+              -300,
+              888
+            ]
+          },
+          {
+            "id": "d3d3d83b-562b-4eb6-abb0-96c6a32cbc9e",
+            "name": "pulid_weight",
+            "type": "FLOAT",
+            "linkIds": [
+              4817
+            ],
+            "label": "Fuerza PuLID",
+            "pos": [
+              -300,
+              920
             ]
           }
         ],
@@ -9387,7 +9537,8 @@
                 "name": "MODEL",
                 "type": "MODEL",
                 "links": [
-                  4711
+                  4812,
+                  4818
                 ]
               },
               {
@@ -9824,6 +9975,249 @@
               }
             ],
             "title": "CONTROLNET · ¿Usar ControlNet? (negativo)",
+            "properties": {
+              "Node name for S&R": "ComfySwitchNode",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              false
+            ],
+            "widgets_values_named": {
+              "switch": false
+            }
+          },
+          {
+            "id": 2386,
+            "type": "PulidFluxModelLoader",
+            "pos": [
+              0,
+              2740
+            ],
+            "size": [
+              396,
+              58
+            ],
+            "flags": {},
+            "order": 0,
+            "mode": 0,
+            "inputs": [],
+            "outputs": [
+              {
+                "name": "PULIDFLUX",
+                "type": "PULIDFLUX",
+                "links": [
+                  4813
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "PulidFluxModelLoader",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              "pulid_flux_v0.9.0.safetensors"
+            ],
+            "widgets_values_named": {
+              "pulid_file": "pulid_flux_v0.9.0.safetensors"
+            },
+            "title": "PULID · Modelo"
+          },
+          {
+            "id": 2387,
+            "type": "PulidFluxInsightFaceLoader",
+            "pos": [
+              0,
+              2830
+            ],
+            "size": [
+              396,
+              58
+            ],
+            "flags": {},
+            "order": 0,
+            "mode": 0,
+            "inputs": [],
+            "outputs": [
+              {
+                "name": "FACEANALYSIS",
+                "type": "FACEANALYSIS",
+                "links": [
+                  4815
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "PulidFluxInsightFaceLoader",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              "CPU"
+            ],
+            "widgets_values_named": {
+              "provider": "CPU"
+            },
+            "title": "PULID · InsightFace"
+          },
+          {
+            "id": 2388,
+            "type": "PulidFluxEvaClipLoader",
+            "pos": [
+              0,
+              2920
+            ],
+            "size": [
+              396,
+              26
+            ],
+            "flags": {},
+            "order": 0,
+            "mode": 0,
+            "inputs": [],
+            "outputs": [
+              {
+                "name": "EVA_CLIP",
+                "type": "EVA_CLIP",
+                "links": [
+                  4814
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "PulidFluxEvaClipLoader",
+              "cnr_id": "comfy-core"
+            },
+            "title": "PULID · EVA-CLIP"
+          },
+          {
+            "id": 2389,
+            "type": "ApplyPulidFlux",
+            "pos": [
+              430,
+              2740
+            ],
+            "size": [
+              300,
+              230
+            ],
+            "flags": {},
+            "order": 0,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "model",
+                "type": "MODEL",
+                "link": 4812
+              },
+              {
+                "name": "pulid_flux",
+                "type": "PULIDFLUX",
+                "link": 4813
+              },
+              {
+                "name": "eva_clip",
+                "type": "EVA_CLIP",
+                "link": 4814
+              },
+              {
+                "name": "face_analysis",
+                "type": "FACEANALYSIS",
+                "link": 4815
+              },
+              {
+                "name": "image",
+                "type": "IMAGE",
+                "link": 4816
+              },
+              {
+                "name": "weight",
+                "type": "FLOAT",
+                "link": 4817,
+                "widget": {
+                  "name": "weight"
+                }
+              },
+              {
+                "name": "attn_mask",
+                "type": "MASK",
+                "link": null,
+                "shape": 7
+              }
+            ],
+            "outputs": [
+              {
+                "name": "MODEL",
+                "type": "MODEL",
+                "links": [
+                  4819
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ApplyPulidFlux",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              1.0,
+              0,
+              1
+            ],
+            "widgets_values_named": {
+              "weight": 1.0,
+              "start_at": 0,
+              "end_at": 1
+            },
+            "title": "PULID · Aplicar identidad"
+          },
+          {
+            "id": 2390,
+            "type": "ComfySwitchNode",
+            "pos": [
+              770,
+              2740
+            ],
+            "size": [
+              340,
+              170
+            ],
+            "flags": {},
+            "order": 11,
+            "mode": 0,
+            "inputs": [
+              {
+                "localized_name": "en_falso",
+                "name": "on_false",
+                "shape": 7,
+                "type": "MODEL",
+                "link": 4818
+              },
+              {
+                "localized_name": "en_verdadero",
+                "name": "on_true",
+                "shape": 7,
+                "type": "*",
+                "link": 4819
+              },
+              {
+                "localized_name": "interruptor",
+                "name": "switch",
+                "type": "BOOLEAN",
+                "widget": {
+                  "name": "switch"
+                },
+                "link": 4820
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "salida",
+                "name": "output",
+                "type": "MODEL",
+                "links": [
+                  4711
+                ]
+              }
+            ],
+            "title": "PULID · ¿Usar PuLID? (modelo)",
             "properties": {
               "Node name for S&R": "ComfySwitchNode",
               "cnr_id": "comfy-core"
@@ -10301,7 +10695,7 @@
           },
           {
             "id": 4711,
-            "origin_id": 2341,
+            "origin_id": 2390,
             "origin_slot": 0,
             "target_id": 2340,
             "target_slot": 0,
@@ -10552,6 +10946,78 @@
             "origin_id": -10,
             "origin_slot": 16,
             "target_id": 2383,
+            "target_slot": 2,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 4812,
+            "origin_id": 2341,
+            "origin_slot": 0,
+            "target_id": 2389,
+            "target_slot": 0,
+            "type": "MODEL"
+          },
+          {
+            "id": 4813,
+            "origin_id": 2386,
+            "origin_slot": 0,
+            "target_id": 2389,
+            "target_slot": 1,
+            "type": "PULIDFLUX"
+          },
+          {
+            "id": 4814,
+            "origin_id": 2388,
+            "origin_slot": 0,
+            "target_id": 2389,
+            "target_slot": 2,
+            "type": "EVA_CLIP"
+          },
+          {
+            "id": 4815,
+            "origin_id": 2387,
+            "origin_slot": 0,
+            "target_id": 2389,
+            "target_slot": 3,
+            "type": "FACEANALYSIS"
+          },
+          {
+            "id": 4816,
+            "origin_id": -10,
+            "origin_slot": 18,
+            "target_id": 2389,
+            "target_slot": 4,
+            "type": "IMAGE"
+          },
+          {
+            "id": 4817,
+            "origin_id": -10,
+            "origin_slot": 20,
+            "target_id": 2389,
+            "target_slot": 5,
+            "type": "FLOAT"
+          },
+          {
+            "id": 4818,
+            "origin_id": 2341,
+            "origin_slot": 0,
+            "target_id": 2390,
+            "target_slot": 0,
+            "type": "MODEL"
+          },
+          {
+            "id": 4819,
+            "origin_id": 2389,
+            "origin_slot": 0,
+            "target_id": 2390,
+            "target_slot": 1,
+            "type": "MODEL"
+          },
+          {
+            "id": 4820,
+            "origin_id": -10,
+            "origin_slot": 19,
+            "target_id": 2390,
             "target_slot": 2,
             "type": "BOOLEAN"
           }
