@@ -6,8 +6,8 @@
       "id": 1,
       "type": "GGUF_GeneradorLLM",
       "pos": [
-        80,
-        135
+        760,
+        130
       ],
       "size": [
         700,
@@ -30,7 +30,7 @@
       "properties": {
         "Node name for S&R": "GGUF_GeneradorLLM"
       },
-      "title": "GENERADOR LLM TEXTO · Lexi / Mistral / Magnum / Euryale",
+      "title": "GENERADOR DE TEXTO · Lexi / Mistral / Magnum / Euryale",
       "widgets_values": [
         "Lexi Llama 3 8B Uncensored (Q4_K_M)",
         "",
@@ -44,12 +44,12 @@
       "id": 2,
       "type": "PreviewAny",
       "pos": [
-        860,
-        135
+        70,
+        370
       ],
       "size": [
-        880,
-        670
+        600,
+        420
       ],
       "flags": {},
       "order": 1,
@@ -72,15 +72,15 @@
         "Node name for S&R": "PreviewAny",
         "cnr_id": "comfy-core"
       },
-      "title": "RESPUESTA DEL MODELO · Leer aquí",
+      "title": "RESPUESTA FINAL · Leer aquí",
       "widgets_values": []
     },
     {
       "id": 3,
       "type": "GGUF_GeneradorQwenVL",
       "pos": [
-        450,
-        900
+        1900,
+        130
       ],
       "size": [
         700,
@@ -124,11 +124,11 @@
       "id": 4,
       "type": "PreviewAny",
       "pos": [
-        1200,
-        900
+        2640,
+        130
       ],
       "size": [
-        880,
+        640,
         670
       ],
       "flags": {},
@@ -159,8 +159,8 @@
       "id": 5,
       "type": "GGUF_ImagenOpcional",
       "pos": [
-        80,
-        900
+        1550,
+        130
       ],
       "size": [
         315,
@@ -209,8 +209,8 @@
       "id": 6,
       "type": "GGUF_SelectorRamaLLM",
       "pos": [
-        1820,
-        500
+        70,
+        130
       ],
       "size": [
         360,
@@ -252,7 +252,7 @@
       "properties": {
         "Node name for S&R": "GGUF_SelectorRamaLLM"
       },
-      "title": "INTERRUPTOR DE FLUJO · Texto / Qwen VL",
+      "title": "INTERRUPTOR · Elegir modo (texto / Qwen VL)",
       "widgets_values": [
         "Generador de texto"
       ]
@@ -300,7 +300,44 @@
       "STRING"
     ]
   ],
-  "groups": [],
+  "groups": [
+    {
+      "id": 1,
+      "title": "01 · ELEGIR MODO Y LEER RESPUESTA",
+      "bounding": [
+        40,
+        60,
+        660,
+        790
+      ],
+      "color": "#645d84",
+      "flags": {}
+    },
+    {
+      "id": 2,
+      "title": "02 · GENERADOR DE TEXTO",
+      "bounding": [
+        730,
+        60,
+        760,
+        790
+      ],
+      "color": "#426a74",
+      "flags": {}
+    },
+    {
+      "id": 3,
+      "title": "03 · QWEN VL · PROMPT + IMAGEN",
+      "bounding": [
+        1520,
+        60,
+        1790,
+        790
+      ],
+      "color": "#6b6653",
+      "flags": {}
+    }
+  ],
   "config": {},
   "extra": {
     "ds": {
