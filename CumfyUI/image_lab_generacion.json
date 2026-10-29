@@ -1,5 +1,5 @@
 {
-  "id": "b1a85eac-7fcb-47ba-9999-4db2ad40f7f7",
+  "id": "4e98042f-0026-496d-9afd-001080421555",
   "revision": 38,
   "last_node_id": 950,
   "last_link_id": 3516,
@@ -629,12 +629,6 @@
           }
         },
         {
-          "name": "qwen_image",
-          "type": "IMAGE",
-          "label": "Qwen",
-          "link": null
-        },
-        {
           "name": "z_image",
           "type": "IMAGE",
           "label": "Z-Image",
@@ -787,7 +781,7 @@
       200,
       0,
       2,
-      2,
+      1,
       "IMAGE"
     ],
     [
@@ -795,7 +789,7 @@
       300,
       0,
       2,
-      3,
+      2,
       "IMAGE"
     ],
     [
@@ -803,7 +797,7 @@
       501,
       0,
       2,
-      4,
+      3,
       "IMAGE"
     ],
     [
@@ -811,7 +805,7 @@
       501,
       1,
       2,
-      5,
+      4,
       "MASK"
     ],
     [
@@ -965,19 +959,6 @@
             ]
           },
           {
-            "name": "qwen_image",
-            "type": "IMAGE",
-            "label": "Qwen",
-            "id": "image-lab-v14-finish-1",
-            "linkIds": [
-              204
-            ],
-            "pos": [
-              70,
-              278
-            ]
-          },
-          {
             "name": "z_image",
             "type": "IMAGE",
             "label": "Z-Image",
@@ -987,7 +968,7 @@
             ],
             "pos": [
               70,
-              306
+              278
             ]
           },
           {
@@ -1000,7 +981,7 @@
             ],
             "pos": [
               70,
-              334
+              306
             ]
           },
           {
@@ -1013,7 +994,7 @@
             ],
             "pos": [
               70,
-              362
+              334
             ]
           },
           {
@@ -1026,7 +1007,7 @@
             ],
             "pos": [
               70,
-              390
+              362
             ]
           },
           {
@@ -1039,7 +1020,7 @@
             ],
             "pos": [
               70,
-              418
+              390
             ]
           },
           {
@@ -1052,7 +1033,7 @@
             ],
             "pos": [
               70,
-              446
+              418
             ]
           },
           {
@@ -1065,7 +1046,7 @@
             ],
             "pos": [
               70,
-              474
+              446
             ]
           },
           {
@@ -1078,7 +1059,7 @@
             ],
             "pos": [
               70,
-              502
+              474
             ]
           },
           {
@@ -1091,7 +1072,7 @@
             ],
             "pos": [
               70,
-              530
+              502
             ]
           }
         ],
@@ -2305,7 +2286,7 @@
               {
                 "name": "on_false",
                 "type": "*",
-                "link": 204
+                "link": null
               },
               {
                 "name": "on_true",
@@ -2776,7 +2757,7 @@
           },
           {
             "id": 963,
-            "type": "ImageLabSourceSelector",
+            "type": "ImageLabSourceSelectorGeneracion",
             "title": "Elegir imagen final · Control interno",
             "pos": [
               165,
@@ -2811,10 +2792,10 @@
               }
             ],
             "properties": {
-              "Node name for S&R": "ImageLabSourceSelector"
+              "Node name for S&R": "ImageLabSourceSelectorGeneracion"
             },
             "widgets_values": [
-              "Qwen"
+              "FLUX"
             ]
           }
         ],
@@ -2871,7 +2852,7 @@
           {
             "id": 8,
             "origin_id": -10,
-            "origin_slot": 9,
+            "origin_slot": 8,
             "target_id": 105,
             "target_slot": 0,
             "type": "BOOLEAN"
@@ -2903,7 +2884,7 @@
           {
             "id": 13,
             "origin_id": -10,
-            "origin_slot": 7,
+            "origin_slot": 6,
             "target_id": 107,
             "target_slot": 0,
             "type": "COMBO"
@@ -2927,7 +2908,7 @@
           {
             "id": 16,
             "origin_id": -10,
-            "origin_slot": 6,
+            "origin_slot": 5,
             "target_id": 109,
             "target_slot": 0,
             "type": "INT"
@@ -2959,7 +2940,7 @@
           {
             "id": 20,
             "origin_id": -10,
-            "origin_slot": 8,
+            "origin_slot": 7,
             "target_id": 112,
             "target_slot": 0,
             "type": "BOOLEAN"
@@ -2991,7 +2972,7 @@
           {
             "id": 24,
             "origin_id": -10,
-            "origin_slot": 10,
+            "origin_slot": 9,
             "target_id": 114,
             "target_slot": 1,
             "type": "STRING"
@@ -3157,17 +3138,9 @@
             "type": "INT"
           },
           {
-            "id": 204,
-            "origin_id": -10,
-            "origin_slot": 1,
-            "target_id": 910,
-            "target_slot": 0,
-            "type": "IMAGE"
-          },
-          {
             "id": 205,
             "origin_id": -10,
-            "origin_slot": 2,
+            "origin_slot": 1,
             "target_id": 910,
             "target_slot": 1,
             "type": "IMAGE"
@@ -3191,7 +3164,7 @@
           {
             "id": 208,
             "origin_id": -10,
-            "origin_slot": 3,
+            "origin_slot": 2,
             "target_id": 911,
             "target_slot": 1,
             "type": "IMAGE"
@@ -3215,7 +3188,7 @@
           {
             "id": 211,
             "origin_id": -10,
-            "origin_slot": 4,
+            "origin_slot": 3,
             "target_id": 912,
             "target_slot": 1,
             "type": "IMAGE"
@@ -3263,7 +3236,7 @@
           {
             "id": 217,
             "origin_id": -10,
-            "origin_slot": 5,
+            "origin_slot": 4,
             "target_id": 913,
             "target_slot": 1,
             "type": "MASK"

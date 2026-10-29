@@ -1,5 +1,5 @@
 {
-  "id": "bfaf813b-b97d-4c9d-98b3-8a3fbc56f4f8",
+  "id": "252a8432-4e74-492c-a324-d72066968b28",
   "revision": 38,
   "last_node_id": 950,
   "last_link_id": 3523,
@@ -419,30 +419,6 @@
           "type": "IMAGE",
           "label": "Qwen",
           "link": 3523
-        },
-        {
-          "name": "z_image",
-          "type": "IMAGE",
-          "label": "Z-Image",
-          "link": null
-        },
-        {
-          "name": "flux_image",
-          "type": "IMAGE",
-          "label": "FLUX",
-          "link": null
-        },
-        {
-          "name": "external_image",
-          "type": "IMAGE",
-          "label": "Fotografía externa",
-          "link": null
-        },
-        {
-          "name": "external_mask",
-          "type": "MASK",
-          "label": "Transparencia externa",
-          "link": null
         },
         {
           "name": "value",
@@ -866,58 +842,6 @@
             ]
           },
           {
-            "name": "z_image",
-            "type": "IMAGE",
-            "label": "Z-Image",
-            "id": "image-lab-v14-finish-2",
-            "linkIds": [
-              205
-            ],
-            "pos": [
-              70,
-              306
-            ]
-          },
-          {
-            "name": "flux_image",
-            "type": "IMAGE",
-            "label": "FLUX",
-            "id": "image-lab-v14-finish-3",
-            "linkIds": [
-              208
-            ],
-            "pos": [
-              70,
-              334
-            ]
-          },
-          {
-            "name": "external_image",
-            "type": "IMAGE",
-            "label": "Fotografía externa",
-            "id": "image-lab-v14-finish-4",
-            "linkIds": [
-              211
-            ],
-            "pos": [
-              70,
-              362
-            ]
-          },
-          {
-            "name": "external_mask",
-            "type": "MASK",
-            "label": "Transparencia externa",
-            "id": "image-lab-v14-finish-5",
-            "linkIds": [
-              217
-            ],
-            "pos": [
-              70,
-              390
-            ]
-          },
-          {
             "name": "value",
             "type": "INT",
             "label": "Escala final (2×, 3× o 4×)",
@@ -927,7 +851,7 @@
             ],
             "pos": [
               70,
-              418
+              306
             ]
           },
           {
@@ -940,7 +864,7 @@
             ],
             "pos": [
               70,
-              446
+              334
             ]
           },
           {
@@ -953,7 +877,7 @@
             ],
             "pos": [
               70,
-              474
+              362
             ]
           },
           {
@@ -966,7 +890,7 @@
             ],
             "pos": [
               70,
-              502
+              390
             ]
           },
           {
@@ -979,7 +903,7 @@
             ],
             "pos": [
               70,
-              530
+              418
             ]
           }
         ],
@@ -2198,7 +2122,7 @@
               {
                 "name": "on_true",
                 "type": "*",
-                "link": 205
+                "link": null
               },
               {
                 "name": "switch",
@@ -2249,7 +2173,7 @@
               {
                 "name": "on_true",
                 "type": "*",
-                "link": 208
+                "link": null
               },
               {
                 "name": "switch",
@@ -2300,7 +2224,7 @@
               {
                 "name": "on_true",
                 "type": "*",
-                "link": 211
+                "link": null
               },
               {
                 "name": "switch",
@@ -2355,7 +2279,7 @@
               {
                 "name": "on_true",
                 "type": "*",
-                "link": 217
+                "link": null
               },
               {
                 "name": "switch",
@@ -2664,7 +2588,7 @@
           },
           {
             "id": 963,
-            "type": "ImageLabSourceSelector",
+            "type": "ImageLabSourceSelectorEdicion",
             "title": "Elegir imagen final · Control interno",
             "pos": [
               165,
@@ -2699,7 +2623,7 @@
               }
             ],
             "properties": {
-              "Node name for S&R": "ImageLabSourceSelector"
+              "Node name for S&R": "ImageLabSourceSelectorEdicion"
             },
             "widgets_values": [
               "Qwen"
@@ -2759,7 +2683,7 @@
           {
             "id": 8,
             "origin_id": -10,
-            "origin_slot": 9,
+            "origin_slot": 5,
             "target_id": 105,
             "target_slot": 0,
             "type": "BOOLEAN"
@@ -2791,7 +2715,7 @@
           {
             "id": 13,
             "origin_id": -10,
-            "origin_slot": 7,
+            "origin_slot": 3,
             "target_id": 107,
             "target_slot": 0,
             "type": "COMBO"
@@ -2815,7 +2739,7 @@
           {
             "id": 16,
             "origin_id": -10,
-            "origin_slot": 6,
+            "origin_slot": 2,
             "target_id": 109,
             "target_slot": 0,
             "type": "INT"
@@ -2847,7 +2771,7 @@
           {
             "id": 20,
             "origin_id": -10,
-            "origin_slot": 8,
+            "origin_slot": 4,
             "target_id": 112,
             "target_slot": 0,
             "type": "BOOLEAN"
@@ -2879,7 +2803,7 @@
           {
             "id": 24,
             "origin_id": -10,
-            "origin_slot": 10,
+            "origin_slot": 6,
             "target_id": 114,
             "target_slot": 1,
             "type": "STRING"
@@ -3053,14 +2977,6 @@
             "type": "IMAGE"
           },
           {
-            "id": 205,
-            "origin_id": -10,
-            "origin_slot": 2,
-            "target_id": 910,
-            "target_slot": 1,
-            "type": "IMAGE"
-          },
-          {
             "id": 206,
             "origin_id": 960,
             "origin_slot": 2,
@@ -3077,14 +2993,6 @@
             "type": "IMAGE"
           },
           {
-            "id": 208,
-            "origin_id": -10,
-            "origin_slot": 3,
-            "target_id": 911,
-            "target_slot": 1,
-            "type": "IMAGE"
-          },
-          {
             "id": 209,
             "origin_id": 961,
             "origin_slot": 2,
@@ -3098,14 +3006,6 @@
             "origin_slot": 0,
             "target_id": 912,
             "target_slot": 0,
-            "type": "IMAGE"
-          },
-          {
-            "id": 211,
-            "origin_id": -10,
-            "origin_slot": 4,
-            "target_id": 912,
-            "target_slot": 1,
             "type": "IMAGE"
           },
           {
@@ -3146,14 +3046,6 @@
             "origin_slot": 0,
             "target_id": 913,
             "target_slot": 0,
-            "type": "MASK"
-          },
-          {
-            "id": 217,
-            "origin_id": -10,
-            "origin_slot": 5,
-            "target_id": 913,
-            "target_slot": 1,
             "type": "MASK"
           },
           {
@@ -3247,7 +3139,7 @@
             ]
           },
           {
-            "id": "938415b7-552f-4291-99b6-e5c776cce355",
+            "id": "b547e16a-fdab-4bcd-8763-bbab68b117a1",
             "name": "mask",
             "type": "MASK",
             "linkIds": [

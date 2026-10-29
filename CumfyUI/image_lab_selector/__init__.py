@@ -11,6 +11,10 @@ import torch
 OPTIONS = ("Z-Image", "FLUX", "Qwen", "Fotografía externa")
 INDEX = {name: idx + 1 for idx, name in enumerate(OPTIONS)}
 
+# Opciones de cada workflow. Comparten INDEX, así que el número de fuente es el mismo.
+OPTIONS_GENERACION = ("Z-Image", "FLUX", "Fotografía externa")
+OPTIONS_EDICION = ("Qwen",)
+
 
 class ImageLabSourceSelector:
     @classmethod
@@ -26,6 +30,36 @@ class ImageLabSourceSelector:
 
     def select(self, fuente):
         if fuente not in INDEX:
+            raise ValueError(f"Image Lab: fuente desconocida: {fuente!r}")
+        return (INDEX[fuente],)
+
+
+class ImageLabSourceSelectorGeneracion(ImageLabSourceSelector):
+    """Fuente para image_lab_generacion.json: Z-Image, FLUX o fotografía externa."""
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {"required": {
+            "fuente": (list(OPTIONS_GENERACION), {"default": "FLUX"}),
+        }}
+
+    def select(self, fuente):
+        if fuente not in OPTIONS_GENERACION:
+            raise ValueError(f"Image Lab: fuente desconocida: {fuente!r}")
+        return (INDEX[fuente],)
+
+
+class ImageLabSourceSelectorEdicion(ImageLabSourceSelector):
+    """Fuente para image_lab_edicion.json: solo Qwen."""
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {"required": {
+            "fuente": (list(OPTIONS_EDICION), {"default": "Qwen"}),
+        }}
+
+    def select(self, fuente):
+        if fuente not in OPTIONS_EDICION:
             raise ValueError(f"Image Lab: fuente desconocida: {fuente!r}")
         return (INDEX[fuente],)
 
@@ -95,9 +129,13 @@ class ImageLabInitialImage:
 
 NODE_CLASS_MAPPINGS = {
     "ImageLabSourceSelector": ImageLabSourceSelector,
+    "ImageLabSourceSelectorGeneracion": ImageLabSourceSelectorGeneracion,
+    "ImageLabSourceSelectorEdicion": ImageLabSourceSelectorEdicion,
     "ImageLabInitialImage": ImageLabInitialImage,
 }
 NODE_DISPLAY_NAME_MAPPINGS = {
     "ImageLabSourceSelector": "Image Lab · Fuente",
+    "ImageLabSourceSelectorGeneracion": "Image Lab · Fuente (generación)",
+    "ImageLabSourceSelectorEdicion": "Image Lab · Fuente (edición)",
     "ImageLabInitialImage": "Image Lab · Imagen inicial",
 }
