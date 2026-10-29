@@ -64,6 +64,31 @@ class ImageLabSourceSelectorEdicion(ImageLabSourceSelector):
         return (INDEX[fuente],)
 
 
+class ImageLabBackgroundSelector:
+    """Método para quitar fondo en «Salida y acabado».
+
+    Devuelve True si hay que usar BEN2 y False para BiRefNet HR matting.
+    """
+
+    METHODS = ("BiRefNet HR matting", "BEN2")
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {"required": {
+            "metodo": (list(cls.METHODS), {"default": cls.METHODS[0]}),
+        }}
+
+    RETURN_TYPES = ("BOOLEAN",)
+    RETURN_NAMES = ("usar_ben2",)
+    FUNCTION = "select"
+    CATEGORY = "Image Lab / Interno"
+
+    def select(self, metodo):
+        if metodo not in self.METHODS:
+            raise ValueError(f"Image Lab: método de fondo desconocido: {metodo!r}")
+        return (metodo == "BEN2",)
+
+
 class ImageLabInitialImage:
     """An image uploader with img2img and resolution toggles in one node."""
 
@@ -131,11 +156,13 @@ NODE_CLASS_MAPPINGS = {
     "ImageLabSourceSelector": ImageLabSourceSelector,
     "ImageLabSourceSelectorGeneracion": ImageLabSourceSelectorGeneracion,
     "ImageLabSourceSelectorEdicion": ImageLabSourceSelectorEdicion,
+    "ImageLabBackgroundSelector": ImageLabBackgroundSelector,
     "ImageLabInitialImage": ImageLabInitialImage,
 }
 NODE_DISPLAY_NAME_MAPPINGS = {
     "ImageLabSourceSelector": "Image Lab · Fuente",
     "ImageLabSourceSelectorGeneracion": "Image Lab · Fuente (generación)",
     "ImageLabSourceSelectorEdicion": "Image Lab · Fuente (edición)",
+    "ImageLabBackgroundSelector": "Image Lab · Método de fondo",
     "ImageLabInitialImage": "Image Lab · Imagen inicial",
 }

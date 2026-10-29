@@ -399,7 +399,7 @@
       ],
       "size": [
         810,
-        690
+        802
       ],
       "flags": {},
       "order": 1,
@@ -457,6 +457,42 @@
           }
         },
         {
+          "name": "metodo_fondo",
+          "type": "COMBO",
+          "label": "Método para quitar fondo",
+          "link": null,
+          "widget": {
+            "name": "metodo_fondo"
+          }
+        },
+        {
+          "name": "bg_sensibilidad",
+          "type": "FLOAT",
+          "label": "Fondo · sensibilidad (1 = normal)",
+          "link": null,
+          "widget": {
+            "name": "bg_sensibilidad"
+          }
+        },
+        {
+          "name": "bg_suavizado",
+          "type": "INT",
+          "label": "Fondo · suavizar borde (px)",
+          "link": null,
+          "widget": {
+            "name": "bg_suavizado"
+          }
+        },
+        {
+          "name": "bg_expandir",
+          "type": "INT",
+          "label": "Fondo · expandir (+) o contraer (−) máscara (px)",
+          "link": null,
+          "widget": {
+            "name": "bg_expandir"
+          }
+        },
+        {
           "name": "filename_prefix",
           "type": "STRING",
           "label": "Guardar como",
@@ -486,6 +522,10 @@
         "4xNomos2_hq_dat2.pth",
         false,
         false,
+        "BiRefNet HR matting",
+        1.0,
+        0,
+        0,
         "image_lab/final/resultado"
       ],
       "widgets_values_named": {
@@ -494,6 +534,10 @@
         "model_name": "4xNomos2_hq_dat2.pth",
         "value_1": false,
         "value_2": false,
+        "metodo_fondo": "BiRefNet HR matting",
+        "bg_sensibilidad": 1.0,
+        "bg_suavizado": 0,
+        "bg_expandir": 0,
         "filename_prefix": "image_lab/final/resultado"
       }
     },
@@ -503,7 +547,7 @@
       "title": "Vista previa · Imagen final",
       "pos": [
         1915,
-        920
+        1032
       ],
       "size": [
         810,
@@ -775,7 +819,7 @@
         1890,
         45,
         880,
-        1270
+        1382
       ],
       "color": "#426a74",
       "font_size": 24
@@ -788,8 +832,8 @@
         "version": 1,
         "state": {
           "lastGroupId": 0,
-          "lastNodeId": 963,
-          "lastLinkId": 219,
+          "lastNodeId": 973,
+          "lastLinkId": 231,
           "lastRerouteId": 0
         },
         "revision": 2,
@@ -894,6 +938,61 @@
             ]
           },
           {
+            "name": "metodo_fondo",
+            "type": "COMBO",
+            "label": "Método para quitar fondo",
+            "id": "image-lab-bg-method",
+            "linkIds": [
+              231
+            ],
+            "pos": [
+              70,
+              418
+            ]
+          },
+          {
+            "name": "bg_sensibilidad",
+            "type": "FLOAT",
+            "label": "Fondo · sensibilidad (1 = normal)",
+            "id": "image-lab-bg-sensitivity",
+            "linkIds": [
+              222,
+              225
+            ],
+            "pos": [
+              70,
+              446
+            ]
+          },
+          {
+            "name": "bg_suavizado",
+            "type": "INT",
+            "label": "Fondo · suavizar borde (px)",
+            "id": "image-lab-bg-blur",
+            "linkIds": [
+              223,
+              226
+            ],
+            "pos": [
+              70,
+              474
+            ]
+          },
+          {
+            "name": "bg_expandir",
+            "type": "INT",
+            "label": "Fondo · expandir (+) o contraer (−) máscara (px)",
+            "id": "image-lab-bg-offset",
+            "linkIds": [
+              224,
+              227
+            ],
+            "pos": [
+              70,
+              502
+            ]
+          },
+          {
             "name": "filename_prefix",
             "type": "STRING",
             "label": "Guardar como",
@@ -903,7 +1002,7 @@
             ],
             "pos": [
               70,
-              418
+              530
             ]
           }
         ],
@@ -924,97 +1023,6 @@
         ],
         "widgets": [],
         "nodes": [
-          {
-            "id": 101,
-            "type": "LoadBackgroundRemovalModel",
-            "pos": [
-              250,
-              1080
-            ],
-            "size": [
-              350,
-              110
-            ],
-            "flags": {},
-            "order": 0,
-            "mode": 0,
-            "inputs": [
-              {
-                "name": "bg_removal_name",
-                "type": "COMBO",
-                "widget": {
-                  "name": "bg_removal_name"
-                },
-                "link": null
-              }
-            ],
-            "outputs": [
-              {
-                "name": "bg_model",
-                "type": "BACKGROUND_REMOVAL",
-                "links": [
-                  2
-                ]
-              }
-            ],
-            "properties": {
-              "Node name for S&R": "LoadBackgroundRemovalModel",
-              "cnr_id": "comfy-core",
-              "models": [
-                {
-                  "name": "birefnet.safetensors",
-                  "url": "https://huggingface.co/Comfy-Org/BiRefNet/resolve/main/background_removal/birefnet.safetensors",
-                  "directory": "background_removal"
-                }
-              ]
-            },
-            "widgets_values": [
-              "birefnet.safetensors"
-            ],
-            "title": "Borrar fondo · Modelo BiRefNet"
-          },
-          {
-            "id": 102,
-            "type": "RemoveBackground",
-            "pos": [
-              740,
-              1080
-            ],
-            "size": [
-              330,
-              110
-            ],
-            "flags": {},
-            "order": 1,
-            "mode": 0,
-            "inputs": [
-              {
-                "name": "bg_removal_model",
-                "type": "BACKGROUND_REMOVAL",
-                "link": 2
-              },
-              {
-                "name": "image",
-                "type": "IMAGE",
-                "link": 3
-              }
-            ],
-            "outputs": [
-              {
-                "name": "mask",
-                "type": "MASK",
-                "links": [
-                  4
-                ]
-              }
-            ],
-            "properties": {
-              "Node name for S&R": "RemoveBackground",
-              "cnr_id": "comfy-core"
-            },
-            "widgets_values": [],
-            "title": "Obtener máscara"
-          },
           {
             "id": 103,
             "type": "InvertMask",
@@ -1093,7 +1101,7 @@
               "cnr_id": "comfy-core"
             },
             "widgets_values": [],
-            "title": "Aplicar alfa original o BiRefNet DESPUÉS del upscale"
+            "title": "Aplicar alfa original o de quitar fondo DESPUÉS del upscale"
           },
           {
             "id": 105,
@@ -1631,7 +1639,7 @@
                 ]
               }
             ],
-            "title": "Combinar BiRefNet + máscara alfa original",
+            "title": "Combinar máscara de quitar fondo + máscara alfa original",
             "properties": {
               "Node name for S&R": "MaskComposite",
               "cnr_id": "comfy-core"
@@ -2237,11 +2245,12 @@
                 "name": "output",
                 "type": "*",
                 "links": [
-                  3,
                   11,
                   12,
                   30,
-                  213
+                  213,
+                  220,
+                  221
                 ]
               }
             ],
@@ -2628,29 +2637,370 @@
             "widgets_values": [
               "Qwen"
             ]
+          },
+          {
+            "id": 970,
+            "type": "BiRefNetRMBG",
+            "title": "Quitar fondo · BiRefNet HR matting",
+            "pos": [
+              250,
+              1060
+            ],
+            "size": [
+              340,
+              330
+            ],
+            "flags": {},
+            "order": 970,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "image",
+                "type": "IMAGE",
+                "link": 220
+              },
+              {
+                "name": "model",
+                "type": "COMBO",
+                "widget": {
+                  "name": "model"
+                },
+                "link": null
+              },
+              {
+                "name": "sensitivity",
+                "type": "FLOAT",
+                "widget": {
+                  "name": "sensitivity"
+                },
+                "link": 222
+              },
+              {
+                "name": "mask_blur",
+                "type": "INT",
+                "widget": {
+                  "name": "mask_blur"
+                },
+                "link": 223
+              },
+              {
+                "name": "mask_offset",
+                "type": "INT",
+                "widget": {
+                  "name": "mask_offset"
+                },
+                "link": 224
+              },
+              {
+                "name": "invert_output",
+                "type": "BOOLEAN",
+                "widget": {
+                  "name": "invert_output"
+                },
+                "link": null
+              },
+              {
+                "name": "refine_foreground",
+                "type": "BOOLEAN",
+                "widget": {
+                  "name": "refine_foreground"
+                },
+                "link": null
+              },
+              {
+                "name": "unload_model",
+                "type": "BOOLEAN",
+                "widget": {
+                  "name": "unload_model"
+                },
+                "link": null
+              },
+              {
+                "name": "background",
+                "type": "COMBO",
+                "widget": {
+                  "name": "background"
+                },
+                "link": null
+              },
+              {
+                "name": "background_color",
+                "type": "COLORCODE",
+                "widget": {
+                  "name": "background_color"
+                },
+                "link": null
+              }
+            ],
+            "outputs": [
+              {
+                "name": "IMAGE",
+                "type": "IMAGE",
+                "links": []
+              },
+              {
+                "name": "MASK",
+                "type": "MASK",
+                "links": [
+                  228
+                ]
+              },
+              {
+                "name": "MASK_IMAGE",
+                "type": "IMAGE",
+                "links": []
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "BiRefNetRMBG",
+              "aux_id": "1038lab/ComfyUI-RMBG"
+            },
+            "widgets_values": [
+              "BiRefNet-HR-matting",
+              1.0,
+              0,
+              0,
+              false,
+              false,
+              false,
+              "Alpha",
+              "#222222"
+            ]
+          },
+          {
+            "id": 971,
+            "type": "RMBG",
+            "title": "Quitar fondo · BEN2",
+            "pos": [
+              640,
+              1060
+            ],
+            "size": [
+              340,
+              360
+            ],
+            "flags": {},
+            "order": 971,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "image",
+                "type": "IMAGE",
+                "link": 221
+              },
+              {
+                "name": "model",
+                "type": "COMBO",
+                "widget": {
+                  "name": "model"
+                },
+                "link": null
+              },
+              {
+                "name": "sensitivity",
+                "type": "FLOAT",
+                "widget": {
+                  "name": "sensitivity"
+                },
+                "link": 225
+              },
+              {
+                "name": "process_res",
+                "type": "INT",
+                "widget": {
+                  "name": "process_res"
+                },
+                "link": null
+              },
+              {
+                "name": "mask_blur",
+                "type": "INT",
+                "widget": {
+                  "name": "mask_blur"
+                },
+                "link": 226
+              },
+              {
+                "name": "mask_offset",
+                "type": "INT",
+                "widget": {
+                  "name": "mask_offset"
+                },
+                "link": 227
+              },
+              {
+                "name": "invert_output",
+                "type": "BOOLEAN",
+                "widget": {
+                  "name": "invert_output"
+                },
+                "link": null
+              },
+              {
+                "name": "refine_foreground",
+                "type": "BOOLEAN",
+                "widget": {
+                  "name": "refine_foreground"
+                },
+                "link": null
+              },
+              {
+                "name": "unload_model",
+                "type": "BOOLEAN",
+                "widget": {
+                  "name": "unload_model"
+                },
+                "link": null
+              },
+              {
+                "name": "background",
+                "type": "COMBO",
+                "widget": {
+                  "name": "background"
+                },
+                "link": null
+              },
+              {
+                "name": "background_color",
+                "type": "COLORCODE",
+                "widget": {
+                  "name": "background_color"
+                },
+                "link": null
+              }
+            ],
+            "outputs": [
+              {
+                "name": "IMAGE",
+                "type": "IMAGE",
+                "links": []
+              },
+              {
+                "name": "MASK",
+                "type": "MASK",
+                "links": [
+                  229
+                ]
+              },
+              {
+                "name": "MASK_IMAGE",
+                "type": "IMAGE",
+                "links": []
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "RMBG",
+              "aux_id": "1038lab/ComfyUI-RMBG"
+            },
+            "widgets_values": [
+              "BEN2",
+              1.0,
+              1024,
+              0,
+              0,
+              false,
+              false,
+              false,
+              "Alpha",
+              "#222222"
+            ]
+          },
+          {
+            "id": 972,
+            "type": "ComfySwitchNode",
+            "title": "Elegir método de quitar fondo",
+            "pos": [
+              1000,
+              1250
+            ],
+            "size": [
+              225,
+              118
+            ],
+            "flags": {},
+            "order": 972,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "on_false",
+                "type": "*",
+                "link": 228
+              },
+              {
+                "name": "on_true",
+                "type": "*",
+                "link": 229
+              },
+              {
+                "name": "switch",
+                "type": "BOOLEAN",
+                "link": 230
+              }
+            ],
+            "outputs": [
+              {
+                "name": "output",
+                "type": "*",
+                "links": [
+                  4
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ComfySwitchNode",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              false
+            ]
+          },
+          {
+            "id": 973,
+            "type": "ImageLabBackgroundSelector",
+            "title": "Método para quitar fondo · Control interno",
+            "pos": [
+              250,
+              1420
+            ],
+            "size": [
+              340,
+              90
+            ],
+            "flags": {},
+            "order": 973,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "metodo",
+                "type": "COMBO",
+                "widget": {
+                  "name": "metodo"
+                },
+                "link": 231
+              }
+            ],
+            "outputs": [
+              {
+                "name": "usar_ben2",
+                "type": "BOOLEAN",
+                "links": [
+                  230
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ImageLabBackgroundSelector"
+            },
+            "widgets_values": [
+              "BiRefNet HR matting"
+            ]
           }
         ],
         "groups": [],
         "links": [
           {
-            "id": 2,
-            "origin_id": 101,
-            "origin_slot": 0,
-            "target_id": 102,
-            "target_slot": 0,
-            "type": "BACKGROUND_REMOVAL"
-          },
-          {
-            "id": 3,
-            "origin_id": 912,
-            "origin_slot": 0,
-            "target_id": 102,
-            "target_slot": 1,
-            "type": "IMAGE"
-          },
-          {
             "id": 4,
-            "origin_id": 102,
+            "origin_id": 972,
             "origin_slot": 0,
             "target_id": 103,
             "target_slot": 0,
@@ -2803,7 +3153,7 @@
           {
             "id": 24,
             "origin_id": -10,
-            "origin_slot": 6,
+            "origin_slot": 10,
             "target_id": 114,
             "target_slot": 1,
             "type": "STRING"
@@ -3061,6 +3411,102 @@
             "origin_id": -10,
             "origin_slot": 0,
             "target_id": 963,
+            "target_slot": 0,
+            "type": "COMBO"
+          },
+          {
+            "id": 220,
+            "origin_id": 912,
+            "origin_slot": 0,
+            "target_id": 970,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 221,
+            "origin_id": 912,
+            "origin_slot": 0,
+            "target_id": 971,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 222,
+            "origin_id": -10,
+            "origin_slot": 7,
+            "target_id": 970,
+            "target_slot": 2,
+            "type": "FLOAT"
+          },
+          {
+            "id": 223,
+            "origin_id": -10,
+            "origin_slot": 8,
+            "target_id": 970,
+            "target_slot": 3,
+            "type": "INT"
+          },
+          {
+            "id": 224,
+            "origin_id": -10,
+            "origin_slot": 9,
+            "target_id": 970,
+            "target_slot": 4,
+            "type": "INT"
+          },
+          {
+            "id": 225,
+            "origin_id": -10,
+            "origin_slot": 7,
+            "target_id": 971,
+            "target_slot": 2,
+            "type": "FLOAT"
+          },
+          {
+            "id": 226,
+            "origin_id": -10,
+            "origin_slot": 8,
+            "target_id": 971,
+            "target_slot": 4,
+            "type": "INT"
+          },
+          {
+            "id": 227,
+            "origin_id": -10,
+            "origin_slot": 9,
+            "target_id": 971,
+            "target_slot": 5,
+            "type": "INT"
+          },
+          {
+            "id": 228,
+            "origin_id": 970,
+            "origin_slot": 1,
+            "target_id": 972,
+            "target_slot": 0,
+            "type": "MASK"
+          },
+          {
+            "id": 229,
+            "origin_id": 971,
+            "origin_slot": 1,
+            "target_id": 972,
+            "target_slot": 1,
+            "type": "MASK"
+          },
+          {
+            "id": 230,
+            "origin_id": 973,
+            "origin_slot": 0,
+            "target_id": 972,
+            "target_slot": 2,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 231,
+            "origin_id": -10,
+            "origin_slot": 6,
+            "target_id": 973,
             "target_slot": 0,
             "type": "COMBO"
           }
