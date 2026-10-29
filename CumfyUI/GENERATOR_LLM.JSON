@@ -1,12 +1,12 @@
 {
   "last_node_id": 6,
-  "last_link_id": 5,
+  "last_link_id": 6,
   "nodes": [
     {
       "id": 1,
       "type": "GGUF_GeneradorLLM",
       "pos": [
-        760,
+        520,
         130
       ],
       "size": [
@@ -44,12 +44,12 @@
       "id": 2,
       "type": "PreviewAny",
       "pos": [
-        70,
-        370
+        1250,
+        130
       ],
       "size": [
         600,
-        420
+        670
       ],
       "flags": {},
       "order": 1,
@@ -72,15 +72,15 @@
         "Node name for S&R": "PreviewAny",
         "cnr_id": "comfy-core"
       },
-      "title": "RESPUESTA FINAL · Leer aquí",
+      "title": "RESPUESTA · Generador de texto",
       "widgets_values": []
     },
     {
       "id": 3,
       "type": "GGUF_GeneradorQwenVL",
       "pos": [
-        1900,
-        130
+        870,
+        970
       ],
       "size": [
         700,
@@ -101,7 +101,6 @@
           "name": "respuesta",
           "type": "STRING",
           "links": [
-            2,
             5
           ],
           "slot_index": 0
@@ -124,8 +123,8 @@
       "id": 4,
       "type": "PreviewAny",
       "pos": [
-        2640,
-        130
+        1600,
+        970
       ],
       "size": [
         640,
@@ -133,12 +132,12 @@
       ],
       "flags": {},
       "order": 4,
-      "mode": 2,
+      "mode": 0,
       "inputs": [
         {
           "name": "source",
           "type": "*",
-          "link": 2
+          "link": 6
         }
       ],
       "outputs": [
@@ -152,15 +151,15 @@
         "Node name for S&R": "PreviewAny",
         "cnr_id": "comfy-core"
       },
-      "title": "RESPUESTA DE QWEN VL · Leer aquí",
+      "title": "RESPUESTA · Qwen VL",
       "widgets_values": []
     },
     {
       "id": 5,
       "type": "GGUF_ImagenOpcional",
       "pos": [
-        1550,
-        130
+        520,
+        970
       ],
       "size": [
         315,
@@ -241,12 +240,18 @@
       ],
       "outputs": [
         {
-          "name": "respuesta",
+          "name": "respuesta_texto",
           "type": "STRING",
           "links": [
             1
-          ],
-          "slot_index": 0
+          ]
+        },
+        {
+          "name": "respuesta_qwen",
+          "type": "STRING",
+          "links": [
+            6
+          ]
         }
       ],
       "properties": {
@@ -264,14 +269,6 @@
       6,
       0,
       2,
-      0,
-      "STRING"
-    ],
-    [
-      2,
-      3,
-      0,
-      4,
       0,
       "STRING"
     ],
@@ -298,17 +295,25 @@
       6,
       2,
       "STRING"
+    ],
+    [
+      6,
+      6,
+      1,
+      4,
+      0,
+      "STRING"
     ]
   ],
   "groups": [
     {
       "id": 1,
-      "title": "01 · ELEGIR MODO Y LEER RESPUESTA",
+      "title": "01 · ELEGIR MODO",
       "bounding": [
         40,
         60,
-        660,
-        790
+        420,
+        290
       ],
       "color": "#645d84",
       "flags": {}
@@ -317,9 +322,9 @@
       "id": 2,
       "title": "02 · GENERADOR DE TEXTO",
       "bounding": [
-        730,
+        490,
         60,
-        760,
+        1390,
         790
       ],
       "color": "#426a74",
@@ -329,9 +334,9 @@
       "id": 3,
       "title": "03 · QWEN VL · PROMPT + IMAGEN",
       "bounding": [
-        1520,
-        60,
-        1790,
+        490,
+        900,
+        1780,
         790
       ],
       "color": "#6b6653",

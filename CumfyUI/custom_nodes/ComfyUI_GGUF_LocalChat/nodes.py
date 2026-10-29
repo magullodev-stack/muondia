@@ -374,7 +374,10 @@ class GeneradorLLM:
 
 
 class SelectorRamaLLM:
-    """Ejecuta solo la rama seleccionada mediante entradas lazy de ComfyUI."""
+    """Elige qué bloque se ejecuta. Cada bloque tiene su propia salida y su propia ventana de respuesta.
+
+    La salida de la rama no elegida se bloquea (ExecutionBlocker): su ventana no se ejecuta.
+    """
 
     MODO_TEXTO = "Generador de texto"
     MODO_QWEN = "Qwen VL (con imagen)"
@@ -391,11 +394,10 @@ class SelectorRamaLLM:
             },
         }
 
-    RETURN_TYPES = ("STRING",)
-    RETURN_NAMES = ("respuesta",)
+    RETURN_TYPES = ("STRING", "STRING")
+    RETURN_NAMES = ("respuesta_texto", "respuesta_qwen")
     FUNCTION = "seleccionar"
     CATEGORY = "LLM / GGUF local"
-    OUTPUT_NODE = True
 
     def check_lazy_status(self, modo, generador_texto=None, qwen_vl=None):
         if modo == self.MODO_TEXTO:
@@ -405,10 +407,16 @@ class SelectorRamaLLM:
         raise ValueError(f"Modo de ejecución desconocido: {modo!r}")
 
     def seleccionar(self, modo, generador_texto=None, qwen_vl=None):
-        resultado = generador_texto if modo == self.MODO_TEXTO else qwen_vl
-        if resultado is None:
-            raise RuntimeError("La rama seleccionada no devolvió una respuesta.")
-        return {"ui": {"text": [resultado]}, "result": (resultado,)}
+        from comfy_execution.graph_utils import ExecutionBlocker
+        if modo == self.MODO_TEXTO:
+            if generador_texto is None:
+                raise RuntimeError("El generador de texto no devolvió una respuesta.")
+            return (generador_texto, ExecutionBlocker(None))
+        if modo == self.MODO_QWEN:
+            if qwen_vl is None:
+                raise RuntimeError("Qwen VL no devolvió una respuesta.")
+            return (ExecutionBlocker(None), qwen_vl)
+        raise ValueError(f"Modo de ejecución desconocido: {modo!r}")
 
 
 class ImagenOpcional:
