@@ -596,11 +596,11 @@
           "link": 3509
         },
         {
-          "label": "Escala final (2×, 3× o 4×)",
-          "name": "value",
-          "type": "INT",
+          "label": "Ampliar imagen",
+          "name": "value_1",
+          "type": "BOOLEAN",
           "widget": {
-            "name": "value"
+            "name": "value_1"
           },
           "link": null
         },
@@ -614,11 +614,11 @@
           "link": null
         },
         {
-          "label": "Ampliar imagen",
-          "name": "value_1",
-          "type": "BOOLEAN",
+          "label": "Escala final (2×, 3× o 4×)",
+          "name": "value",
+          "type": "INT",
           "widget": {
-            "name": "value_1"
+            "name": "value"
           },
           "link": null
         },
@@ -691,9 +691,9 @@
       },
       "widgets_values": [
         "FLUX",
-        2,
-        "4xNomos2_hq_dat2.pth",
         false,
+        "4xNomos2_hq_dat2.pth",
+        2,
         false,
         "BiRefNet HR matting",
         1.0,
@@ -703,9 +703,9 @@
       ],
       "widgets_values_named": {
         "fuente": "FLUX",
-        "value": 2,
-        "model_name": "4xNomos2_hq_dat2.pth",
         "value_1": false,
+        "model_name": "4xNomos2_hq_dat2.pth",
+        "value": 2,
         "value_2": false,
         "metodo_fondo": "BiRefNet HR matting",
         "bg_sensibilidad": 1.0,
@@ -870,8 +870,8 @@
         "version": 1,
         "state": {
           "lastGroupId": 12,
-          "lastNodeId": 2343,
-          "lastLinkId": 4714,
+          "lastNodeId": 2344,
+          "lastLinkId": 4716,
           "lastRerouteId": 0
         },
         "revision": 2,
@@ -902,7 +902,8 @@
             "name": "fuente",
             "type": "COMBO",
             "linkIds": [
-              219
+              219,
+              4715
             ],
             "label": "Modelo / Origen de la imagen",
             "pos": [
@@ -963,13 +964,13 @@
             ]
           },
           {
-            "id": "image-lab-scale",
-            "name": "value",
-            "type": "INT",
+            "id": "image-lab-enhance",
+            "name": "value_1",
+            "type": "BOOLEAN",
             "linkIds": [
-              16
+              20
             ],
-            "label": "Escala final (2×, 3× o 4×)",
+            "label": "Ampliar imagen",
             "pos": [
               70,
               390
@@ -989,13 +990,13 @@
             ]
           },
           {
-            "id": "image-lab-enhance",
-            "name": "value_1",
-            "type": "BOOLEAN",
+            "id": "image-lab-scale",
+            "name": "value",
+            "type": "INT",
             "linkIds": [
-              20
+              16
             ],
-            "label": "Ampliar imagen",
+            "label": "Escala final (2×, 3× o 4×)",
             "pos": [
               70,
               446
@@ -1689,7 +1690,7 @@
                 "widget": {
                   "name": "filename_prefix"
                 },
-                "link": 24
+                "link": 4716
               }
             ],
             "outputs": [
@@ -3200,6 +3201,56 @@
             "widgets_values": [
               "BiRefNet HR matting"
             ]
+          },
+          {
+            "id": 2344,
+            "type": "ImageLabFilenamePrefix",
+            "title": "Nombre de archivo + origen · Control interno",
+            "pos": [
+              3660,
+              1160
+            ],
+            "size": [
+              430,
+              110
+            ],
+            "flags": {},
+            "order": 2344,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "prefix",
+                "type": "STRING",
+                "widget": {
+                  "name": "prefix"
+                },
+                "link": 24
+              },
+              {
+                "name": "fuente",
+                "type": "COMBO",
+                "widget": {
+                  "name": "fuente"
+                },
+                "link": 4715
+              }
+            ],
+            "outputs": [
+              {
+                "name": "prefix_final",
+                "type": "STRING",
+                "links": [
+                  4716
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ImageLabFilenamePrefix"
+            },
+            "widgets_values": [
+              "image_lab/final/resultado",
+              "FLUX"
+            ]
           }
         ],
         "groups": [],
@@ -3295,7 +3346,7 @@
           {
             "id": 16,
             "origin_id": -10,
-            "origin_slot": 5,
+            "origin_slot": 7,
             "target_id": 109,
             "target_slot": 0,
             "type": "INT"
@@ -3319,7 +3370,7 @@
           {
             "id": 20,
             "origin_id": -10,
-            "origin_slot": 7,
+            "origin_slot": 5,
             "target_id": 112,
             "target_slot": 0,
             "type": "BOOLEAN"
@@ -3352,8 +3403,8 @@
             "id": 24,
             "origin_id": -10,
             "origin_slot": 13,
-            "target_id": 114,
-            "target_slot": 1,
+            "target_id": 2344,
+            "target_slot": 0,
             "type": "STRING"
           },
           {
@@ -3739,6 +3790,22 @@
             "target_id": 973,
             "target_slot": 0,
             "type": "COMBO"
+          },
+          {
+            "id": 4715,
+            "origin_id": -10,
+            "origin_slot": 0,
+            "target_id": 2344,
+            "target_slot": 1,
+            "type": "COMBO"
+          },
+          {
+            "id": 4716,
+            "origin_id": 2344,
+            "origin_slot": 0,
+            "target_id": 114,
+            "target_slot": 1,
+            "type": "STRING"
           }
         ],
         "extra": {}

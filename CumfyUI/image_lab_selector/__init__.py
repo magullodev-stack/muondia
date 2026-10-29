@@ -89,6 +89,35 @@ class ImageLabBackgroundSelector:
         return (metodo == "BEN2",)
 
 
+class ImageLabFilenamePrefix:
+    """Añade el origen de la imagen al nombre de archivo: «resultado» -> «resultado_flux»."""
+
+    SLUGS = {
+        "Z-Image": "z-image",
+        "FLUX": "flux",
+        "Qwen": "qwen",
+        "Fotografía externa": "foto-externa",
+    }
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {"required": {
+            "prefix": ("STRING", {"default": "image_lab/final/resultado"}),
+            "fuente": (list(OPTIONS), {"default": "FLUX"}),
+        }}
+
+    RETURN_TYPES = ("STRING",)
+    RETURN_NAMES = ("prefix_final",)
+    FUNCTION = "build"
+    CATEGORY = "Image Lab / Interno"
+
+    def build(self, prefix, fuente):
+        slug = self.SLUGS.get(fuente)
+        if slug is None:
+            raise ValueError(f"Image Lab: fuente desconocida: {fuente!r}")
+        return (f"{prefix}_{slug}",)
+
+
 class ImageLabInitialImage:
     """An image uploader with img2img and resolution toggles in one node."""
 
@@ -157,6 +186,7 @@ NODE_CLASS_MAPPINGS = {
     "ImageLabSourceSelectorGeneracion": ImageLabSourceSelectorGeneracion,
     "ImageLabSourceSelectorEdicion": ImageLabSourceSelectorEdicion,
     "ImageLabBackgroundSelector": ImageLabBackgroundSelector,
+    "ImageLabFilenamePrefix": ImageLabFilenamePrefix,
     "ImageLabInitialImage": ImageLabInitialImage,
 }
 NODE_DISPLAY_NAME_MAPPINGS = {
@@ -164,5 +194,6 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "ImageLabSourceSelectorGeneracion": "Image Lab · Fuente (generación)",
     "ImageLabSourceSelectorEdicion": "Image Lab · Fuente (edición)",
     "ImageLabBackgroundSelector": "Image Lab · Método de fondo",
+    "ImageLabFilenamePrefix": "Image Lab · Nombre de archivo",
     "ImageLabInitialImage": "Image Lab · Imagen inicial",
 }
