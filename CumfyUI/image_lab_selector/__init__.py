@@ -8,13 +8,13 @@ and restart ComfyUI. No extra dependencies.
 import nodes
 import torch
 
-OPTIONS = ("Z-Image Turbo", "Z-Image Base", "FLUX", "Qwen", "Kontext", "Fotografía externa")
+OPTIONS = ("Z-Image Turbo", "Z-Image Base", "FLUX", "Qwen", "Kontext", "Kontext completo", "Fotografía externa")
 # Números fijos: el subgrafo «Salida y acabado» compara con ellos (1, 2, 4 y 5).
-INDEX = {"Z-Image Turbo": 1, "FLUX": 2, "Qwen": 3, "Fotografía externa": 4, "Z-Image Base": 5, "Kontext": 6}
+INDEX = {"Z-Image Turbo": 1, "FLUX": 2, "Qwen": 3, "Fotografía externa": 4, "Z-Image Base": 5, "Kontext": 6, "Kontext completo": 7}
 
 # Opciones de cada workflow. Comparten INDEX, así que el número de fuente es el mismo.
 OPTIONS_GENERACION = ("Z-Image Turbo", "Z-Image Base", "FLUX", "Fotografía externa")
-OPTIONS_EDICION = ("Qwen", "Kontext")
+OPTIONS_EDICION = ("Qwen", "Kontext", "Kontext completo")
 
 
 class ImageLabSourceSelector:
@@ -51,7 +51,7 @@ class ImageLabSourceSelectorGeneracion(ImageLabSourceSelector):
 
 
 class ImageLabSourceSelectorEdicion(ImageLabSourceSelector):
-    """Fuente para image_lab_edicion.json: Qwen o Kontext."""
+    """Fuente para image_lab_edicion.json: Qwen, Kontext (con máscara) o Kontext completo (sin máscara)."""
 
     @classmethod
     def INPUT_TYPES(cls):
@@ -99,6 +99,7 @@ class ImageLabFilenamePrefix:
         "FLUX": "flux",
         "Qwen": "qwen",
         "Kontext": "kontext",
+        "Kontext completo": "kontext-completo",
         "Fotografía externa": "foto-externa",
     }
 
