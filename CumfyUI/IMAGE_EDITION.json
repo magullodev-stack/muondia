@@ -1,8 +1,8 @@
 {
   "id": "252a8432-4e74-492c-a324-d72066968b28",
-  "revision": 42,
+  "revision": 43,
   "last_node_id": 2401,
-  "last_link_id": 4517,
+  "last_link_id": 4523,
   "nodes": [
     {
       "id": 400,
@@ -434,6 +434,13 @@
           "shape": 7,
           "type": "IMAGE",
           "link": 4517
+        },
+        {
+          "label": "FLUX.2 (sin máscara)",
+          "name": "flux2_image",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 4523
         }
       ],
       "outputs": [
@@ -681,7 +688,7 @@
       "title": "Cómo se usa",
       "properties": {},
       "widgets_values": [
-        "1) Carga la foto en «Imagen principal» y pinta la máscara con clic derecho > Open in MaskEditor (la zona pintada es lo único que Qwen puede cambiar).\n2) Las referencias 2 y 3 se usan solo si activas «Usar referencia 2/3» en el nodo Qwen. Si las activas sin cargar su imagen, sale un error.\n3) Sin máscara pintada la imagen sale SIN cambios.\nRequiere el custom node ComfyUI-Inpaint-CropAndStitch.\n4) Kontext con máscara (rama inferior): usa su propia imagen principal («Imagen principal · Kontext»), con su propia máscara, independiente de Qwen. Para usar una referencia (cara, ropa, objeto, estilo...): pinta la máscara sobre la zona a cambiar, carga la referencia en «Imagen de referencia · Kontext», activa «Usar imagen de referencia» en el nodo KONTEXT y escribe en su prompt qué quieres tomar de ella. Para usarlo elige «Kontext (con máscara)» en «Modelo / Origen de la imagen» del nodo SALIDA Y ACABADO. Requiere el modelo flux1-dev-kontext_fp8_scaled.safetensors.\n5) Kontext sin máscara (rama más baja). Carga la foto a modificar en «Imagen base», lo que quieres incorporar en «Imagen de referencia», escribe la instrucción en el prompt (rellena los huecos entre corchetes) y ejecuta. Para verla, elige «Kontext (sin máscara)» en «Modelo / Origen de la imagen» del nodo SALIDA Y ACABADO."
+        "1) Carga la foto en «Imagen principal» y pinta la máscara con clic derecho > Open in MaskEditor (la zona pintada es lo único que Qwen puede cambiar).\n2) Las referencias 2 y 3 se usan solo si activas «Usar referencia 2/3» en el nodo Qwen. Si las activas sin cargar su imagen, sale un error.\n3) Sin máscara pintada la imagen sale SIN cambios.\nRequiere el custom node ComfyUI-Inpaint-CropAndStitch.\n4) Kontext con máscara (rama inferior): usa su propia imagen principal («Imagen principal · Kontext»), con su propia máscara, independiente de Qwen. Para usar una referencia (cara, ropa, objeto, estilo...): pinta la máscara sobre la zona a cambiar, carga la referencia en «Imagen de referencia · Kontext», activa «Usar imagen de referencia» en el nodo KONTEXT y escribe en su prompt qué quieres tomar de ella. Para usarlo elige «Kontext (con máscara)» en «Modelo / Origen de la imagen» del nodo SALIDA Y ACABADO. Requiere el modelo flux1-dev-kontext_fp8_scaled.safetensors.\n5) Kontext sin máscara (rama más baja). Carga la foto a modificar en «Imagen base», lo que quieres incorporar en «Imagen de referencia», escribe la instrucción en el prompt (rellena los huecos entre corchetes) y ejecuta. Para verla, elige «Kontext (sin máscara)» en «Modelo / Origen de la imagen» del nodo SALIDA Y ACABADO.\n6) FLUX.2 sin máscara (rama más baja): carga la foto a modificar en «Imagen base» (es la imagen 1 del prompt) y, si quieres, referencias en «Referencia 1/2» (imágenes 2 y 3) activando «Usar referencia». Escribe la instrucción citando «image 1», «image 2»… Para verla, elige «FLUX.2 (sin máscara)» en «Modelo / Origen de la imagen» del nodo SALIDA Y ACABADO. Requiere flux-2-klein-base-9b-fp8.safetensors, qwen_3_8b_fp8mixed.safetensors y flux2-vae.safetensors."
       ],
       "widgets_values_named": {
         "text": "1) Carga la foto en «Imagen principal» y pinta la máscara con clic derecho > Open in MaskEditor (la zona pintada es lo único que Qwen puede cambiar).\n2) Las referencias 2 y 3 se usan solo si activas «Usar referencia 2/3» en el nodo Qwen. Si las activas sin cargar su imagen, sale un error.\n3) Sin máscara pintada la imagen sale SIN cambios.\nRequiere el custom node ComfyUI-Inpaint-CropAndStitch."
@@ -1249,6 +1256,317 @@
         "prompt": "Replace the [ELEMENT] with the [ELEMENT] from the reference image. Keep [WHAT STAYS] unchanged.",
         "seed": 123456789
       }
+    },
+    {
+      "id": 441,
+      "type": "ImageLabInitialImage",
+      "pos": [
+        85,
+        1970
+      ],
+      "size": [
+        306,
+        245
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            4518
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": []
+        },
+        {
+          "name": "usar_imagen_inicial",
+          "type": "BOOLEAN",
+          "links": []
+        },
+        {
+          "name": "mantener_resolucion",
+          "type": "BOOLEAN",
+          "links": []
+        },
+        {
+          "name": "transformacion_pct",
+          "type": "INT",
+          "links": []
+        }
+      ],
+      "title": "Imagen base · FLUX.2",
+      "properties": {
+        "Node name for S&R": "ImageLabInitialImage"
+      },
+      "widgets_values": [
+        "(sin imagen)",
+        true,
+        false,
+        0,
+        "image"
+      ],
+      "widgets_values_named": {
+        "image": "(sin imagen)",
+        "Usar imagen inicial": true,
+        "Mantener resolución original": false,
+        "Transformación (%)": 0,
+        "upload": "image"
+      }
+    },
+    {
+      "id": 442,
+      "type": "ImageLabInitialImage",
+      "pos": [
+        412,
+        1970
+      ],
+      "size": [
+        306,
+        245
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            4519
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": []
+        },
+        {
+          "name": "usar_imagen_inicial",
+          "type": "BOOLEAN",
+          "links": [
+            4520
+          ]
+        },
+        {
+          "name": "mantener_resolucion",
+          "type": "BOOLEAN",
+          "links": []
+        },
+        {
+          "name": "transformacion_pct",
+          "type": "INT",
+          "links": []
+        }
+      ],
+      "title": "Referencia 1 · FLUX.2 (imagen 2 del prompt, opcional)",
+      "properties": {
+        "Node name for S&R": "ImageLabInitialImage"
+      },
+      "widgets_values": [
+        "(sin imagen)",
+        true,
+        false,
+        0,
+        "image"
+      ],
+      "widgets_values_named": {
+        "image": "(sin imagen)",
+        "Usar imagen inicial": true,
+        "Mantener resolución original": false,
+        "Transformación (%)": 0,
+        "upload": "image"
+      }
+    },
+    {
+      "id": 443,
+      "type": "ImageLabInitialImage",
+      "pos": [
+        739,
+        1970
+      ],
+      "size": [
+        306,
+        245
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            4521
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": []
+        },
+        {
+          "name": "usar_imagen_inicial",
+          "type": "BOOLEAN",
+          "links": [
+            4522
+          ]
+        },
+        {
+          "name": "mantener_resolucion",
+          "type": "BOOLEAN",
+          "links": []
+        },
+        {
+          "name": "transformacion_pct",
+          "type": "INT",
+          "links": []
+        }
+      ],
+      "title": "Referencia 2 · FLUX.2 (imagen 3 del prompt, opcional)",
+      "properties": {
+        "Node name for S&R": "ImageLabInitialImage"
+      },
+      "widgets_values": [
+        "(sin imagen)",
+        true,
+        false,
+        0,
+        "image"
+      ],
+      "widgets_values_named": {
+        "image": "(sin imagen)",
+        "Usar imagen inicial": true,
+        "Mantener resolución original": false,
+        "Transformación (%)": 0,
+        "upload": "image"
+      }
+    },
+    {
+      "id": 440,
+      "type": "f7c3d9a1-5b28-4e6c-9d14-3a8e0c6b2f57",
+      "pos": [
+        1070,
+        1970
+      ],
+      "size": [
+        420,
+        400
+      ],
+      "flags": {},
+      "order": 40,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "Imagen base",
+          "name": "image1",
+          "type": "IMAGE",
+          "link": 4518
+        },
+        {
+          "label": "Prompt",
+          "name": "prompt",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "prompt"
+          }
+        },
+        {
+          "label": "Semilla",
+          "name": "seed",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "seed"
+          }
+        },
+        {
+          "label": "Pasos (20–50)",
+          "name": "steps",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "steps"
+          }
+        },
+        {
+          "label": "CFG (4–5)",
+          "name": "cfg",
+          "type": "FLOAT",
+          "link": null,
+          "widget": {
+            "name": "cfg"
+          }
+        },
+        {
+          "label": "Referencia 1",
+          "name": "ref1",
+          "type": "IMAGE",
+          "link": 4519
+        },
+        {
+          "label": "Usar referencia 1",
+          "name": "ref1_enabled",
+          "type": "BOOLEAN",
+          "link": 4520,
+          "widget": {
+            "name": "ref1_enabled"
+          }
+        },
+        {
+          "label": "Referencia 2",
+          "name": "ref2",
+          "type": "IMAGE",
+          "link": 4521
+        },
+        {
+          "label": "Usar referencia 2",
+          "name": "ref2_enabled",
+          "type": "BOOLEAN",
+          "link": 4522,
+          "widget": {
+            "name": "ref2_enabled"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            4523
+          ]
+        }
+      ],
+      "title": "FLUX.2 · Sin máscara (imagen base + referencias)",
+      "properties": {
+        "cnr_id": "comfy-core"
+      },
+      "widgets_values": [
+        "Replace the [ELEMENT] in image 1 with the [ELEMENT] from image 2. Keep [WHAT STAYS] unchanged.",
+        123456789,
+        20,
+        5,
+        false,
+        false
+      ],
+      "widgets_values_named": {
+        "prompt": "Replace the [ELEMENT] in image 1 with the [ELEMENT] from image 2. Keep [WHAT STAYS] unchanged.",
+        "seed": 123456789,
+        "steps": 20,
+        "cfg": 5,
+        "ref1_enabled": false,
+        "ref2_enabled": false
+      }
     }
   ],
   "links": [
@@ -1419,6 +1737,54 @@
       2,
       12,
       "IMAGE"
+    ],
+    [
+      4518,
+      441,
+      0,
+      440,
+      0,
+      "IMAGE"
+    ],
+    [
+      4519,
+      442,
+      0,
+      440,
+      5,
+      "IMAGE"
+    ],
+    [
+      4520,
+      442,
+      2,
+      440,
+      6,
+      "BOOLEAN"
+    ],
+    [
+      4521,
+      443,
+      0,
+      440,
+      7,
+      "IMAGE"
+    ],
+    [
+      4522,
+      443,
+      2,
+      440,
+      8,
+      "BOOLEAN"
+    ],
+    [
+      4523,
+      440,
+      0,
+      2,
+      13,
+      "IMAGE"
     ]
   ],
   "groups": [
@@ -1469,6 +1835,18 @@
       ],
       "color": "#426a74",
       "flags": {}
+    },
+    {
+      "id": 7,
+      "title": "01d · FLUX.2 · EDICIÓN SIN MÁSCARA (imagen base + referencias)",
+      "bounding": [
+        40,
+        1920,
+        1820,
+        460
+      ],
+      "color": "#426a74",
+      "flags": {}
     }
   ],
   "definitions": {
@@ -1479,10 +1857,10 @@
         "state": {
           "lastGroupId": 4,
           "lastNodeId": 2401,
-          "lastLinkId": 241,
+          "lastLinkId": 245,
           "lastRerouteId": 0
         },
-        "revision": 4,
+        "revision": 5,
         "config": {},
         "name": "IMAGE LAB · REFINE FINAL · Upscale/BiRefNet · PNG",
         "description": "Aumento 2x/3x/4x/8x, borrado de fondo opcional con BiRefNet nativo y guardado PNG. Sin extensiones RMBG.",
@@ -1676,6 +2054,19 @@
             "pos": [
               -290,
               700
+            ]
+          },
+          {
+            "id": "718237a0-e5e5-41eb-aa49-9a15c8fdd56a",
+            "name": "flux2_image",
+            "type": "IMAGE",
+            "linkIds": [
+              243
+            ],
+            "label": "FLUX.2 (sin máscara)",
+            "pos": [
+              -290,
+              1116
             ]
           }
         ],
@@ -3427,7 +3818,8 @@
                   202,
                   203,
                   236,
-                  240
+                  240,
+                  244
                 ]
               }
             ],
@@ -3902,7 +4294,7 @@
                 "name": "on_false",
                 "shape": 7,
                 "type": "*",
-                "link": 234
+                "link": 242
               },
               {
                 "localized_name": "en_verdadero",
@@ -4059,6 +4451,133 @@
               }
             ],
             "title": "INTERNO · Elegir Kontext (sin máscara)",
+            "properties": {
+              "Node name for S&R": "ComfySwitchNode",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              false
+            ],
+            "widgets_values_named": {
+              "switch": false
+            }
+          },
+          {
+            "id": 966,
+            "type": "ComfyMathExpression",
+            "pos": [
+              300,
+              1030
+            ],
+            "size": [
+              300,
+              128
+            ],
+            "flags": {},
+            "order": 30,
+            "mode": 0,
+            "inputs": [
+              {
+                "label": "a",
+                "localized_name": "a",
+                "name": "values.a",
+                "type": "FLOAT,INT,BOOLEAN",
+                "link": 244
+              },
+              {
+                "localized_name": "b",
+                "name": "values.b",
+                "shape": 7,
+                "type": "FLOAT,INT,BOOLEAN",
+                "link": null
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "FLOTANTE",
+                "name": "FLOAT",
+                "type": "FLOAT",
+                "links": []
+              },
+              {
+                "localized_name": "ENTERO",
+                "name": "INT",
+                "type": "INT",
+                "links": []
+              },
+              {
+                "localized_name": "BOOL",
+                "name": "BOOL",
+                "type": "BOOLEAN",
+                "links": [
+                  245
+                ]
+              }
+            ],
+            "title": "Comprobar fuente 9 · Interno",
+            "properties": {
+              "Node name for S&R": "ComfyMathExpression",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              "max(0, 1 - max(a - 9, 9 - a))"
+            ],
+            "widgets_values_named": {
+              "expression": "max(0, 1 - max(a - 9, 9 - a))"
+            }
+          },
+          {
+            "id": 917,
+            "type": "ComfySwitchNode",
+            "pos": [
+              460,
+              -90
+            ],
+            "size": [
+              225,
+              118
+            ],
+            "flags": {
+              "collapsed": false
+            },
+            "order": 22,
+            "mode": 0,
+            "inputs": [
+              {
+                "localized_name": "en_falso",
+                "name": "on_false",
+                "shape": 7,
+                "type": "*",
+                "link": 234
+              },
+              {
+                "localized_name": "en_verdadero",
+                "name": "on_true",
+                "shape": 7,
+                "type": "IMAGE",
+                "link": 243
+              },
+              {
+                "localized_name": "interruptor",
+                "name": "switch",
+                "type": "BOOLEAN",
+                "widget": {
+                  "name": "switch"
+                },
+                "link": 245
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "salida",
+                "name": "output",
+                "type": "IMAGE",
+                "links": [
+                  242
+                ]
+              }
+            ],
+            "title": "INTERNO · Elegir FLUX.2 (sin máscara)",
             "properties": {
               "Node name for S&R": "ComfySwitchNode",
               "cnr_id": "comfy-core"
@@ -4605,7 +5124,7 @@
             "id": 234,
             "origin_id": 916,
             "origin_slot": 0,
-            "target_id": 915,
+            "target_id": 917,
             "target_slot": 0,
             "type": "IMAGE"
           },
@@ -4662,6 +5181,38 @@
             "origin_id": 965,
             "origin_slot": 2,
             "target_id": 916,
+            "target_slot": 2,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 242,
+            "origin_id": 917,
+            "origin_slot": 0,
+            "target_id": 915,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 243,
+            "origin_id": -10,
+            "origin_slot": 13,
+            "target_id": 917,
+            "target_slot": 1,
+            "type": "IMAGE"
+          },
+          {
+            "id": 244,
+            "origin_id": 963,
+            "origin_slot": 0,
+            "target_id": 966,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 245,
+            "origin_id": 966,
+            "origin_slot": 2,
+            "target_id": 917,
             "target_slot": 2,
             "type": "BOOLEAN"
           }
@@ -8094,6 +8645,2041 @@
           {
             "id": 5022,
             "origin_id": 3014,
+            "origin_slot": 0,
+            "target_id": -20,
+            "target_slot": 0,
+            "type": "IMAGE"
+          }
+        ],
+        "extra": {
+          "frontendVersion": "1.37.11",
+          "workflowRendererVersion": "LG",
+          "VHS_latentpreview": false,
+          "VHS_latentpreviewrate": 0,
+          "VHS_MetadataImage": true,
+          "VHS_KeepIntermediate": true
+        }
+      },
+      {
+        "id": "f7c3d9a1-5b28-4e6c-9d14-3a8e0c6b2f57",
+        "version": 1,
+        "state": {
+          "lastGroupId": 3,
+          "lastNodeId": 3245,
+          "lastLinkId": 6155,
+          "lastRerouteId": 0
+        },
+        "revision": 1,
+        "config": {},
+        "name": "FLUX.2 Klein 9B · edición sin máscara · imagen base + referencias",
+        "description": "Edita la imagen entera con FLUX.2 Klein 9B base usando una imagen base y hasta 2 referencias opcionales, sin máscara.",
+        "inputNode": {
+          "id": -10,
+          "bounding": [
+            -412,
+            300,
+            142,
+            328
+          ]
+        },
+        "outputNode": {
+          "id": -20,
+          "bounding": [
+            2200,
+            305,
+            120,
+            60
+          ]
+        },
+        "inputs": [
+          {
+            "id": "c407ada9-e0fe-4133-925d-c437ccc9164b",
+            "name": "image1",
+            "type": "IMAGE",
+            "linkIds": [
+              6101
+            ],
+            "label": "Imagen base",
+            "pos": [
+              -290,
+              320
+            ]
+          },
+          {
+            "id": "84ed9406-81a4-4230-92ed-bce7a9ee8b56",
+            "name": "prompt",
+            "type": "STRING",
+            "linkIds": [
+              6105
+            ],
+            "label": "Prompt",
+            "pos": [
+              -290,
+              352
+            ]
+          },
+          {
+            "id": "13357362-a3c4-47ea-9226-c2b94f0d94e5",
+            "name": "seed",
+            "type": "INT",
+            "linkIds": [
+              6146
+            ],
+            "label": "Semilla",
+            "pos": [
+              -290,
+              384
+            ]
+          },
+          {
+            "id": "e8ed6cb2-77a2-4e87-a247-1919d41b98de",
+            "name": "steps",
+            "type": "INT",
+            "linkIds": [
+              6147
+            ],
+            "label": "Pasos (20–50)",
+            "pos": [
+              -290,
+              416
+            ]
+          },
+          {
+            "id": "2e76fa17-6c66-441c-84e3-431e0df91665",
+            "name": "cfg",
+            "type": "FLOAT",
+            "linkIds": [
+              6145
+            ],
+            "label": "CFG (4–5)",
+            "pos": [
+              -290,
+              448
+            ]
+          },
+          {
+            "id": "d736951a-0f99-4053-bfa4-5949a99e06e9",
+            "name": "ref1",
+            "type": "IMAGE",
+            "linkIds": [
+              6110
+            ],
+            "label": "Referencia 1",
+            "pos": [
+              -290,
+              480
+            ]
+          },
+          {
+            "id": "a9a7f2dc-2109-4934-b1d7-e0457404a959",
+            "name": "ref1_enabled",
+            "type": "BOOLEAN",
+            "linkIds": [
+              6119,
+              6122
+            ],
+            "label": "Usar referencia 1",
+            "pos": [
+              -290,
+              512
+            ]
+          },
+          {
+            "id": "0d589f86-528e-4681-85b6-8978c4a854ee",
+            "name": "ref2",
+            "type": "IMAGE",
+            "linkIds": [
+              6123
+            ],
+            "label": "Referencia 2",
+            "pos": [
+              -290,
+              544
+            ]
+          },
+          {
+            "id": "a42e76fb-1d97-4748-9987-cd50c04d48ed",
+            "name": "ref2_enabled",
+            "type": "BOOLEAN",
+            "linkIds": [
+              6132,
+              6135
+            ],
+            "label": "Usar referencia 2",
+            "pos": [
+              -290,
+              576
+            ]
+          }
+        ],
+        "outputs": [
+          {
+            "id": "ad0ded41-5f30-481a-ac44-066257b614a6",
+            "name": "IMAGE",
+            "type": "IMAGE",
+            "linkIds": [
+              6155
+            ],
+            "pos": [
+              2220,
+              325
+            ]
+          }
+        ],
+        "widgets": [],
+        "nodes": [
+          {
+            "id": 3201,
+            "type": "UNETLoader",
+            "pos": [
+              -170,
+              -20
+            ],
+            "size": [
+              396,
+              82
+            ],
+            "flags": {},
+            "order": 3201,
+            "mode": 0,
+            "inputs": [],
+            "outputs": [
+              {
+                "name": "MODEL",
+                "type": "MODEL",
+                "links": [
+                  6142
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "UNETLoader",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              "flux-2-klein-base-9b-fp8.safetensors",
+              "default"
+            ],
+            "widgets_values_named": {
+              "unet_name": "flux-2-klein-base-9b-fp8.safetensors",
+              "weight_dtype": "default"
+            },
+            "title": "FLUX.2 Klein 9B base · modelo"
+          },
+          {
+            "id": 3202,
+            "type": "CLIPLoader",
+            "pos": [
+              -170,
+              130
+            ],
+            "size": [
+              396,
+              106
+            ],
+            "flags": {},
+            "order": 3202,
+            "mode": 0,
+            "inputs": [],
+            "outputs": [
+              {
+                "name": "CLIP",
+                "type": "CLIP",
+                "links": [
+                  6140,
+                  6141
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "CLIPLoader",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              "qwen_3_8b_fp8mixed.safetensors",
+              "flux2",
+              "default"
+            ],
+            "widgets_values_named": {
+              "clip_name": "qwen_3_8b_fp8mixed.safetensors",
+              "type": "flux2",
+              "device": "default"
+            },
+            "title": "Codificador de texto (Qwen3 8B)"
+          },
+          {
+            "id": 3203,
+            "type": "VAELoader",
+            "pos": [
+              -170,
+              290
+            ],
+            "size": [
+              396,
+              58
+            ],
+            "flags": {},
+            "order": 3203,
+            "mode": 0,
+            "inputs": [],
+            "outputs": [
+              {
+                "name": "VAE",
+                "type": "VAE",
+                "links": [
+                  6104,
+                  6112,
+                  6125,
+                  6154
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "VAELoader",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              "flux2-vae.safetensors"
+            ],
+            "widgets_values_named": {
+              "vae_name": "flux2-vae.safetensors"
+            },
+            "title": "VAE FLUX.2"
+          },
+          {
+            "id": 3204,
+            "type": "CLIPTextEncode",
+            "pos": [
+              300,
+              130
+            ],
+            "size": [
+              420,
+              150
+            ],
+            "flags": {},
+            "order": 3204,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "clip",
+                "type": "CLIP",
+                "link": 6140
+              },
+              {
+                "name": "text",
+                "type": "STRING",
+                "link": 6105,
+                "widget": {
+                  "name": "text"
+                }
+              }
+            ],
+            "outputs": [
+              {
+                "name": "CONDITIONING",
+                "type": "CONDITIONING",
+                "links": [
+                  6106
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "CLIPTextEncode",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              ""
+            ],
+            "widgets_values_named": {
+              "text": ""
+            },
+            "title": "Prompt positivo"
+          },
+          {
+            "id": 3205,
+            "type": "CLIPTextEncode",
+            "pos": [
+              300,
+              330
+            ],
+            "size": [
+              420,
+              100
+            ],
+            "flags": {},
+            "order": 3205,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "clip",
+                "type": "CLIP",
+                "link": 6141
+              },
+              {
+                "name": "text",
+                "type": "STRING",
+                "link": null,
+                "widget": {
+                  "name": "text"
+                }
+              }
+            ],
+            "outputs": [
+              {
+                "name": "CONDITIONING",
+                "type": "CONDITIONING",
+                "links": [
+                  6108
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "CLIPTextEncode",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              ""
+            ],
+            "widgets_values_named": {
+              "text": ""
+            },
+            "title": "Prompt negativo (vacío)"
+          },
+          {
+            "id": 3206,
+            "type": "EmptyFlux2LatentImage",
+            "pos": [
+              1500,
+              -20
+            ],
+            "size": [
+              270,
+              106
+            ],
+            "flags": {},
+            "order": 3206,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "width",
+                "type": "INT",
+                "link": 6136,
+                "widget": {
+                  "name": "width"
+                }
+              },
+              {
+                "name": "height",
+                "type": "INT",
+                "link": 6137,
+                "widget": {
+                  "name": "height"
+                }
+              }
+            ],
+            "outputs": [
+              {
+                "name": "LATENT",
+                "type": "LATENT",
+                "links": [
+                  6152
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "EmptyFlux2LatentImage",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              1024,
+              1024,
+              1
+            ],
+            "widgets_values_named": {
+              "width": 1024,
+              "height": 1024,
+              "batch_size": 1
+            }
+          },
+          {
+            "id": 3207,
+            "type": "Flux2Scheduler",
+            "pos": [
+              1500,
+              130
+            ],
+            "size": [
+              270,
+              106
+            ],
+            "flags": {},
+            "order": 3207,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "steps",
+                "type": "INT",
+                "link": 6147,
+                "widget": {
+                  "name": "steps"
+                }
+              },
+              {
+                "name": "width",
+                "type": "INT",
+                "link": 6138,
+                "widget": {
+                  "name": "width"
+                }
+              },
+              {
+                "name": "height",
+                "type": "INT",
+                "link": 6139,
+                "widget": {
+                  "name": "height"
+                }
+              }
+            ],
+            "outputs": [
+              {
+                "name": "SIGMAS",
+                "type": "SIGMAS",
+                "links": [
+                  6151
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "Flux2Scheduler",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              20,
+              1024,
+              1024
+            ],
+            "widgets_values_named": {
+              "steps": 20,
+              "width": 1024,
+              "height": 1024
+            }
+          },
+          {
+            "id": 3208,
+            "type": "CFGGuider",
+            "pos": [
+              1500,
+              290
+            ],
+            "size": [
+              270,
+              98
+            ],
+            "flags": {},
+            "order": 3208,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "model",
+                "type": "MODEL",
+                "link": 6142
+              },
+              {
+                "name": "positive",
+                "type": "CONDITIONING",
+                "link": 6143
+              },
+              {
+                "name": "negative",
+                "type": "CONDITIONING",
+                "link": 6144
+              },
+              {
+                "name": "cfg",
+                "type": "FLOAT",
+                "link": 6145,
+                "widget": {
+                  "name": "cfg"
+                }
+              }
+            ],
+            "outputs": [
+              {
+                "name": "GUIDER",
+                "type": "GUIDER",
+                "links": [
+                  6149
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "CFGGuider",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              5
+            ],
+            "widgets_values_named": {
+              "cfg": 5
+            }
+          },
+          {
+            "id": 3209,
+            "type": "KSamplerSelect",
+            "pos": [
+              1500,
+              440
+            ],
+            "size": [
+              270,
+              58
+            ],
+            "flags": {},
+            "order": 3209,
+            "mode": 0,
+            "inputs": [],
+            "outputs": [
+              {
+                "name": "SAMPLER",
+                "type": "SAMPLER",
+                "links": [
+                  6150
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "KSamplerSelect",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              "euler"
+            ],
+            "widgets_values_named": {
+              "sampler_name": "euler"
+            }
+          },
+          {
+            "id": 3210,
+            "type": "RandomNoise",
+            "pos": [
+              1500,
+              550
+            ],
+            "size": [
+              270,
+              82
+            ],
+            "flags": {},
+            "order": 3210,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "noise_seed",
+                "type": "INT",
+                "link": 6146,
+                "widget": {
+                  "name": "noise_seed"
+                }
+              }
+            ],
+            "outputs": [
+              {
+                "name": "NOISE",
+                "type": "NOISE",
+                "links": [
+                  6148
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "RandomNoise",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              123456789,
+              "fixed"
+            ],
+            "widgets_values_named": {
+              "noise_seed": 123456789,
+              "control_after_generate": "fixed"
+            }
+          },
+          {
+            "id": 3211,
+            "type": "SamplerCustomAdvanced",
+            "pos": [
+              1830,
+              130
+            ],
+            "size": [
+              260,
+              160
+            ],
+            "flags": {},
+            "order": 3211,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "noise",
+                "type": "NOISE",
+                "link": 6148
+              },
+              {
+                "name": "guider",
+                "type": "GUIDER",
+                "link": 6149
+              },
+              {
+                "name": "sampler",
+                "type": "SAMPLER",
+                "link": 6150
+              },
+              {
+                "name": "sigmas",
+                "type": "SIGMAS",
+                "link": 6151
+              },
+              {
+                "name": "latent_image",
+                "type": "LATENT",
+                "link": 6152
+              }
+            ],
+            "outputs": [
+              {
+                "name": "output",
+                "type": "LATENT",
+                "links": [
+                  6153
+                ]
+              },
+              {
+                "name": "denoised_output",
+                "type": "LATENT",
+                "links": []
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "SamplerCustomAdvanced",
+              "cnr_id": "comfy-core"
+            }
+          },
+          {
+            "id": 3212,
+            "type": "VAEDecode",
+            "pos": [
+              2130,
+              130
+            ],
+            "size": [
+              188,
+              46
+            ],
+            "flags": {},
+            "order": 3212,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "samples",
+                "type": "LATENT",
+                "link": 6153
+              },
+              {
+                "name": "vae",
+                "type": "VAE",
+                "link": 6154
+              }
+            ],
+            "outputs": [
+              {
+                "name": "IMAGE",
+                "type": "IMAGE",
+                "links": [
+                  6155
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "VAEDecode",
+              "cnr_id": "comfy-core"
+            }
+          },
+          {
+            "id": 3220,
+            "type": "ImageScaleToTotalPixels",
+            "pos": [
+              -170,
+              430
+            ],
+            "size": [
+              270,
+              82
+            ],
+            "flags": {},
+            "order": 3220,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "image",
+                "type": "IMAGE",
+                "link": 6101
+              }
+            ],
+            "outputs": [
+              {
+                "name": "IMAGE",
+                "type": "IMAGE",
+                "links": [
+                  6102,
+                  6103
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ImageScaleToTotalPixels",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              "nearest-exact",
+              1,
+              1
+            ],
+            "widgets_values_named": {
+              "upscale_method": "nearest-exact",
+              "megapixels": 1,
+              "resolution_steps": 1
+            },
+            "title": "Imagen base · tamaño"
+          },
+          {
+            "id": 3221,
+            "type": "GetImageSize",
+            "pos": [
+              -170,
+              560
+            ],
+            "size": [
+              210,
+              66
+            ],
+            "flags": {},
+            "order": 3221,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "image",
+                "type": "IMAGE",
+                "link": 6102
+              }
+            ],
+            "outputs": [
+              {
+                "name": "width",
+                "type": "INT",
+                "links": [
+                  6136,
+                  6138
+                ]
+              },
+              {
+                "name": "height",
+                "type": "INT",
+                "links": [
+                  6137,
+                  6139
+                ]
+              },
+              {
+                "name": "batch_size",
+                "type": "INT",
+                "links": []
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "GetImageSize",
+              "cnr_id": "comfy-core"
+            },
+            "title": "Imagen base · medir"
+          },
+          {
+            "id": 3222,
+            "type": "VAEEncode",
+            "pos": [
+              130,
+              430
+            ],
+            "size": [
+              210,
+              46
+            ],
+            "flags": {},
+            "order": 3222,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "pixels",
+                "type": "IMAGE",
+                "link": 6103
+              },
+              {
+                "name": "vae",
+                "type": "VAE",
+                "link": 6104
+              }
+            ],
+            "outputs": [
+              {
+                "name": "LATENT",
+                "type": "LATENT",
+                "links": [
+                  6107,
+                  6109
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "VAEEncode",
+              "cnr_id": "comfy-core"
+            },
+            "title": "Imagen base · codificar"
+          },
+          {
+            "id": 3223,
+            "type": "ReferenceLatent",
+            "pos": [
+              380,
+              430
+            ],
+            "size": [
+              220,
+              46
+            ],
+            "flags": {},
+            "order": 3223,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "conditioning",
+                "type": "CONDITIONING",
+                "link": 6106
+              },
+              {
+                "name": "latent",
+                "type": "LATENT",
+                "link": 6107,
+                "shape": 7
+              }
+            ],
+            "outputs": [
+              {
+                "name": "CONDITIONING",
+                "type": "CONDITIONING",
+                "links": [
+                  6113,
+                  6117
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ReferenceLatent",
+              "cnr_id": "comfy-core"
+            },
+            "title": "Imagen base · positivo"
+          },
+          {
+            "id": 3224,
+            "type": "ReferenceLatent",
+            "pos": [
+              380,
+              510
+            ],
+            "size": [
+              220,
+              46
+            ],
+            "flags": {},
+            "order": 3224,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "conditioning",
+                "type": "CONDITIONING",
+                "link": 6108
+              },
+              {
+                "name": "latent",
+                "type": "LATENT",
+                "link": 6109,
+                "shape": 7
+              }
+            ],
+            "outputs": [
+              {
+                "name": "CONDITIONING",
+                "type": "CONDITIONING",
+                "links": [
+                  6115,
+                  6120
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ReferenceLatent",
+              "cnr_id": "comfy-core"
+            },
+            "title": "Imagen base · negativo"
+          },
+          {
+            "id": 3230,
+            "type": "ImageScaleToTotalPixels",
+            "pos": [
+              300,
+              650
+            ],
+            "size": [
+              270,
+              82
+            ],
+            "flags": {},
+            "order": 3230,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "image",
+                "type": "IMAGE",
+                "link": 6110
+              }
+            ],
+            "outputs": [
+              {
+                "name": "IMAGE",
+                "type": "IMAGE",
+                "links": [
+                  6111
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ImageScaleToTotalPixels",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              "nearest-exact",
+              1,
+              1
+            ],
+            "widgets_values_named": {
+              "upscale_method": "nearest-exact",
+              "megapixels": 1,
+              "resolution_steps": 1
+            },
+            "title": "Referencia 1 · tamaño"
+          },
+          {
+            "id": 3231,
+            "type": "VAEEncode",
+            "pos": [
+              590,
+              650
+            ],
+            "size": [
+              210,
+              46
+            ],
+            "flags": {},
+            "order": 3231,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "pixels",
+                "type": "IMAGE",
+                "link": 6111
+              },
+              {
+                "name": "vae",
+                "type": "VAE",
+                "link": 6112
+              }
+            ],
+            "outputs": [
+              {
+                "name": "LATENT",
+                "type": "LATENT",
+                "links": [
+                  6114,
+                  6116
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "VAEEncode",
+              "cnr_id": "comfy-core"
+            },
+            "title": "Referencia 1 · codificar"
+          },
+          {
+            "id": 3232,
+            "type": "ReferenceLatent",
+            "pos": [
+              820,
+              650
+            ],
+            "size": [
+              220,
+              46
+            ],
+            "flags": {},
+            "order": 3232,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "conditioning",
+                "type": "CONDITIONING",
+                "link": 6113
+              },
+              {
+                "name": "latent",
+                "type": "LATENT",
+                "link": 6114,
+                "shape": 7
+              }
+            ],
+            "outputs": [
+              {
+                "name": "CONDITIONING",
+                "type": "CONDITIONING",
+                "links": [
+                  6118
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ReferenceLatent",
+              "cnr_id": "comfy-core"
+            },
+            "title": "Referencia 1 · positivo"
+          },
+          {
+            "id": 3233,
+            "type": "ReferenceLatent",
+            "pos": [
+              820,
+              730
+            ],
+            "size": [
+              220,
+              46
+            ],
+            "flags": {},
+            "order": 3233,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "conditioning",
+                "type": "CONDITIONING",
+                "link": 6115
+              },
+              {
+                "name": "latent",
+                "type": "LATENT",
+                "link": 6116,
+                "shape": 7
+              }
+            ],
+            "outputs": [
+              {
+                "name": "CONDITIONING",
+                "type": "CONDITIONING",
+                "links": [
+                  6121
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ReferenceLatent",
+              "cnr_id": "comfy-core"
+            },
+            "title": "Referencia 1 · negativo"
+          },
+          {
+            "id": 3234,
+            "type": "ComfySwitchNode",
+            "pos": [
+              1080,
+              650
+            ],
+            "size": [
+              246,
+              118
+            ],
+            "flags": {},
+            "order": 3234,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "on_false",
+                "type": "CONDITIONING",
+                "link": 6117,
+                "shape": 7
+              },
+              {
+                "name": "on_true",
+                "type": "CONDITIONING",
+                "link": 6118,
+                "shape": 7
+              },
+              {
+                "name": "switch",
+                "type": "BOOLEAN",
+                "link": 6119,
+                "widget": {
+                  "name": "switch"
+                }
+              }
+            ],
+            "outputs": [
+              {
+                "name": "output",
+                "type": "CONDITIONING",
+                "links": [
+                  6126,
+                  6130
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ComfySwitchNode",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              false
+            ],
+            "widgets_values_named": {
+              "switch": false
+            },
+            "title": "¿Usar referencia 1? (positivo)"
+          },
+          {
+            "id": 3235,
+            "type": "ComfySwitchNode",
+            "pos": [
+              1080,
+              790
+            ],
+            "size": [
+              246,
+              118
+            ],
+            "flags": {},
+            "order": 3235,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "on_false",
+                "type": "CONDITIONING",
+                "link": 6120,
+                "shape": 7
+              },
+              {
+                "name": "on_true",
+                "type": "CONDITIONING",
+                "link": 6121,
+                "shape": 7
+              },
+              {
+                "name": "switch",
+                "type": "BOOLEAN",
+                "link": 6122,
+                "widget": {
+                  "name": "switch"
+                }
+              }
+            ],
+            "outputs": [
+              {
+                "name": "output",
+                "type": "CONDITIONING",
+                "links": [
+                  6128,
+                  6133
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ComfySwitchNode",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              false
+            ],
+            "widgets_values_named": {
+              "switch": false
+            },
+            "title": "¿Usar referencia 1? (negativo)"
+          },
+          {
+            "id": 3240,
+            "type": "ImageScaleToTotalPixels",
+            "pos": [
+              300,
+              890
+            ],
+            "size": [
+              270,
+              82
+            ],
+            "flags": {},
+            "order": 3240,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "image",
+                "type": "IMAGE",
+                "link": 6123
+              }
+            ],
+            "outputs": [
+              {
+                "name": "IMAGE",
+                "type": "IMAGE",
+                "links": [
+                  6124
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ImageScaleToTotalPixels",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              "nearest-exact",
+              1,
+              1
+            ],
+            "widgets_values_named": {
+              "upscale_method": "nearest-exact",
+              "megapixels": 1,
+              "resolution_steps": 1
+            },
+            "title": "Referencia 2 · tamaño"
+          },
+          {
+            "id": 3241,
+            "type": "VAEEncode",
+            "pos": [
+              590,
+              890
+            ],
+            "size": [
+              210,
+              46
+            ],
+            "flags": {},
+            "order": 3241,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "pixels",
+                "type": "IMAGE",
+                "link": 6124
+              },
+              {
+                "name": "vae",
+                "type": "VAE",
+                "link": 6125
+              }
+            ],
+            "outputs": [
+              {
+                "name": "LATENT",
+                "type": "LATENT",
+                "links": [
+                  6127,
+                  6129
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "VAEEncode",
+              "cnr_id": "comfy-core"
+            },
+            "title": "Referencia 2 · codificar"
+          },
+          {
+            "id": 3242,
+            "type": "ReferenceLatent",
+            "pos": [
+              820,
+              890
+            ],
+            "size": [
+              220,
+              46
+            ],
+            "flags": {},
+            "order": 3242,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "conditioning",
+                "type": "CONDITIONING",
+                "link": 6126
+              },
+              {
+                "name": "latent",
+                "type": "LATENT",
+                "link": 6127,
+                "shape": 7
+              }
+            ],
+            "outputs": [
+              {
+                "name": "CONDITIONING",
+                "type": "CONDITIONING",
+                "links": [
+                  6131
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ReferenceLatent",
+              "cnr_id": "comfy-core"
+            },
+            "title": "Referencia 2 · positivo"
+          },
+          {
+            "id": 3243,
+            "type": "ReferenceLatent",
+            "pos": [
+              820,
+              970
+            ],
+            "size": [
+              220,
+              46
+            ],
+            "flags": {},
+            "order": 3243,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "conditioning",
+                "type": "CONDITIONING",
+                "link": 6128
+              },
+              {
+                "name": "latent",
+                "type": "LATENT",
+                "link": 6129,
+                "shape": 7
+              }
+            ],
+            "outputs": [
+              {
+                "name": "CONDITIONING",
+                "type": "CONDITIONING",
+                "links": [
+                  6134
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ReferenceLatent",
+              "cnr_id": "comfy-core"
+            },
+            "title": "Referencia 2 · negativo"
+          },
+          {
+            "id": 3244,
+            "type": "ComfySwitchNode",
+            "pos": [
+              1080,
+              890
+            ],
+            "size": [
+              246,
+              118
+            ],
+            "flags": {},
+            "order": 3244,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "on_false",
+                "type": "CONDITIONING",
+                "link": 6130,
+                "shape": 7
+              },
+              {
+                "name": "on_true",
+                "type": "CONDITIONING",
+                "link": 6131,
+                "shape": 7
+              },
+              {
+                "name": "switch",
+                "type": "BOOLEAN",
+                "link": 6132,
+                "widget": {
+                  "name": "switch"
+                }
+              }
+            ],
+            "outputs": [
+              {
+                "name": "output",
+                "type": "CONDITIONING",
+                "links": [
+                  6143
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ComfySwitchNode",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              false
+            ],
+            "widgets_values_named": {
+              "switch": false
+            },
+            "title": "¿Usar referencia 2? (positivo)"
+          },
+          {
+            "id": 3245,
+            "type": "ComfySwitchNode",
+            "pos": [
+              1080,
+              1030
+            ],
+            "size": [
+              246,
+              118
+            ],
+            "flags": {},
+            "order": 3245,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "on_false",
+                "type": "CONDITIONING",
+                "link": 6133,
+                "shape": 7
+              },
+              {
+                "name": "on_true",
+                "type": "CONDITIONING",
+                "link": 6134,
+                "shape": 7
+              },
+              {
+                "name": "switch",
+                "type": "BOOLEAN",
+                "link": 6135,
+                "widget": {
+                  "name": "switch"
+                }
+              }
+            ],
+            "outputs": [
+              {
+                "name": "output",
+                "type": "CONDITIONING",
+                "links": [
+                  6144
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ComfySwitchNode",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              false
+            ],
+            "widgets_values_named": {
+              "switch": false
+            },
+            "title": "¿Usar referencia 2? (negativo)"
+          }
+        ],
+        "groups": [
+          {
+            "id": 1,
+            "title": "Modelos",
+            "bounding": [
+              -190,
+              -90,
+              430,
+              460
+            ],
+            "color": "#3f789e",
+            "flags": {}
+          },
+          {
+            "id": 2,
+            "title": "Imagen base",
+            "bounding": [
+              -190,
+              380,
+              800,
+              200
+            ],
+            "color": "#3f789e",
+            "flags": {}
+          },
+          {
+            "id": 3,
+            "title": "Referencias opcionales",
+            "bounding": [
+              280,
+              600,
+              1080,
+              450
+            ],
+            "color": "#3f789e",
+            "flags": {}
+          }
+        ],
+        "links": [
+          {
+            "id": 6101,
+            "origin_id": -10,
+            "origin_slot": 0,
+            "target_id": 3220,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 6102,
+            "origin_id": 3220,
+            "origin_slot": 0,
+            "target_id": 3221,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 6103,
+            "origin_id": 3220,
+            "origin_slot": 0,
+            "target_id": 3222,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 6104,
+            "origin_id": 3203,
+            "origin_slot": 0,
+            "target_id": 3222,
+            "target_slot": 1,
+            "type": "VAE"
+          },
+          {
+            "id": 6105,
+            "origin_id": -10,
+            "origin_slot": 1,
+            "target_id": 3204,
+            "target_slot": 1,
+            "type": "STRING"
+          },
+          {
+            "id": 6106,
+            "origin_id": 3204,
+            "origin_slot": 0,
+            "target_id": 3223,
+            "target_slot": 0,
+            "type": "CONDITIONING"
+          },
+          {
+            "id": 6107,
+            "origin_id": 3222,
+            "origin_slot": 0,
+            "target_id": 3223,
+            "target_slot": 1,
+            "type": "LATENT"
+          },
+          {
+            "id": 6108,
+            "origin_id": 3205,
+            "origin_slot": 0,
+            "target_id": 3224,
+            "target_slot": 0,
+            "type": "CONDITIONING"
+          },
+          {
+            "id": 6109,
+            "origin_id": 3222,
+            "origin_slot": 0,
+            "target_id": 3224,
+            "target_slot": 1,
+            "type": "LATENT"
+          },
+          {
+            "id": 6110,
+            "origin_id": -10,
+            "origin_slot": 5,
+            "target_id": 3230,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 6111,
+            "origin_id": 3230,
+            "origin_slot": 0,
+            "target_id": 3231,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 6112,
+            "origin_id": 3203,
+            "origin_slot": 0,
+            "target_id": 3231,
+            "target_slot": 1,
+            "type": "VAE"
+          },
+          {
+            "id": 6113,
+            "origin_id": 3223,
+            "origin_slot": 0,
+            "target_id": 3232,
+            "target_slot": 0,
+            "type": "CONDITIONING"
+          },
+          {
+            "id": 6114,
+            "origin_id": 3231,
+            "origin_slot": 0,
+            "target_id": 3232,
+            "target_slot": 1,
+            "type": "LATENT"
+          },
+          {
+            "id": 6115,
+            "origin_id": 3224,
+            "origin_slot": 0,
+            "target_id": 3233,
+            "target_slot": 0,
+            "type": "CONDITIONING"
+          },
+          {
+            "id": 6116,
+            "origin_id": 3231,
+            "origin_slot": 0,
+            "target_id": 3233,
+            "target_slot": 1,
+            "type": "LATENT"
+          },
+          {
+            "id": 6117,
+            "origin_id": 3223,
+            "origin_slot": 0,
+            "target_id": 3234,
+            "target_slot": 0,
+            "type": "CONDITIONING"
+          },
+          {
+            "id": 6118,
+            "origin_id": 3232,
+            "origin_slot": 0,
+            "target_id": 3234,
+            "target_slot": 1,
+            "type": "CONDITIONING"
+          },
+          {
+            "id": 6119,
+            "origin_id": -10,
+            "origin_slot": 6,
+            "target_id": 3234,
+            "target_slot": 2,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 6120,
+            "origin_id": 3224,
+            "origin_slot": 0,
+            "target_id": 3235,
+            "target_slot": 0,
+            "type": "CONDITIONING"
+          },
+          {
+            "id": 6121,
+            "origin_id": 3233,
+            "origin_slot": 0,
+            "target_id": 3235,
+            "target_slot": 1,
+            "type": "CONDITIONING"
+          },
+          {
+            "id": 6122,
+            "origin_id": -10,
+            "origin_slot": 6,
+            "target_id": 3235,
+            "target_slot": 2,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 6123,
+            "origin_id": -10,
+            "origin_slot": 7,
+            "target_id": 3240,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 6124,
+            "origin_id": 3240,
+            "origin_slot": 0,
+            "target_id": 3241,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 6125,
+            "origin_id": 3203,
+            "origin_slot": 0,
+            "target_id": 3241,
+            "target_slot": 1,
+            "type": "VAE"
+          },
+          {
+            "id": 6126,
+            "origin_id": 3234,
+            "origin_slot": 0,
+            "target_id": 3242,
+            "target_slot": 0,
+            "type": "CONDITIONING"
+          },
+          {
+            "id": 6127,
+            "origin_id": 3241,
+            "origin_slot": 0,
+            "target_id": 3242,
+            "target_slot": 1,
+            "type": "LATENT"
+          },
+          {
+            "id": 6128,
+            "origin_id": 3235,
+            "origin_slot": 0,
+            "target_id": 3243,
+            "target_slot": 0,
+            "type": "CONDITIONING"
+          },
+          {
+            "id": 6129,
+            "origin_id": 3241,
+            "origin_slot": 0,
+            "target_id": 3243,
+            "target_slot": 1,
+            "type": "LATENT"
+          },
+          {
+            "id": 6130,
+            "origin_id": 3234,
+            "origin_slot": 0,
+            "target_id": 3244,
+            "target_slot": 0,
+            "type": "CONDITIONING"
+          },
+          {
+            "id": 6131,
+            "origin_id": 3242,
+            "origin_slot": 0,
+            "target_id": 3244,
+            "target_slot": 1,
+            "type": "CONDITIONING"
+          },
+          {
+            "id": 6132,
+            "origin_id": -10,
+            "origin_slot": 8,
+            "target_id": 3244,
+            "target_slot": 2,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 6133,
+            "origin_id": 3235,
+            "origin_slot": 0,
+            "target_id": 3245,
+            "target_slot": 0,
+            "type": "CONDITIONING"
+          },
+          {
+            "id": 6134,
+            "origin_id": 3243,
+            "origin_slot": 0,
+            "target_id": 3245,
+            "target_slot": 1,
+            "type": "CONDITIONING"
+          },
+          {
+            "id": 6135,
+            "origin_id": -10,
+            "origin_slot": 8,
+            "target_id": 3245,
+            "target_slot": 2,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 6136,
+            "origin_id": 3221,
+            "origin_slot": 0,
+            "target_id": 3206,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 6137,
+            "origin_id": 3221,
+            "origin_slot": 1,
+            "target_id": 3206,
+            "target_slot": 1,
+            "type": "INT"
+          },
+          {
+            "id": 6138,
+            "origin_id": 3221,
+            "origin_slot": 0,
+            "target_id": 3207,
+            "target_slot": 1,
+            "type": "INT"
+          },
+          {
+            "id": 6139,
+            "origin_id": 3221,
+            "origin_slot": 1,
+            "target_id": 3207,
+            "target_slot": 2,
+            "type": "INT"
+          },
+          {
+            "id": 6140,
+            "origin_id": 3202,
+            "origin_slot": 0,
+            "target_id": 3204,
+            "target_slot": 0,
+            "type": "CLIP"
+          },
+          {
+            "id": 6141,
+            "origin_id": 3202,
+            "origin_slot": 0,
+            "target_id": 3205,
+            "target_slot": 0,
+            "type": "CLIP"
+          },
+          {
+            "id": 6142,
+            "origin_id": 3201,
+            "origin_slot": 0,
+            "target_id": 3208,
+            "target_slot": 0,
+            "type": "MODEL"
+          },
+          {
+            "id": 6143,
+            "origin_id": 3244,
+            "origin_slot": 0,
+            "target_id": 3208,
+            "target_slot": 1,
+            "type": "CONDITIONING"
+          },
+          {
+            "id": 6144,
+            "origin_id": 3245,
+            "origin_slot": 0,
+            "target_id": 3208,
+            "target_slot": 2,
+            "type": "CONDITIONING"
+          },
+          {
+            "id": 6145,
+            "origin_id": -10,
+            "origin_slot": 4,
+            "target_id": 3208,
+            "target_slot": 3,
+            "type": "FLOAT"
+          },
+          {
+            "id": 6146,
+            "origin_id": -10,
+            "origin_slot": 2,
+            "target_id": 3210,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 6147,
+            "origin_id": -10,
+            "origin_slot": 3,
+            "target_id": 3207,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 6148,
+            "origin_id": 3210,
+            "origin_slot": 0,
+            "target_id": 3211,
+            "target_slot": 0,
+            "type": "NOISE"
+          },
+          {
+            "id": 6149,
+            "origin_id": 3208,
+            "origin_slot": 0,
+            "target_id": 3211,
+            "target_slot": 1,
+            "type": "GUIDER"
+          },
+          {
+            "id": 6150,
+            "origin_id": 3209,
+            "origin_slot": 0,
+            "target_id": 3211,
+            "target_slot": 2,
+            "type": "SAMPLER"
+          },
+          {
+            "id": 6151,
+            "origin_id": 3207,
+            "origin_slot": 0,
+            "target_id": 3211,
+            "target_slot": 3,
+            "type": "SIGMAS"
+          },
+          {
+            "id": 6152,
+            "origin_id": 3206,
+            "origin_slot": 0,
+            "target_id": 3211,
+            "target_slot": 4,
+            "type": "LATENT"
+          },
+          {
+            "id": 6153,
+            "origin_id": 3211,
+            "origin_slot": 0,
+            "target_id": 3212,
+            "target_slot": 0,
+            "type": "LATENT"
+          },
+          {
+            "id": 6154,
+            "origin_id": 3203,
+            "origin_slot": 0,
+            "target_id": 3212,
+            "target_slot": 1,
+            "type": "VAE"
+          },
+          {
+            "id": 6155,
+            "origin_id": 3212,
             "origin_slot": 0,
             "target_id": -20,
             "target_slot": 0,

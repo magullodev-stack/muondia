@@ -8,13 +8,13 @@ and restart ComfyUI. No extra dependencies.
 import nodes
 import torch
 
-OPTIONS = ("Z-Image Turbo", "Z-Image Base", "FLUX", "Qwen", "Kontext (con máscara)", "Kontext (sin máscara)", "Fotografía externa")
+OPTIONS = ("Z-Image Turbo", "Z-Image Base", "FLUX", "Qwen", "Kontext (con máscara)", "Kontext (sin máscara)", "FLUX.2", "FLUX.2 (sin máscara)", "Fotografía externa")
 # Números fijos: el subgrafo «Salida y acabado» compara con ellos (1, 2, 4 y 5).
-INDEX = {"Z-Image Turbo": 1, "FLUX": 2, "Qwen": 3, "Fotografía externa": 4, "Z-Image Base": 5, "Kontext (con máscara)": 6, "Kontext (sin máscara)": 7}
+INDEX = {"Z-Image Turbo": 1, "FLUX": 2, "Qwen": 3, "Fotografía externa": 4, "Z-Image Base": 5, "Kontext (con máscara)": 6, "Kontext (sin máscara)": 7, "FLUX.2": 8, "FLUX.2 (sin máscara)": 9}
 
 # Opciones de cada workflow. Comparten INDEX, así que el número de fuente es el mismo.
-OPTIONS_GENERACION = ("Z-Image Turbo", "Z-Image Base", "FLUX", "Fotografía externa")
-OPTIONS_EDICION = ("Qwen", "Kontext (con máscara)", "Kontext (sin máscara)")
+OPTIONS_GENERACION = ("Z-Image Turbo", "Z-Image Base", "FLUX", "FLUX.2", "Fotografía externa")
+OPTIONS_EDICION = ("Qwen", "Kontext (con máscara)", "Kontext (sin máscara)", "FLUX.2 (sin máscara)")
 
 
 class ImageLabSourceSelector:
@@ -36,7 +36,7 @@ class ImageLabSourceSelector:
 
 
 class ImageLabSourceSelectorGeneracion(ImageLabSourceSelector):
-    """Fuente para image_lab_generacion.json: Z-Image Turbo, Z-Image Base, FLUX o fotografía externa."""
+    """Fuente para image_lab_generacion.json: Z-Image Turbo, Z-Image Base, FLUX, FLUX.2 o fotografía externa."""
 
     @classmethod
     def INPUT_TYPES(cls):
@@ -51,7 +51,7 @@ class ImageLabSourceSelectorGeneracion(ImageLabSourceSelector):
 
 
 class ImageLabSourceSelectorEdicion(ImageLabSourceSelector):
-    """Fuente para image_lab_edicion.json: Qwen, Kontext con máscara o Kontext sin máscara."""
+    """Fuente para image_lab_edicion.json: Qwen, Kontext con/sin máscara o FLUX.2 sin máscara."""
 
     @classmethod
     def INPUT_TYPES(cls):
@@ -100,6 +100,8 @@ class ImageLabFilenamePrefix:
         "Qwen": "qwen",
         "Kontext (con máscara)": "kontext-con-mascara",
         "Kontext (sin máscara)": "kontext-sin-mascara",
+        "FLUX.2": "flux2",
+        "FLUX.2 (sin máscara)": "flux2-sin-mascara",
         "Fotografía externa": "foto-externa",
     }
 
