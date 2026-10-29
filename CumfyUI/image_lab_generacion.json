@@ -1,8 +1,8 @@
 {
   "id": "4e98042f-0026-496d-9afd-001080421555",
   "revision": 38,
-  "last_node_id": 2343,
-  "last_link_id": 4714,
+  "last_node_id": 2344,
+  "last_link_id": 4716,
   "nodes": [
     {
       "id": 200,
@@ -385,8 +385,8 @@
         0,
         1,
         3.5,
-        28,
-        "beta",
+        24,
+        "simple",
         0,
         0,
         0,
@@ -401,8 +401,8 @@
         "strength_pct": 0,
         "seed": 1,
         "guidance": 3.5,
-        "steps": 28,
-        "scheduler": "beta",
+        "steps": 24,
+        "scheduler": "simple",
         "anatomy_lora_pct": 0,
         "fpnd_lora_pct": 0,
         "photo_lora_pct": 0,
@@ -487,7 +487,7 @@
       ],
       "size": [
         460,
-        340
+        446
       ],
       "flags": {},
       "order": 2,
@@ -632,40 +632,43 @@
           "link": null
         },
         {
+          "label": "Método para quitar fondo",
           "name": "metodo_fondo",
           "type": "COMBO",
-          "label": "Método para quitar fondo",
-          "link": null,
           "widget": {
             "name": "metodo_fondo"
-          }
+          },
+          "link": null
         },
         {
-          "name": "bg_sensibilidad",
-          "type": "FLOAT",
           "label": "Fondo · sensibilidad (1 = normal)",
-          "link": null,
+          "name": "bg_sensibilidad",
+          "shape": 7,
+          "type": "FLOAT",
           "widget": {
             "name": "bg_sensibilidad"
-          }
+          },
+          "link": null
         },
         {
-          "name": "bg_suavizado",
-          "type": "INT",
           "label": "Fondo · suavizar borde (px)",
-          "link": null,
+          "name": "bg_suavizado",
+          "shape": 7,
+          "type": "INT",
           "widget": {
             "name": "bg_suavizado"
-          }
+          },
+          "link": null
         },
         {
-          "name": "bg_expandir",
-          "type": "INT",
           "label": "Fondo · expandir (+) o contraer (−) máscara (px)",
-          "link": null,
+          "name": "bg_expandir",
+          "shape": 7,
+          "type": "INT",
           "widget": {
             "name": "bg_expandir"
-          }
+          },
+          "link": null
         },
         {
           "label": "Guardar como",
@@ -690,28 +693,28 @@
         "previewExposures": []
       },
       "widgets_values": [
-        "FLUX",
+        "Fotografía externa",
         false,
         "4xNomos2_hq_dat2.pth",
-        2,
+        4,
         false,
         "BiRefNet HR matting",
-        1.0,
+        1,
         0,
         0,
-        "image_lab/final/resultado"
+        "image_lab/final/ben2"
       ],
       "widgets_values_named": {
-        "fuente": "FLUX",
+        "fuente": "Fotografía externa",
         "value_1": false,
         "model_name": "4xNomos2_hq_dat2.pth",
-        "value": 2,
+        "value": 4,
         "value_2": false,
         "metodo_fondo": "BiRefNet HR matting",
-        "bg_sensibilidad": 1.0,
+        "bg_sensibilidad": 1,
         "bg_suavizado": 0,
         "bg_expandir": 0,
-        "filename_prefix": "image_lab/final/resultado"
+        "filename_prefix": "image_lab/final/ben2"
       }
     }
   ],
@@ -844,8 +847,8 @@
       "bounding": [
         1211.635183294108,
         496.22359157046435,
-        483.82658288368293,
-        424.9821999623274
+        485.29068288368285,
+        533.3256893238997
       ],
       "color": "#6b6653",
       "flags": {}
@@ -1016,55 +1019,55 @@
             ]
           },
           {
+            "id": "image-lab-bg-method",
             "name": "metodo_fondo",
             "type": "COMBO",
-            "label": "Método para quitar fondo",
-            "id": "image-lab-bg-method",
             "linkIds": [
               231
             ],
+            "label": "Método para quitar fondo",
             "pos": [
               70,
               502
             ]
           },
           {
+            "id": "image-lab-bg-sensitivity",
             "name": "bg_sensibilidad",
             "type": "FLOAT",
-            "label": "Fondo · sensibilidad (1 = normal)",
-            "id": "image-lab-bg-sensitivity",
             "linkIds": [
               222,
               225
             ],
+            "label": "Fondo · sensibilidad (1 = normal)",
             "pos": [
               70,
               530
             ]
           },
           {
+            "id": "image-lab-bg-blur",
             "name": "bg_suavizado",
             "type": "INT",
-            "label": "Fondo · suavizar borde (px)",
-            "id": "image-lab-bg-blur",
             "linkIds": [
               223,
               226
             ],
+            "label": "Fondo · suavizar borde (px)",
             "pos": [
               70,
               558
             ]
           },
           {
+            "id": "image-lab-bg-offset",
             "name": "bg_expandir",
             "type": "INT",
-            "label": "Fondo · expandir (+) o contraer (−) máscara (px)",
-            "id": "image-lab-bg-offset",
             "linkIds": [
               224,
               227
             ],
+            "label": "Fondo · expandir (+) o contraer (−) máscara (px)",
             "pos": [
               70,
               586
@@ -1113,7 +1116,7 @@
               100
             ],
             "flags": {},
-            "order": 2,
+            "order": 0,
             "mode": 0,
             "inputs": [
               {
@@ -1147,11 +1150,11 @@
               1100
             ],
             "size": [
-              389.066015625,
+              432.1119140625,
               105
             ],
             "flags": {},
-            "order": 3,
+            "order": 1,
             "mode": 0,
             "inputs": [
               {
@@ -1196,7 +1199,7 @@
               85
             ],
             "flags": {},
-            "order": 4,
+            "order": 2,
             "mode": 0,
             "inputs": [
               {
@@ -1243,7 +1246,7 @@
               150
             ],
             "flags": {},
-            "order": 5,
+            "order": 3,
             "mode": 0,
             "inputs": [
               {
@@ -1305,7 +1308,7 @@
               110
             ],
             "flags": {},
-            "order": 6,
+            "order": 4,
             "mode": 0,
             "inputs": [
               {
@@ -1352,7 +1355,7 @@
               115
             ],
             "flags": {},
-            "order": 7,
+            "order": 5,
             "mode": 0,
             "inputs": [
               {
@@ -1396,7 +1399,7 @@
               95
             ],
             "flags": {},
-            "order": 8,
+            "order": 6,
             "mode": 0,
             "inputs": [
               {
@@ -1446,7 +1449,7 @@
               160
             ],
             "flags": {},
-            "order": 9,
+            "order": 7,
             "mode": 0,
             "inputs": [
               {
@@ -1510,7 +1513,7 @@
               140
             ],
             "flags": {},
-            "order": 10,
+            "order": 8,
             "mode": 0,
             "inputs": [
               {
@@ -1565,7 +1568,7 @@
               80
             ],
             "flags": {},
-            "order": 11,
+            "order": 9,
             "mode": 0,
             "inputs": [
               {
@@ -1613,7 +1616,7 @@
               130
             ],
             "flags": {},
-            "order": 12,
+            "order": 10,
             "mode": 0,
             "inputs": [
               {
@@ -1674,7 +1677,7 @@
               410
             ],
             "flags": {},
-            "order": 13,
+            "order": 11,
             "mode": 0,
             "inputs": [
               {
@@ -1721,11 +1724,11 @@
               1430
             ],
             "size": [
-              340,
+              424.1275390625,
               170
             ],
             "flags": {},
-            "order": 14,
+            "order": 12,
             "mode": 0,
             "inputs": [
               {
@@ -1779,7 +1782,7 @@
               104
             ],
             "flags": {},
-            "order": 15,
+            "order": 13,
             "mode": 0,
             "inputs": [
               {
@@ -1817,7 +1820,7 @@
               135
             ],
             "flags": {},
-            "order": 16,
+            "order": 14,
             "mode": 0,
             "inputs": [
               {
@@ -1869,7 +1872,7 @@
               180
             ],
             "flags": {},
-            "order": 17,
+            "order": 15,
             "mode": 0,
             "inputs": [
               {
@@ -1937,7 +1940,7 @@
               130
             ],
             "flags": {},
-            "order": 18,
+            "order": 16,
             "mode": 0,
             "inputs": [
               {
@@ -1982,7 +1985,7 @@
               110
             ],
             "flags": {},
-            "order": 19,
+            "order": 17,
             "mode": 0,
             "inputs": [
               {
@@ -2020,7 +2023,7 @@
               152
             ],
             "flags": {},
-            "order": 20,
+            "order": 18,
             "mode": 0,
             "inputs": [
               {
@@ -2075,7 +2078,7 @@
               145
             ],
             "flags": {},
-            "order": 21,
+            "order": 19,
             "mode": 0,
             "inputs": [
               {
@@ -2138,7 +2141,7 @@
               132
             ],
             "flags": {},
-            "order": 22,
+            "order": 20,
             "mode": 0,
             "inputs": [
               {
@@ -2182,7 +2185,7 @@
               165
             ],
             "flags": {},
-            "order": 23,
+            "order": 21,
             "mode": 0,
             "inputs": [
               {
@@ -2245,7 +2248,7 @@
             "flags": {
               "collapsed": false
             },
-            "order": 24,
+            "order": 22,
             "mode": 0,
             "inputs": [
               {
@@ -2308,7 +2311,7 @@
             "flags": {
               "collapsed": false
             },
-            "order": 25,
+            "order": 23,
             "mode": 0,
             "inputs": [
               {
@@ -2371,7 +2374,7 @@
             "flags": {
               "collapsed": false
             },
-            "order": 26,
+            "order": 24,
             "mode": 0,
             "inputs": [
               {
@@ -2439,7 +2442,7 @@
             "flags": {
               "collapsed": false
             },
-            "order": 27,
+            "order": 25,
             "mode": 0,
             "inputs": [
               {
@@ -2502,7 +2505,7 @@
             "flags": {
               "collapsed": false
             },
-            "order": 28,
+            "order": 26,
             "mode": 0,
             "inputs": [
               {
@@ -2556,7 +2559,7 @@
             "flags": {
               "collapsed": false
             },
-            "order": 29,
+            "order": 27,
             "mode": 0,
             "inputs": [
               {
@@ -2616,7 +2619,7 @@
               128
             ],
             "flags": {},
-            "order": 30,
+            "order": 28,
             "mode": 0,
             "inputs": [
               {
@@ -2680,7 +2683,7 @@
               128
             ],
             "flags": {},
-            "order": 31,
+            "order": 29,
             "mode": 0,
             "inputs": [
               {
@@ -2744,7 +2747,7 @@
               128
             ],
             "flags": {},
-            "order": 32,
+            "order": 30,
             "mode": 0,
             "inputs": [
               {
@@ -2809,7 +2812,7 @@
               90
             ],
             "flags": {},
-            "order": 33,
+            "order": 31,
             "mode": 0,
             "inputs": [
               {
@@ -2848,7 +2851,6 @@
           {
             "id": 970,
             "type": "BiRefNetRMBG",
-            "title": "Quitar fondo · BiRefNet HR matting",
             "pos": [
               250,
               1060
@@ -2858,24 +2860,19 @@
               330
             ],
             "flags": {},
-            "order": 970,
+            "order": 32,
             "mode": 0,
             "inputs": [
               {
+                "localized_name": "image",
                 "name": "image",
                 "type": "IMAGE",
                 "link": 220
               },
               {
-                "name": "model",
-                "type": "COMBO",
-                "widget": {
-                  "name": "model"
-                },
-                "link": null
-              },
-              {
+                "localized_name": "sensitivity",
                 "name": "sensitivity",
+                "shape": 7,
                 "type": "FLOAT",
                 "widget": {
                   "name": "sensitivity"
@@ -2883,7 +2880,9 @@
                 "link": 222
               },
               {
+                "localized_name": "mask_blur",
                 "name": "mask_blur",
+                "shape": 7,
                 "type": "INT",
                 "widget": {
                   "name": "mask_blur"
@@ -2891,61 +2890,25 @@
                 "link": 223
               },
               {
+                "localized_name": "mask_offset",
                 "name": "mask_offset",
+                "shape": 7,
                 "type": "INT",
                 "widget": {
                   "name": "mask_offset"
                 },
                 "link": 224
-              },
-              {
-                "name": "invert_output",
-                "type": "BOOLEAN",
-                "widget": {
-                  "name": "invert_output"
-                },
-                "link": null
-              },
-              {
-                "name": "refine_foreground",
-                "type": "BOOLEAN",
-                "widget": {
-                  "name": "refine_foreground"
-                },
-                "link": null
-              },
-              {
-                "name": "unload_model",
-                "type": "BOOLEAN",
-                "widget": {
-                  "name": "unload_model"
-                },
-                "link": null
-              },
-              {
-                "name": "background",
-                "type": "COMBO",
-                "widget": {
-                  "name": "background"
-                },
-                "link": null
-              },
-              {
-                "name": "background_color",
-                "type": "COLORCODE",
-                "widget": {
-                  "name": "background_color"
-                },
-                "link": null
               }
             ],
             "outputs": [
               {
+                "localized_name": "IMAGEN",
                 "name": "IMAGE",
                 "type": "IMAGE",
                 "links": []
               },
               {
+                "localized_name": "MASK",
                 "name": "MASK",
                 "type": "MASK",
                 "links": [
@@ -2953,18 +2916,20 @@
                 ]
               },
               {
+                "localized_name": "MASK_IMAGE",
                 "name": "MASK_IMAGE",
                 "type": "IMAGE",
                 "links": []
               }
             ],
+            "title": "Quitar fondo · BiRefNet HR matting",
             "properties": {
               "Node name for S&R": "BiRefNetRMBG",
               "aux_id": "1038lab/ComfyUI-RMBG"
             },
             "widgets_values": [
               "BiRefNet-HR-matting",
-              1.0,
+              1,
               0,
               0,
               false,
@@ -2972,12 +2937,24 @@
               false,
               "Alpha",
               "#222222"
-            ]
+            ],
+            "widgets_values_named": {
+              "model": "BiRefNet-HR-matting",
+              "sensitivity": 1,
+              "mask_blur": 0,
+              "mask_offset": 0,
+              "invert_output": false,
+              "refine_foreground": false,
+              "unload_model": false,
+              "background": "Alpha",
+              "background_color": "#222222"
+            },
+            "color": "#222e40",
+            "bgcolor": "#364254"
           },
           {
             "id": 971,
             "type": "RMBG",
-            "title": "Quitar fondo · BEN2",
             "pos": [
               640,
               1060
@@ -2987,24 +2964,19 @@
               360
             ],
             "flags": {},
-            "order": 971,
+            "order": 33,
             "mode": 0,
             "inputs": [
               {
+                "localized_name": "image",
                 "name": "image",
                 "type": "IMAGE",
                 "link": 221
               },
               {
-                "name": "model",
-                "type": "COMBO",
-                "widget": {
-                  "name": "model"
-                },
-                "link": null
-              },
-              {
+                "localized_name": "sensitivity",
                 "name": "sensitivity",
+                "shape": 7,
                 "type": "FLOAT",
                 "widget": {
                   "name": "sensitivity"
@@ -3012,15 +2984,9 @@
                 "link": 225
               },
               {
-                "name": "process_res",
-                "type": "INT",
-                "widget": {
-                  "name": "process_res"
-                },
-                "link": null
-              },
-              {
+                "localized_name": "mask_blur",
                 "name": "mask_blur",
+                "shape": 7,
                 "type": "INT",
                 "widget": {
                   "name": "mask_blur"
@@ -3028,61 +2994,25 @@
                 "link": 226
               },
               {
+                "localized_name": "mask_offset",
                 "name": "mask_offset",
+                "shape": 7,
                 "type": "INT",
                 "widget": {
                   "name": "mask_offset"
                 },
                 "link": 227
-              },
-              {
-                "name": "invert_output",
-                "type": "BOOLEAN",
-                "widget": {
-                  "name": "invert_output"
-                },
-                "link": null
-              },
-              {
-                "name": "refine_foreground",
-                "type": "BOOLEAN",
-                "widget": {
-                  "name": "refine_foreground"
-                },
-                "link": null
-              },
-              {
-                "name": "unload_model",
-                "type": "BOOLEAN",
-                "widget": {
-                  "name": "unload_model"
-                },
-                "link": null
-              },
-              {
-                "name": "background",
-                "type": "COMBO",
-                "widget": {
-                  "name": "background"
-                },
-                "link": null
-              },
-              {
-                "name": "background_color",
-                "type": "COLORCODE",
-                "widget": {
-                  "name": "background_color"
-                },
-                "link": null
               }
             ],
             "outputs": [
               {
+                "localized_name": "IMAGEN",
                 "name": "IMAGE",
                 "type": "IMAGE",
                 "links": []
               },
               {
+                "localized_name": "MASK",
                 "name": "MASK",
                 "type": "MASK",
                 "links": [
@@ -3090,18 +3020,20 @@
                 ]
               },
               {
+                "localized_name": "MASK_IMAGE",
                 "name": "MASK_IMAGE",
                 "type": "IMAGE",
                 "links": []
               }
             ],
+            "title": "Quitar fondo · BEN2",
             "properties": {
               "Node name for S&R": "RMBG",
               "aux_id": "1038lab/ComfyUI-RMBG"
             },
             "widgets_values": [
               "BEN2",
-              1.0,
+              1,
               1024,
               0,
               0,
@@ -3110,61 +3042,86 @@
               false,
               "Alpha",
               "#222222"
-            ]
+            ],
+            "widgets_values_named": {
+              "model": "BEN2",
+              "sensitivity": 1,
+              "process_res": 1024,
+              "mask_blur": 0,
+              "mask_offset": 0,
+              "invert_output": false,
+              "refine_foreground": false,
+              "unload_model": false,
+              "background": "Alpha",
+              "background_color": "#222222"
+            },
+            "color": "#222e40",
+            "bgcolor": "#364254"
           },
           {
             "id": 972,
             "type": "ComfySwitchNode",
-            "title": "Elegir método de quitar fondo",
             "pos": [
               1000,
               1250
             ],
             "size": [
-              225,
+              236.25546875,
               118
             ],
             "flags": {},
-            "order": 972,
+            "order": 34,
             "mode": 0,
             "inputs": [
               {
+                "localized_name": "en_falso",
                 "name": "on_false",
-                "type": "*",
+                "shape": 7,
+                "type": "MASK",
                 "link": 228
               },
               {
+                "localized_name": "en_verdadero",
                 "name": "on_true",
-                "type": "*",
+                "shape": 7,
+                "type": "MASK",
                 "link": 229
               },
               {
+                "localized_name": "interruptor",
                 "name": "switch",
                 "type": "BOOLEAN",
+                "widget": {
+                  "name": "switch"
+                },
                 "link": 230
               }
             ],
             "outputs": [
               {
+                "localized_name": "salida",
                 "name": "output",
-                "type": "*",
+                "type": "MASK",
                 "links": [
                   4
                 ]
               }
             ],
+            "title": "Elegir método de quitar fondo",
             "properties": {
               "Node name for S&R": "ComfySwitchNode",
               "cnr_id": "comfy-core"
             },
             "widgets_values": [
               false
-            ]
+            ],
+            "widgets_values_named": {
+              "switch": false
+            }
           },
           {
             "id": 973,
             "type": "ImageLabBackgroundSelector",
-            "title": "Método para quitar fondo · Control interno",
             "pos": [
               250,
               1420
@@ -3174,10 +3131,11 @@
               90
             ],
             "flags": {},
-            "order": 973,
+            "order": 35,
             "mode": 0,
             "inputs": [
               {
+                "localized_name": "metodo",
                 "name": "metodo",
                 "type": "COMBO",
                 "widget": {
@@ -3188,6 +3146,7 @@
             ],
             "outputs": [
               {
+                "localized_name": "usar_ben2",
                 "name": "usar_ben2",
                 "type": "BOOLEAN",
                 "links": [
@@ -3195,17 +3154,20 @@
                 ]
               }
             ],
+            "title": "Método para quitar fondo · Control interno",
             "properties": {
               "Node name for S&R": "ImageLabBackgroundSelector"
             },
             "widgets_values": [
               "BiRefNet HR matting"
-            ]
+            ],
+            "widgets_values_named": {
+              "metodo": "BiRefNet HR matting"
+            }
           },
           {
             "id": 2344,
             "type": "ImageLabFilenamePrefix",
-            "title": "Nombre de archivo + origen · Control interno",
             "pos": [
               3660,
               1160
@@ -3215,10 +3177,11 @@
               110
             ],
             "flags": {},
-            "order": 2344,
+            "order": 36,
             "mode": 0,
             "inputs": [
               {
+                "localized_name": "prefix",
                 "name": "prefix",
                 "type": "STRING",
                 "widget": {
@@ -3227,6 +3190,7 @@
                 "link": 24
               },
               {
+                "localized_name": "fuente",
                 "name": "fuente",
                 "type": "COMBO",
                 "widget": {
@@ -3237,6 +3201,7 @@
             ],
             "outputs": [
               {
+                "localized_name": "prefix_final",
                 "name": "prefix_final",
                 "type": "STRING",
                 "links": [
@@ -3244,13 +3209,18 @@
                 ]
               }
             ],
+            "title": "Nombre de archivo + origen · Control interno",
             "properties": {
               "Node name for S&R": "ImageLabFilenamePrefix"
             },
             "widgets_values": [
               "image_lab/final/resultado",
               "FLUX"
-            ]
+            ],
+            "widgets_values_named": {
+              "prefix": "image_lab/final/resultado",
+              "fuente": "FLUX"
+            }
           }
         ],
         "groups": [],
@@ -3352,14 +3322,6 @@
             "type": "INT"
           },
           {
-            "id": 18,
-            "origin_id": 110,
-            "origin_slot": 0,
-            "target_id": 111,
-            "target_slot": 1,
-            "type": "FLOAT"
-          },
-          {
             "id": 19,
             "origin_id": 111,
             "origin_slot": 0,
@@ -3456,22 +3418,6 @@
             "type": "IMAGE"
           },
           {
-            "id": 31,
-            "origin_id": 117,
-            "origin_slot": 0,
-            "target_id": 118,
-            "target_slot": 1,
-            "type": "INT"
-          },
-          {
-            "id": 32,
-            "origin_id": 117,
-            "origin_slot": 1,
-            "target_id": 118,
-            "target_slot": 2,
-            "type": "INT"
-          },
-          {
             "id": 33,
             "origin_id": 118,
             "origin_slot": 0,
@@ -3502,14 +3448,6 @@
             "target_id": 121,
             "target_slot": 0,
             "type": "IMAGE"
-          },
-          {
-            "id": 38,
-            "origin_id": 122,
-            "origin_slot": 0,
-            "target_id": 121,
-            "target_slot": 1,
-            "type": "FLOAT"
           },
           {
             "id": 39,
@@ -3608,22 +3546,6 @@
             "type": "IMAGE"
           },
           {
-            "id": 214,
-            "origin_id": 940,
-            "origin_slot": 0,
-            "target_id": 941,
-            "target_slot": 0,
-            "type": "INT"
-          },
-          {
-            "id": 215,
-            "origin_id": 940,
-            "origin_slot": 1,
-            "target_id": 941,
-            "target_slot": 1,
-            "type": "INT"
-          },
-          {
             "id": 216,
             "origin_id": 941,
             "origin_slot": 0,
@@ -3656,46 +3578,6 @@
             "type": "COMBO"
           },
           {
-            "id": 17,
-            "origin_id": 109,
-            "origin_slot": 0,
-            "target_id": 110,
-            "target_slot": 0,
-            "type": "INT"
-          },
-          {
-            "id": 37,
-            "origin_id": 109,
-            "origin_slot": 0,
-            "target_id": 122,
-            "target_slot": 0,
-            "type": "INT"
-          },
-          {
-            "id": 201,
-            "origin_id": 963,
-            "origin_slot": 0,
-            "target_id": 960,
-            "target_slot": 0,
-            "type": "INT"
-          },
-          {
-            "id": 202,
-            "origin_id": 963,
-            "origin_slot": 0,
-            "target_id": 961,
-            "target_slot": 0,
-            "type": "INT"
-          },
-          {
-            "id": 203,
-            "origin_id": 963,
-            "origin_slot": 0,
-            "target_id": 962,
-            "target_slot": 0,
-            "type": "INT"
-          },
-          {
             "id": 220,
             "origin_id": 912,
             "origin_slot": 0,
@@ -3716,7 +3598,7 @@
             "origin_id": -10,
             "origin_slot": 10,
             "target_id": 970,
-            "target_slot": 2,
+            "target_slot": 1,
             "type": "FLOAT"
           },
           {
@@ -3724,7 +3606,7 @@
             "origin_id": -10,
             "origin_slot": 11,
             "target_id": 970,
-            "target_slot": 3,
+            "target_slot": 2,
             "type": "INT"
           },
           {
@@ -3732,7 +3614,7 @@
             "origin_id": -10,
             "origin_slot": 12,
             "target_id": 970,
-            "target_slot": 4,
+            "target_slot": 3,
             "type": "INT"
           },
           {
@@ -3740,7 +3622,7 @@
             "origin_id": -10,
             "origin_slot": 10,
             "target_id": 971,
-            "target_slot": 2,
+            "target_slot": 1,
             "type": "FLOAT"
           },
           {
@@ -3748,7 +3630,7 @@
             "origin_id": -10,
             "origin_slot": 11,
             "target_id": 971,
-            "target_slot": 4,
+            "target_slot": 2,
             "type": "INT"
           },
           {
@@ -3756,7 +3638,7 @@
             "origin_id": -10,
             "origin_slot": 12,
             "target_id": 971,
-            "target_slot": 5,
+            "target_slot": 3,
             "type": "INT"
           },
           {
@@ -3806,6 +3688,94 @@
             "target_id": 114,
             "target_slot": 1,
             "type": "STRING"
+          },
+          {
+            "id": 17,
+            "origin_id": 109,
+            "origin_slot": 0,
+            "target_id": 110,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 37,
+            "origin_id": 109,
+            "origin_slot": 0,
+            "target_id": 122,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 201,
+            "origin_id": 963,
+            "origin_slot": 0,
+            "target_id": 960,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 202,
+            "origin_id": 963,
+            "origin_slot": 0,
+            "target_id": 961,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 203,
+            "origin_id": 963,
+            "origin_slot": 0,
+            "target_id": 962,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 18,
+            "origin_id": 110,
+            "origin_slot": 0,
+            "target_id": 111,
+            "target_slot": 1,
+            "type": "FLOAT"
+          },
+          {
+            "id": 31,
+            "origin_id": 117,
+            "origin_slot": 0,
+            "target_id": 118,
+            "target_slot": 1,
+            "type": "INT"
+          },
+          {
+            "id": 32,
+            "origin_id": 117,
+            "origin_slot": 1,
+            "target_id": 118,
+            "target_slot": 2,
+            "type": "INT"
+          },
+          {
+            "id": 38,
+            "origin_id": 122,
+            "origin_slot": 0,
+            "target_id": 121,
+            "target_slot": 1,
+            "type": "FLOAT"
+          },
+          {
+            "id": 214,
+            "origin_id": 940,
+            "origin_slot": 0,
+            "target_id": 941,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 215,
+            "origin_id": 940,
+            "origin_slot": 1,
+            "target_id": 941,
+            "target_slot": 1,
+            "type": "INT"
           }
         ],
         "extra": {}
@@ -3815,8 +3785,8 @@
         "version": 1,
         "state": {
           "lastGroupId": 12,
-          "lastNodeId": 2343,
-          "lastLinkId": 4714,
+          "lastNodeId": 2344,
+          "lastLinkId": 4716,
           "lastRerouteId": 0
         },
         "revision": 10,
@@ -5720,14 +5690,6 @@
             "type": "BOOLEAN"
           },
           {
-            "id": 2513,
-            "origin_id": 1306,
-            "origin_slot": 0,
-            "target_id": 3,
-            "target_slot": 5,
-            "type": "FLOAT"
-          },
-          {
             "id": 2700,
             "origin_id": -10,
             "origin_slot": 1,
@@ -5792,14 +5754,6 @@
             "type": "INT"
           },
           {
-            "id": 2708,
-            "origin_id": 1603,
-            "origin_slot": 0,
-            "target_id": 1301,
-            "target_slot": 1,
-            "type": "INT"
-          },
-          {
             "id": 2709,
             "origin_id": 2101,
             "origin_slot": 0,
@@ -5856,14 +5810,6 @@
             "type": "INT"
           },
           {
-            "id": 2716,
-            "origin_id": 1604,
-            "origin_slot": 0,
-            "target_id": 1301,
-            "target_slot": 2,
-            "type": "INT"
-          },
-          {
             "id": 4300,
             "origin_id": -10,
             "origin_slot": 4,
@@ -5904,14 +5850,6 @@
             "type": "MODEL"
           },
           {
-            "id": 4317,
-            "origin_id": 2106,
-            "origin_slot": 0,
-            "target_id": 2104,
-            "target_slot": 1,
-            "type": "FLOAT"
-          },
-          {
             "id": 4318,
             "origin_id": 2104,
             "origin_slot": 0,
@@ -5942,6 +5880,38 @@
             "target_id": 2106,
             "target_slot": 0,
             "type": "INT"
+          },
+          {
+            "id": 2513,
+            "origin_id": 1306,
+            "origin_slot": 0,
+            "target_id": 3,
+            "target_slot": 5,
+            "type": "FLOAT"
+          },
+          {
+            "id": 2708,
+            "origin_id": 1603,
+            "origin_slot": 0,
+            "target_id": 1301,
+            "target_slot": 1,
+            "type": "INT"
+          },
+          {
+            "id": 2716,
+            "origin_id": 1604,
+            "origin_slot": 0,
+            "target_id": 1301,
+            "target_slot": 2,
+            "type": "INT"
+          },
+          {
+            "id": 4317,
+            "origin_id": 2106,
+            "origin_slot": 0,
+            "target_id": 2104,
+            "target_slot": 1,
+            "type": "FLOAT"
           }
         ],
         "extra": {
@@ -5953,8 +5923,8 @@
         "version": 1,
         "state": {
           "lastGroupId": 12,
-          "lastNodeId": 2343,
-          "lastLinkId": 4714,
+          "lastNodeId": 2344,
+          "lastLinkId": 4716,
           "lastRerouteId": 0
         },
         "revision": 13,
@@ -8575,14 +8545,6 @@
             "type": "BOOLEAN"
           },
           {
-            "id": 4329,
-            "origin_id": 1406,
-            "origin_slot": 0,
-            "target_id": 31,
-            "target_slot": 7,
-            "type": "FLOAT"
-          },
-          {
             "id": 3700,
             "origin_id": -10,
             "origin_slot": 1,
@@ -8647,14 +8609,6 @@
             "type": "INT"
           },
           {
-            "id": 3708,
-            "origin_id": 1703,
-            "origin_slot": 0,
-            "target_id": 1401,
-            "target_slot": 1,
-            "type": "INT"
-          },
-          {
             "id": 3709,
             "origin_id": 2201,
             "origin_slot": 0,
@@ -8711,14 +8665,6 @@
             "type": "INT"
           },
           {
-            "id": 3716,
-            "origin_id": 1704,
-            "origin_slot": 0,
-            "target_id": 1401,
-            "target_slot": 2,
-            "type": "INT"
-          },
-          {
             "id": 4400,
             "origin_id": -10,
             "origin_slot": 4,
@@ -8767,14 +8713,6 @@
             "type": "CLIP"
           },
           {
-            "id": 4602,
-            "origin_id": 2306,
-            "origin_slot": 0,
-            "target_id": 2304,
-            "target_slot": 2,
-            "type": "FLOAT"
-          },
-          {
             "id": 4604,
             "origin_id": -10,
             "origin_slot": 11,
@@ -8783,28 +8721,12 @@
             "type": "INT"
           },
           {
-            "id": 4609,
-            "origin_id": 2309,
-            "origin_slot": 0,
-            "target_id": 2307,
-            "target_slot": 2,
-            "type": "FLOAT"
-          },
-          {
             "id": 4611,
             "origin_id": -10,
             "origin_slot": 12,
             "target_id": 2308,
             "target_slot": 0,
             "type": "INT"
-          },
-          {
-            "id": 4612,
-            "origin_id": 2312,
-            "origin_slot": 0,
-            "target_id": 2310,
-            "target_slot": 2,
-            "type": "FLOAT"
           },
           {
             "id": 4614,
@@ -8871,36 +8793,12 @@
             "type": "MODEL"
           },
           {
-            "id": 4703,
-            "origin_id": 1703,
-            "origin_slot": 0,
-            "target_id": 2340,
-            "target_slot": 1,
-            "type": "INT"
-          },
-          {
-            "id": 4704,
-            "origin_id": 1704,
-            "origin_slot": 0,
-            "target_id": 2340,
-            "target_slot": 2,
-            "type": "INT"
-          },
-          {
             "id": 4705,
             "origin_id": -10,
             "origin_slot": 9,
             "target_id": 31,
             "target_slot": 5,
             "type": "INT"
-          },
-          {
-            "id": 4706,
-            "origin_id": -10,
-            "origin_slot": 10,
-            "target_id": 31,
-            "target_slot": 6,
-            "type": "COMBO"
           },
           {
             "id": 4710,
@@ -8917,14 +8815,6 @@
             "target_id": 2340,
             "target_slot": 0,
             "type": "MODEL"
-          },
-          {
-            "id": 4712,
-            "origin_id": 2343,
-            "origin_slot": 0,
-            "target_id": 2341,
-            "target_slot": 2,
-            "type": "FLOAT"
           },
           {
             "id": 4714,
@@ -8973,6 +8863,86 @@
             "target_id": 2343,
             "target_slot": 0,
             "type": "INT"
+          },
+          {
+            "id": 4706,
+            "origin_id": -10,
+            "origin_slot": 10,
+            "target_id": 31,
+            "target_slot": 6,
+            "type": "COMBO"
+          },
+          {
+            "id": 4329,
+            "origin_id": 1406,
+            "origin_slot": 0,
+            "target_id": 31,
+            "target_slot": 7,
+            "type": "FLOAT"
+          },
+          {
+            "id": 3708,
+            "origin_id": 1703,
+            "origin_slot": 0,
+            "target_id": 1401,
+            "target_slot": 1,
+            "type": "INT"
+          },
+          {
+            "id": 3716,
+            "origin_id": 1704,
+            "origin_slot": 0,
+            "target_id": 1401,
+            "target_slot": 2,
+            "type": "INT"
+          },
+          {
+            "id": 4602,
+            "origin_id": 2306,
+            "origin_slot": 0,
+            "target_id": 2304,
+            "target_slot": 2,
+            "type": "FLOAT"
+          },
+          {
+            "id": 4609,
+            "origin_id": 2309,
+            "origin_slot": 0,
+            "target_id": 2307,
+            "target_slot": 2,
+            "type": "FLOAT"
+          },
+          {
+            "id": 4612,
+            "origin_id": 2312,
+            "origin_slot": 0,
+            "target_id": 2310,
+            "target_slot": 2,
+            "type": "FLOAT"
+          },
+          {
+            "id": 4703,
+            "origin_id": 1703,
+            "origin_slot": 0,
+            "target_id": 2340,
+            "target_slot": 1,
+            "type": "INT"
+          },
+          {
+            "id": 4704,
+            "origin_id": 1704,
+            "origin_slot": 0,
+            "target_id": 2340,
+            "target_slot": 2,
+            "type": "INT"
+          },
+          {
+            "id": 4712,
+            "origin_id": 2343,
+            "origin_slot": 0,
+            "target_id": 2341,
+            "target_slot": 2,
+            "type": "FLOAT"
           }
         ],
         "extra": {
@@ -8984,10 +8954,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 1,
+      "scale": 0.620921323059155,
       "offset": [
-        -370.78321425734293,
-        139.46321971588225
+        742.8506839205883,
+        257.1306187625311
       ]
     },
     "frontendVersion": "1.55.18",
