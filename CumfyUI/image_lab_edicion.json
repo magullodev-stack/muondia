@@ -468,7 +468,7 @@
         {
           "name": "bg_sensibilidad",
           "type": "FLOAT",
-          "label": "Fondo · sensibilidad (1 = normal)",
+          "label": "Fondo · sensibilidad (rec. 0,5–1,5; 1 = normal)",
           "link": null,
           "widget": {
             "name": "bg_sensibilidad"
@@ -954,7 +954,7 @@
           {
             "name": "bg_sensibilidad",
             "type": "FLOAT",
-            "label": "Fondo · sensibilidad (1 = normal)",
+            "label": "Fondo · sensibilidad (rec. 0,5–1,5; 1 = normal)",
             "id": "image-lab-bg-sensitivity",
             "linkIds": [
               222,

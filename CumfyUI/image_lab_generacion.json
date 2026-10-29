@@ -53,7 +53,7 @@
           "link": 3512
         },
         {
-          "label": "Ancho manual (px)",
+          "label": "Ancho manual (512–2048 px)",
           "name": "width",
           "type": "INT",
           "widget": {
@@ -62,7 +62,7 @@
           "link": null
         },
         {
-          "label": "Alto manual (px)",
+          "label": "Alto manual (512–2048 px)",
           "name": "height",
           "type": "INT",
           "widget": {
@@ -71,7 +71,7 @@
           "link": null
         },
         {
-          "label": "Transformación (%)",
+          "label": "Transformación (0–100 %)",
           "name": "strength_pct",
           "type": "INT",
           "widget": {
@@ -89,7 +89,7 @@
           "link": null
         },
         {
-          "label": "LoRA NSFW (%)",
+          "label": "LoRA NSFW (0–100 %)",
           "name": "nsfw_lora_pct",
           "type": "INT",
           "widget": {
@@ -275,7 +275,7 @@
           "link": null
         },
         {
-          "label": "Transformación (%)",
+          "label": "Transformación (0–100 %)",
           "name": "strength_pct",
           "type": "INT",
           "widget": {
@@ -293,7 +293,7 @@
           "link": null
         },
         {
-          "label": "Seguimiento del prompt (guidance)",
+          "label": "Seguimiento del prompt (guidance; rec. 3–4)",
           "name": "guidance",
           "type": "FLOAT",
           "widget": {
@@ -302,7 +302,7 @@
           "link": null
         },
         {
-          "label": "Pasos de muestreo",
+          "label": "Pasos de muestreo (rec. 20–30)",
           "name": "steps",
           "type": "INT",
           "widget": {
@@ -320,7 +320,7 @@
           "link": null
         },
         {
-          "label": "LoRA anatomía (%)",
+          "label": "LoRA anatomía (0–100 %)",
           "name": "anatomy_lora_pct",
           "type": "INT",
           "widget": {
@@ -329,7 +329,7 @@
           "link": null
         },
         {
-          "label": "LoRA FPND (%)",
+          "label": "LoRA FPND (0–100 %)",
           "name": "fpnd_lora_pct",
           "type": "INT",
           "widget": {
@@ -338,7 +338,7 @@
           "link": null
         },
         {
-          "label": "LoRA foto real (%)",
+          "label": "LoRA foto real (0–100 %)",
           "name": "photo_lora_pct",
           "type": "INT",
           "widget": {
@@ -347,7 +347,7 @@
           "link": null
         },
         {
-          "label": "LoRA NSFW (%)",
+          "label": "LoRA NSFW (0–100 %)",
           "name": "nsfw_lora_pct",
           "type": "INT",
           "widget": {
@@ -647,7 +647,7 @@
           "link": null
         },
         {
-          "label": "Fondo · sensibilidad (1 = normal)",
+          "label": "Fondo · sensibilidad (rec. 0,5–1,5; 1 = normal)",
           "name": "bg_sensibilidad",
           "shape": 7,
           "type": "FLOAT",
@@ -781,7 +781,7 @@
           "link": 4719
         },
         {
-          "label": "Ancho manual (px)",
+          "label": "Ancho manual (512–2048 px)",
           "name": "width",
           "type": "INT",
           "widget": {
@@ -790,7 +790,7 @@
           "link": null
         },
         {
-          "label": "Alto manual (px)",
+          "label": "Alto manual (512–2048 px)",
           "name": "height",
           "type": "INT",
           "widget": {
@@ -799,7 +799,7 @@
           "link": null
         },
         {
-          "label": "Transformación (%)",
+          "label": "Transformación (0–100 %)",
           "name": "strength_pct",
           "type": "INT",
           "widget": {
@@ -844,7 +844,7 @@
           "link": null
         },
         {
-          "label": "LoRA · fuerza (%)",
+          "label": "LoRA · fuerza (0–100 %; rec. 50–80)",
           "name": "lora_pct",
           "type": "INT",
           "widget": {
@@ -1358,7 +1358,7 @@
               222,
               225
             ],
-            "label": "Fondo · sensibilidad (1 = normal)",
+            "label": "Fondo · sensibilidad (rec. 0,5–1,5; 1 = normal)",
             "pos": [
               70,
               558
@@ -4354,7 +4354,7 @@
             "linkIds": [
               4300
             ],
-            "label": "Ancho manual (px)",
+            "label": "Ancho manual (512–2048 px)",
             "pos": [
               -460,
               366
@@ -4367,7 +4367,7 @@
             "linkIds": [
               4301
             ],
-            "label": "Alto manual (px)",
+            "label": "Alto manual (512–2048 px)",
             "pos": [
               -460,
               395
@@ -4380,7 +4380,7 @@
             "linkIds": [
               4302
             ],
-            "label": "Transformación (%)",
+            "label": "Transformación (0–100 %)",
             "pos": [
               -300,
               424
@@ -4406,7 +4406,7 @@
             "linkIds": [
               4319
             ],
-            "label": "LoRA NSFW (%)",
+            "label": "LoRA NSFW (0–100 %)",
             "pos": [
               -300,
               482
@@ -6518,7 +6518,7 @@
             "linkIds": [
               4402
             ],
-            "label": "Transformación (%)",
+            "label": "Transformación (0–100 %)",
             "pos": [
               -300,
               424
@@ -6544,7 +6544,7 @@
             "linkIds": [
               4701
             ],
-            "label": "Seguimiento del prompt (guidance)",
+            "label": "Seguimiento del prompt (guidance; rec. 3–4)",
             "pos": [
               -990,
               482
@@ -6557,7 +6557,7 @@
             "linkIds": [
               4705
             ],
-            "label": "Pasos de muestreo",
+            "label": "Pasos de muestreo (rec. 20–30)",
             "pos": [
               -990,
               511
@@ -6583,7 +6583,7 @@
             "linkIds": [
               4604
             ],
-            "label": "LoRA anatomía (%)",
+            "label": "LoRA anatomía (0–100 %)",
             "pos": [
               -300,
               569
@@ -6596,7 +6596,7 @@
             "linkIds": [
               4611
             ],
-            "label": "LoRA FPND (%)",
+            "label": "LoRA FPND (0–100 %)",
             "pos": [
               -300,
               598
@@ -6609,7 +6609,7 @@
             "linkIds": [
               4614
             ],
-            "label": "LoRA foto real (%)",
+            "label": "LoRA foto real (0–100 %)",
             "pos": [
               -300,
               627
@@ -6622,7 +6622,7 @@
             "linkIds": [
               4714
             ],
-            "label": "LoRA NSFW (%)",
+            "label": "LoRA NSFW (0–100 %)",
             "pos": [
               -300,
               656
@@ -9536,7 +9536,7 @@
             "linkIds": [
               4300
             ],
-            "label": "Ancho manual (px)",
+            "label": "Ancho manual (512–2048 px)",
             "pos": [
               -400,
               395
@@ -9549,7 +9549,7 @@
             "linkIds": [
               4301
             ],
-            "label": "Alto manual (px)",
+            "label": "Alto manual (512–2048 px)",
             "pos": [
               -400,
               424
@@ -9562,7 +9562,7 @@
             "linkIds": [
               4302
             ],
-            "label": "Transformación (%)",
+            "label": "Transformación (0–100 %)",
             "pos": [
               -400,
               453
@@ -9627,7 +9627,7 @@
             "linkIds": [
               4319
             ],
-            "label": "LoRA · fuerza (%)",
+            "label": "LoRA · fuerza (0–100 %; rec. 50–80)",
             "pos": [
               -400,
               598
