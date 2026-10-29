@@ -681,7 +681,7 @@
       "title": "Cómo se usa",
       "properties": {},
       "widgets_values": [
-        "1) Carga la foto en «Imagen principal» y pinta la máscara con clic derecho > Open in MaskEditor (la zona pintada es lo único que Qwen puede cambiar).\n2) Las referencias 2 y 3 se usan solo si activas «Usar referencia 2/3» en el nodo Qwen. Si las activas sin cargar su imagen, sale un error.\n3) Sin máscara pintada la imagen sale SIN cambios.\nRequiere el custom node ComfyUI-Inpaint-CropAndStitch.\n4) Kontext (rama inferior): usa su propia imagen principal («Imagen principal · Kontext»), con su propia máscara, independiente de Qwen. Para usar una referencia (cara, ropa, objeto, estilo...): pinta la máscara sobre la zona a cambiar, carga la referencia en «Imagen de referencia · Kontext», activa «Usar imagen de referencia» en el nodo KONTEXT y escribe en su prompt qué quieres tomar de ella. Para usarlo elige «Kontext» en «Modelo / Origen de la imagen» del nodo SALIDA Y ACABADO. Requiere el modelo flux1-dev-kontext_fp8_scaled.safetensors.\n5) Kontext · imagen completa (rama más baja): sin máscara. Carga el maniquí en «Plantilla», el personaje en «Personaje» y ejecuta; genera una vista por ejecución. Para verla, elige «Kontext completo» en «Modelo / Origen de la imagen» del nodo SALIDA Y ACABADO."
+        "1) Carga la foto en «Imagen principal» y pinta la máscara con clic derecho > Open in MaskEditor (la zona pintada es lo único que Qwen puede cambiar).\n2) Las referencias 2 y 3 se usan solo si activas «Usar referencia 2/3» en el nodo Qwen. Si las activas sin cargar su imagen, sale un error.\n3) Sin máscara pintada la imagen sale SIN cambios.\nRequiere el custom node ComfyUI-Inpaint-CropAndStitch.\n4) Kontext (rama inferior): usa su propia imagen principal («Imagen principal · Kontext»), con su propia máscara, independiente de Qwen. Para usar una referencia (cara, ropa, objeto, estilo...): pinta la máscara sobre la zona a cambiar, carga la referencia en «Imagen de referencia · Kontext», activa «Usar imagen de referencia» en el nodo KONTEXT y escribe en su prompt qué quieres tomar de ella. Para usarlo elige «Kontext» en «Modelo / Origen de la imagen» del nodo SALIDA Y ACABADO. Requiere el modelo flux1-dev-kontext_fp8_scaled.safetensors.\n5) Kontext · imagen completa (rama más baja): sin máscara. Carga la foto a modificar en «Imagen base», lo que quieres incorporar en «Imagen de referencia», escribe la instrucción en el prompt (rellena los huecos entre corchetes) y ejecuta. Para verla, elige «Kontext completo» en «Modelo / Origen de la imagen» del nodo SALIDA Y ACABADO."
       ],
       "widgets_values_named": {
         "text": "1) Carga la foto en «Imagen principal» y pinta la máscara con clic derecho > Open in MaskEditor (la zona pintada es lo único que Qwen puede cambiar).\n2) Las referencias 2 y 3 se usan solo si activas «Usar referencia 2/3» en el nodo Qwen. Si las activas sin cargar su imagen, sale un error.\n3) Sin máscara pintada la imagen sale SIN cambios.\nRequiere el custom node ComfyUI-Inpaint-CropAndStitch."
@@ -1100,7 +1100,7 @@
           "links": []
         }
       ],
-      "title": "Plantilla · Kontext completo (maniquí de cada vista)",
+      "title": "Imagen base · Kontext completo",
       "properties": {
         "Node name for S&R": "ImageLabInitialImage"
       },
@@ -1163,7 +1163,7 @@
           "links": []
         }
       ],
-      "title": "Personaje · Kontext completo (referencia)",
+      "title": "Imagen de referencia · Kontext completo",
       "properties": {
         "Node name for S&R": "ImageLabInitialImage"
       },
@@ -1198,13 +1198,13 @@
       "mode": 0,
       "inputs": [
         {
-          "label": "Plantilla (base)",
+          "label": "Imagen base",
           "name": "image1",
           "type": "IMAGE",
           "link": 4515
         },
         {
-          "label": "Personaje (referencia)",
+          "label": "Imagen de referencia",
           "name": "image2",
           "type": "IMAGE",
           "link": 4516
@@ -1242,11 +1242,11 @@
         "cnr_id": "comfy-core"
       },
       "widgets_values": [
-        "Replace the mannequin with the person in the reference image. Keep the pose, angle, camera and lighting unchanged.",
+        "Replace the [ELEMENT] with the [ELEMENT] from the reference image. Keep [WHAT STAYS] unchanged.",
         123456789
       ],
       "widgets_values_named": {
-        "prompt": "Replace the mannequin with the person in the reference image. Keep the pose, angle, camera and lighting unchanged.",
+        "prompt": "Replace the [ELEMENT] with the [ELEMENT] from the reference image. Keep [WHAT STAYS] unchanged.",
         "seed": 123456789
       }
     }
@@ -7207,8 +7207,8 @@
         },
         "revision": 1,
         "config": {},
-        "name": "FLUX.1 Kontext dev · imagen completa · plantilla + referencia",
-        "description": "Transforma la imagen entera con FLUX.1 Kontext dev usando una plantilla como base y una imagen de referencia, sin máscara.",
+        "name": "FLUX.1 Kontext dev · imagen completa · imagen base + referencia",
+        "description": "Transforma la imagen entera con FLUX.1 Kontext dev usando una imagen base y una imagen de referencia, sin máscara.",
         "inputNode": {
           "id": -10,
           "bounding": [
@@ -7235,7 +7235,7 @@
             "linkIds": [
               5001
             ],
-            "label": "Plantilla (base)",
+            "label": "Imagen base",
             "pos": [
               -290,
               320
@@ -7248,7 +7248,7 @@
             "linkIds": [
               5002
             ],
-            "label": "Personaje (referencia)",
+            "label": "Imagen de referencia",
             "pos": [
               -290,
               352
@@ -7445,7 +7445,7 @@
               "Node name for S&R": "FluxKontextImageScale",
               "cnr_id": "comfy-core"
             },
-            "title": "Plantilla · ajustar tamaño"
+            "title": "Imagen base · ajustar tamaño"
           },
           {
             "id": 3005,
@@ -7487,7 +7487,7 @@
               "Node name for S&R": "VAEEncode",
               "cnr_id": "comfy-core"
             },
-            "title": "Plantilla · codificar (base y referencia)"
+            "title": "Imagen base · codificar (base y referencia)"
           },
           {
             "id": 3006,
@@ -7523,7 +7523,7 @@
               "Node name for S&R": "FluxKontextImageScale",
               "cnr_id": "comfy-core"
             },
-            "title": "Personaje · ajustar tamaño"
+            "title": "Referencia · ajustar tamaño"
           },
           {
             "id": 3007,
@@ -7564,7 +7564,7 @@
               "Node name for S&R": "VAEEncode",
               "cnr_id": "comfy-core"
             },
-            "title": "Personaje · codificar"
+            "title": "Referencia · codificar"
           },
           {
             "id": 3008,
@@ -7657,7 +7657,7 @@
               "Node name for S&R": "ReferenceLatent",
               "cnr_id": "comfy-core"
             },
-            "title": "Referencia 1 · plantilla"
+            "title": "Referencia 1 · imagen base"
           },
           {
             "id": 3010,
@@ -7699,7 +7699,7 @@
               "Node name for S&R": "ReferenceLatent",
               "cnr_id": "comfy-core"
             },
-            "title": "Referencia 2 · personaje"
+            "title": "Referencia 2 · imagen de referencia"
           },
           {
             "id": 3011,
