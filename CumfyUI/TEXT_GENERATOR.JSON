@@ -29,7 +29,7 @@
           ]
         }
       ],
-      "title": "GENERADOR DE TEXTO · Lexi / Mistral / Magnum / Euryale",
+      "title": "GENERADOR DE TEXTO",
       "properties": {
         "Node name for S&R": "GGUF_GeneradorLLM"
       },
@@ -136,7 +136,8 @@
         "temperatura": 0.3,
         "max_tokens_salida": 2048,
         "capas_gpu": 99
-      }
+      },
+      "title": "GENERADOR CON IMAGEN · Prompt + imagen"
     },
     {
       "id": 4,
@@ -166,7 +167,7 @@
           "links": []
         }
       ],
-      "title": "RESPUESTA · Qwen VL",
+      "title": "RESPUESTA · Generador con imagen",
       "properties": {
         "Node name for S&R": "PreviewAny",
         "cnr_id": "comfy-core"
@@ -236,7 +237,7 @@
           "link": 4
         },
         {
-          "name": "qwen_vl",
+          "name": "generador_imagen",
           "shape": 7,
           "type": "STRING",
           "widget": {
@@ -254,21 +255,19 @@
           ]
         },
         {
-          "name": "respuesta_qwen",
+          "name": "respuesta_imagen",
           "type": "STRING",
           "links": [
             6
           ]
         }
       ],
-      "title": "INTERRUPTOR · Elegir modo (texto / Qwen VL)",
+      "title": "INTERRUPTOR · Elegir modo (texto / imagen)",
       "properties": {
         "Node name for S&R": "GGUF_SelectorRamaLLM"
       },
       "widgets_values": [
-        "Qwen VL (con imagen)",
-        "",
-        ""
+        "Generador con imagen"
       ],
       "widgets_values_named": {
         "modo": "Qwen VL (con imagen)",
@@ -346,7 +345,7 @@
     },
     {
       "id": 3,
-      "title": "03 · QWEN VL · PROMPT + IMAGEN",
+      "title": "03 · GENERADOR CON IMAGEN",
       "bounding": [
         494.125,
         842.25,

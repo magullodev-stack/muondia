@@ -384,42 +384,42 @@ class SelectorRamaLLM:
     """
 
     MODO_TEXTO = "Generador de texto"
-    MODO_QWEN = "Qwen VL (con imagen)"
+    MODO_IMAGEN = "Generador con imagen"
 
     @classmethod
     def INPUT_TYPES(cls):
         return {
             "required": {
-                "modo": ([cls.MODO_TEXTO, cls.MODO_QWEN], {"default": cls.MODO_TEXTO}),
+                "modo": ([cls.MODO_TEXTO, cls.MODO_IMAGEN], {"default": cls.MODO_TEXTO}),
             },
             "optional": {
                 "generador_texto": ("STRING", {"lazy": True}),
-                "qwen_vl": ("STRING", {"lazy": True}),
+                "generador_imagen": ("STRING", {"lazy": True}),
             },
         }
 
     RETURN_TYPES = ("STRING", "STRING")
-    RETURN_NAMES = ("respuesta_texto", "respuesta_qwen")
+    RETURN_NAMES = ("respuesta_texto", "respuesta_imagen")
     FUNCTION = "seleccionar"
     CATEGORY = "LLM / GGUF local"
 
-    def check_lazy_status(self, modo, generador_texto=None, qwen_vl=None):
+    def check_lazy_status(self, modo, generador_texto=None, generador_imagen=None):
         if modo == self.MODO_TEXTO:
             return ["generador_texto"] if generador_texto is None else []
-        if modo == self.MODO_QWEN:
-            return ["qwen_vl"] if qwen_vl is None else []
+        if modo == self.MODO_IMAGEN:
+            return ["generador_imagen"] if generador_imagen is None else []
         raise ValueError(f"Modo de ejecución desconocido: {modo!r}")
 
-    def seleccionar(self, modo, generador_texto=None, qwen_vl=None):
+    def seleccionar(self, modo, generador_texto=None, generador_imagen=None):
         from comfy_execution.graph_utils import ExecutionBlocker
         if modo == self.MODO_TEXTO:
             if generador_texto is None:
                 raise RuntimeError("El generador de texto no devolvió una respuesta.")
             return (generador_texto, ExecutionBlocker(None))
-        if modo == self.MODO_QWEN:
-            if qwen_vl is None:
-                raise RuntimeError("Qwen VL no devolvió una respuesta.")
-            return (ExecutionBlocker(None), qwen_vl)
+        if modo == self.MODO_IMAGEN:
+            if generador_imagen is None:
+                raise RuntimeError("El generador con imagen no devolvió una respuesta.")
+            return (ExecutionBlocker(None), generador_imagen)
         raise ValueError(f"Modo de ejecución desconocido: {modo!r}")
 
 
@@ -499,8 +499,8 @@ NODE_CLASS_MAPPINGS = {
     "GGUF_ImagenOpcional": ImagenOpcional,
 }
 NODE_DISPLAY_NAME_MAPPINGS = {
-    "GGUF_GeneradorLLM": "GENERADOR LLM TEXTO · Magnum / Euryale / Mistral / Lexi",
-    "GGUF_GeneradorQwenVL": "GENERADOR QWEN VL ABLITERATED · Prompt + imagen",
-    "GGUF_SelectorRamaLLM": "INTERRUPTOR DE FLUJO · Texto / Qwen VL",
+    "GGUF_GeneradorLLM": "GENERADOR DE TEXTO",
+    "GGUF_GeneradorQwenVL": "GENERADOR CON IMAGEN · Prompt + imagen",
+    "GGUF_SelectorRamaLLM": "INTERRUPTOR · Elegir modo (texto / imagen)",
     "GGUF_ImagenOpcional": "SUBIR IMAGEN (opcional) · (sin imagen)",
 }
