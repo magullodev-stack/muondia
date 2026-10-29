@@ -688,7 +688,7 @@
       "title": "Cómo se usa",
       "properties": {},
       "widgets_values": [
-        "1) Carga la foto en «Imagen principal» y pinta la máscara con clic derecho > Open in MaskEditor (la zona pintada es lo único que Qwen puede cambiar).\n2) Las referencias 2 y 3 se usan solo si activas «Usar referencia 2/3» en el nodo Qwen. Si las activas sin cargar su imagen, sale un error.\n3) Sin máscara pintada la imagen sale SIN cambios.\nRequiere el custom node ComfyUI-Inpaint-CropAndStitch.\n4) Kontext con máscara (rama inferior): usa su propia imagen principal («Imagen principal · Kontext»), con su propia máscara, independiente de Qwen. Para usar una referencia (cara, ropa, objeto, estilo...): pinta la máscara sobre la zona a cambiar, carga la referencia en «Imagen de referencia · Kontext», activa «Usar imagen de referencia» en el nodo KONTEXT y escribe en su prompt qué quieres tomar de ella. Para usarlo elige «Kontext (con máscara)» en «Modelo / Origen de la imagen» del nodo SALIDA Y ACABADO. Requiere el modelo flux1-dev-kontext_fp8_scaled.safetensors.\n5) Kontext sin máscara (rama más baja). Carga la foto a modificar en «Imagen base», lo que quieres incorporar en «Imagen de referencia», escribe la instrucción en el prompt (rellena los huecos entre corchetes) y ejecuta. Para verla, elige «Kontext (sin máscara)» en «Modelo / Origen de la imagen» del nodo SALIDA Y ACABADO.\n6) FLUX.2 sin máscara (rama más baja): carga la foto a modificar en «Imagen base» (es la imagen 1 del prompt) y, si quieres, referencias en «Referencia 1/2» (imágenes 2 y 3) activando «Usar referencia». Escribe la instrucción citando «image 1», «image 2»… Para verla, elige «FLUX.2 (sin máscara)» en «Modelo / Origen de la imagen» del nodo SALIDA Y ACABADO. Requiere flux-2-klein-base-9b-fp8.safetensors, qwen_3_8b_fp8mixed.safetensors y flux2-vae.safetensors."
+        "1) Carga la foto en «Imagen principal» y pinta la máscara con clic derecho > Open in MaskEditor (la zona pintada es lo único que Qwen puede cambiar).\n2) Las referencias 2 y 3 se usan solo si activas «Usar referencia 2/3» en el nodo Qwen. Si las activas sin cargar su imagen, sale un error.\n3) Sin máscara pintada la imagen sale SIN cambios.\nRequiere el custom node ComfyUI-Inpaint-CropAndStitch.\n4) Kontext con máscara (rama inferior): usa su propia imagen principal («Imagen principal · Kontext»), con su propia máscara, independiente de Qwen. Para usar una referencia (cara, ropa, objeto, estilo...): pinta la máscara sobre la zona a cambiar, carga la referencia en «Imagen de referencia · Kontext», activa «Usar imagen de referencia» en el nodo KONTEXT y escribe en su prompt qué quieres tomar de ella. Para usarlo elige «Kontext (con máscara)» en «Modelo / Origen de la imagen» del nodo SALIDA Y ACABADO. Requiere el modelo flux1-dev-kontext_fp8_scaled.safetensors.\n5) Kontext sin máscara (rama más baja). Carga la foto a modificar en «Imagen base», lo que quieres incorporar en «Imagen de referencia», escribe la instrucción en el prompt (rellena los huecos entre corchetes) y ejecuta. Para verla, elige «Kontext (sin máscara)» en «Modelo / Origen de la imagen» del nodo SALIDA Y ACABADO.\n6) FLUX.2 sin máscara (rama más baja): carga la foto a modificar en «Imagen base» (es la imagen 1 del prompt) y, si quieres, referencias en «Referencia 1/2» (imágenes 2 y 3) activando «Usar referencia». Escribe la instrucción citando «image 1», «image 2»… Para verla, elige «FLUX.2 (sin máscara)» en «Modelo / Origen de la imagen» del nodo SALIDA Y ACABADO. RefControl (opcional): activa «RefControl · usar mapa de profundidad + LoRA» para que la imagen 1 sea el mapa de profundidad de la imagen base (se genera solo) y la referencia 1 sea la imagen 2; escribe «refcontrol» en el prompt. Para eso usa 50 pasos y CFG 4. Requiere el custom node comfyui_controlnet_aux y flux2_klein_9b_refcontrol_depth.safetensors en models/loras. Requiere flux-2-klein-base-9b-fp8.safetensors, qwen_3_8b_fp8mixed.safetensors y flux2-vae.safetensors."
       ],
       "widgets_values_named": {
         "text": "1) Carga la foto en «Imagen principal» y pinta la máscara con clic derecho > Open in MaskEditor (la zona pintada es lo único que Qwen puede cambiar).\n2) Las referencias 2 y 3 se usan solo si activas «Usar referencia 2/3» en el nodo Qwen. Si las activas sin cargar su imagen, sale un error.\n3) Sin máscara pintada la imagen sale SIN cambios.\nRequiere el custom node ComfyUI-Inpaint-CropAndStitch."
@@ -1508,6 +1508,15 @@
           }
         },
         {
+          "label": "RefControl · usar mapa de profundidad + LoRA",
+          "name": "use_depth",
+          "type": "BOOLEAN",
+          "link": null,
+          "widget": {
+            "name": "use_depth"
+          }
+        },
+        {
           "label": "Referencia 1",
           "name": "ref1",
           "type": "IMAGE",
@@ -1557,6 +1566,7 @@
         20,
         5,
         false,
+        false,
         false
       ],
       "widgets_values_named": {
@@ -1564,6 +1574,7 @@
         "seed": 123456789,
         "steps": 20,
         "cfg": 5,
+        "use_depth": false,
         "ref1_enabled": false,
         "ref2_enabled": false
       }
@@ -1751,7 +1762,7 @@
       442,
       0,
       440,
-      5,
+      6,
       "IMAGE"
     ],
     [
@@ -1759,7 +1770,7 @@
       442,
       2,
       440,
-      6,
+      7,
       "BOOLEAN"
     ],
     [
@@ -1767,7 +1778,7 @@
       443,
       0,
       440,
-      7,
+      8,
       "IMAGE"
     ],
     [
@@ -1775,7 +1786,7 @@
       443,
       2,
       440,
-      8,
+      9,
       "BOOLEAN"
     ],
     [
@@ -2057,7 +2068,7 @@
             ]
           },
           {
-            "id": "718237a0-e5e5-41eb-aa49-9a15c8fdd56a",
+            "id": "31c3927f-9ae1-414e-b99b-7591c75b80c1",
             "name": "flux2_image",
             "type": "IMAGE",
             "linkIds": [
@@ -8665,8 +8676,8 @@
         "version": 1,
         "state": {
           "lastGroupId": 3,
-          "lastNodeId": 3245,
-          "lastLinkId": 6155,
+          "lastNodeId": 3253,
+          "lastLinkId": 6163,
           "lastRerouteId": 0
         },
         "revision": 1,
@@ -8679,7 +8690,7 @@
             -412,
             300,
             142,
-            328
+            360
           ]
         },
         "outputNode": {
@@ -8693,7 +8704,7 @@
         },
         "inputs": [
           {
-            "id": "c407ada9-e0fe-4133-925d-c437ccc9164b",
+            "id": "adce5867-a21f-4379-9cf2-12d87be0b3f7",
             "name": "image1",
             "type": "IMAGE",
             "linkIds": [
@@ -8706,11 +8717,11 @@
             ]
           },
           {
-            "id": "84ed9406-81a4-4230-92ed-bce7a9ee8b56",
+            "id": "edf007a5-80f1-4247-8d0b-a9ae91917d9b",
             "name": "prompt",
             "type": "STRING",
             "linkIds": [
-              6105
+              6113
             ],
             "label": "Prompt",
             "pos": [
@@ -8719,11 +8730,11 @@
             ]
           },
           {
-            "id": "13357362-a3c4-47ea-9226-c2b94f0d94e5",
+            "id": "4a145f63-b5d6-4e21-a9d5-7a31813ce7e5",
             "name": "seed",
             "type": "INT",
             "linkIds": [
-              6146
+              6154
             ],
             "label": "Semilla",
             "pos": [
@@ -8732,11 +8743,11 @@
             ]
           },
           {
-            "id": "e8ed6cb2-77a2-4e87-a247-1919d41b98de",
+            "id": "4a66fdb7-0ebc-4f02-971d-e1cb1483a3eb",
             "name": "steps",
             "type": "INT",
             "linkIds": [
-              6147
+              6155
             ],
             "label": "Pasos (20–50)",
             "pos": [
@@ -8745,11 +8756,11 @@
             ]
           },
           {
-            "id": "2e76fa17-6c66-441c-84e3-431e0df91665",
+            "id": "f981315d-3e08-414e-95c5-8d84f515de25",
             "name": "cfg",
             "type": "FLOAT",
             "linkIds": [
-              6145
+              6153
             ],
             "label": "CFG (4–5)",
             "pos": [
@@ -8758,67 +8769,81 @@
             ]
           },
           {
-            "id": "d736951a-0f99-4053-bfa4-5949a99e06e9",
-            "name": "ref1",
-            "type": "IMAGE",
+            "id": "c95ff871-a136-457b-b3db-05f951cd0c6e",
+            "name": "use_depth",
+            "type": "BOOLEAN",
             "linkIds": [
-              6110
+              6107,
+              6112
             ],
-            "label": "Referencia 1",
+            "label": "RefControl · usar mapa de profundidad + LoRA",
             "pos": [
               -290,
               480
             ]
           },
           {
-            "id": "a9a7f2dc-2109-4934-b1d7-e0457404a959",
-            "name": "ref1_enabled",
-            "type": "BOOLEAN",
+            "id": "9b4b6a8d-7f4b-441f-ba79-7c8c94fdd891",
+            "name": "ref1",
+            "type": "IMAGE",
             "linkIds": [
-              6119,
-              6122
+              6118
             ],
-            "label": "Usar referencia 1",
+            "label": "Referencia 1",
             "pos": [
               -290,
               512
             ]
           },
           {
-            "id": "0d589f86-528e-4681-85b6-8978c4a854ee",
-            "name": "ref2",
-            "type": "IMAGE",
+            "id": "652394c1-a34e-4643-8b1a-0bf9ba44e253",
+            "name": "ref1_enabled",
+            "type": "BOOLEAN",
             "linkIds": [
-              6123
+              6127,
+              6130
             ],
-            "label": "Referencia 2",
+            "label": "Usar referencia 1",
             "pos": [
               -290,
               544
             ]
           },
           {
-            "id": "a42e76fb-1d97-4748-9987-cd50c04d48ed",
+            "id": "5ffb53f7-63b8-412e-9c9e-36e9e33e8b48",
+            "name": "ref2",
+            "type": "IMAGE",
+            "linkIds": [
+              6131
+            ],
+            "label": "Referencia 2",
+            "pos": [
+              -290,
+              576
+            ]
+          },
+          {
+            "id": "c75e1d96-2504-4cf7-be1b-649b3f08edf7",
             "name": "ref2_enabled",
             "type": "BOOLEAN",
             "linkIds": [
-              6132,
-              6135
+              6140,
+              6143
             ],
             "label": "Usar referencia 2",
             "pos": [
               -290,
-              576
+              608
             ]
           }
         ],
         "outputs": [
           {
-            "id": "ad0ded41-5f30-481a-ac44-066257b614a6",
+            "id": "03e08c3e-fcdd-4d6a-8784-5f2bc4904187",
             "name": "IMAGE",
             "type": "IMAGE",
             "linkIds": [
-              6155
+              6163
             ],
             "pos": [
               2220,
@@ -8848,7 +8873,8 @@
                 "name": "MODEL",
                 "type": "MODEL",
                 "links": [
-                  6142
+                  6109,
+                  6110
                 ]
               }
             ],
@@ -8886,8 +8912,8 @@
                 "name": "CLIP",
                 "type": "CLIP",
                 "links": [
-                  6140,
-                  6141
+                  6148,
+                  6149
                 ]
               }
             ],
@@ -8927,10 +8953,10 @@
                 "name": "VAE",
                 "type": "VAE",
                 "links": [
-                  6104,
-                  6112,
-                  6125,
-                  6154
+                  6103,
+                  6120,
+                  6133,
+                  6162
                 ]
               }
             ],
@@ -8964,12 +8990,12 @@
               {
                 "name": "clip",
                 "type": "CLIP",
-                "link": 6140
+                "link": 6148
               },
               {
                 "name": "text",
                 "type": "STRING",
-                "link": 6105,
+                "link": 6113,
                 "widget": {
                   "name": "text"
                 }
@@ -8980,7 +9006,7 @@
                 "name": "CONDITIONING",
                 "type": "CONDITIONING",
                 "links": [
-                  6106
+                  6114
                 ]
               }
             ],
@@ -9014,7 +9040,7 @@
               {
                 "name": "clip",
                 "type": "CLIP",
-                "link": 6141
+                "link": 6149
               },
               {
                 "name": "text",
@@ -9030,7 +9056,7 @@
                 "name": "CONDITIONING",
                 "type": "CONDITIONING",
                 "links": [
-                  6108
+                  6116
                 ]
               }
             ],
@@ -9064,7 +9090,7 @@
               {
                 "name": "width",
                 "type": "INT",
-                "link": 6136,
+                "link": 6144,
                 "widget": {
                   "name": "width"
                 }
@@ -9072,7 +9098,7 @@
               {
                 "name": "height",
                 "type": "INT",
-                "link": 6137,
+                "link": 6145,
                 "widget": {
                   "name": "height"
                 }
@@ -9083,7 +9109,7 @@
                 "name": "LATENT",
                 "type": "LATENT",
                 "links": [
-                  6152
+                  6160
                 ]
               }
             ],
@@ -9120,7 +9146,7 @@
               {
                 "name": "steps",
                 "type": "INT",
-                "link": 6147,
+                "link": 6155,
                 "widget": {
                   "name": "steps"
                 }
@@ -9128,7 +9154,7 @@
               {
                 "name": "width",
                 "type": "INT",
-                "link": 6138,
+                "link": 6146,
                 "widget": {
                   "name": "width"
                 }
@@ -9136,7 +9162,7 @@
               {
                 "name": "height",
                 "type": "INT",
-                "link": 6139,
+                "link": 6147,
                 "widget": {
                   "name": "height"
                 }
@@ -9147,7 +9173,7 @@
                 "name": "SIGMAS",
                 "type": "SIGMAS",
                 "links": [
-                  6151
+                  6159
                 ]
               }
             ],
@@ -9184,22 +9210,22 @@
               {
                 "name": "model",
                 "type": "MODEL",
-                "link": 6142
+                "link": 6150
               },
               {
                 "name": "positive",
                 "type": "CONDITIONING",
-                "link": 6143
+                "link": 6151
               },
               {
                 "name": "negative",
                 "type": "CONDITIONING",
-                "link": 6144
+                "link": 6152
               },
               {
                 "name": "cfg",
                 "type": "FLOAT",
-                "link": 6145,
+                "link": 6153,
                 "widget": {
                   "name": "cfg"
                 }
@@ -9210,7 +9236,7 @@
                 "name": "GUIDER",
                 "type": "GUIDER",
                 "links": [
-                  6149
+                  6157
                 ]
               }
             ],
@@ -9245,7 +9271,7 @@
                 "name": "SAMPLER",
                 "type": "SAMPLER",
                 "links": [
-                  6150
+                  6158
                 ]
               }
             ],
@@ -9278,7 +9304,7 @@
               {
                 "name": "noise_seed",
                 "type": "INT",
-                "link": 6146,
+                "link": 6154,
                 "widget": {
                   "name": "noise_seed"
                 }
@@ -9289,7 +9315,7 @@
                 "name": "NOISE",
                 "type": "NOISE",
                 "links": [
-                  6148
+                  6156
                 ]
               }
             ],
@@ -9324,27 +9350,27 @@
               {
                 "name": "noise",
                 "type": "NOISE",
-                "link": 6148
+                "link": 6156
               },
               {
                 "name": "guider",
                 "type": "GUIDER",
-                "link": 6149
+                "link": 6157
               },
               {
                 "name": "sampler",
                 "type": "SAMPLER",
-                "link": 6150
+                "link": 6158
               },
               {
                 "name": "sigmas",
                 "type": "SIGMAS",
-                "link": 6151
+                "link": 6159
               },
               {
                 "name": "latent_image",
                 "type": "LATENT",
-                "link": 6152
+                "link": 6160
               }
             ],
             "outputs": [
@@ -9352,7 +9378,7 @@
                 "name": "output",
                 "type": "LATENT",
                 "links": [
-                  6153
+                  6161
                 ]
               },
               {
@@ -9384,12 +9410,12 @@
               {
                 "name": "samples",
                 "type": "LATENT",
-                "link": 6153
+                "link": 6161
               },
               {
                 "name": "vae",
                 "type": "VAE",
-                "link": 6154
+                "link": 6162
               }
             ],
             "outputs": [
@@ -9397,7 +9423,7 @@
                 "name": "IMAGE",
                 "type": "IMAGE",
                 "links": [
-                  6155
+                  6163
                 ]
               }
             ],
@@ -9433,7 +9459,8 @@
                 "type": "IMAGE",
                 "links": [
                   6102,
-                  6103
+                  6104,
+                  6105
                 ]
               }
             ],
@@ -9479,16 +9506,16 @@
                 "name": "width",
                 "type": "INT",
                 "links": [
-                  6136,
-                  6138
+                  6144,
+                  6146
                 ]
               },
               {
                 "name": "height",
                 "type": "INT",
                 "links": [
-                  6137,
-                  6139
+                  6145,
+                  6147
                 ]
               },
               {
@@ -9521,12 +9548,12 @@
               {
                 "name": "pixels",
                 "type": "IMAGE",
-                "link": 6103
+                "link": 6108
               },
               {
                 "name": "vae",
                 "type": "VAE",
-                "link": 6104
+                "link": 6103
               }
             ],
             "outputs": [
@@ -9534,8 +9561,8 @@
                 "name": "LATENT",
                 "type": "LATENT",
                 "links": [
-                  6107,
-                  6109
+                  6115,
+                  6117
                 ]
               }
             ],
@@ -9563,12 +9590,12 @@
               {
                 "name": "conditioning",
                 "type": "CONDITIONING",
-                "link": 6106
+                "link": 6114
               },
               {
                 "name": "latent",
                 "type": "LATENT",
-                "link": 6107,
+                "link": 6115,
                 "shape": 7
               }
             ],
@@ -9577,8 +9604,8 @@
                 "name": "CONDITIONING",
                 "type": "CONDITIONING",
                 "links": [
-                  6113,
-                  6117
+                  6121,
+                  6125
                 ]
               }
             ],
@@ -9606,12 +9633,12 @@
               {
                 "name": "conditioning",
                 "type": "CONDITIONING",
-                "link": 6108
+                "link": 6116
               },
               {
                 "name": "latent",
                 "type": "LATENT",
-                "link": 6109,
+                "link": 6117,
                 "shape": 7
               }
             ],
@@ -9620,8 +9647,8 @@
                 "name": "CONDITIONING",
                 "type": "CONDITIONING",
                 "links": [
-                  6115,
-                  6120
+                  6123,
+                  6128
                 ]
               }
             ],
@@ -9649,7 +9676,7 @@
               {
                 "name": "image",
                 "type": "IMAGE",
-                "link": 6110
+                "link": 6118
               }
             ],
             "outputs": [
@@ -9657,7 +9684,7 @@
                 "name": "IMAGE",
                 "type": "IMAGE",
                 "links": [
-                  6111
+                  6119
                 ]
               }
             ],
@@ -9695,12 +9722,12 @@
               {
                 "name": "pixels",
                 "type": "IMAGE",
-                "link": 6111
+                "link": 6119
               },
               {
                 "name": "vae",
                 "type": "VAE",
-                "link": 6112
+                "link": 6120
               }
             ],
             "outputs": [
@@ -9708,8 +9735,8 @@
                 "name": "LATENT",
                 "type": "LATENT",
                 "links": [
-                  6114,
-                  6116
+                  6122,
+                  6124
                 ]
               }
             ],
@@ -9737,12 +9764,12 @@
               {
                 "name": "conditioning",
                 "type": "CONDITIONING",
-                "link": 6113
+                "link": 6121
               },
               {
                 "name": "latent",
                 "type": "LATENT",
-                "link": 6114,
+                "link": 6122,
                 "shape": 7
               }
             ],
@@ -9751,7 +9778,7 @@
                 "name": "CONDITIONING",
                 "type": "CONDITIONING",
                 "links": [
-                  6118
+                  6126
                 ]
               }
             ],
@@ -9779,12 +9806,12 @@
               {
                 "name": "conditioning",
                 "type": "CONDITIONING",
-                "link": 6115
+                "link": 6123
               },
               {
                 "name": "latent",
                 "type": "LATENT",
-                "link": 6116,
+                "link": 6124,
                 "shape": 7
               }
             ],
@@ -9793,7 +9820,7 @@
                 "name": "CONDITIONING",
                 "type": "CONDITIONING",
                 "links": [
-                  6121
+                  6129
                 ]
               }
             ],
@@ -9821,19 +9848,19 @@
               {
                 "name": "on_false",
                 "type": "CONDITIONING",
-                "link": 6117,
+                "link": 6125,
                 "shape": 7
               },
               {
                 "name": "on_true",
                 "type": "CONDITIONING",
-                "link": 6118,
+                "link": 6126,
                 "shape": 7
               },
               {
                 "name": "switch",
                 "type": "BOOLEAN",
-                "link": 6119,
+                "link": 6127,
                 "widget": {
                   "name": "switch"
                 }
@@ -9844,8 +9871,8 @@
                 "name": "output",
                 "type": "CONDITIONING",
                 "links": [
-                  6126,
-                  6130
+                  6134,
+                  6138
                 ]
               }
             ],
@@ -9879,19 +9906,19 @@
               {
                 "name": "on_false",
                 "type": "CONDITIONING",
-                "link": 6120,
+                "link": 6128,
                 "shape": 7
               },
               {
                 "name": "on_true",
                 "type": "CONDITIONING",
-                "link": 6121,
+                "link": 6129,
                 "shape": 7
               },
               {
                 "name": "switch",
                 "type": "BOOLEAN",
-                "link": 6122,
+                "link": 6130,
                 "widget": {
                   "name": "switch"
                 }
@@ -9902,8 +9929,8 @@
                 "name": "output",
                 "type": "CONDITIONING",
                 "links": [
-                  6128,
-                  6133
+                  6136,
+                  6141
                 ]
               }
             ],
@@ -9937,7 +9964,7 @@
               {
                 "name": "image",
                 "type": "IMAGE",
-                "link": 6123
+                "link": 6131
               }
             ],
             "outputs": [
@@ -9945,7 +9972,7 @@
                 "name": "IMAGE",
                 "type": "IMAGE",
                 "links": [
-                  6124
+                  6132
                 ]
               }
             ],
@@ -9983,12 +10010,12 @@
               {
                 "name": "pixels",
                 "type": "IMAGE",
-                "link": 6124
+                "link": 6132
               },
               {
                 "name": "vae",
                 "type": "VAE",
-                "link": 6125
+                "link": 6133
               }
             ],
             "outputs": [
@@ -9996,8 +10023,8 @@
                 "name": "LATENT",
                 "type": "LATENT",
                 "links": [
-                  6127,
-                  6129
+                  6135,
+                  6137
                 ]
               }
             ],
@@ -10025,12 +10052,12 @@
               {
                 "name": "conditioning",
                 "type": "CONDITIONING",
-                "link": 6126
+                "link": 6134
               },
               {
                 "name": "latent",
                 "type": "LATENT",
-                "link": 6127,
+                "link": 6135,
                 "shape": 7
               }
             ],
@@ -10039,7 +10066,7 @@
                 "name": "CONDITIONING",
                 "type": "CONDITIONING",
                 "links": [
-                  6131
+                  6139
                 ]
               }
             ],
@@ -10067,12 +10094,12 @@
               {
                 "name": "conditioning",
                 "type": "CONDITIONING",
-                "link": 6128
+                "link": 6136
               },
               {
                 "name": "latent",
                 "type": "LATENT",
-                "link": 6129,
+                "link": 6137,
                 "shape": 7
               }
             ],
@@ -10081,7 +10108,7 @@
                 "name": "CONDITIONING",
                 "type": "CONDITIONING",
                 "links": [
-                  6134
+                  6142
                 ]
               }
             ],
@@ -10109,19 +10136,19 @@
               {
                 "name": "on_false",
                 "type": "CONDITIONING",
-                "link": 6130,
+                "link": 6138,
                 "shape": 7
               },
               {
                 "name": "on_true",
                 "type": "CONDITIONING",
-                "link": 6131,
+                "link": 6139,
                 "shape": 7
               },
               {
                 "name": "switch",
                 "type": "BOOLEAN",
-                "link": 6132,
+                "link": 6140,
                 "widget": {
                   "name": "switch"
                 }
@@ -10132,7 +10159,7 @@
                 "name": "output",
                 "type": "CONDITIONING",
                 "links": [
-                  6143
+                  6151
                 ]
               }
             ],
@@ -10166,19 +10193,19 @@
               {
                 "name": "on_false",
                 "type": "CONDITIONING",
-                "link": 6133,
+                "link": 6141,
                 "shape": 7
               },
               {
                 "name": "on_true",
                 "type": "CONDITIONING",
-                "link": 6134,
+                "link": 6142,
                 "shape": 7
               },
               {
                 "name": "switch",
                 "type": "BOOLEAN",
-                "link": 6135,
+                "link": 6143,
                 "widget": {
                   "name": "switch"
                 }
@@ -10189,7 +10216,7 @@
                 "name": "output",
                 "type": "CONDITIONING",
                 "links": [
-                  6144
+                  6152
                 ]
               }
             ],
@@ -10204,6 +10231,208 @@
               "switch": false
             },
             "title": "¿Usar referencia 2? (negativo)"
+          },
+          {
+            "id": 3250,
+            "type": "LoraLoaderModelOnly",
+            "pos": [
+              -170,
+              640
+            ],
+            "size": [
+              396,
+              82
+            ],
+            "flags": {},
+            "order": 3250,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "model",
+                "type": "MODEL",
+                "link": 6109
+              }
+            ],
+            "outputs": [
+              {
+                "name": "MODEL",
+                "type": "MODEL",
+                "links": [
+                  6111
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "LoraLoaderModelOnly",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              "flux2_klein_9b_refcontrol_depth.safetensors",
+              0.9
+            ],
+            "widgets_values_named": {
+              "lora_name": "flux2_klein_9b_refcontrol_depth.safetensors",
+              "strength_model": 0.9
+            },
+            "title": "RefControl · LoRA profundidad"
+          },
+          {
+            "id": 3251,
+            "type": "DepthAnythingV2Preprocessor",
+            "pos": [
+              -170,
+              760
+            ],
+            "size": [
+              396,
+              82
+            ],
+            "flags": {},
+            "order": 3251,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "image",
+                "type": "IMAGE",
+                "link": 6104
+              }
+            ],
+            "outputs": [
+              {
+                "name": "IMAGE",
+                "type": "IMAGE",
+                "links": [
+                  6106
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "DepthAnythingV2Preprocessor",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              "depth_anything_v2_vitl.pth",
+              1024
+            ],
+            "widgets_values_named": {
+              "ckpt_name": "depth_anything_v2_vitl.pth",
+              "resolution": 1024
+            },
+            "title": "RefControl · mapa de profundidad de la imagen base"
+          },
+          {
+            "id": 3252,
+            "type": "ComfySwitchNode",
+            "pos": [
+              130,
+              520
+            ],
+            "size": [
+              246,
+              118
+            ],
+            "flags": {},
+            "order": 3252,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "on_false",
+                "type": "IMAGE",
+                "link": 6105,
+                "shape": 7
+              },
+              {
+                "name": "on_true",
+                "type": "IMAGE",
+                "link": 6106,
+                "shape": 7
+              },
+              {
+                "name": "switch",
+                "type": "BOOLEAN",
+                "link": 6107,
+                "widget": {
+                  "name": "switch"
+                }
+              }
+            ],
+            "outputs": [
+              {
+                "name": "output",
+                "type": "IMAGE",
+                "links": [
+                  6108
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ComfySwitchNode",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              false
+            ],
+            "widgets_values_named": {
+              "switch": false
+            },
+            "title": "¿Imagen 1 = mapa de profundidad? (RefControl)"
+          },
+          {
+            "id": 3253,
+            "type": "ComfySwitchNode",
+            "pos": [
+              130,
+              640
+            ],
+            "size": [
+              246,
+              118
+            ],
+            "flags": {},
+            "order": 3253,
+            "mode": 0,
+            "inputs": [
+              {
+                "name": "on_false",
+                "type": "MODEL",
+                "link": 6110,
+                "shape": 7
+              },
+              {
+                "name": "on_true",
+                "type": "MODEL",
+                "link": 6111,
+                "shape": 7
+              },
+              {
+                "name": "switch",
+                "type": "BOOLEAN",
+                "link": 6112,
+                "widget": {
+                  "name": "switch"
+                }
+              }
+            ],
+            "outputs": [
+              {
+                "name": "output",
+                "type": "MODEL",
+                "links": [
+                  6150
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "ComfySwitchNode",
+              "cnr_id": "comfy-core"
+            },
+            "widgets_values": [
+              false
+            ],
+            "widgets_values_named": {
+              "switch": false
+            },
+            "title": "¿Usar LoRA RefControl?"
           }
         ],
         "groups": [
@@ -10263,14 +10492,6 @@
           },
           {
             "id": 6103,
-            "origin_id": 3220,
-            "origin_slot": 0,
-            "target_id": 3222,
-            "target_slot": 0,
-            "type": "IMAGE"
-          },
-          {
-            "id": 6104,
             "origin_id": 3203,
             "origin_slot": 0,
             "target_id": 3222,
@@ -10278,7 +10499,79 @@
             "type": "VAE"
           },
           {
+            "id": 6104,
+            "origin_id": 3220,
+            "origin_slot": 0,
+            "target_id": 3251,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
             "id": 6105,
+            "origin_id": 3220,
+            "origin_slot": 0,
+            "target_id": 3252,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 6106,
+            "origin_id": 3251,
+            "origin_slot": 0,
+            "target_id": 3252,
+            "target_slot": 1,
+            "type": "IMAGE"
+          },
+          {
+            "id": 6107,
+            "origin_id": -10,
+            "origin_slot": 5,
+            "target_id": 3252,
+            "target_slot": 2,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 6108,
+            "origin_id": 3252,
+            "origin_slot": 0,
+            "target_id": 3222,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 6109,
+            "origin_id": 3201,
+            "origin_slot": 0,
+            "target_id": 3250,
+            "target_slot": 0,
+            "type": "MODEL"
+          },
+          {
+            "id": 6110,
+            "origin_id": 3201,
+            "origin_slot": 0,
+            "target_id": 3253,
+            "target_slot": 0,
+            "type": "MODEL"
+          },
+          {
+            "id": 6111,
+            "origin_id": 3250,
+            "origin_slot": 0,
+            "target_id": 3253,
+            "target_slot": 1,
+            "type": "MODEL"
+          },
+          {
+            "id": 6112,
+            "origin_id": -10,
+            "origin_slot": 5,
+            "target_id": 3253,
+            "target_slot": 2,
+            "type": "BOOLEAN"
+          },
+          {
+            "id": 6113,
             "origin_id": -10,
             "origin_slot": 1,
             "target_id": 3204,
@@ -10286,7 +10579,7 @@
             "type": "STRING"
           },
           {
-            "id": 6106,
+            "id": 6114,
             "origin_id": 3204,
             "origin_slot": 0,
             "target_id": 3223,
@@ -10294,7 +10587,7 @@
             "type": "CONDITIONING"
           },
           {
-            "id": 6107,
+            "id": 6115,
             "origin_id": 3222,
             "origin_slot": 0,
             "target_id": 3223,
@@ -10302,7 +10595,7 @@
             "type": "LATENT"
           },
           {
-            "id": 6108,
+            "id": 6116,
             "origin_id": 3205,
             "origin_slot": 0,
             "target_id": 3224,
@@ -10310,7 +10603,7 @@
             "type": "CONDITIONING"
           },
           {
-            "id": 6109,
+            "id": 6117,
             "origin_id": 3222,
             "origin_slot": 0,
             "target_id": 3224,
@@ -10318,15 +10611,15 @@
             "type": "LATENT"
           },
           {
-            "id": 6110,
+            "id": 6118,
             "origin_id": -10,
-            "origin_slot": 5,
+            "origin_slot": 6,
             "target_id": 3230,
             "target_slot": 0,
             "type": "IMAGE"
           },
           {
-            "id": 6111,
+            "id": 6119,
             "origin_id": 3230,
             "origin_slot": 0,
             "target_id": 3231,
@@ -10334,7 +10627,7 @@
             "type": "IMAGE"
           },
           {
-            "id": 6112,
+            "id": 6120,
             "origin_id": 3203,
             "origin_slot": 0,
             "target_id": 3231,
@@ -10342,7 +10635,7 @@
             "type": "VAE"
           },
           {
-            "id": 6113,
+            "id": 6121,
             "origin_id": 3223,
             "origin_slot": 0,
             "target_id": 3232,
@@ -10350,7 +10643,7 @@
             "type": "CONDITIONING"
           },
           {
-            "id": 6114,
+            "id": 6122,
             "origin_id": 3231,
             "origin_slot": 0,
             "target_id": 3232,
@@ -10358,7 +10651,7 @@
             "type": "LATENT"
           },
           {
-            "id": 6115,
+            "id": 6123,
             "origin_id": 3224,
             "origin_slot": 0,
             "target_id": 3233,
@@ -10366,7 +10659,7 @@
             "type": "CONDITIONING"
           },
           {
-            "id": 6116,
+            "id": 6124,
             "origin_id": 3231,
             "origin_slot": 0,
             "target_id": 3233,
@@ -10374,7 +10667,7 @@
             "type": "LATENT"
           },
           {
-            "id": 6117,
+            "id": 6125,
             "origin_id": 3223,
             "origin_slot": 0,
             "target_id": 3234,
@@ -10382,7 +10675,7 @@
             "type": "CONDITIONING"
           },
           {
-            "id": 6118,
+            "id": 6126,
             "origin_id": 3232,
             "origin_slot": 0,
             "target_id": 3234,
@@ -10390,15 +10683,15 @@
             "type": "CONDITIONING"
           },
           {
-            "id": 6119,
+            "id": 6127,
             "origin_id": -10,
-            "origin_slot": 6,
+            "origin_slot": 7,
             "target_id": 3234,
             "target_slot": 2,
             "type": "BOOLEAN"
           },
           {
-            "id": 6120,
+            "id": 6128,
             "origin_id": 3224,
             "origin_slot": 0,
             "target_id": 3235,
@@ -10406,7 +10699,7 @@
             "type": "CONDITIONING"
           },
           {
-            "id": 6121,
+            "id": 6129,
             "origin_id": 3233,
             "origin_slot": 0,
             "target_id": 3235,
@@ -10414,23 +10707,23 @@
             "type": "CONDITIONING"
           },
           {
-            "id": 6122,
+            "id": 6130,
             "origin_id": -10,
-            "origin_slot": 6,
+            "origin_slot": 7,
             "target_id": 3235,
             "target_slot": 2,
             "type": "BOOLEAN"
           },
           {
-            "id": 6123,
+            "id": 6131,
             "origin_id": -10,
-            "origin_slot": 7,
+            "origin_slot": 8,
             "target_id": 3240,
             "target_slot": 0,
             "type": "IMAGE"
           },
           {
-            "id": 6124,
+            "id": 6132,
             "origin_id": 3240,
             "origin_slot": 0,
             "target_id": 3241,
@@ -10438,7 +10731,7 @@
             "type": "IMAGE"
           },
           {
-            "id": 6125,
+            "id": 6133,
             "origin_id": 3203,
             "origin_slot": 0,
             "target_id": 3241,
@@ -10446,7 +10739,7 @@
             "type": "VAE"
           },
           {
-            "id": 6126,
+            "id": 6134,
             "origin_id": 3234,
             "origin_slot": 0,
             "target_id": 3242,
@@ -10454,7 +10747,7 @@
             "type": "CONDITIONING"
           },
           {
-            "id": 6127,
+            "id": 6135,
             "origin_id": 3241,
             "origin_slot": 0,
             "target_id": 3242,
@@ -10462,7 +10755,7 @@
             "type": "LATENT"
           },
           {
-            "id": 6128,
+            "id": 6136,
             "origin_id": 3235,
             "origin_slot": 0,
             "target_id": 3243,
@@ -10470,7 +10763,7 @@
             "type": "CONDITIONING"
           },
           {
-            "id": 6129,
+            "id": 6137,
             "origin_id": 3241,
             "origin_slot": 0,
             "target_id": 3243,
@@ -10478,7 +10771,7 @@
             "type": "LATENT"
           },
           {
-            "id": 6130,
+            "id": 6138,
             "origin_id": 3234,
             "origin_slot": 0,
             "target_id": 3244,
@@ -10486,7 +10779,7 @@
             "type": "CONDITIONING"
           },
           {
-            "id": 6131,
+            "id": 6139,
             "origin_id": 3242,
             "origin_slot": 0,
             "target_id": 3244,
@@ -10494,15 +10787,15 @@
             "type": "CONDITIONING"
           },
           {
-            "id": 6132,
+            "id": 6140,
             "origin_id": -10,
-            "origin_slot": 8,
+            "origin_slot": 9,
             "target_id": 3244,
             "target_slot": 2,
             "type": "BOOLEAN"
           },
           {
-            "id": 6133,
+            "id": 6141,
             "origin_id": 3235,
             "origin_slot": 0,
             "target_id": 3245,
@@ -10510,7 +10803,7 @@
             "type": "CONDITIONING"
           },
           {
-            "id": 6134,
+            "id": 6142,
             "origin_id": 3243,
             "origin_slot": 0,
             "target_id": 3245,
@@ -10518,15 +10811,15 @@
             "type": "CONDITIONING"
           },
           {
-            "id": 6135,
+            "id": 6143,
             "origin_id": -10,
-            "origin_slot": 8,
+            "origin_slot": 9,
             "target_id": 3245,
             "target_slot": 2,
             "type": "BOOLEAN"
           },
           {
-            "id": 6136,
+            "id": 6144,
             "origin_id": 3221,
             "origin_slot": 0,
             "target_id": 3206,
@@ -10534,7 +10827,7 @@
             "type": "INT"
           },
           {
-            "id": 6137,
+            "id": 6145,
             "origin_id": 3221,
             "origin_slot": 1,
             "target_id": 3206,
@@ -10542,7 +10835,7 @@
             "type": "INT"
           },
           {
-            "id": 6138,
+            "id": 6146,
             "origin_id": 3221,
             "origin_slot": 0,
             "target_id": 3207,
@@ -10550,7 +10843,7 @@
             "type": "INT"
           },
           {
-            "id": 6139,
+            "id": 6147,
             "origin_id": 3221,
             "origin_slot": 1,
             "target_id": 3207,
@@ -10558,7 +10851,7 @@
             "type": "INT"
           },
           {
-            "id": 6140,
+            "id": 6148,
             "origin_id": 3202,
             "origin_slot": 0,
             "target_id": 3204,
@@ -10566,7 +10859,7 @@
             "type": "CLIP"
           },
           {
-            "id": 6141,
+            "id": 6149,
             "origin_id": 3202,
             "origin_slot": 0,
             "target_id": 3205,
@@ -10574,15 +10867,15 @@
             "type": "CLIP"
           },
           {
-            "id": 6142,
-            "origin_id": 3201,
+            "id": 6150,
+            "origin_id": 3253,
             "origin_slot": 0,
             "target_id": 3208,
             "target_slot": 0,
             "type": "MODEL"
           },
           {
-            "id": 6143,
+            "id": 6151,
             "origin_id": 3244,
             "origin_slot": 0,
             "target_id": 3208,
@@ -10590,7 +10883,7 @@
             "type": "CONDITIONING"
           },
           {
-            "id": 6144,
+            "id": 6152,
             "origin_id": 3245,
             "origin_slot": 0,
             "target_id": 3208,
@@ -10598,7 +10891,7 @@
             "type": "CONDITIONING"
           },
           {
-            "id": 6145,
+            "id": 6153,
             "origin_id": -10,
             "origin_slot": 4,
             "target_id": 3208,
@@ -10606,7 +10899,7 @@
             "type": "FLOAT"
           },
           {
-            "id": 6146,
+            "id": 6154,
             "origin_id": -10,
             "origin_slot": 2,
             "target_id": 3210,
@@ -10614,7 +10907,7 @@
             "type": "INT"
           },
           {
-            "id": 6147,
+            "id": 6155,
             "origin_id": -10,
             "origin_slot": 3,
             "target_id": 3207,
@@ -10622,7 +10915,7 @@
             "type": "INT"
           },
           {
-            "id": 6148,
+            "id": 6156,
             "origin_id": 3210,
             "origin_slot": 0,
             "target_id": 3211,
@@ -10630,7 +10923,7 @@
             "type": "NOISE"
           },
           {
-            "id": 6149,
+            "id": 6157,
             "origin_id": 3208,
             "origin_slot": 0,
             "target_id": 3211,
@@ -10638,7 +10931,7 @@
             "type": "GUIDER"
           },
           {
-            "id": 6150,
+            "id": 6158,
             "origin_id": 3209,
             "origin_slot": 0,
             "target_id": 3211,
@@ -10646,7 +10939,7 @@
             "type": "SAMPLER"
           },
           {
-            "id": 6151,
+            "id": 6159,
             "origin_id": 3207,
             "origin_slot": 0,
             "target_id": 3211,
@@ -10654,7 +10947,7 @@
             "type": "SIGMAS"
           },
           {
-            "id": 6152,
+            "id": 6160,
             "origin_id": 3206,
             "origin_slot": 0,
             "target_id": 3211,
@@ -10662,7 +10955,7 @@
             "type": "LATENT"
           },
           {
-            "id": 6153,
+            "id": 6161,
             "origin_id": 3211,
             "origin_slot": 0,
             "target_id": 3212,
@@ -10670,7 +10963,7 @@
             "type": "LATENT"
           },
           {
-            "id": 6154,
+            "id": 6162,
             "origin_id": 3203,
             "origin_slot": 0,
             "target_id": 3212,
@@ -10678,7 +10971,7 @@
             "type": "VAE"
           },
           {
-            "id": 6155,
+            "id": 6163,
             "origin_id": 3212,
             "origin_slot": 0,
             "target_id": -20,
