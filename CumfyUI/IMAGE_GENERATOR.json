@@ -836,16 +836,7 @@
           "link": null
         },
         {
-          "label": "LoRA (archivo)",
-          "name": "lora_name",
-          "type": "COMBO",
-          "widget": {
-            "name": "lora_name"
-          },
-          "link": null
-        },
-        {
-          "label": "LoRA · fuerza (0–100 %; rec. 50–80)",
+          "label": "LoRA RealGen V2 (0–100 %; rec. 50–80)",
           "name": "lora_pct",
           "type": "INT",
           "widget": {
@@ -885,7 +876,6 @@
         1,
         30,
         4,
-        "realgen_v2.safetensors",
         65
       ],
       "widgets_values_named": {
@@ -899,7 +889,6 @@
         "seed": 1,
         "steps": 30,
         "cfg": 4,
-        "lora_name": "realgen_v2.safetensors",
         "lora_pct": 65
       }
     },
@@ -9695,29 +9684,16 @@
             ]
           },
           {
-            "id": "image-lab-zbase-lora_name",
-            "name": "lora_name",
-            "type": "COMBO",
-            "linkIds": [
-              4725
-            ],
-            "label": "LoRA (archivo)",
-            "pos": [
-              -400,
-              569
-            ]
-          },
-          {
             "id": "image-lab-zbase-lora_pct",
             "name": "lora_pct",
             "type": "INT",
             "linkIds": [
               4782
             ],
-            "label": "LoRA · fuerza (0–100 %; rec. 50–80)",
+            "label": "LoRA RealGen V2 (0–100 %; rec. 50–80)",
             "pos": [
               -400,
-              598
+              569
             ]
           }
         ],
@@ -11165,15 +11141,6 @@
                 "link": 4779
               },
               {
-                "localized_name": "nombre_lora",
-                "name": "lora_name",
-                "type": "COMBO",
-                "widget": {
-                  "name": "lora_name"
-                },
-                "link": 4725
-              },
-              {
                 "localized_name": "fuerza_modelo",
                 "name": "strength_model",
                 "type": "FLOAT",
@@ -11193,7 +11160,7 @@
                 ]
               }
             ],
-            "title": "Z-Image Base · LoRA",
+            "title": "Z-Image Base · LoRA RealGen V2",
             "properties": {
               "Node name for S&R": "LoraLoaderModelOnly",
               "cnr_id": "comfy-core"
@@ -11242,7 +11209,7 @@
                 ]
               }
             ],
-            "title": "Control · LoRA (%)",
+            "title": "Control · LoRA RealGen V2 (%)",
             "properties": {
               "Node name for S&R": "PrimitiveInt",
               "cnr_id": "comfy-core"
@@ -11307,7 +11274,7 @@
                 "links": null
               }
             ],
-            "title": "Intensidad LoRA",
+            "title": "Intensidad LoRA RealGen V2",
             "properties": {
               "Node name for S&R": "ComfyMathExpression",
               "cnr_id": "comfy-core"
@@ -11716,24 +11683,16 @@
             "origin_id": 2372,
             "origin_slot": 0,
             "target_id": 2370,
-            "target_slot": 2,
+            "target_slot": 1,
             "type": "FLOAT"
           },
           {
             "id": 4782,
             "origin_id": -10,
-            "origin_slot": 12,
+            "origin_slot": 11,
             "target_id": 2371,
             "target_slot": 0,
             "type": "INT"
-          },
-          {
-            "id": 4725,
-            "origin_id": -10,
-            "origin_slot": 11,
-            "target_id": 2370,
-            "target_slot": 1,
-            "type": "COMBO"
           },
           {
             "id": 4774,
