@@ -720,13 +720,13 @@
       },
       "widgets_values": [
         "(sin imagen)",
-        false,
+        true,
         false,
         0
       ],
       "widgets_values_named": {
         "image": "(sin imagen)",
-        "Usar imagen inicial": false,
+        "Usar imagen inicial": true,
         "Mantener resolución original": false,
         "Transformación (%)": 0
       }
@@ -1004,13 +1004,13 @@
       },
       "widgets_values": [
         "(sin imagen)",
-        false,
+        true,
         false,
         0
       ],
       "widgets_values_named": {
         "image": "(sin imagen)",
-        "Usar imagen inicial": false,
+        "Usar imagen inicial": true,
         "Mantener resolución original": false,
         "Transformación (%)": 0
       }
