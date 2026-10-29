@@ -12,8 +12,8 @@
         120
       ],
       "size": [
-        655,
-        595
+        650.7053721984862,
+        649.3995362646484
       ],
       "flags": {},
       "order": 5,
@@ -123,8 +123,8 @@
         120
       ],
       "size": [
-        655,
-        300
+        652.1367837353516,
+        245.6005128842163
       ],
       "flags": {},
       "order": 0,
@@ -184,8 +184,8 @@
       "id": 402,
       "type": "ImageLabInitialImage",
       "pos": [
-        80,
-        470
+        85.72623593383787,
+        419.89528813232397
       ],
       "size": [
         306,
@@ -247,8 +247,8 @@
       "id": 403,
       "type": "ImageLabInitialImage",
       "pos": [
-        410,
-        470
+        412.8630196691895,
+        418.46377829772916
       ],
       "size": [
         315,
@@ -503,8 +503,8 @@
         120
       ],
       "size": [
-        360,
-        760
+        367.8221923828123,
+        650
       ],
       "flags": {},
       "order": 4,
@@ -612,8 +612,8 @@
       "id": 411,
       "type": "InpaintStitchImproved",
       "pos": [
-        1190,
-        750
+        1269.111083984375,
+        490.4444580078125
       ],
       "size": [
         301.30625,
@@ -652,8 +652,8 @@
       "id": 412,
       "type": "Note",
       "pos": [
-        80,
-        740
+        41.45077479178623,
+        850.8919031441238
       ],
       "size": [
         655,
@@ -765,8 +765,8 @@
       "bounding": [
         40,
         45,
-        1830,
-        900
+        1820.6947633948973,
+        742.6709845485841
       ],
       "color": "#426a74",
       "flags": {}
@@ -3201,14 +3201,6 @@
             "type": "INT"
           },
           {
-            "id": 18,
-            "origin_id": 110,
-            "origin_slot": 0,
-            "target_id": 111,
-            "target_slot": 1,
-            "type": "FLOAT"
-          },
-          {
             "id": 19,
             "origin_id": 111,
             "origin_slot": 0,
@@ -3305,22 +3297,6 @@
             "type": "IMAGE"
           },
           {
-            "id": 31,
-            "origin_id": 117,
-            "origin_slot": 0,
-            "target_id": 118,
-            "target_slot": 1,
-            "type": "INT"
-          },
-          {
-            "id": 32,
-            "origin_id": 117,
-            "origin_slot": 1,
-            "target_id": 118,
-            "target_slot": 2,
-            "type": "INT"
-          },
-          {
             "id": 33,
             "origin_id": 118,
             "origin_slot": 0,
@@ -3351,14 +3327,6 @@
             "target_id": 121,
             "target_slot": 0,
             "type": "IMAGE"
-          },
-          {
-            "id": 38,
-            "origin_id": 122,
-            "origin_slot": 0,
-            "target_id": 121,
-            "target_slot": 1,
-            "type": "FLOAT"
           },
           {
             "id": 39,
@@ -3441,22 +3409,6 @@
             "type": "IMAGE"
           },
           {
-            "id": 214,
-            "origin_id": 940,
-            "origin_slot": 0,
-            "target_id": 941,
-            "target_slot": 0,
-            "type": "INT"
-          },
-          {
-            "id": 215,
-            "origin_id": 940,
-            "origin_slot": 1,
-            "target_id": 941,
-            "target_slot": 1,
-            "type": "INT"
-          },
-          {
             "id": 216,
             "origin_id": 941,
             "origin_slot": 0,
@@ -3495,54 +3447,6 @@
             "target_id": 971,
             "target_slot": 0,
             "type": "IMAGE"
-          },
-          {
-            "id": 222,
-            "origin_id": -10,
-            "origin_slot": 7,
-            "target_id": 970,
-            "target_slot": 1,
-            "type": "FLOAT"
-          },
-          {
-            "id": 223,
-            "origin_id": -10,
-            "origin_slot": 8,
-            "target_id": 970,
-            "target_slot": 2,
-            "type": "INT"
-          },
-          {
-            "id": 224,
-            "origin_id": -10,
-            "origin_slot": 9,
-            "target_id": 970,
-            "target_slot": 3,
-            "type": "INT"
-          },
-          {
-            "id": 225,
-            "origin_id": -10,
-            "origin_slot": 7,
-            "target_id": 971,
-            "target_slot": 1,
-            "type": "FLOAT"
-          },
-          {
-            "id": 226,
-            "origin_id": -10,
-            "origin_slot": 8,
-            "target_id": 971,
-            "target_slot": 2,
-            "type": "INT"
-          },
-          {
-            "id": 227,
-            "origin_id": -10,
-            "origin_slot": 9,
-            "target_id": 971,
-            "target_slot": 3,
-            "type": "INT"
           },
           {
             "id": 228,
@@ -3591,6 +3495,102 @@
             "target_id": 114,
             "target_slot": 1,
             "type": "STRING"
+          },
+          {
+            "id": 18,
+            "origin_id": 110,
+            "origin_slot": 0,
+            "target_id": 111,
+            "target_slot": 1,
+            "type": "FLOAT"
+          },
+          {
+            "id": 31,
+            "origin_id": 117,
+            "origin_slot": 0,
+            "target_id": 118,
+            "target_slot": 1,
+            "type": "INT"
+          },
+          {
+            "id": 32,
+            "origin_id": 117,
+            "origin_slot": 1,
+            "target_id": 118,
+            "target_slot": 2,
+            "type": "INT"
+          },
+          {
+            "id": 38,
+            "origin_id": 122,
+            "origin_slot": 0,
+            "target_id": 121,
+            "target_slot": 1,
+            "type": "FLOAT"
+          },
+          {
+            "id": 214,
+            "origin_id": 940,
+            "origin_slot": 0,
+            "target_id": 941,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 215,
+            "origin_id": 940,
+            "origin_slot": 1,
+            "target_id": 941,
+            "target_slot": 1,
+            "type": "INT"
+          },
+          {
+            "id": 222,
+            "origin_id": -10,
+            "origin_slot": 7,
+            "target_id": 970,
+            "target_slot": 1,
+            "type": "FLOAT"
+          },
+          {
+            "id": 223,
+            "origin_id": -10,
+            "origin_slot": 8,
+            "target_id": 970,
+            "target_slot": 2,
+            "type": "INT"
+          },
+          {
+            "id": 224,
+            "origin_id": -10,
+            "origin_slot": 9,
+            "target_id": 970,
+            "target_slot": 3,
+            "type": "INT"
+          },
+          {
+            "id": 225,
+            "origin_id": -10,
+            "origin_slot": 7,
+            "target_id": 971,
+            "target_slot": 1,
+            "type": "FLOAT"
+          },
+          {
+            "id": 226,
+            "origin_id": -10,
+            "origin_slot": 8,
+            "target_id": 971,
+            "target_slot": 2,
+            "type": "INT"
+          },
+          {
+            "id": 227,
+            "origin_id": -10,
+            "origin_slot": 9,
+            "target_id": 971,
+            "target_slot": 3,
+            "type": "INT"
           },
           {
             "id": 17,
@@ -5091,10 +5091,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 1.2100000000000002,
+      "scale": 0.6830134553650709,
       "offset": [
-        12.902254437100112,
-        -232.68819533818652
+        801.6205688854781,
+        -17.854575858207507
       ]
     },
     "frontendVersion": "1.55.18",

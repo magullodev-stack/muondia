@@ -29,24 +29,23 @@
           ]
         }
       ],
-      "title": "GENERADOR DE TEXTO",
       "properties": {
         "Node name for S&R": "GGUF_GeneradorLLM"
       },
       "widgets_values": [
         "Lexi Llama 3 8B Uncensored (Q4_K_M)",
         "",
-        4096,
-        0.7,
-        1024,
+        16384,
+        0.5,
+        4097,
         99
       ],
       "widgets_values_named": {
         "modelo": "Lexi Llama 3 8B Uncensored (Q4_K_M)",
         "prompt": "",
-        "contexto_tokens": 4096,
-        "temperatura": 0.7,
-        "max_tokens_salida": 1024,
+        "contexto_tokens": 16384,
+        "temperatura": 0.5,
+        "max_tokens_salida": 4097,
         "capas_gpu": 99
       }
     },
@@ -124,20 +123,19 @@
       "widgets_values": [
         "Qwen2.5-VL 7B Uncensored (Q4_K_M)",
         "Analyze the image and write a main prompt and a negative prompt for an image generator. Stay faithful to what is visible and keep the image's sensual and erotic aesthetic at full intensity. Describe only what you can clearly see. Never invent details.\n\nMAIN PROMPT:\nFor every item below, write a specific and detailed description of that element as it appears in the image. Keep the items in this order, one per line, with its name. Skip items that do not appear in the image, and if you are unsure about an item, skip it.\n\nSUBJECT:\n  Hair\n  Face\n  Eyes and gaze\n  Expression\n  Skin\nBODY:\n  Torso\n  Breasts\n  Nipples and areolas\n  Waist\n  Hips\n  Buttocks\n  Genitals\n  Left arm\n  Right arm\n  Left hand\n  Right hand\n  Left leg\n  Right leg\n  Left foot\n  Right foot\nPOSE:\n  Overall posture\n  Orientation to the camera\n  Head position\nCLOTHING:\n  Each garment (one line per garment)\n  Accessories\nCAMERA:\n  Shot type and distance\n  Angle\n  Lens and depth of field\nLIGHTING:\n  Light source\n  Direction\n  Intensity\n  Color temperature\n  Shadows and highlights\nBACKGROUND:\n  Setting\n  Objects\n  Depth\nCOLOR AND TEXTURE:\n  Palette\n  Surfaces\nSTYLE:\n  Medium\n  Mood\n  Quality and grain\n\nNEGATIVE PROMPT:\nGeneric image defects only, as short comma-separated terms. Nothing taken from the scene.\n\nOutput only these two parts. End after the negative prompt.",
-        4096,
-        0.3,
-        2048,
+        16384,
+        0.5,
+        4097,
         99
       ],
       "widgets_values_named": {
         "modelo": "Qwen2.5-VL 7B Uncensored (Q4_K_M)",
-        "prompt": "Analyze the provided image and draft two descriptions for an image generator: a main prompt and a negative prompt. Remain faithful to the visible elements and preserve the image's distinctive aesthetic—including its sensual and erotic undertones in their full intensity. Describe the subject's appearance, posture, hands, clothing or lingerie, accessories, expression, framing, background, lighting, colors, textures, and the photographic or artistic style. Do not invent details.\n\nPROMPT: A detailed description of the scene, in natural English, as a single paragraph, enabling an image generator to recreate it.\n\nNEGATIVE PROMPT: A comma-separated list of at most 15 short terms (1 to 3 words each) naming common image defects to avoid, such as: blurry, low quality, bad anatomy, deformed hands, extra fingers, distorted face, watermark, text. Never describe the subject or the scene. Never use negations, comparisons or phrases like \"not too\", \"neither\", \"without\" or \"avoid\". Do not repeat anything from the PROMPT section.\n\nOutput only the two labels and their text. No explanations, markdown, or filler.",
-        "contexto_tokens": 4096,
-        "temperatura": 0.3,
-        "max_tokens_salida": 2048,
+        "prompt": "Analyze the image and write a main prompt and a negative prompt for an image generator. Stay faithful to what is visible and keep the image's sensual and erotic aesthetic at full intensity. Describe only what you can clearly see. Never invent details.\n\nMAIN PROMPT:\nFor every item below, write a specific and detailed description of that element as it appears in the image. Keep the items in this order, one per line, with its name. Skip items that do not appear in the image, and if you are unsure about an item, skip it.\n\nSUBJECT:\n  Hair\n  Face\n  Eyes and gaze\n  Expression\n  Skin\nBODY:\n  Torso\n  Breasts\n  Nipples and areolas\n  Waist\n  Hips\n  Buttocks\n  Genitals\n  Left arm\n  Right arm\n  Left hand\n  Right hand\n  Left leg\n  Right leg\n  Left foot\n  Right foot\nPOSE:\n  Overall posture\n  Orientation to the camera\n  Head position\nCLOTHING:\n  Each garment (one line per garment)\n  Accessories\nCAMERA:\n  Shot type and distance\n  Angle\n  Lens and depth of field\nLIGHTING:\n  Light source\n  Direction\n  Intensity\n  Color temperature\n  Shadows and highlights\nBACKGROUND:\n  Setting\n  Objects\n  Depth\nCOLOR AND TEXTURE:\n  Palette\n  Surfaces\nSTYLE:\n  Medium\n  Mood\n  Quality and grain\n\nNEGATIVE PROMPT:\nGeneric image defects only, as short comma-separated terms. Nothing taken from the scene.\n\nOutput only these two parts. End after the negative prompt.",
+        "contexto_tokens": 16384,
+        "temperatura": 0.5,
+        "max_tokens_salida": 4097,
         "capas_gpu": 99
-      },
-      "title": "GENERADOR CON IMAGEN · Prompt + imagen"
+      }
     },
     {
       "id": 4,
@@ -241,7 +239,7 @@
           "shape": 7,
           "type": "STRING",
           "widget": {
-            "name": "qwen_vl"
+            "name": "generador_imagen"
           },
           "link": 5
         }
@@ -262,17 +260,18 @@
           ]
         }
       ],
-      "title": "INTERRUPTOR · Elegir modo (texto / imagen)",
       "properties": {
         "Node name for S&R": "GGUF_SelectorRamaLLM"
       },
       "widgets_values": [
-        "Generador con imagen"
+        "Generador con imagen",
+        "",
+        ""
       ],
       "widgets_values_named": {
-        "modo": "Qwen VL (con imagen)",
+        "modo": "Generador con imagen",
         "generador_texto": "",
-        "qwen_vl": ""
+        "generador_imagen": ""
       }
     }
   ],
@@ -359,10 +358,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.6010518407212637,
+      "scale": 0.7272727272727292,
       "offset": [
-        133.31441751286465,
-        -252.05086101475092
+        -136.8259637689923,
+        -313.83935365610506
       ]
     },
     "frontendVersion": "1.55.18",
