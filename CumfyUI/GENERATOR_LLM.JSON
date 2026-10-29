@@ -157,7 +157,7 @@
     },
     {
       "id": 5,
-      "type": "LoadImage",
+      "type": "GGUF_ImagenOpcional",
       "pos": [
         80,
         900
@@ -194,20 +194,14 @@
           "links": [
             3
           ]
-        },
-        {
-          "name": "MASK",
-          "type": "MASK",
-          "links": null
         }
       ],
-      "title": "SUBE AQUÍ TU IMAGEN",
+      "title": "SUBE AQUÍ TU IMAGEN (opcional)",
       "properties": {
-        "Node name for S&R": "LoadImage",
-        "cnr_id": "comfy-core"
+        "Node name for S&R": "GGUF_ImagenOpcional"
       },
       "widgets_values": [
-        "example.png",
+        "(sin imagen)",
         "image"
       ]
     },
@@ -227,12 +221,20 @@
       "mode": 0,
       "inputs": [
         {
-          "name": "texto",
+          "name": "modo",
+          "type": "COMBO",
+          "widget": {
+            "name": "modo"
+          },
+          "link": null
+        },
+        {
+          "name": "generador_texto",
           "type": "STRING",
           "link": 4
         },
         {
-          "name": "imagen",
+          "name": "qwen_vl",
           "type": "STRING",
           "link": 5
         }
@@ -252,7 +254,7 @@
       },
       "title": "INTERRUPTOR DE FLUJO · Texto / Qwen VL",
       "widgets_values": [
-        "TEXTO · Lexi"
+        "Generador de texto"
       ]
     }
   ],
@@ -286,7 +288,7 @@
       1,
       0,
       6,
-      0,
+      1,
       "STRING"
     ],
     [
@@ -294,7 +296,7 @@
       3,
       0,
       6,
-      1,
+      2,
       "STRING"
     ]
   ],

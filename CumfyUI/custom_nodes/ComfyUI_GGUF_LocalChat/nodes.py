@@ -376,15 +376,18 @@ class GeneradorLLM:
 class SelectorRamaLLM:
     """Ejecuta solo la rama seleccionada mediante entradas lazy de ComfyUI."""
 
+    MODO_TEXTO = "Generador de texto"
+    MODO_QWEN = "Qwen VL (con imagen)"
+
     @classmethod
     def INPUT_TYPES(cls):
         return {
             "required": {
-                "modo": (["TEXTO · Lexi", "IMAGEN · Qwen VL"], {"default": "TEXTO · Lexi"}),
+                "modo": ([cls.MODO_TEXTO, cls.MODO_QWEN], {"default": cls.MODO_TEXTO}),
             },
             "optional": {
-                "texto": ("STRING", {"lazy": True}),
-                "imagen": ("STRING", {"lazy": True}),
+                "generador_texto": ("STRING", {"lazy": True}),
+                "qwen_vl": ("STRING", {"lazy": True}),
             },
         }
 
@@ -394,18 +397,58 @@ class SelectorRamaLLM:
     CATEGORY = "LLM / GGUF local"
     OUTPUT_NODE = True
 
-    def check_lazy_status(self, modo, texto=None, imagen=None):
-        if modo == "TEXTO · Lexi":
-            return ["texto"] if texto is None else []
-        if modo == "IMAGEN · Qwen VL":
-            return ["imagen"] if imagen is None else []
+    def check_lazy_status(self, modo, generador_texto=None, qwen_vl=None):
+        if modo == self.MODO_TEXTO:
+            return ["generador_texto"] if generador_texto is None else []
+        if modo == self.MODO_QWEN:
+            return ["qwen_vl"] if qwen_vl is None else []
         raise ValueError(f"Modo de ejecución desconocido: {modo!r}")
 
-    def seleccionar(self, modo, texto=None, imagen=None):
-        resultado = texto if modo == "TEXTO · Lexi" else imagen
+    def seleccionar(self, modo, generador_texto=None, qwen_vl=None):
+        resultado = generador_texto if modo == self.MODO_TEXTO else qwen_vl
         if resultado is None:
             raise RuntimeError("La rama seleccionada no devolvió una respuesta.")
         return {"ui": {"text": [resultado]}, "result": (resultado,)}
+
+
+class ImagenOpcional:
+    """Subida de imagen con la opción «(sin imagen)»: en ese caso entrega None y Qwen trabaja solo con texto."""
+
+    SIN_IMAGEN = "(sin imagen)"
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        import nodes
+        nativo = nodes.LoadImage.INPUT_TYPES()["required"]["image"]
+        imagenes = [cls.SIN_IMAGEN] + [n for n in nativo[0] if n != cls.SIN_IMAGEN]
+        return {"required": {"image": (imagenes, {"image_upload": True, "default": cls.SIN_IMAGEN})}}
+
+    RETURN_TYPES = ("IMAGE",)
+    RETURN_NAMES = ("IMAGE",)
+    FUNCTION = "cargar"
+    CATEGORY = "LLM / GGUF local"
+
+    def cargar(self, image):
+        if image in ("", self.SIN_IMAGEN):
+            return (None,)
+        import nodes
+        pixels, _mask = nodes.LoadImage().load_image(image)
+        return (pixels,)
+
+    @classmethod
+    def VALIDATE_INPUTS(cls, image):
+        # Con «(sin imagen)» no hay archivo que comprobar.
+        if image in ("", cls.SIN_IMAGEN):
+            return True
+        import nodes
+        return nodes.LoadImage.VALIDATE_INPUTS(image)
+
+    @classmethod
+    def IS_CHANGED(cls, image):
+        if image in ("", cls.SIN_IMAGEN):
+            return "sin-imagen"
+        import nodes
+        return nodes.LoadImage.IS_CHANGED(image)
 
 
 def _salir():
@@ -441,9 +484,11 @@ NODE_CLASS_MAPPINGS = {
     "GGUF_GeneradorLLM": GeneradorLLM,
     "GGUF_GeneradorQwenVL": GeneradorQwenVL,
     "GGUF_SelectorRamaLLM": SelectorRamaLLM,
+    "GGUF_ImagenOpcional": ImagenOpcional,
 }
 NODE_DISPLAY_NAME_MAPPINGS = {
     "GGUF_GeneradorLLM": "GENERADOR LLM TEXTO · Magnum / Euryale / Mistral / Lexi",
     "GGUF_GeneradorQwenVL": "GENERADOR QWEN VL ABLITERATED · Prompt + imagen",
     "GGUF_SelectorRamaLLM": "INTERRUPTOR DE FLUJO · Texto / Qwen VL",
+    "GGUF_ImagenOpcional": "SUBIR IMAGEN (opcional) · (sin imagen)",
 }
