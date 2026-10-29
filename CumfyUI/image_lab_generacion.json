@@ -647,7 +647,7 @@
           "link": null
         },
         {
-          "label": "Fondo · sensibilidad (rec. 0,5–1,5; 1 = normal)",
+          "label": "Fondo · sensibilidad (0–1; 1 = normal)",
           "name": "bg_sensibilidad",
           "shape": 7,
           "type": "FLOAT",
@@ -657,7 +657,7 @@
           "link": null
         },
         {
-          "label": "Fondo · suavizar borde (px)",
+          "label": "Fondo · suavizar borde (0–64 px)",
           "name": "bg_suavizado",
           "shape": 7,
           "type": "INT",
@@ -667,7 +667,7 @@
           "link": null
         },
         {
-          "label": "Fondo · expandir (+) o contraer (−) máscara (px)",
+          "label": "Fondo · expandir (+) o contraer (−) máscara (−20 a 20 px)",
           "name": "bg_expandir",
           "shape": 7,
           "type": "INT",
@@ -1358,7 +1358,7 @@
               222,
               225
             ],
-            "label": "Fondo · sensibilidad (rec. 0,5–1,5; 1 = normal)",
+            "label": "Fondo · sensibilidad (0–1; 1 = normal)",
             "pos": [
               70,
               558
@@ -1372,7 +1372,7 @@
               223,
               226
             ],
-            "label": "Fondo · suavizar borde (px)",
+            "label": "Fondo · suavizar borde (0–64 px)",
             "pos": [
               70,
               586
@@ -1386,7 +1386,7 @@
               224,
               227
             ],
-            "label": "Fondo · expandir (+) o contraer (−) máscara (px)",
+            "label": "Fondo · expandir (+) o contraer (−) máscara (−20 a 20 px)",
             "pos": [
               70,
               614

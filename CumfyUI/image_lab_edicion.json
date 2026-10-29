@@ -468,7 +468,7 @@
         {
           "name": "bg_sensibilidad",
           "type": "FLOAT",
-          "label": "Fondo · sensibilidad (rec. 0,5–1,5; 1 = normal)",
+          "label": "Fondo · sensibilidad (0–1; 1 = normal)",
           "link": null,
           "widget": {
             "name": "bg_sensibilidad"
@@ -477,7 +477,7 @@
         {
           "name": "bg_suavizado",
           "type": "INT",
-          "label": "Fondo · suavizar borde (px)",
+          "label": "Fondo · suavizar borde (0–64 px)",
           "link": null,
           "widget": {
             "name": "bg_suavizado"
@@ -486,7 +486,7 @@
         {
           "name": "bg_expandir",
           "type": "INT",
-          "label": "Fondo · expandir (+) o contraer (−) máscara (px)",
+          "label": "Fondo · expandir (+) o contraer (−) máscara (−20 a 20 px)",
           "link": null,
           "widget": {
             "name": "bg_expandir"
@@ -954,7 +954,7 @@
           {
             "name": "bg_sensibilidad",
             "type": "FLOAT",
-            "label": "Fondo · sensibilidad (rec. 0,5–1,5; 1 = normal)",
+            "label": "Fondo · sensibilidad (0–1; 1 = normal)",
             "id": "image-lab-bg-sensitivity",
             "linkIds": [
               222,
@@ -968,7 +968,7 @@
           {
             "name": "bg_suavizado",
             "type": "INT",
-            "label": "Fondo · suavizar borde (px)",
+            "label": "Fondo · suavizar borde (0–64 px)",
             "id": "image-lab-bg-blur",
             "linkIds": [
               223,
@@ -982,7 +982,7 @@
           {
             "name": "bg_expandir",
             "type": "INT",
-            "label": "Fondo · expandir (+) o contraer (−) máscara (px)",
+            "label": "Fondo · expandir (+) o contraer (−) máscara (−20 a 20 px)",
             "id": "image-lab-bg-offset",
             "linkIds": [
               224,
