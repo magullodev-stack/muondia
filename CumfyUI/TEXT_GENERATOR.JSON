@@ -1,4 +1,6 @@
 {
+  "id": "212a53b2-3a90-4aca-89d9-8dc6f0ef2fc6",
+  "revision": 0,
   "last_node_id": 6,
   "last_link_id": 6,
   "nodes": [
@@ -6,8 +8,8 @@
       "id": 1,
       "type": "GGUF_GeneradorLLM",
       "pos": [
-        520,
-        130
+        502.125,
+        139.62497901916504
       ],
       "size": [
         700,
@@ -21,16 +23,16 @@
         {
           "name": "respuesta",
           "type": "STRING",
+          "slot_index": 0,
           "links": [
             4
-          ],
-          "slot_index": 0
+          ]
         }
       ],
+      "title": "GENERADOR DE TEXTO · Lexi / Mistral / Magnum / Euryale",
       "properties": {
         "Node name for S&R": "GGUF_GeneradorLLM"
       },
-      "title": "GENERADOR DE TEXTO · Lexi / Mistral / Magnum / Euryale",
       "widgets_values": [
         "Lexi Llama 3 8B Uncensored (Q4_K_M)",
         "",
@@ -38,21 +40,29 @@
         0.7,
         1024,
         99
-      ]
+      ],
+      "widgets_values_named": {
+        "modelo": "Lexi Llama 3 8B Uncensored (Q4_K_M)",
+        "prompt": "",
+        "contexto_tokens": 4096,
+        "temperatura": 0.7,
+        "max_tokens_salida": 1024,
+        "capas_gpu": 99
+      }
     },
     {
       "id": 2,
       "type": "PreviewAny",
       "pos": [
-        1250,
-        130
+        1219.75,
+        145.125
       ],
       "size": [
         600,
         670
       ],
       "flags": {},
-      "order": 1,
+      "order": 4,
       "mode": 0,
       "inputs": [
         {
@@ -68,30 +78,32 @@
           "links": []
         }
       ],
+      "title": "RESPUESTA · Generador de texto",
       "properties": {
         "Node name for S&R": "PreviewAny",
         "cnr_id": "comfy-core"
       },
-      "title": "RESPUESTA · Generador de texto",
-      "widgets_values": []
+      "widgets_values": [],
+      "widgets_values_named": {}
     },
     {
       "id": 3,
       "type": "GGUF_GeneradorQwenVL",
       "pos": [
-        870,
-        970
+        861.75,
+        917.75
       ],
       "size": [
         700,
-        670
+        680.9999160766602
       ],
       "flags": {},
-      "order": 3,
+      "order": 2,
       "mode": 0,
       "inputs": [
         {
           "name": "image",
+          "shape": 7,
           "type": "IMAGE",
           "link": 3
         }
@@ -100,38 +112,45 @@
         {
           "name": "respuesta",
           "type": "STRING",
+          "slot_index": 0,
           "links": [
             5
-          ],
-          "slot_index": 0
+          ]
         }
       ],
       "properties": {
         "Node name for S&R": "GGUF_GeneradorQwenVL"
       },
-      "title": "GENERADOR QWEN VL ABLITERATED · Prompt + imagen",
       "widgets_values": [
         "Qwen2.5-VL 7B Uncensored (Q4_K_M)",
-        "Analyze the input image and write two outputs for an image generator: a main prompt and a negative prompt. Be faithful to what is visible and keep the image's distinctive aesthetic, including any sensual or erotic style when present. Describe the subject's appearance, pose, hands, clothing or lingerie, accessories, expression, framing, background, lighting, colors, textures, and photographic or artistic style. Do not invent details. Do not name or identify real people.\n\nIf the subject appears to be under 18, output only: NOT SUPPORTED\n\nPROMPT: One specific description of the scene in natural language, as a single paragraph, so an image generator can recreate it.\n\nNEGATIVE PROMPT: A short comma-separated list of visual defects and unwanted elements relevant to this image (for example anatomy errors, blur, artifacts, watermark, text).\n\nWrite both in natural English. Output only the two labels and their text. No explanations, markdown, or filler.",
+        "Analyze the input image and write two outputs for an image generator: a main prompt and a negative prompt. Be faithful to what is visible and keep the image's distinctive aesthetic, including any sensual or erotic style when present. Describe the subject's appearance, pose, hands, clothing or lingerie, accessories, expression, framing, background, lighting, colors, textures, and photographic or artistic style. Do not invent details. Do not name or identify real people.\n\nIf the subject appears to be under 18, output only: NOT SUPPORTED\n\nPROMPT: One specific description of the scene in natural language, as a single paragraph, so an image generator can recreate it.\n\nNEGATIVE PROMPT: A short comma-separated list of visual defects and unwanted elements relevant to this image (for example anatomy errors, blur, artifacts, watermark, text).",
         4096,
         0.3,
         2048,
         99
-      ]
+      ],
+      "widgets_values_named": {
+        "modelo": "Qwen2.5-VL 7B Uncensored (Q4_K_M)",
+        "prompt": "Analyze the input image and write two outputs for an image generator: a main prompt and a negative prompt. Be faithful to what is visible and keep the image's distinctive aesthetic, including any sensual or erotic style when present. Describe the subject's appearance, pose, hands, clothing or lingerie, accessories, expression, framing, background, lighting, colors, textures, and photographic or artistic style. Do not invent details. Do not name or identify real people.\n\nIf the subject appears to be under 18, output only: NOT SUPPORTED\n\nPROMPT: One specific description of the scene in natural language, as a single paragraph, so an image generator can recreate it.\n\nNEGATIVE PROMPT: A short comma-separated list of visual defects and unwanted elements relevant to this image (for example anatomy errors, blur, artifacts, watermark, text).",
+        "contexto_tokens": 4096,
+        "temperatura": 0.3,
+        "max_tokens_salida": 2048,
+        "capas_gpu": 99
+      }
     },
     {
       "id": 4,
       "type": "PreviewAny",
       "pos": [
-        1600,
-        970
+        1580.75,
+        923.25
       ],
       "size": [
         640,
         670
       ],
       "flags": {},
-      "order": 4,
+      "order": 5,
       "mode": 0,
       "inputs": [
         {
@@ -147,45 +166,29 @@
           "links": []
         }
       ],
+      "title": "RESPUESTA · Qwen VL",
       "properties": {
         "Node name for S&R": "PreviewAny",
         "cnr_id": "comfy-core"
       },
-      "title": "RESPUESTA · Qwen VL",
-      "widgets_values": []
+      "widgets_values": [],
+      "widgets_values_named": {}
     },
     {
       "id": 5,
       "type": "GGUF_ImagenOpcional",
       "pos": [
-        520,
-        970
+        511.75,
+        912.25
       ],
       "size": [
-        315,
-        314
+        337,
+        682.4999160766602
       ],
       "flags": {},
-      "order": 2,
+      "order": 1,
       "mode": 0,
-      "inputs": [
-        {
-          "name": "image",
-          "type": "COMBO",
-          "widget": {
-            "name": "image"
-          },
-          "link": null
-        },
-        {
-          "name": "upload",
-          "type": "IMAGEUPLOAD",
-          "widget": {
-            "name": "upload"
-          },
-          "link": null
-        }
-      ],
+      "inputs": [],
       "outputs": [
         {
           "name": "IMAGE",
@@ -202,39 +205,43 @@
       "widgets_values": [
         "(sin imagen)",
         "image"
-      ]
+      ],
+      "widgets_values_named": {
+        "image": "(sin imagen)",
+        "upload": "image"
+      }
     },
     {
       "id": 6,
       "type": "GGUF_SelectorRamaLLM",
       "pos": [
-        70,
-        130
+        70.87997901916503,
+        854.7488090610503
       ],
       "size": [
         360,
         190
       ],
       "flags": {},
-      "order": 5,
+      "order": 3,
       "mode": 0,
       "inputs": [
         {
-          "name": "modo",
-          "type": "COMBO",
-          "widget": {
-            "name": "modo"
-          },
-          "link": null
-        },
-        {
           "name": "generador_texto",
+          "shape": 7,
           "type": "STRING",
+          "widget": {
+            "name": "generador_texto"
+          },
           "link": 4
         },
         {
           "name": "qwen_vl",
+          "shape": 7,
           "type": "STRING",
+          "widget": {
+            "name": "qwen_vl"
+          },
           "link": 5
         }
       ],
@@ -254,13 +261,20 @@
           ]
         }
       ],
+      "title": "INTERRUPTOR · Elegir modo (texto / Qwen VL)",
       "properties": {
         "Node name for S&R": "GGUF_SelectorRamaLLM"
       },
-      "title": "INTERRUPTOR · Elegir modo (texto / Qwen VL)",
       "widgets_values": [
-        "Generador de texto"
-      ]
+        "Qwen VL (con imagen)",
+        "",
+        ""
+      ],
+      "widgets_values_named": {
+        "modo": "Qwen VL (con imagen)",
+        "generador_texto": "",
+        "qwen_vl": ""
+      }
     }
   ],
   "links": [
@@ -285,7 +299,7 @@
       1,
       0,
       6,
-      1,
+      0,
       "STRING"
     ],
     [
@@ -293,7 +307,7 @@
       3,
       0,
       6,
-      2,
+      1,
       "STRING"
     ],
     [
@@ -310,8 +324,8 @@
       "id": 1,
       "title": "01 · ELEGIR MODO",
       "bounding": [
-        40,
-        60,
+        40.879979019165035,
+        784.7488090610507,
         420,
         290
       ],
@@ -324,8 +338,8 @@
       "bounding": [
         490,
         60,
-        1390,
-        790
+        1348.75,
+        765.25
       ],
       "color": "#426a74",
       "flags": {}
@@ -334,10 +348,10 @@
       "id": 3,
       "title": "03 · QWEN VL · PROMPT + IMAGEN",
       "bounding": [
-        490,
-        900,
-        1780,
-        790
+        494.125,
+        842.25,
+        1748.375,
+        769.375
       ],
       "color": "#6b6653",
       "flags": {}
@@ -346,12 +360,17 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.8,
+      "scale": 0.6010518407212624,
       "offset": [
-        120,
-        70
+        398.0253443604434,
+        35.409131113879624
       ]
-    }
+    },
+    "frontendVersion": "1.55.18",
+    "VHS_latentpreview": false,
+    "VHS_latentpreviewrate": 0,
+    "VHS_MetadataImage": true,
+    "VHS_KeepIntermediate": true
   },
   "version": 0.4
 }
