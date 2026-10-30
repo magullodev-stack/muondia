@@ -1536,6 +1536,15 @@
           "link": null
         },
         {
+          "label": "RefControl · fuerza del LoRA (0–1.5)",
+          "name": "lora_strength",
+          "type": "FLOAT",
+          "link": null,
+          "widget": {
+            "name": "lora_strength"
+          }
+        },
+        {
           "label": "Referencia 1",
           "name": "ref1",
           "type": "IMAGE",
@@ -1586,6 +1595,7 @@
         20,
         5,
         true,
+        0.9,
         false,
         false
       ],
@@ -1596,7 +1606,8 @@
         "cfg": 5,
         "use_depth": true,
         "ref1_enabled": false,
-        "ref2_enabled": false
+        "ref2_enabled": false,
+        "lora_strength": 0.9
       }
     }
   ],
@@ -1782,7 +1793,7 @@
       442,
       0,
       440,
-      6,
+      7,
       "IMAGE"
     ],
     [
@@ -1790,7 +1801,7 @@
       442,
       2,
       440,
-      7,
+      8,
       "BOOLEAN"
     ],
     [
@@ -1798,7 +1809,7 @@
       443,
       0,
       440,
-      8,
+      9,
       "IMAGE"
     ],
     [
@@ -1806,7 +1817,7 @@
       443,
       2,
       440,
-      9,
+      10,
       "BOOLEAN"
     ],
     [
@@ -8774,7 +8785,7 @@
         "state": {
           "lastGroupId": 14,
           "lastNodeId": 3253,
-          "lastLinkId": 6163,
+          "lastLinkId": 6164,
           "lastRerouteId": 0
         },
         "revision": 1,
@@ -8880,6 +8891,19 @@
             ]
           },
           {
+            "id": "6d5aab95-ef78-47be-97dd-1b56afbd14f0",
+            "name": "lora_strength",
+            "type": "FLOAT",
+            "linkIds": [
+              6164
+            ],
+            "label": "RefControl · fuerza del LoRA (0–1.5)",
+            "pos": [
+              -290,
+              512
+            ]
+          },
+          {
             "id": "9b4b6a8d-7f4b-441f-ba79-7c8c94fdd891",
             "name": "ref1",
             "type": "IMAGE",
@@ -8889,7 +8913,7 @@
             "label": "Referencia 1",
             "pos": [
               -290,
-              512
+              544
             ]
           },
           {
@@ -8903,7 +8927,7 @@
             "label": "Usar referencia 1",
             "pos": [
               -290,
-              544
+              576
             ]
           },
           {
@@ -8916,7 +8940,7 @@
             "label": "Referencia 2",
             "pos": [
               -290,
-              576
+              608
             ]
           },
           {
@@ -8930,7 +8954,7 @@
             "label": "Usar referencia 2",
             "pos": [
               -290,
-              608
+              640
             ]
           }
         ],
@@ -10427,6 +10451,14 @@
                 "name": "model",
                 "type": "MODEL",
                 "link": 6109
+              },
+              {
+                "name": "strength_model",
+                "type": "FLOAT",
+                "widget": {
+                  "name": "strength_model"
+                },
+                "link": 6164
               }
             ],
             "outputs": [
@@ -10800,7 +10832,7 @@
           {
             "id": 6118,
             "origin_id": -10,
-            "origin_slot": 6,
+            "origin_slot": 7,
             "target_id": 3230,
             "target_slot": 0,
             "type": "IMAGE"
@@ -10872,7 +10904,7 @@
           {
             "id": 6127,
             "origin_id": -10,
-            "origin_slot": 7,
+            "origin_slot": 8,
             "target_id": 3234,
             "target_slot": 2,
             "type": "BOOLEAN"
@@ -10896,7 +10928,7 @@
           {
             "id": 6130,
             "origin_id": -10,
-            "origin_slot": 7,
+            "origin_slot": 8,
             "target_id": 3235,
             "target_slot": 2,
             "type": "BOOLEAN"
@@ -10904,7 +10936,7 @@
           {
             "id": 6131,
             "origin_id": -10,
-            "origin_slot": 8,
+            "origin_slot": 9,
             "target_id": 3240,
             "target_slot": 0,
             "type": "IMAGE"
@@ -10976,7 +11008,7 @@
           {
             "id": 6140,
             "origin_id": -10,
-            "origin_slot": 9,
+            "origin_slot": 10,
             "target_id": 3244,
             "target_slot": 2,
             "type": "BOOLEAN"
@@ -11000,7 +11032,7 @@
           {
             "id": 6143,
             "origin_id": -10,
-            "origin_slot": 9,
+            "origin_slot": 10,
             "target_id": 3245,
             "target_slot": 2,
             "type": "BOOLEAN"
@@ -11164,6 +11196,14 @@
             "target_id": -20,
             "target_slot": 0,
             "type": "IMAGE"
+          },
+          {
+            "id": 6164,
+            "origin_id": -10,
+            "origin_slot": 6,
+            "target_id": 3250,
+            "target_slot": 1,
+            "type": "FLOAT"
           }
         ],
         "extra": {
