@@ -193,6 +193,7 @@ class ImageLabLoadImage:
 
     EMPTY_IMAGE = "(sin imagen)"
     USE_IMAGE = "Usar imagen"
+    FLATTEN = "Rellenar transparencia con blanco"
 
     @classmethod
     def INPUT_TYPES(cls):
@@ -202,6 +203,7 @@ class ImageLabLoadImage:
         return {"required": {
             "image": (images, {"image_upload": True, "default": cls.EMPTY_IMAGE}),
             cls.USE_IMAGE: ("BOOLEAN", {"default": False}),
+            cls.FLATTEN: ("BOOLEAN", {"default": False}),
         }}
 
     RETURN_TYPES = ("IMAGE", "MASK", "BOOLEAN")
@@ -215,6 +217,11 @@ class ImageLabLoadImage:
             if image in ("", self.EMPTY_IMAGE):
                 raise ValueError("Image Lab: elige una foto o desactiva 'Usar imagen'.")
             pixels, mask = nodes.LoadImage().load_image(image)
+            if bool(settings.get(self.FLATTEN, False)) and mask.shape[-2:] == pixels.shape[1:3]:
+                # LoadImage descarta el canal alfa y conserva los colores ocultos bajo lo transparente.
+                # mask = 1 - alfa, así que lo transparente (mask = 1) pasa a blanco.
+                m = mask.reshape(mask.shape[0], mask.shape[-2], mask.shape[-1], 1)
+                pixels = pixels * (1.0 - m) + m
         else:
             pixels = torch.zeros((1, 64, 64, 3), dtype=torch.float32)
             mask = torch.zeros((1, 64, 64), dtype=torch.float32)

@@ -571,7 +571,7 @@
       ],
       "size": [
         460,
-        400
+        410
       ],
       "flags": {},
       "order": 2,
@@ -605,11 +605,13 @@
       "widgets_values": [
         "(sin imagen)",
         true,
+        false,
         "image"
       ],
       "widgets_values_named": {
         "image": "(sin imagen)",
         "Usar imagen": true,
+        "Rellenar transparencia con blanco": false,
         "upload": "image"
       }
     },
@@ -1117,7 +1119,7 @@
       ],
       "size": [
         540,
-        358
+        410
       ],
       "flags": {},
       "order": 6,
@@ -1149,11 +1151,13 @@
       "widgets_values": [
         "(sin imagen)",
         false,
+        false,
         "image"
       ],
       "widgets_values_named": {
         "image": "(sin imagen)",
         "Usar imagen": false,
+        "Rellenar transparencia con blanco": false,
         "upload": "image"
       }
     },
@@ -1166,7 +1170,7 @@
       ],
       "size": [
         540,
-        358
+        410
       ],
       "flags": {},
       "order": 7,
@@ -1198,11 +1202,13 @@
       "widgets_values": [
         "(sin imagen)",
         false,
+        false,
         "image"
       ],
       "widgets_values_named": {
         "image": "(sin imagen)",
         "Usar imagen": false,
+        "Rellenar transparencia con blanco": false,
         "upload": "image"
       }
     },
@@ -1215,7 +1221,7 @@
       ],
       "size": [
         529.2632339007569,
-        351.42107796691926
+        410
       ],
       "flags": {},
       "order": 8,
@@ -1247,11 +1253,13 @@
       "widgets_values": [
         "(sin imagen)",
         false,
+        false,
         "image"
       ],
       "widgets_values_named": {
         "image": "(sin imagen)",
         "Usar imagen": false,
+        "Rellenar transparencia con blanco": false,
         "upload": "image"
       }
     },
@@ -1299,7 +1307,7 @@
       ],
       "size": [
         545.3777941894532,
-        370.54813720703123
+        410
       ],
       "flags": {},
       "order": 10,
@@ -1333,11 +1341,13 @@
       "widgets_values": [
         "(sin imagen)",
         false,
+        true,
         "image"
       ],
       "widgets_values_named": {
         "image": "(sin imagen)",
         "Usar imagen": false,
+        "Rellenar transparencia con blanco": true,
         "upload": "image"
       }
     },
@@ -1350,7 +1360,7 @@
       ],
       "size": [
         522.2713929870611,
-        370
+        410
       ],
       "flags": {},
       "order": 11,
@@ -1384,11 +1394,13 @@
       "widgets_values": [
         "(sin imagen)",
         false,
+        true,
         "image"
       ],
       "widgets_values_named": {
         "image": "(sin imagen)",
         "Usar imagen": false,
+        "Rellenar transparencia con blanco": true,
         "upload": "image"
       }
     },
