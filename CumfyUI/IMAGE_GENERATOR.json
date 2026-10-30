@@ -1279,77 +1279,7 @@
           ]
         }
       ],
-      "title": "ESCENA · FLUX.2",
-      "properties": {
-        "Node name for S&R": "PrimitiveStringMultiline"
-      },
-      "widgets_values": [
-        ""
-      ],
-      "widgets_values_named": {
-        "value": ""
-      }
-    },
-    {
-      "id": 2404,
-      "type": "PrimitiveStringMultiline",
-      "pos": [
-        2090,
-        540
-      ],
-      "size": [
-        540,
-        220
-      ],
-      "flags": {},
-      "order": 2404,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "STRING",
-          "type": "STRING",
-          "links": [
-            4823
-          ]
-        }
-      ],
-      "title": "PERSPECTIVA Y CÁMARA · FLUX.2",
-      "properties": {
-        "Node name for S&R": "PrimitiveStringMultiline"
-      },
-      "widgets_values": [
-        ""
-      ],
-      "widgets_values_named": {
-        "value": ""
-      }
-    },
-    {
-      "id": 2405,
-      "type": "PrimitiveStringMultiline",
-      "pos": [
-        2090,
-        790
-      ],
-      "size": [
-        540,
-        220
-      ],
-      "flags": {},
-      "order": 2405,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "STRING",
-          "type": "STRING",
-          "links": [
-            4824
-          ]
-        }
-      ],
-      "title": "LUZ Y SOMBRAS · FLUX.2",
+      "title": "PROMPT · FLUX.2",
       "properties": {
         "Node name for S&R": "PrimitiveStringMultiline"
       },
@@ -1478,30 +1408,12 @@
       "mode": 0,
       "inputs": [
         {
-          "label": "Escena",
-          "name": "scene",
+          "label": "Prompt",
+          "name": "prompt",
           "type": "STRING",
           "link": 4822,
           "widget": {
             "name": "scene"
-          }
-        },
-        {
-          "label": "Perspectiva y cámara",
-          "name": "perspective",
-          "type": "STRING",
-          "link": 4823,
-          "widget": {
-            "name": "perspective"
-          }
-        },
-        {
-          "label": "Luz y sombras",
-          "name": "light",
-          "type": "STRING",
-          "link": 4824,
-          "widget": {
-            "name": "light"
           }
         },
         {
@@ -1595,8 +1507,6 @@
       },
       "widgets_values": [
         "",
-        "",
-        "",
         1024,
         1024,
         123456789,
@@ -1606,9 +1516,7 @@
         false
       ],
       "widgets_values_named": {
-        "scene": "",
-        "perspective": "",
-        "light": "",
+        "prompt": "",
         "width": 1024,
         "height": 1024,
         "seed": 123456789,
@@ -1805,27 +1713,11 @@
       "STRING"
     ],
     [
-      4823,
-      2404,
-      0,
-      2400,
-      1,
-      "STRING"
-    ],
-    [
-      4824,
-      2405,
-      0,
-      2400,
-      2,
-      "STRING"
-    ],
-    [
       4825,
       2401,
       0,
       2400,
-      8,
+      6,
       "IMAGE"
     ],
     [
@@ -1833,7 +1725,7 @@
       2401,
       2,
       2400,
-      9,
+      7,
       "BOOLEAN"
     ],
     [
@@ -1841,7 +1733,7 @@
       2402,
       0,
       2400,
-      10,
+      8,
       "IMAGE"
     ],
     [
@@ -1849,7 +1741,7 @@
       2402,
       2,
       2400,
-      11,
+      9,
       "BOOLEAN"
     ],
     [
@@ -1960,7 +1852,7 @@
     },
     {
       "id": 40,
-      "title": "06 · FLUX.2 Klein 9B (escena / perspectiva / luz + referencias)",
+      "title": "06 · FLUX.2 Klein 9B (prompt + referencias)",
       "bounding": [
         2070,
         56,
@@ -13835,8 +13727,8 @@
         },
         "revision": 1,
         "config": {},
-        "name": "FLUX.2 Klein 9B · Generación · escena, perspectiva y luz",
-        "description": "Genera con FLUX.2 Klein 9B base. El prompt se compone de tres apartados (escena, perspectiva y cámara, luz y sombras) y admite hasta 2 imágenes de referencia opcionales.",
+        "name": "FLUX.2 Klein 9B · Generación · prompt y referencias",
+        "description": "Genera con FLUX.2 Klein 9B base a partir de un único prompt y hasta 2 imágenes de referencia opcionales.",
         "inputNode": {
           "id": -10,
           "bounding": [
@@ -13858,41 +13750,15 @@
         "inputs": [
           {
             "id": "0f8e69f7-b094-471c-b02c-f0cac65ee7b2",
-            "name": "scene",
+            "name": "prompt",
             "type": "STRING",
             "linkIds": [
               6001
             ],
-            "label": "Escena",
+            "label": "Prompt",
             "pos": [
               -290,
               320
-            ]
-          },
-          {
-            "id": "2114a703-9d33-4cf2-8bd1-b74ebbda9608",
-            "name": "perspective",
-            "type": "STRING",
-            "linkIds": [
-              6002
-            ],
-            "label": "Perspectiva y cámara",
-            "pos": [
-              -290,
-              352
-            ]
-          },
-          {
-            "id": "9fc35ce9-fcdb-4495-b271-03c398062248",
-            "name": "light",
-            "type": "STRING",
-            "linkIds": [
-              6004
-            ],
-            "label": "Luz y sombras",
-            "pos": [
-              -290,
-              384
             ]
           },
           {
@@ -13906,7 +13772,7 @@
             "label": "Ancho (512–2048 px)",
             "pos": [
               -290,
-              416
+              352
             ]
           },
           {
@@ -13920,7 +13786,7 @@
             "label": "Alto (512–2048 px)",
             "pos": [
               -290,
-              448
+              384
             ]
           },
           {
@@ -13933,7 +13799,7 @@
             "label": "Semilla",
             "pos": [
               -290,
-              480
+              416
             ]
           },
           {
@@ -13946,7 +13812,7 @@
             "label": "Pasos (20–50)",
             "pos": [
               -290,
-              512
+              448
             ]
           },
           {
@@ -13959,7 +13825,7 @@
             "label": "CFG (4–5)",
             "pos": [
               -290,
-              544
+              480
             ]
           },
           {
@@ -13972,7 +13838,7 @@
             "label": "Referencia 1",
             "pos": [
               -290,
-              576
+              512
             ]
           },
           {
@@ -13986,7 +13852,7 @@
             "label": "Usar referencia 1",
             "pos": [
               -290,
-              608
+              544
             ]
           },
           {
@@ -13999,7 +13865,7 @@
             "label": "Referencia 2",
             "pos": [
               -290,
-              640
+              576
             ]
           },
           {
@@ -14013,7 +13879,7 @@
             "label": "Usar referencia 2",
             "pos": [
               -290,
-              672
+              608
             ]
           }
         ],
@@ -14173,7 +14039,7 @@
               {
                 "name": "text",
                 "type": "STRING",
-                "link": 6005,
+                "link": 6001,
                 "widget": {
                   "name": "text"
                 }
@@ -14611,136 +14477,6 @@
               "Node name for S&R": "VAEDecode",
               "cnr_id": "comfy-core"
             }
-          },
-          {
-            "id": 3120,
-            "type": "StringConcatenate",
-            "pos": [
-              -170,
-              420
-            ],
-            "size": [
-              300,
-              120
-            ],
-            "flags": {},
-            "order": 3120,
-            "mode": 0,
-            "inputs": [
-              {
-                "name": "string_a",
-                "type": "STRING",
-                "link": 6001,
-                "widget": {
-                  "name": "string_a"
-                }
-              },
-              {
-                "name": "string_b",
-                "type": "STRING",
-                "link": 6002,
-                "widget": {
-                  "name": "string_b"
-                }
-              },
-              {
-                "name": "delimiter",
-                "type": "STRING",
-                "link": null,
-                "widget": {
-                  "name": "delimiter"
-                }
-              }
-            ],
-            "outputs": [
-              {
-                "name": "STRING",
-                "type": "STRING",
-                "links": [
-                  6003
-                ]
-              }
-            ],
-            "properties": {
-              "Node name for S&R": "StringConcatenate",
-              "cnr_id": "comfy-core"
-            },
-            "widgets_values": [
-              "",
-              "",
-              "\n\n"
-            ],
-            "widgets_values_named": {
-              "string_a": "",
-              "string_b": "",
-              "delimiter": "\n\n"
-            },
-            "title": "Unir escena + perspectiva"
-          },
-          {
-            "id": 3121,
-            "type": "StringConcatenate",
-            "pos": [
-              -170,
-              580
-            ],
-            "size": [
-              300,
-              120
-            ],
-            "flags": {},
-            "order": 3121,
-            "mode": 0,
-            "inputs": [
-              {
-                "name": "string_a",
-                "type": "STRING",
-                "link": 6003,
-                "widget": {
-                  "name": "string_a"
-                }
-              },
-              {
-                "name": "string_b",
-                "type": "STRING",
-                "link": 6004,
-                "widget": {
-                  "name": "string_b"
-                }
-              },
-              {
-                "name": "delimiter",
-                "type": "STRING",
-                "link": null,
-                "widget": {
-                  "name": "delimiter"
-                }
-              }
-            ],
-            "outputs": [
-              {
-                "name": "STRING",
-                "type": "STRING",
-                "links": [
-                  6005
-                ]
-              }
-            ],
-            "properties": {
-              "Node name for S&R": "StringConcatenate",
-              "cnr_id": "comfy-core"
-            },
-            "widgets_values": [
-              "",
-              "",
-              "\n\n"
-            ],
-            "widgets_values_named": {
-              "string_a": "",
-              "string_b": "",
-              "delimiter": "\n\n"
-            },
-            "title": "Unir + luz y sombras"
           },
           {
             "id": 3130,
@@ -15332,7 +15068,7 @@
           },
           {
             "id": 2,
-            "title": "Prompt compuesto",
+            "title": "Prompt",
             "bounding": [
               -190,
               380,
@@ -15357,49 +15093,9 @@
         ],
         "links": [
           {
-            "id": 6001,
-            "origin_id": -10,
-            "origin_slot": 0,
-            "target_id": 3120,
-            "target_slot": 0,
-            "type": "STRING"
-          },
-          {
-            "id": 6002,
-            "origin_id": -10,
-            "origin_slot": 1,
-            "target_id": 3120,
-            "target_slot": 1,
-            "type": "STRING"
-          },
-          {
-            "id": 6003,
-            "origin_id": 3120,
-            "origin_slot": 0,
-            "target_id": 3121,
-            "target_slot": 0,
-            "type": "STRING"
-          },
-          {
-            "id": 6004,
-            "origin_id": -10,
-            "origin_slot": 2,
-            "target_id": 3121,
-            "target_slot": 1,
-            "type": "STRING"
-          },
-          {
-            "id": 6005,
-            "origin_id": 3121,
-            "origin_slot": 0,
-            "target_id": 3104,
-            "target_slot": 1,
-            "type": "STRING"
-          },
-          {
             "id": 6006,
             "origin_id": -10,
-            "origin_slot": 8,
+            "origin_slot": 6,
             "target_id": 3130,
             "target_slot": 0,
             "type": "IMAGE"
@@ -15471,7 +15167,7 @@
           {
             "id": 6015,
             "origin_id": -10,
-            "origin_slot": 9,
+            "origin_slot": 7,
             "target_id": 3134,
             "target_slot": 2,
             "type": "BOOLEAN"
@@ -15495,7 +15191,7 @@
           {
             "id": 6018,
             "origin_id": -10,
-            "origin_slot": 9,
+            "origin_slot": 7,
             "target_id": 3135,
             "target_slot": 2,
             "type": "BOOLEAN"
@@ -15503,7 +15199,7 @@
           {
             "id": 6019,
             "origin_id": -10,
-            "origin_slot": 10,
+            "origin_slot": 8,
             "target_id": 3140,
             "target_slot": 0,
             "type": "IMAGE"
@@ -15575,7 +15271,7 @@
           {
             "id": 6028,
             "origin_id": -10,
-            "origin_slot": 11,
+            "origin_slot": 9,
             "target_id": 3144,
             "target_slot": 2,
             "type": "BOOLEAN"
@@ -15599,7 +15295,7 @@
           {
             "id": 6031,
             "origin_id": -10,
-            "origin_slot": 11,
+            "origin_slot": 9,
             "target_id": 3145,
             "target_slot": 2,
             "type": "BOOLEAN"
@@ -15607,7 +15303,7 @@
           {
             "id": 6032,
             "origin_id": -10,
-            "origin_slot": 3,
+            "origin_slot": 1,
             "target_id": 3106,
             "target_slot": 0,
             "type": "INT"
@@ -15615,7 +15311,7 @@
           {
             "id": 6033,
             "origin_id": -10,
-            "origin_slot": 4,
+            "origin_slot": 2,
             "target_id": 3106,
             "target_slot": 1,
             "type": "INT"
@@ -15623,7 +15319,7 @@
           {
             "id": 6034,
             "origin_id": -10,
-            "origin_slot": 3,
+            "origin_slot": 1,
             "target_id": 3107,
             "target_slot": 1,
             "type": "INT"
@@ -15631,7 +15327,7 @@
           {
             "id": 6035,
             "origin_id": -10,
-            "origin_slot": 4,
+            "origin_slot": 2,
             "target_id": 3107,
             "target_slot": 2,
             "type": "INT"
@@ -15679,7 +15375,7 @@
           {
             "id": 6041,
             "origin_id": -10,
-            "origin_slot": 7,
+            "origin_slot": 5,
             "target_id": 3108,
             "target_slot": 3,
             "type": "FLOAT"
@@ -15687,7 +15383,7 @@
           {
             "id": 6042,
             "origin_id": -10,
-            "origin_slot": 5,
+            "origin_slot": 3,
             "target_id": 3110,
             "target_slot": 0,
             "type": "INT"
@@ -15695,7 +15391,7 @@
           {
             "id": 6043,
             "origin_id": -10,
-            "origin_slot": 6,
+            "origin_slot": 4,
             "target_id": 3107,
             "target_slot": 0,
             "type": "INT"
@@ -15763,6 +15459,14 @@
             "target_id": -20,
             "target_slot": 0,
             "type": "IMAGE"
+          },
+          {
+            "id": 6001,
+            "origin_id": -10,
+            "origin_slot": 0,
+            "target_id": 3104,
+            "target_slot": 1,
+            "type": "STRING"
           }
         ],
         "extra": {
