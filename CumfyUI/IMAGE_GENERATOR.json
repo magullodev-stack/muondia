@@ -548,14 +548,14 @@
         "Node name for S&R": "ImageLabInitialImage"
       },
       "widgets_values": [
-        "WhatsApp Image 2026-10-20 at 23.49.00 (1).jpeg",
+        "(sin imagen)",
         false,
         false,
         0,
         "image"
       ],
       "widgets_values_named": {
-        "image": "WhatsApp Image 2026-10-20 at 23.49.00 (1).jpeg",
+        "image": "(sin imagen)",
         "Usar imagen inicial": false,
         "Mantener resolución original": false,
         "Transformación (%)": 0,
@@ -1024,14 +1024,14 @@
         "Node name for S&R": "ImageLabInitialImage"
       },
       "widgets_values": [
-        "WhatsApp Image 2026-10-20 at 23.48.58.jpeg",
+        "(sin imagen)",
         false,
         false,
         0,
         "image"
       ],
       "widgets_values_named": {
-        "image": "WhatsApp Image 2026-10-20 at 23.48.58.jpeg",
+        "image": "(sin imagen)",
         "Usar imagen inicial": false,
         "Mantener resolución original": false,
         "Transformación (%)": 0,
@@ -1196,12 +1196,12 @@
         "Node name for S&R": "ImageLabLoadImage"
       },
       "widgets_values": [
-        "WhatsApp Image 2026-10-20 at 23.48.59 (1).jpeg",
+        "(sin imagen)",
         false,
         "image"
       ],
       "widgets_values_named": {
-        "image": "WhatsApp Image 2026-10-20 at 23.48.59 (1).jpeg",
+        "image": "(sin imagen)",
         "Usar imagen": false,
         "upload": "image"
       }
@@ -15580,10 +15580,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.2896643797366881,
+      "scale": 0.23939204936916386,
       "offset": [
-        1129.247931980384,
-        313.14138801000627
+        1135.3358336935007,
+        373.700319223693
       ]
     },
     "frontendVersion": "1.55.18",
