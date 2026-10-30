@@ -187,6 +187,54 @@ class ImageLabInitialImage:
         return nodes.LoadImage.IS_CHANGED(image)
 
 
+class ImageLabLoadImage:
+    """Subida de imagen sencilla: archivo + interruptor «Usar imagen».
+    Misma lógica que ImageLabInitialImage, sin los controles de img2img."""
+
+    EMPTY_IMAGE = "(sin imagen)"
+    USE_IMAGE = "Usar imagen"
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        native_image = nodes.LoadImage.INPUT_TYPES()["required"]["image"]
+        images = [cls.EMPTY_IMAGE]
+        images.extend(name for name in native_image[0] if name != cls.EMPTY_IMAGE)
+        return {"required": {
+            "image": (images, {"image_upload": True, "default": cls.EMPTY_IMAGE}),
+            cls.USE_IMAGE: ("BOOLEAN", {"default": False}),
+        }}
+
+    RETURN_TYPES = ("IMAGE", "MASK", "BOOLEAN")
+    RETURN_NAMES = ("IMAGE", "MASK", "usar_imagen")
+    FUNCTION = "load_with_settings"
+    CATEGORY = "Image Lab"
+
+    def load_with_settings(self, image, **settings):
+        use_image = bool(settings[self.USE_IMAGE])
+        if use_image:
+            if image in ("", self.EMPTY_IMAGE):
+                raise ValueError("Image Lab: elige una foto o desactiva 'Usar imagen'.")
+            pixels, mask = nodes.LoadImage().load_image(image)
+        else:
+            pixels = torch.zeros((1, 64, 64, 3), dtype=torch.float32)
+            mask = torch.zeros((1, 64, 64), dtype=torch.float32)
+        return (pixels, mask, use_image)
+
+    @classmethod
+    def VALIDATE_INPUTS(cls, image, **settings):
+        if image in ("", cls.EMPTY_IMAGE):
+            return True
+        return nodes.LoadImage.VALIDATE_INPUTS(image)
+
+    @classmethod
+    def IS_CHANGED(cls, image, **settings):
+        if not settings.get(cls.USE_IMAGE, False):
+            return "imagen-desactivada"
+        if image in ("", cls.EMPTY_IMAGE):
+            return "imagen-no-seleccionada"
+        return nodes.LoadImage.IS_CHANGED(image)
+
+
 NODE_CLASS_MAPPINGS = {
     "ImageLabSourceSelector": ImageLabSourceSelector,
     "ImageLabSourceSelectorGeneracion": ImageLabSourceSelectorGeneracion,
@@ -194,6 +242,7 @@ NODE_CLASS_MAPPINGS = {
     "ImageLabBackgroundSelector": ImageLabBackgroundSelector,
     "ImageLabFilenamePrefix": ImageLabFilenamePrefix,
     "ImageLabInitialImage": ImageLabInitialImage,
+    "ImageLabLoadImage": ImageLabLoadImage,
 }
 NODE_DISPLAY_NAME_MAPPINGS = {
     "ImageLabSourceSelector": "Image Lab · Fuente",
@@ -202,4 +251,5 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "ImageLabBackgroundSelector": "Image Lab · Método de fondo",
     "ImageLabFilenamePrefix": "Image Lab · Nombre de archivo",
     "ImageLabInitialImage": "Image Lab · Imagen inicial",
+    "ImageLabLoadImage": "Image Lab · Cargar imagen",
 }

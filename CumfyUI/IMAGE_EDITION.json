@@ -117,14 +117,14 @@
     },
     {
       "id": 401,
-      "type": "ImageLabInitialImage",
+      "type": "ImageLabLoadImage",
       "pos": [
         -191.72420799402647,
         139.07070489644636
       ],
       "size": [
         652.1367837353516,
-        446
+        400
       ],
       "flags": {},
       "order": 0,
@@ -146,50 +146,36 @@
           ]
         },
         {
-          "name": "usar_imagen_inicial",
+          "name": "usar_imagen",
           "type": "BOOLEAN",
-          "links": []
-        },
-        {
-          "name": "mantener_resolucion",
-          "type": "BOOLEAN",
-          "links": []
-        },
-        {
-          "name": "transformacion_pct",
-          "type": "INT",
           "links": []
         }
       ],
       "title": "Imagen principal · Qwen (pinta la máscara aquí)",
       "properties": {
-        "Node name for S&R": "ImageLabInitialImage"
+        "Node name for S&R": "ImageLabLoadImage"
       },
       "widgets_values": [
         "(sin imagen)",
         true,
-        false,
-        0,
         "image"
       ],
       "widgets_values_named": {
         "image": "(sin imagen)",
-        "Usar imagen inicial": true,
-        "Mantener resolución original": false,
-        "Transformación (%)": 0,
+        "Usar imagen": true,
         "upload": "image"
       }
     },
     {
       "id": 402,
-      "type": "ImageLabInitialImage",
+      "type": "ImageLabLoadImage",
       "pos": [
         482.55156269003834,
         142.46106459298764
       ],
       "size": [
         306,
-        446
+        400
       ],
       "flags": {},
       "order": 1,
@@ -209,50 +195,36 @@
           "links": []
         },
         {
-          "name": "usar_imagen_inicial",
+          "name": "usar_imagen",
           "type": "BOOLEAN",
-          "links": []
-        },
-        {
-          "name": "mantener_resolucion",
-          "type": "BOOLEAN",
-          "links": []
-        },
-        {
-          "name": "transformacion_pct",
-          "type": "INT",
           "links": []
         }
       ],
       "title": "Referencia 2 · Qwen",
       "properties": {
-        "Node name for S&R": "ImageLabInitialImage"
+        "Node name for S&R": "ImageLabLoadImage"
       },
       "widgets_values": [
         "(sin imagen)",
         false,
-        false,
-        0,
         "image"
       ],
       "widgets_values_named": {
         "image": "(sin imagen)",
-        "Usar imagen inicial": false,
-        "Mantener resolución original": false,
-        "Transformación (%)": 0,
+        "Usar imagen": false,
         "upload": "image"
       }
     },
     {
       "id": 403,
-      "type": "ImageLabInitialImage",
+      "type": "ImageLabLoadImage",
       "pos": [
         811.2974030934519,
         141.83345126850756
       ],
       "size": [
         315,
-        446
+        400
       ],
       "flags": {},
       "order": 2,
@@ -272,37 +244,23 @@
           "links": []
         },
         {
-          "name": "usar_imagen_inicial",
+          "name": "usar_imagen",
           "type": "BOOLEAN",
-          "links": []
-        },
-        {
-          "name": "mantener_resolucion",
-          "type": "BOOLEAN",
-          "links": []
-        },
-        {
-          "name": "transformacion_pct",
-          "type": "INT",
           "links": []
         }
       ],
       "title": "Referencia 3 · Qwen",
       "properties": {
-        "Node name for S&R": "ImageLabInitialImage"
+        "Node name for S&R": "ImageLabLoadImage"
       },
       "widgets_values": [
         "(sin imagen)",
         false,
-        false,
-        0,
         "image"
       ],
       "widgets_values_named": {
         "image": "(sin imagen)",
-        "Usar imagen inicial": false,
-        "Mantener resolución original": false,
-        "Transformación (%)": 0,
+        "Usar imagen": false,
         "upload": "image"
       }
     },
@@ -832,14 +790,14 @@
     },
     {
       "id": 422,
-      "type": "ImageLabInitialImage",
+      "type": "ImageLabLoadImage",
       "pos": [
         470.04328539477086,
         920.4850862453371
       ],
       "size": [
         306,
-        446.0000000000001
+        400
       ],
       "flags": {},
       "order": 4,
@@ -859,50 +817,36 @@
           "links": []
         },
         {
-          "name": "usar_imagen_inicial",
+          "name": "usar_imagen",
           "type": "BOOLEAN",
-          "links": []
-        },
-        {
-          "name": "mantener_resolucion",
-          "type": "BOOLEAN",
-          "links": []
-        },
-        {
-          "name": "transformacion_pct",
-          "type": "INT",
           "links": []
         }
       ],
       "title": "Imagen de referencia",
       "properties": {
-        "Node name for S&R": "ImageLabInitialImage"
+        "Node name for S&R": "ImageLabLoadImage"
       },
       "widgets_values": [
         "(sin imagen)",
         false,
-        false,
-        0,
         "image"
       ],
       "widgets_values_named": {
         "image": "(sin imagen)",
-        "Usar imagen inicial": false,
-        "Mantener resolución original": false,
-        "Transformación (%)": 0,
+        "Usar imagen": false,
         "upload": "image"
       }
     },
     {
       "id": 423,
-      "type": "ImageLabInitialImage",
+      "type": "ImageLabLoadImage",
       "pos": [
         -205.61227437805655,
         919.1197457055048
       ],
       "size": [
         652.1367837353516,
-        446.0000000000001
+        400
       ],
       "flags": {},
       "order": 5,
@@ -924,37 +868,23 @@
           ]
         },
         {
-          "name": "usar_imagen_inicial",
+          "name": "usar_imagen",
           "type": "BOOLEAN",
-          "links": []
-        },
-        {
-          "name": "mantener_resolucion",
-          "type": "BOOLEAN",
-          "links": []
-        },
-        {
-          "name": "transformacion_pct",
-          "type": "INT",
           "links": []
         }
       ],
       "title": "Imagen principal (pinta la máscara aquí)",
       "properties": {
-        "Node name for S&R": "ImageLabInitialImage"
+        "Node name for S&R": "ImageLabLoadImage"
       },
       "widgets_values": [
         "(sin imagen)",
         true,
-        false,
-        0,
         "image"
       ],
       "widgets_values_named": {
         "image": "(sin imagen)",
-        "Usar imagen inicial": true,
-        "Mantener resolución original": false,
-        "Transformación (%)": 0,
+        "Usar imagen": true,
         "upload": "image"
       }
     },
@@ -1073,14 +1003,14 @@
     },
     {
       "id": 431,
-      "type": "ImageLabInitialImage",
+      "type": "ImageLabLoadImage",
       "pos": [
         -208.33661626221001,
         1889.9451970460361
       ],
       "size": [
         306,
-        446
+        400
       ],
       "flags": {},
       "order": 6,
@@ -1100,50 +1030,36 @@
           "links": []
         },
         {
-          "name": "usar_imagen_inicial",
+          "name": "usar_imagen",
           "type": "BOOLEAN",
-          "links": []
-        },
-        {
-          "name": "mantener_resolucion",
-          "type": "BOOLEAN",
-          "links": []
-        },
-        {
-          "name": "transformacion_pct",
-          "type": "INT",
           "links": []
         }
       ],
       "title": "Imagen base",
       "properties": {
-        "Node name for S&R": "ImageLabInitialImage"
+        "Node name for S&R": "ImageLabLoadImage"
       },
       "widgets_values": [
         "(sin imagen)",
         true,
-        false,
-        0,
         "image"
       ],
       "widgets_values_named": {
         "image": "(sin imagen)",
-        "Usar imagen inicial": true,
-        "Mantener resolución original": false,
-        "Transformación (%)": 0,
+        "Usar imagen": true,
         "upload": "image"
       }
     },
     {
       "id": 432,
-      "type": "ImageLabInitialImage",
+      "type": "ImageLabLoadImage",
       "pos": [
         123.57626449190991,
         1892.7975192414092
       ],
       "size": [
         306,
-        446
+        400
       ],
       "flags": {},
       "order": 7,
@@ -1163,37 +1079,23 @@
           "links": []
         },
         {
-          "name": "usar_imagen_inicial",
+          "name": "usar_imagen",
           "type": "BOOLEAN",
-          "links": []
-        },
-        {
-          "name": "mantener_resolucion",
-          "type": "BOOLEAN",
-          "links": []
-        },
-        {
-          "name": "transformacion_pct",
-          "type": "INT",
           "links": []
         }
       ],
       "title": "Imagen de referencia",
       "properties": {
-        "Node name for S&R": "ImageLabInitialImage"
+        "Node name for S&R": "ImageLabLoadImage"
       },
       "widgets_values": [
         "(sin imagen)",
         false,
-        false,
-        0,
         "image"
       ],
       "widgets_values_named": {
         "image": "(sin imagen)",
-        "Usar imagen inicial": false,
-        "Mantener resolución original": false,
-        "Transformación (%)": 0,
+        "Usar imagen": false,
         "upload": "image"
       }
     },
@@ -1274,14 +1176,14 @@
     },
     {
       "id": 441,
-      "type": "ImageLabInitialImage",
+      "type": "ImageLabLoadImage",
       "pos": [
         -212.28158113743993,
         2440.117798782096
       ],
       "size": [
         306,
-        446
+        400
       ],
       "flags": {
         "collapsed": false
@@ -1303,50 +1205,36 @@
           "links": []
         },
         {
-          "name": "usar_imagen_inicial",
+          "name": "usar_imagen",
           "type": "BOOLEAN",
-          "links": []
-        },
-        {
-          "name": "mantener_resolucion",
-          "type": "BOOLEAN",
-          "links": []
-        },
-        {
-          "name": "transformacion_pct",
-          "type": "INT",
           "links": []
         }
       ],
       "title": "Imagen base · FLUX.2",
       "properties": {
-        "Node name for S&R": "ImageLabInitialImage"
+        "Node name for S&R": "ImageLabLoadImage"
       },
       "widgets_values": [
         "(sin imagen)",
         true,
-        false,
-        0,
         "image"
       ],
       "widgets_values_named": {
         "image": "(sin imagen)",
-        "Usar imagen inicial": true,
-        "Mantener resolución original": false,
-        "Transformación (%)": 0,
+        "Usar imagen": true,
         "upload": "image"
       }
     },
     {
       "id": 442,
-      "type": "ImageLabInitialImage",
+      "type": "ImageLabLoadImage",
       "pos": [
         114.22344955601102,
         2442.40991504232
       ],
       "size": [
         395.6080078125,
-        446
+        400
       ],
       "flags": {
         "collapsed": false
@@ -1368,52 +1256,38 @@
           "links": []
         },
         {
-          "name": "usar_imagen_inicial",
+          "name": "usar_imagen",
           "type": "BOOLEAN",
           "links": [
             4520
           ]
-        },
-        {
-          "name": "mantener_resolucion",
-          "type": "BOOLEAN",
-          "links": []
-        },
-        {
-          "name": "transformacion_pct",
-          "type": "INT",
-          "links": []
         }
       ],
       "title": "Referencia 1 · FLUX.2 (imagen 2 del prompt, opcional)",
       "properties": {
-        "Node name for S&R": "ImageLabInitialImage"
+        "Node name for S&R": "ImageLabLoadImage"
       },
       "widgets_values": [
         "(sin imagen)",
         false,
-        false,
-        0,
         "image"
       ],
       "widgets_values_named": {
         "image": "(sin imagen)",
-        "Usar imagen inicial": false,
-        "Mantener resolución original": false,
-        "Transformación (%)": 0,
+        "Usar imagen": false,
         "upload": "image"
       }
     },
     {
       "id": 443,
-      "type": "ImageLabInitialImage",
+      "type": "ImageLabLoadImage",
       "pos": [
         529.9416627611503,
         2442.8258575347536
       ],
       "size": [
         398.5611328125,
-        446
+        400
       ],
       "flags": {},
       "order": 10,
@@ -1433,39 +1307,25 @@
           "links": []
         },
         {
-          "name": "usar_imagen_inicial",
+          "name": "usar_imagen",
           "type": "BOOLEAN",
           "links": [
             4522
           ]
-        },
-        {
-          "name": "mantener_resolucion",
-          "type": "BOOLEAN",
-          "links": []
-        },
-        {
-          "name": "transformacion_pct",
-          "type": "INT",
-          "links": []
         }
       ],
       "title": "Referencia 2 · FLUX.2 (imagen 3 del prompt, opcional)",
       "properties": {
-        "Node name for S&R": "ImageLabInitialImage"
+        "Node name for S&R": "ImageLabLoadImage"
       },
       "widgets_values": [
         "(sin imagen)",
         false,
-        false,
-        0,
         "image"
       ],
       "widgets_values_named": {
         "image": "(sin imagen)",
-        "Usar imagen inicial": false,
-        "Mantener resolución original": false,
-        "Transformación (%)": 0,
+        "Usar imagen": false,
         "upload": "image"
       }
     },

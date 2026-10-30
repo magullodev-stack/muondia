@@ -564,14 +564,14 @@
     },
     {
       "id": 501,
-      "type": "ImageLabInitialImage",
+      "type": "ImageLabLoadImage",
       "pos": [
         1183.7413359399004,
         615.8665830528474
       ],
       "size": [
         460,
-        446
+        400
       ],
       "flags": {},
       "order": 2,
@@ -593,37 +593,23 @@
           ]
         },
         {
-          "name": "usar_imagen_inicial",
+          "name": "usar_imagen",
           "type": "BOOLEAN",
-          "links": []
-        },
-        {
-          "name": "mantener_resolucion",
-          "type": "BOOLEAN",
-          "links": []
-        },
-        {
-          "name": "transformacion_pct",
-          "type": "INT",
           "links": []
         }
       ],
       "title": "Imagen externa · Refinado directo",
       "properties": {
-        "Node name for S&R": "ImageLabInitialImage"
+        "Node name for S&R": "ImageLabLoadImage"
       },
       "widgets_values": [
         "(sin imagen)",
         true,
-        false,
-        0,
         "image"
       ],
       "widgets_values_named": {
         "image": "(sin imagen)",
-        "Usar imagen inicial": true,
-        "Mantener resolución original": false,
-        "Transformación (%)": 0,
+        "Usar imagen": true,
         "upload": "image"
       }
     },
@@ -1124,7 +1110,7 @@
     },
     {
       "id": 2384,
-      "type": "ImageLabInitialImage",
+      "type": "ImageLabLoadImage",
       "pos": [
         -579,
         1290
@@ -1151,43 +1137,29 @@
           "links": []
         },
         {
-          "name": "usar_imagen_inicial",
+          "name": "usar_imagen",
           "type": "BOOLEAN",
-          "links": []
-        },
-        {
-          "name": "mantener_resolucion",
-          "type": "BOOLEAN",
-          "links": []
-        },
-        {
-          "name": "transformacion_pct",
-          "type": "INT",
           "links": []
         }
       ],
       "title": "Plantilla de pose · Z-Image (ControlNet)",
       "properties": {
-        "Node name for S&R": "ImageLabInitialImage"
+        "Node name for S&R": "ImageLabLoadImage"
       },
       "widgets_values": [
         "(sin imagen)",
         false,
-        false,
-        0,
         "image"
       ],
       "widgets_values_named": {
         "image": "(sin imagen)",
-        "Usar imagen inicial": false,
-        "Mantener resolución original": false,
-        "Transformación (%)": 0,
+        "Usar imagen": false,
         "upload": "image"
       }
     },
     {
       "id": 2385,
-      "type": "ImageLabInitialImage",
+      "type": "ImageLabLoadImage",
       "pos": [
         600,
         1420
@@ -1214,43 +1186,29 @@
           "links": []
         },
         {
-          "name": "usar_imagen_inicial",
+          "name": "usar_imagen",
           "type": "BOOLEAN",
-          "links": []
-        },
-        {
-          "name": "mantener_resolucion",
-          "type": "BOOLEAN",
-          "links": []
-        },
-        {
-          "name": "transformacion_pct",
-          "type": "INT",
           "links": []
         }
       ],
       "title": "Plantilla de pose · FLUX (ControlNet)",
       "properties": {
-        "Node name for S&R": "ImageLabInitialImage"
+        "Node name for S&R": "ImageLabLoadImage"
       },
       "widgets_values": [
         "(sin imagen)",
         false,
-        false,
-        0,
         "image"
       ],
       "widgets_values_named": {
         "image": "(sin imagen)",
-        "Usar imagen inicial": false,
-        "Mantener resolución original": false,
-        "Transformación (%)": 0,
+        "Usar imagen": false,
         "upload": "image"
       }
     },
     {
       "id": 2391,
-      "type": "ImageLabInitialImage",
+      "type": "ImageLabLoadImage",
       "pos": [
         1160,
         1420
@@ -1277,37 +1235,23 @@
           "links": []
         },
         {
-          "name": "usar_imagen_inicial",
+          "name": "usar_imagen",
           "type": "BOOLEAN",
-          "links": []
-        },
-        {
-          "name": "mantener_resolucion",
-          "type": "BOOLEAN",
-          "links": []
-        },
-        {
-          "name": "transformacion_pct",
-          "type": "INT",
           "links": []
         }
       ],
       "title": "Foto de identidad · FLUX (PuLID)",
       "properties": {
-        "Node name for S&R": "ImageLabInitialImage"
+        "Node name for S&R": "ImageLabLoadImage"
       },
       "widgets_values": [
         "(sin imagen)",
         false,
-        false,
-        0,
         "image"
       ],
       "widgets_values_named": {
         "image": "(sin imagen)",
-        "Usar imagen inicial": false,
-        "Mantener resolución original": false,
-        "Transformación (%)": 0,
+        "Usar imagen": false,
         "upload": "image"
       }
     },
@@ -1418,7 +1362,7 @@
     },
     {
       "id": 2401,
-      "type": "ImageLabInitialImage",
+      "type": "ImageLabLoadImage",
       "pos": [
         2660,
         700
@@ -1445,45 +1389,31 @@
           "links": []
         },
         {
-          "name": "usar_imagen_inicial",
+          "name": "usar_imagen",
           "type": "BOOLEAN",
           "links": [
             4826
           ]
-        },
-        {
-          "name": "mantener_resolucion",
-          "type": "BOOLEAN",
-          "links": []
-        },
-        {
-          "name": "transformacion_pct",
-          "type": "INT",
-          "links": []
         }
       ],
       "title": "Referencia 1 · FLUX.2 (opcional)",
       "properties": {
-        "Node name for S&R": "ImageLabInitialImage"
+        "Node name for S&R": "ImageLabLoadImage"
       },
       "widgets_values": [
         "(sin imagen)",
         false,
-        false,
-        0,
         "image"
       ],
       "widgets_values_named": {
         "image": "(sin imagen)",
-        "Usar imagen inicial": false,
-        "Mantener resolución original": false,
-        "Transformación (%)": 0,
+        "Usar imagen": false,
         "upload": "image"
       }
     },
     {
       "id": 2402,
-      "type": "ImageLabInitialImage",
+      "type": "ImageLabLoadImage",
       "pos": [
         3230,
         700
@@ -1510,39 +1440,25 @@
           "links": []
         },
         {
-          "name": "usar_imagen_inicial",
+          "name": "usar_imagen",
           "type": "BOOLEAN",
           "links": [
             4828
           ]
-        },
-        {
-          "name": "mantener_resolucion",
-          "type": "BOOLEAN",
-          "links": []
-        },
-        {
-          "name": "transformacion_pct",
-          "type": "INT",
-          "links": []
         }
       ],
       "title": "Referencia 2 · FLUX.2 (opcional)",
       "properties": {
-        "Node name for S&R": "ImageLabInitialImage"
+        "Node name for S&R": "ImageLabLoadImage"
       },
       "widgets_values": [
         "(sin imagen)",
         false,
-        false,
-        0,
         "image"
       ],
       "widgets_values_named": {
         "image": "(sin imagen)",
-        "Usar imagen inicial": false,
-        "Mantener resolución original": false,
-        "Transformación (%)": 0,
+        "Usar imagen": false,
         "upload": "image"
       }
     },
