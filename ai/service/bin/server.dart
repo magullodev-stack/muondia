@@ -5,7 +5,7 @@ import '../lib/muondia_ai_service.dart';
 
 Future<void> main() async {
   final env = Platform.environment;
-  final key = env['MUONDIA_OPENAI_API_KEY'] ?? '';
+  final key = env['MUONDIA_DEEPSEEK_API_KEY'] ?? '';
   final token = env['MUONDIA_AI_TOKEN'] ?? '';
   final readyPath = env['MUONDIA_AI_READY_FILE'];
   if (key.trim().isEmpty || token.trim().isEmpty || readyPath == null) {

@@ -1,24 +1,24 @@
 param(
     [switch]$GuardarClave,
     [switch]$Iniciar,
-    [switch]$ProbarLuna,
+    [switch]$Probar,
     [Security.SecureString]$Clave
 )
 
 $ErrorActionPreference = 'Stop'
-if ((@($GuardarClave.IsPresent, $Iniciar.IsPresent, $ProbarLuna.IsPresent) | Where-Object { $_ }).Count -ne 1) {
-    throw 'Indica una acción: -GuardarClave, -Iniciar o -ProbarLuna.'
+if ((@($GuardarClave.IsPresent, $Iniciar.IsPresent, $Probar.IsPresent) | Where-Object { $_ }).Count -ne 1) {
+    throw 'Indica una acción: -GuardarClave, -Iniciar o -Probar.'
 }
 if (-not $env:LOCALAPPDATA) { throw 'Este comando requiere Windows.' }
 
 $local = Join-Path $env:LOCALAPPDATA 'Muondia'
-$secretPath = Join-Path $local 'openai-key.dpapi'
+$secretPath = Join-Path $local 'deepseek-key.dpapi'
 $sessionPath = Join-Path $local 'ai-session.json'
 $serverPath = Join-Path $PSScriptRoot '..\ai\service\bin\server.dart'
 
 if ($GuardarClave) {
     if (-not $Clave) {
-        $Clave = Read-Host 'Introduce la clave de Muondia (una sola vez)' -AsSecureString
+        $Clave = Read-Host 'Introduce la clave de DeepSeek (una sola vez)' -AsSecureString
     }
     $pointer = [Runtime.InteropServices.Marshal]::SecureStringToBSTR($Clave)
     try {
@@ -86,12 +86,12 @@ function Start-MuondiaAi {
     $token = [Convert]::ToBase64String($bytes)
     $dart = Find-Dart
     $saved = @{}
-    foreach ($name in @('MUONDIA_OPENAI_API_KEY', 'MUONDIA_AI_TOKEN',
+    foreach ($name in @('MUONDIA_DEEPSEEK_API_KEY', 'MUONDIA_AI_TOKEN',
                           'MUONDIA_AI_READY_FILE', 'MUONDIA_AI_PORT')) {
         $saved[$name] = [Environment]::GetEnvironmentVariable($name, 'Process')
     }
     try {
-        $env:MUONDIA_OPENAI_API_KEY = $key
+        $env:MUONDIA_DEEPSEEK_API_KEY = $key
         $env:MUONDIA_AI_TOKEN = $token
         $env:MUONDIA_AI_READY_FILE = $sessionPath
         $env:MUONDIA_AI_PORT = '0'
@@ -122,7 +122,7 @@ if ($Iniciar) {
 
 $body = @{
     application = 'muondia'
-    model = 'gpt-5.6-luna'
+    model = 'deepseek-flash'
     input = 'Responde con un objeto JSON cuyo campo respuesta sea exactamente MUONDIA_OK.'
     schemaName = 'muondia_connection_test'
     schema = @{
@@ -137,4 +137,4 @@ $result = Invoke-RestMethod -Uri "$($session.endpoint)/v1/generate" -Method Post
     Authorization = "Bearer $($session.token)"
 } -ContentType 'application/json' -Body $body -TimeoutSec 100
 $data = $result.text | ConvertFrom-Json
-Write-Host "Luna: $($data.respuesta)"
+Write-Host "DeepSeek: $($data.respuesta)"

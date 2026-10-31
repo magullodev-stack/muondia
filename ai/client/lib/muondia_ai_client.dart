@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-/// Calls an Muondia server; never put the OpenAI API key in a mobile app.
+/// Calls an Muondia server; never put the DeepSeek API key in a mobile app.
 class MuondiaAiClient {
   MuondiaAiClient({
     required this.endpoint,
@@ -19,6 +19,8 @@ class MuondiaAiClient {
     required String input,
     required String schemaName,
     required Map<String, Object?> schema,
+    bool? thinking,
+    int? maxTokens,
   }) async {
     final request = await _http.postUrl(endpoint.resolve('/v1/generate'));
     request.headers.contentType = ContentType.json;
@@ -33,6 +35,8 @@ class MuondiaAiClient {
         'input': input,
         'schemaName': schemaName,
         'schema': schema,
+        if (thinking != null) 'thinking': thinking,
+        if (maxTokens != null) 'maxTokens': maxTokens,
       }),
     );
     final response = await request.close();
